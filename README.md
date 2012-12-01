@@ -1,6 +1,12 @@
-# Rbnacl
+RbNaCl
+======
 
-TODO: Write a gem description
+A Ruby binding to the [Networking and Cryptography][nacl] library by Daniel
+J. Bernstein. RbNaCl is also the empirical formula for Rubidium Sodium
+Chloride, so when searching for RbNaCl you may want to tell your favorite
+search engine you're looking for something about crypto.
+
+[nacl]: http://nacl.cr.yp.to/
 
 ## Installation
 
@@ -22,8 +28,12 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+* Fork this repository on github
+* Make your changes and send me a pull request
+* If I like them I'll merge them
+* If I've accepted a patch, feel free to ask for commit access
+
+## License
+
+Copyright (c) 2012 Tony Arcieri. Distributed under the MIT License. See
+LICENSE.txt for further details.
