@@ -20,10 +20,10 @@ OMAC1? AEAD? NIST? CBC? CFB? CTR? ECB? OMGWTFBBQ!
 
 NaCl puts cryptography on Rails! Instead of making you choose which
 cryptographic primitives to use, NaCl provides convention over configuration
-with the specific bits and pieces you need to keep data both confidential
-and prevent tampering. These cryptographic primitives have been assembled
-into high-level, easy-to-use APIs which are designed to be hard-to-attack
-in ways libraries like OpenSSL are not.
+in the form of expertly-assembled high level cryptographic APIs that ensure
+not only the confidentiality of your data, but also detect tampering.
+The result is high-level, easy-to-use APIs which are designed to be
+hard-to-attack by default in ways libraries like OpenSSL are not.
 
 This approach makes NaCl a lot closer to a system like GPG than it is
 to the cryptographic primitive APIs in a library like OpenSSL. However,
