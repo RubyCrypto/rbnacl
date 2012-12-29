@@ -1,3 +1,7 @@
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq nacl
+
 rvm:
   - 1.8.7
   - 1.9.3
