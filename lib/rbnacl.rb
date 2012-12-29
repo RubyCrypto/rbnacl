@@ -1,5 +1,5 @@
 require "rbnacl/version"
+require "rbnacl_ext"
 
-module Rbnacl
-  # Your code goes here...
+module Crypto
 end

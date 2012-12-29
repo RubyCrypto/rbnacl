@@ -23,5 +23,7 @@ Gem::Specification.new do |gem|
     gem.extensions = "ext/rbnacl/extconf.rb"
   end
 
+  gem.add_development_dependency "rake"
   gem.add_development_dependency "rake-compiler"
+  gem.add_development_dependency "rspec"
 end
