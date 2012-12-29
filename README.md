@@ -34,6 +34,10 @@ is extremely fast with comparatively small cryptographic keys.
 
 ## Installation
 
+You will need to install NaCl for your platform first. On OS X, you can do:
+
+    brew install nacl
+
 Add this line to your application's Gemfile:
 
     gem 'rbnacl'
