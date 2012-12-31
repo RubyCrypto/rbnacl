@@ -3,23 +3,26 @@
  * LICENSE.txt for further details.
  */
 
+#include <crypto_hash_sha256.h>
+
 #include "ruby.h"
 
 static VALUE mCrypto = Qnil;
-static VALUE Crypto_random_bytes(VALUE self, VALUE size);
+static VALUE mCrypto_Hash = Qnil;
+static VALUE Crypto_Hash_sha256(VALUE self, VALUE size);
 
 void Init_rbnacl_ext()
 {
   mCrypto = rb_define_module("Crypto");
+  mCrypto_Hash = rb_define_module_under(mCrypto, "Hash");
 
-  rb_define_singleton_method(mCrypto, "random_bytes", Crypto_random_bytes, 1);
+  rb_define_singleton_method(mCrypto_Hash, "sha256", Crypto_Hash_sha256, 1);
 }
 
-static VALUE Crypto_random_bytes(VALUE self, VALUE length)
+static VALUE Crypto_Hash_sha256(VALUE self, VALUE string)
 {
-  int clen = NUM2INT(length);
+  VALUE hash = rb_str_new(0, crypto_hash_sha256_BYTES);
 
-  VALUE str = rb_str_new(0, clen);
-  randombytes(RSTRING_PTR(str), clen);
-  return str;
+  crypto_hash_sha256(RSTRING_PTR(hash), RSTRING_PTR(string), RSTRING_LEN(string));
+  return hash;
 }
