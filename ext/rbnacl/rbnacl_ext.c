@@ -169,7 +169,7 @@ static VALUE Crypto_Boxer_unbox(VALUE self, VALUE nonce, VALUE ct)
 }
 
 
-#if RBNACL_NEED_RANDOMBYTES
+#if RBNACL_NEED_RANDOM_BYTES
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
