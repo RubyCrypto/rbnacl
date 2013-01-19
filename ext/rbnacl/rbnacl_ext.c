@@ -9,6 +9,7 @@
 #include <crypto_box.h>
 
 #include "ruby.h"
+#include "extconf.h"
 
 static VALUE mCrypto = Qnil;
 static VALUE mCrypto_Hash = Qnil;
@@ -166,3 +167,41 @@ static VALUE Crypto_Boxer_unbox(VALUE self, VALUE nonce, VALUE ct)
     // strip off the pad before we return it!
     return rb_str_new(RSTRING_PTR(mt) + crypto_box_ZEROBYTES, RSTRING_LEN(c) - crypto_box_ZEROBYTES);
 }
+
+
+#if RBNACL_NEED_RANDOMBYTES
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+/* it's really stupid that there isn't a syscall for this */
+
+static int fd = -1;
+
+void randombytes(unsigned char *x,unsigned long long xlen)
+{
+  int i;
+
+  if (fd == -1) {
+    for (;;) {
+      fd = open("/dev/urandom",O_RDONLY);
+      if (fd != -1) break;
+      sleep(1);
+    }
+  }
+
+  while (xlen > 0) {
+    if (xlen < 1048576) i = xlen; else i = 1048576;
+
+    i = read(fd,x,i);
+    if (i < 1) {
+      sleep(1);
+      continue;
+    }
+
+    x += i;
+    xlen -= i;
+  }
+}
+#endif
