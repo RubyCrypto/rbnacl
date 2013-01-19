@@ -27,17 +27,17 @@ module Crypto
     # Sets up the Boxer for deriving the shared key and encrypting and
     # decrypting messages.
     #
-    # @param pk [String,Crypto::KeyPair] The public key to encrypt to
-    # @param sk [String,Crypto::KeyPair] The secret key to encrypt with
+    # @param pk [String,Crypto::PublicKey] The public key to encrypt to
+    # @param sk [String,Crypto::SecretKey] The secret key to encrypt with
     #
     # @raise [ArgumentError] on invalid keys
     #
     # @return [Crypto::Boxer] The new Boxer, ready to use
     def initialize(pk, sk)
-      @pk = pk.respond_to?(:pk) ? pk.pk : pk
-      @sk = sk.respond_to?(:sk) ? sk.sk : sk
-      raise ArgumentError, "Must provide a valid public key" unless KeyPair.valid_pk?(@pk)
-      raise ArgumentError, "Must provide a valid secret key" unless KeyPair.valid_sk?(@sk)
+      @pk = pk.respond_to?(:to_bytes) ? pk.to_bytes : pk
+      @sk = sk.respond_to?(:to_bytes) ? sk.to_bytes : sk
+      raise ArgumentError, "Must provide a valid public key" unless PublicKey.valid?(@pk)
+      raise ArgumentError, "Must provide a valid secret key" unless SecretKey.valid?(@sk)
     end
 
     # Encrypts a message

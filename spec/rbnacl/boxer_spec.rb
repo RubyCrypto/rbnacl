@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Crypto::Boxer do
   let (:alicepk) { "\x85 \xF0\t\x890\xA7Tt\x8B}\xDC\xB4>\xF7Z\r\xBF:\r&8\x1A\xF4\xEB\xA4\xA9\x8E\xAA\x9BNj"  } # from the nacl distribution
   let (:bobsk) { "]\xAB\b~bJ\x8AKy\xE1\x7F\x8B\x83\x80\x0E\xE6o;\xB1)&\x18\xB6\xFD\x1C/\x8B'\xFF\x88\xE0\xEB" } # from the nacl distribution
-  let (:alice_keypair) { Crypto::KeyPair.new(alicepk) }
-  let (:bob_keypair) { Crypto::KeyPair.new("\0"*32, bobsk) }
+  let (:alice_key) { Crypto::PublicKey.new(alicepk) }
+  let (:bob_key) { Crypto::SecretKey.new(bobsk) }
 
   context "new" do
     it "accepts strings" do
@@ -12,7 +12,7 @@ describe Crypto::Boxer do
     end
 
     it "accepts KeyPairs" do
-      expect { Crypto::Boxer.new(alice_keypair, bob_keypair) }.to_not raise_error(Exception)
+      expect { Crypto::Boxer.new(alice_key, bob_key) }.to_not raise_error(Exception)
     end
 
     it "raises on a nil public key" do

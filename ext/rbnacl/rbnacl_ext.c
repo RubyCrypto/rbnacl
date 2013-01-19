@@ -13,12 +13,13 @@
 static VALUE mCrypto = Qnil;
 static VALUE mCrypto_Hash = Qnil;
 static VALUE cCrypto_CryptoError = Qnil;
-static VALUE cCrypto_KeyPair = Qnil;
+static VALUE cCrypto_SecretKey = Qnil;
+static VALUE cCrypto_PublicKey = Qnil;
 static VALUE cCrypto_Boxer = Qnil;
 static VALUE Crypto_Hash_sha256(VALUE self, VALUE size);
-static VALUE Crypto_KeyPair_generate(VALUE self);
-static VALUE Crypto_KeyPair_valid_pk(VALUE self, VALUE pk);
-static VALUE Crypto_KeyPair_valid_sk(VALUE self, VALUE sk);
+static VALUE Crypto_SecretKey_generate(VALUE self);
+static VALUE Crypto_SecretKey_valid(VALUE self, VALUE key);
+static VALUE Crypto_PublicKey_valid(VALUE self, VALUE key);
 static VALUE Crypto_Boxer_beforenm(VALUE self);
 static VALUE Crypto_Boxer_box(VALUE self, VALUE nonce, VALUE pt);
 static VALUE Crypto_Boxer_unbox(VALUE self, VALUE nonce, VALUE ct);
@@ -43,10 +44,14 @@ void Init_rbnacl_ext()
 
   cCrypto_CryptoError = rb_define_class_under(mCrypto, "CryptoError", rb_eStandardError);
 
-  cCrypto_KeyPair = rb_define_class_under(mCrypto, "KeyPair", rb_cObject);
-  rb_define_singleton_method(cCrypto_KeyPair, "generate", Crypto_KeyPair_generate, 0);
-  rb_define_singleton_method(cCrypto_KeyPair, "valid_pk?", Crypto_KeyPair_valid_sk, 1);
-  rb_define_singleton_method(cCrypto_KeyPair, "valid_sk?", Crypto_KeyPair_valid_pk, 1);
+  cCrypto_SecretKey = rb_define_class_under(mCrypto, "SecretKey", rb_cObject);
+  rb_define_const(cCrypto_SecretKey, "SIZE", INT2FIX(crypto_box_SECRETKEYBYTES));
+  rb_define_singleton_method(cCrypto_SecretKey, "generate", Crypto_SecretKey_generate, 0);
+  rb_define_singleton_method(cCrypto_SecretKey, "valid?", Crypto_SecretKey_valid, 1);
+
+  cCrypto_PublicKey = rb_define_class_under(mCrypto, "PublicKey", rb_cObject);
+  rb_define_const(cCrypto_PublicKey, "SIZE", INT2FIX(crypto_box_PUBLICKEYBYTES));
+  rb_define_singleton_method(cCrypto_PublicKey, "valid?", Crypto_PublicKey_valid, 1);
 
   cCrypto_Boxer = rb_define_class_under(mCrypto, "Boxer", rb_cObject);
   rb_define_const(cCrypto_Boxer, "NONCE_LEN", INT2FIX(crypto_box_NONCEBYTES));
@@ -63,7 +68,7 @@ static VALUE Crypto_Hash_sha256(VALUE self, VALUE string)
   return hash;
 }
 
-static VALUE Crypto_KeyPair_generate(VALUE self)
+static VALUE Crypto_SecretKey_generate(VALUE self)
 {
     VALUE pk = rb_str_new(0, crypto_box_PUBLICKEYBYTES);
     VALUE sk = rb_str_new(0, crypto_box_SECRETKEYBYTES);
@@ -73,13 +78,13 @@ static VALUE Crypto_KeyPair_generate(VALUE self)
         rb_raise (cCrypto_CryptoError, "Failed to generate key pair");
     }
     VALUE new = Qnil;
-    new = rb_funcall(cCrypto_KeyPair, id_new, 2, pk, sk);
+    new = rb_funcall(cCrypto_SecretKey, id_new, 2, sk, pk);
     return new;
 }
 
-static VALUE Crypto_KeyPair_valid_sk(VALUE self, VALUE sk)
+static VALUE Crypto_SecretKey_valid(VALUE self, VALUE key)
 {
-    VALUE str = rb_funcall(sk, id_to_s, 0);
+    VALUE str = rb_funcall(key, id_to_s, 0);
     if (crypto_box_SECRETKEYBYTES != RSTRING_LEN(str)) {
         return Qfalse;
     } else {
@@ -87,9 +92,9 @@ static VALUE Crypto_KeyPair_valid_sk(VALUE self, VALUE sk)
     }
 }
 
-static VALUE Crypto_KeyPair_valid_pk(VALUE self, VALUE pk)
+static VALUE Crypto_PublicKey_valid(VALUE self, VALUE key)
 {
-    VALUE str = rb_funcall(pk, id_to_s, 0);
+    VALUE str = rb_funcall(key, id_to_s, 0);
     if (crypto_box_PUBLICKEYBYTES != RSTRING_LEN(str)) {
         return Qfalse;
     } else {

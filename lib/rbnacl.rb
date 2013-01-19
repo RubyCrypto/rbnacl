@@ -1,5 +1,5 @@
 require "rbnacl/version"
-require "rbnacl/keypair"
+require "rbnacl/keys"
 require "rbnacl/boxer"
 require "rbnacl_ext"
 
