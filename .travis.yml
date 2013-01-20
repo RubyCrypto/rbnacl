@@ -16,3 +16,5 @@ matrix:
     - rvm: ruby-head
     - rvm: rbx-18mode
     - rvm: rbx-19mode
+
+script: "bundle exec rake ci"

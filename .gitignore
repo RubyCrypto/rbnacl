@@ -17,4 +17,4 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
-ext/cnacl/cbuild
+libsodium
