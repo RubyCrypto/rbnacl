@@ -22,8 +22,7 @@ module Crypto
     def self.generate
       pk = Util.zeros(NaCl::PUBLICKEYBYTES)
       sk = Util.zeros(NaCl::SECRETKEYBYTES)
-      ret = NaCl.crypto_box_curve25519xsalsa20poly1305_ref_keypair(pk, sk)
-      raise CryptoError, "Failed to generate a key pair" if ret != 0
+      NaCl.crypto_box_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
       new(sk, pk)
     end
 
