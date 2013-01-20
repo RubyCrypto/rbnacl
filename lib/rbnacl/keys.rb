@@ -9,7 +9,7 @@ module Crypto
     def initialize(secret_key, public_key = nil)
       @secret_key = secret_key
 
-      raise ArgumentError, "SecretKey must be #{Crypto::SecretKey::SIZE} bytes long" unless valid?
+      raise ArgumentError, "SecretKey must be #{Crypto::NaCl::PUBLICKEYBYTES} bytes long" unless valid?
 
       @public_key = PublicKey.new(public_key) if public_key
     end
@@ -20,6 +20,11 @@ module Crypto
     #
     # @return [Crypto::SecretKey] A new secret key, with the associated public key also set.
     def self.generate
+      pk = "\0" * NaCl::PUBLICKEYBYTES
+      sk = "\0" * NaCl::SECRETKEYBYTES
+      ret = NaCl.crypto_box_curve25519xsalsa20poly1305_ref_keypair(pk, sk)
+      raise CryptoError, "Failed to generate a key pair" if ret != 0
+      new(sk, pk)
     end
 
     def inspect
@@ -57,6 +62,8 @@ module Crypto
     #
     # @return [Boolean] Well, is it?
     def self.valid?(key)
+      return false unless key.respond_to?(:bytesize)
+      key.bytesize == NaCl::SECRETKEYBYTES
     end
 
     # Is the key possibly a valid secret key?
@@ -77,7 +84,7 @@ module Crypto
   class PublicKey
     def initialize(public_key)
       @public_key = public_key
-      raise ArgumentError, "PublicKey must be #{Crypto::PublicKey::SIZE} bytes long" unless valid?
+      raise ArgumentError, "PublicKey must be #{Crypto::NaCl::PUBLICKEYBYTES} bytes long" unless valid?
     end
 
     def inspect
@@ -108,6 +115,8 @@ module Crypto
     #
     # @return [Boolean] Well, is it?
     def self.valid?(key)
+      return false unless key.respond_to?(:bytesize)
+      key.bytesize == NaCl::PUBLICKEYBYTES
     end
 
     # Is the given key possibly a valid public key?
