@@ -8,7 +8,7 @@ module Crypto
     extend FFI::Library
     ffi_lib 'sodium'
 
-    SHA256_BYTES = 32
+    SHA256BYTES = 32
     attach_function :crypto_hash_sha256_ref, [:pointer, :string, :int], :int
     PUBLICKEYBYTES = 32
     SECRETKEYBYTES = 32

@@ -20,8 +20,8 @@ module Crypto
     #
     # @return [Crypto::SecretKey] A new secret key, with the associated public key also set.
     def self.generate
-      pk = "\0" * NaCl::PUBLICKEYBYTES
-      sk = "\0" * NaCl::SECRETKEYBYTES
+      pk = Util.zeros(NaCl::PUBLICKEYBYTES)
+      sk = Util.zeros(NaCl::SECRETKEYBYTES)
       ret = NaCl.crypto_box_curve25519xsalsa20poly1305_ref_keypair(pk, sk)
       raise CryptoError, "Failed to generate a key pair" if ret != 0
       new(sk, pk)
