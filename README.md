@@ -35,11 +35,13 @@ is extremely fast with comparatively small cryptographic keys.
 ## Installation
 
 RbNaCl is implemented as a Ruby FFI binding, which is designed to bind to
-shared libraries. Unfortunately NaCl does not presently ship a shared library.
+shared libraries. Unfortunately NaCl does not presently ship a shared library,
+so RbNaCl cannot take advantage of it via FFI. RbNaCl will support usage with
+the upstream NaCl once it is able to compile a shared library.
 
-To use RbNaCl, you will need to install [libsodium][libsodium], a portable
-version of NaCl based upon the reference C code. Unfortunately libsodium
-is relatively new and for now you will likely need to compile it from source.
+For now, to use RbNaCl, you will need to install [libsodium][libsodium], a portable
+version of NaCl based upon the reference C code. Please see the libsodium project
+for information regarding installation.
 
 [libsodium]: https://github.com/jedisct1/libsodium
 
