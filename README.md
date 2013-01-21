@@ -34,11 +34,16 @@ is extremely fast with comparatively small cryptographic keys.
 
 ## Installation
 
-You will need to install NaCl for your platform first. On OS X, you can do:
+RbNaCl is implemented as a Ruby FFI binding, which is designed to bind to
+shared libraries. Unfortunately NaCl does not presently ship a shared library.
 
-    brew install nacl
+To use RbNaCl, you will need to install [libsodium][libsodium], a portable
+version of NaCl based upon the reference C code. Unfortunately libsodium
+is relatively new and for now you will likely need to compile it from source.
 
-Add this line to your application's Gemfile:
+[libsodium]: https://github.com/jedisct1/libsodium
+
+Once you have libsodium installed, add this line to your application's Gemfile:
 
     gem 'rbnacl'
 
@@ -63,6 +68,6 @@ TODO: Write usage instructions here
 
 ## License
 
-Copyright (c) 2012 Tony Arcieri. Copyright (c) 2013 Jonathan Stott
+Copyright (c) 2013 Tony Arcieri, Jonathan Stott
 Distributed under the MIT License. See
 LICENSE.txt for further details.
