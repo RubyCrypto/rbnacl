@@ -55,6 +55,12 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended.
     def box(nonce, message)
+      raise ArgumentError, "Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long." unless nonce.bytesize == Crypto::NaCl::NONCEBYTES
+      msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
+      ct  = msg.dup
+
+      NaCl.crypto_box_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+      Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
 
     # Decrypts a ciphertext
@@ -72,6 +78,21 @@ module Crypto
     #
     # @return [String] The decrypted message.
     def unbox(nonce, ciphertext)
+      raise ArgumentError, "Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long." unless nonce.bytesize == Crypto::NaCl::NONCEBYTES
+      ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
+      message  = ct.dup
+
+      NaCl.crypto_box_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      Util.remove_zeros(NaCl::ZEROBYTES, message)
+    end
+
+    private
+    def beforenm
+      @k ||= begin
+               k = Util.zeros(NaCl::BEFORENMBYTES)
+               NaCl.crypto_box_beforenm(k, @pk, @sk) || raise(CryptoError, "Failed to derive shared key")
+               k
+             end
     end
   end
 end

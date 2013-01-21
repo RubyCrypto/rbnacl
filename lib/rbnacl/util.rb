@@ -12,6 +12,30 @@ module Crypto
     def self.zeros(n=32)
       "\0" * n
     end
+
+    # Prepends a message with zeros
+    #
+    # Many functions require a string with some zeros prepended.
+    #
+    # @param [Integer] n The number of zeros to prepend
+    # @param [String] message The string to be prepended
+    #
+    # @return [String] a bunch of zeros
+    def self.prepend_zeros(n, message)
+      zeros(n) + message
+    end
+
+    # Remove zeros from the start of a message
+    #
+    # Many functions require a string with some zeros prepended, then need them removing after.  Note, this modifies the passed in string
+    #
+    # @param [Integer] n The number of zeros to remove
+    # @param [String] message The string to be slice
+    #
+    # @return [String] less a bunch of zeros
+    def self.remove_zeros(n, message)
+      message.slice!(n, message.bytesize - n)
+    end
   end
 end
 

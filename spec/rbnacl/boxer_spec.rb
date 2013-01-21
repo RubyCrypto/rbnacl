@@ -69,11 +69,11 @@ describe Crypto::Boxer do
     end
 
     it "raises on a a short nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::Boxer::NONCE_LEN} bytes long./)
+      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
 
     it "raises on a a long nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::Boxer::NONCE_LEN} bytes long./)
+      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
   end
 
@@ -92,11 +92,11 @@ describe Crypto::Boxer do
     end
 
     it "raises on a a short nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::Boxer::NONCE_LEN} bytes long./)
+      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
 
     it "raises on a a long nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::Boxer::NONCE_LEN} bytes long./)
+      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
   end
 end

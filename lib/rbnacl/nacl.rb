@@ -24,5 +24,18 @@ module Crypto
     SECRETKEYBYTES = 32
     attach_function :crypto_box_curve25519xsalsa20poly1305_ref_keypair, [:pointer, :pointer], :int
     wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_keypair, :crypto_box_keypair
+
+    NONCEBYTES    = 24
+    ZEROBYTES     = 32
+    BOXZEROBYTES  = 16
+    BEFORENMBYTES = 32
+    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_beforenm, [:pointer, :pointer, :pointer], :int
+    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_beforenm, :crypto_box_beforenm
+
+    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, [:pointer, :pointer, :int, :pointer, :pointer], :int
+    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, :crypto_box_afternm
+
+    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, [:pointer, :pointer, :int, :pointer, :pointer], :int
+    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, :crypto_box_open_afternm
   end
 end
