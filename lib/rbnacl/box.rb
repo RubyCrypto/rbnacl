@@ -27,17 +27,17 @@ module Crypto
     # Sets up the Box for deriving the shared key and encrypting and
     # decrypting messages.
     #
-    # @param pk [String,Crypto::PublicKey] The public key to encrypt to
-    # @param sk [String,Crypto::SecretKey] The secret key to encrypt with
+    # @param public_key [String,Crypto::PublicKey] The public key to encrypt to
+    # @param private_key [String,Crypto::PrivateKey] The private key to encrypt with
     #
     # @raise [ArgumentError] on invalid keys
     #
     # @return [Crypto::Box] The new Box, ready to use
-    def initialize(pk, sk)
-      @pk = pk.respond_to?(:to_bytes) ? pk.to_bytes : pk
-      @sk = sk.respond_to?(:to_bytes) ? sk.to_bytes : sk
-      raise ArgumentError, "Must provide a valid public key" unless PublicKey.valid?(@pk)
-      raise ArgumentError, "Must provide a valid secret key" unless SecretKey.valid?(@sk)
+    def initialize(public_key, private_key)
+      @public_key  = public_key.respond_to?(:to_bytes)  ? public_key.to_bytes  : public_key
+      @private_key = private_key.respond_to?(:to_bytes) ? private_key.to_bytes : private_key
+      raise ArgumentError, "Must provide a valid public key" unless PublicKey.valid?(@public_key)
+      raise ArgumentError, "Must provide a valid private key" unless PrivateKey.valid?(@private_key)
     end
 
     # Encrypts a message
@@ -90,7 +90,7 @@ module Crypto
     def beforenm
       @k ||= begin
                k = Util.zeros(NaCl::BEFORENMBYTES)
-               NaCl.crypto_box_beforenm(k, @pk, @sk) || raise(CryptoError, "Failed to derive shared key")
+               NaCl.crypto_box_beforenm(k, @public_key, @private_key) || raise(CryptoError, "Failed to derive shared key")
                k
              end
     end
