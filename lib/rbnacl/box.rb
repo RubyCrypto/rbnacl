@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 module Crypto
-  # The Boxer class boxes and unboxes messages
+  # The Box class boxes and unboxes messages
   #
   # This class uses the given public and secret keys to derive a shared key,
   # which is used with the nonce given to encrypt the given messages and
@@ -20,11 +20,11 @@ module Crypto
   # you've looked in the box, you've demonstrated the ability to create
   # arbitrary valid messages, so messages you send are repudiatable.  For
   # non-repudiatable messages, sign them before or after encryption.
-  class Boxer
+  class Box
 
-    # Create a new Boxer
+    # Create a new Box
     #
-    # Sets up the Boxer for deriving the shared key and encrypting and
+    # Sets up the Box for deriving the shared key and encrypting and
     # decrypting messages.
     #
     # @param pk [String,Crypto::PublicKey] The public key to encrypt to
@@ -32,7 +32,7 @@ module Crypto
     #
     # @raise [ArgumentError] on invalid keys
     #
-    # @return [Crypto::Boxer] The new Boxer, ready to use
+    # @return [Crypto::Box] The new Box, ready to use
     def initialize(pk, sk)
       @pk = pk.respond_to?(:to_bytes) ? pk.to_bytes : pk
       @sk = sk.respond_to?(:to_bytes) ? sk.to_bytes : sk
@@ -77,7 +77,7 @@ module Crypto
     # @raise [Crypto::CryptoError] If the ciphertext cannot be authenticated.
     #
     # @return [String] The decrypted message.
-    def unbox(nonce, ciphertext)
+    def open(nonce, ciphertext)
       raise ArgumentError, "Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long." unless nonce.bytesize == Crypto::NaCl::NONCEBYTES
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
       message  = ct.dup

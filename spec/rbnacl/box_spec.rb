@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crypto::Boxer do
+describe Crypto::Box do
   let (:alicepk) { "\x85 \xF0\t\x890\xA7Tt\x8B}\xDC\xB4>\xF7Z\r\xBF:\r&8\x1A\xF4\xEB\xA4\xA9\x8E\xAA\x9BNj"  } # from the nacl distribution
   let (:bobsk) { "]\xAB\b~bJ\x8AKy\xE1\x7F\x8B\x83\x80\x0E\xE6o;\xB1)&\x18\xB6\xFD\x1C/\x8B'\xFF\x88\xE0\xEB" } # from the nacl distribution
   let (:alice_key) { Crypto::PublicKey.new(alicepk) }
@@ -8,35 +8,35 @@ describe Crypto::Boxer do
 
   context "new" do
     it "accepts strings" do
-      expect { Crypto::Boxer.new(alicepk, bobsk) }.to_not raise_error(Exception)
+      expect { Crypto::Box.new(alicepk, bobsk) }.to_not raise_error(Exception)
     end
 
     it "accepts KeyPairs" do
-      expect { Crypto::Boxer.new(alice_key, bob_key) }.to_not raise_error(Exception)
+      expect { Crypto::Box.new(alice_key, bob_key) }.to_not raise_error(Exception)
     end
 
     it "raises on a nil public key" do
-      expect { Crypto::Boxer.new(nil, bobsk) }.to raise_error(ArgumentError, /Must provide a valid public key/)
+      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(ArgumentError, /Must provide a valid public key/)
     end
 
     it "raises on an invalid public key" do
-      expect { Crypto::Boxer.new("hello", bobsk) }.to raise_error(ArgumentError, /Must provide a valid public key/)
+      expect { Crypto::Box.new("hello", bobsk) }.to raise_error(ArgumentError, /Must provide a valid public key/)
     end
 
     it "raises on a nil secret key" do
-      expect { Crypto::Boxer.new(alicepk, nil) }.to raise_error(ArgumentError, /Must provide a valid secret key/)
+      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(ArgumentError, /Must provide a valid secret key/)
     end
 
     it "raises on an invalid secret key" do
-      expect { Crypto::Boxer.new(alicepk, "hello") }.to raise_error(ArgumentError, /Must provide a valid secret key/)
+      expect { Crypto::Box.new(alicepk, "hello") }.to raise_error(ArgumentError, /Must provide a valid secret key/)
     end
   end
 
 
-  let(:boxer) { Crypto::Boxer.new(alicepk, bobsk) }
+  let(:box) { Crypto::Box.new(alicepk, bobsk) }
   let(:nonce) { "iin\xE9U\xB6+s\xCDb\xBD\xA8u\xFCs\xD6\x82\x19\xE0\x03kz\v7" } # from nacl distribution
   let(:invalid_nonce) { nonce[0,12]  } # too short!
-  let(:invalid_nonce2) { nonce + nonce  } # too long!
+  let(:invalid_nonce_long) { nonce + nonce  } # too long!
   let(:message) { # from nacl distribution
     [0xbe,0x07,0x5f,0xc5,0x3c,0x81,0xf2,0xd5,0xcf,0x14,0x13,0x16,0xeb,0xeb,0x0c,0x7b,
       0x52,0x28,0xc5,0x2a,0x4c,0x62,0xcb,0xd4,0x4b,0x66,0x84,0x9b,0x64,0x24,0x4f,0xfc,
@@ -65,38 +65,38 @@ describe Crypto::Boxer do
   context "box" do
 
     it "encrypts a message" do
-      boxer.box(nonce, message).should eq ciphertext
+      box.box(nonce, message).should eq ciphertext
     end
 
-    it "raises on a a short nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+    it "raises on a short nonce" do
+      expect { box.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
 
-    it "raises on a a long nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+    it "raises on a long nonce" do
+      expect { box.box(invalid_nonce_long, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
   end
 
-  context "unbox" do
+  context "open" do
 
     it "decrypts a message" do
-      boxer.unbox(nonce, ciphertext).should eq message
+      box.open(nonce, ciphertext).should eq message
     end
 
     it "raises on a truncated message to decrypt" do
-      expect { boxer.unbox(nonce, ciphertext[0, 64]) }.to raise_error(Crypto::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect { box.open(nonce, ciphertext[0, 64]) }.to raise_error(Crypto::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a corrupt ciphertext" do
-      expect { boxer.unbox(nonce, corrupt_ciphertext) }.to raise_error(Crypto::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect { box.open(nonce, corrupt_ciphertext) }.to raise_error(Crypto::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
-    it "raises on a a short nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+    it "raises on a short nonce" do
+      expect { box.open(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
 
-    it "raises on a a long nonce" do
-      expect { boxer.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+    it "raises on a long nonce" do
+      expect { box.open(invalid_nonce_long, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
     end
   end
 end
