@@ -63,5 +63,6 @@ TODO: Write usage instructions here
 
 ## License
 
-Copyright (c) 2012 Tony Arcieri. Distributed under the MIT License. See
+Copyright (c) 2012 Tony Arcieri. Copyright (c) 2013 Jonathan Stott
+Distributed under the MIT License. See
 LICENSE.txt for further details.
