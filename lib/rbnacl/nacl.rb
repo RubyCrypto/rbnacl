@@ -18,7 +18,7 @@ module Crypto
     end
 
     SHA256BYTES = 32
-    attach_function :crypto_hash_sha256_ref, [:pointer, :string, :int], :int
+    attach_function :crypto_hash_sha256_ref, [:pointer, :string, :long_long], :int
 
     PUBLICKEYBYTES = 32
     SECRETKEYBYTES = 32
@@ -32,10 +32,10 @@ module Crypto
     attach_function :crypto_box_curve25519xsalsa20poly1305_ref_beforenm, [:pointer, :pointer, :pointer], :int
     wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_beforenm, :crypto_box_beforenm
 
-    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, [:pointer, :pointer, :int, :pointer, :pointer], :int
+    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, [:pointer, :pointer, :long_long, :pointer, :pointer], :int
     wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, :crypto_box_afternm
 
-    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, [:pointer, :pointer, :int, :pointer, :pointer], :int
+    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, [:pointer, :pointer, :long_long, :pointer, :pointer], :int
     wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, :crypto_box_open_afternm
   end
 end
