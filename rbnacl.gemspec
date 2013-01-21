@@ -19,13 +19,10 @@ Gem::Specification.new do |gem|
 
   if defined? JRUBY_VERSION
     gem.platform = "jruby"
-  else
-    gem.extensions = "ext/rbnacl/extconf.rb"
   end
 
   gem.add_runtime_dependency 'ffi'
 
   gem.add_development_dependency "rake"
-  gem.add_development_dependency "rake-compiler"
   gem.add_development_dependency "rspec"
 end
