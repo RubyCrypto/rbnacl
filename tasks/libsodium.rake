@@ -16,4 +16,6 @@ file "libsodium/src/libsodium/.libs/libsodium.a" => "libsodium/Makefile" do
   sh "cd libsodium && make"
 end
 
+file "libsodium/src/libsodium/.libs/libsodium.so" => "libsodium/src/libsodium/.libs/libsodium.a"
+
 CLEAN.add "libsodium"
