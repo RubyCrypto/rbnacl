@@ -6,7 +6,6 @@ module Crypto
   # And that's all it does, really.
   module NaCl
     extend FFI::Library
-    ffi_lib 'sodium-randombytes'
     ffi_lib 'sodium'
 
     # Wraps an NaCl function so it returns a sane value
