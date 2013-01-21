@@ -1,6 +1,6 @@
 RbNaCl
 ======
-[![Build Status](https://travis-ci.org/tarcieri/rbnacl.png?branch=master)](https://travis-ci.org/tarcieri/rbnacl)
+[![Build Status](https://travis-ci.org/cryptosphere/rbnacl.png?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
 
 A Ruby binding to the [Networking and Cryptography][nacl] library by Daniel
 J. Bernstein. RbNaCl is also the empirical formula for Rubidium Sodium
