@@ -8,8 +8,19 @@ module Crypto
     extend FFI::Library
     ffi_lib 'sodium'
 
-    def self.wrap_function(function, name)
+    # Wraps an NaCl function so it returns a sane value
+    #
+    # The NaCl functions generally have an integer return value which is 0 in
+    # the case of success and below 0 if they failed.  This is a bit
+    # inconvinient in ruby, where 0 is a truthy value, so this makes them
+    # return true/false based on success.
+    #
+    # @param [Symbol] name Function name that will return true/false
+    # @param [Symbol] function Function to attach
+    # @param [Array<Symbol>] arguments Array of arguments to the function
+    def self.wrap_nacl_function(name, function, arguments)
       module_eval <<-eos, __FILE__, __LINE__ + 1
+      attach_function #{function.inspect}, #{arguments.inspect}, :int
       def self.#{name}(*args)
         ret = #{function}(*args)
         ret == 0
@@ -18,24 +29,31 @@ module Crypto
     end
 
     SHA256BYTES = 32
-    attach_function :crypto_hash_sha256_ref, [:pointer, :string, :long_long], :int
+    wrap_nacl_function :crypto_hash_sha256,
+                       :crypto_hash_sha256_ref,
+                       [:pointer, :string, :long_long]
 
     PUBLICKEYBYTES = 32
     SECRETKEYBYTES = 32
-    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_keypair, [:pointer, :pointer], :int
-    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_keypair, :crypto_box_keypair
+    wrap_nacl_function :crypto_box_keypair,
+                       :crypto_box_curve25519xsalsa20poly1305_ref_keypair,
+                       [:pointer, :pointer]
 
     NONCEBYTES    = 24
     ZEROBYTES     = 32
     BOXZEROBYTES  = 16
     BEFORENMBYTES = 32
-    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_beforenm, [:pointer, :pointer, :pointer], :int
-    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_beforenm, :crypto_box_beforenm
+    wrap_nacl_function :crypto_box_beforenm,
+                       :crypto_box_curve25519xsalsa20poly1305_ref_beforenm,
+                       [:pointer, :pointer, :pointer]
 
-    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, [:pointer, :pointer, :long_long, :pointer, :pointer], :int
-    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_afternm, :crypto_box_afternm
+    wrap_nacl_function :crypto_box_afternm,
+                       :crypto_box_curve25519xsalsa20poly1305_ref_afternm,
+                       [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    attach_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, [:pointer, :pointer, :long_long, :pointer, :pointer], :int
-    wrap_function :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm, :crypto_box_open_afternm
+    wrap_nacl_function :crypto_box_open_afternm,
+                       :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm,
+                       [:pointer, :pointer, :long_long, :pointer, :pointer]
+
   end
 end
