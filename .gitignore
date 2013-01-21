@@ -9,8 +9,6 @@ _yardoc
 coverage
 doc/
 lib/bundler/man
-lib/rbnacl_ext.bundle
-lib/rbnacl_ext.so
 pkg
 rdoc
 spec/reports
