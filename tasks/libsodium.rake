@@ -6,6 +6,7 @@ end
 
 file "libsodium" => "libsodium-0.1.tar.gz" do
   sh "tar xzf libsodium-0.1.tar.gz"
+  mv "libsodium-0.1", "libsodium"
 end
 
 file "libsodium/Makefile" => "libsodium" do
@@ -18,4 +19,4 @@ end
 
 file "libsodium/src/libsodium/.libs/libsodium.so" => "libsodium/src/libsodium/.libs/libsodium.a"
 
-CLEAN.add "libsodium"
+CLEAN.add "libsodium", "libsodium-0.1.tar.gz"
