@@ -1,14 +1,14 @@
 require "rake/clean"
 
-file "libsodium" do
-  sh "git clone git://github.com/jedisct1/libsodium.git"
+file "libsodium-0.1.tar.gz" do
+  sh "wget http://download.dnscrypt.org/libsodium/releases/libsodium-0.1.tar.gz"
 end
 
-file "libsodium/Makefile.in" => "libsodium" do
-  sh "cd libsodium && ./autogen.sh"
+file "libsodium" => "libsodium-0.1.tar.gz" do
+  sh "tar xzf libsodium-0.1.tar.gz"
 end
 
-file "libsodium/Makefile" => "libsodium/Makefile.in" do
+file "libsodium/Makefile" => "libsodium" do
   sh "cd libsodium && ./configure"
 end
 
