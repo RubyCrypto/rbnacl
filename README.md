@@ -39,11 +39,11 @@ shared libraries. Unfortunately NaCl does not presently ship a shared library,
 so RbNaCl cannot take advantage of it via FFI. RbNaCl will support usage with
 the upstream NaCl once it is able to compile a shared library.
 
-For now, to use RbNaCl, you will need to install [libsodium][libsodium], a portable
-version of NaCl based upon the reference C code. Please see the libsodium project
-for information regarding installation.
+For now, to use RbNaCl, you will need to install libsodium, a portable version
+of NaCl based upon the reference C code. Please see the libsodium project
+for information regarding installation:
 
-[libsodium]: https://github.com/jedisct1/libsodium
+https://github.com/jedisct1/libsodium
 
 Once you have libsodium installed, add this line to your application's Gemfile:
 
