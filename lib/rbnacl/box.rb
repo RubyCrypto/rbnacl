@@ -1,11 +1,51 @@
 #!/usr/bin/env ruby
 module Crypto
-  # The Box class boxes and unboxes messages
+  # The Box class boxes and unboxes messages between a pair of keys
   #
   # This class uses the given public and secret keys to derive a shared key,
   # which is used with the nonce given to encrypt the given messages and
-  # decrypt the given ciphertexts.  The same shared key will generated from both
-  # pairs of keys, so (pk1, sk2) == (pk2, sk1).  This is how the system works.
+  # decrypt the given ciphertexts.  The same shared key will generated from
+  # both pairing of keys, so given two keypairs belonging to alice (pkalice,
+  # skalice) and bob(pkbob, skbob), the key derived from (pkalice, skbob) with
+  # equal that from (pkbob, skalice).  This is how the system works:
+  #
+  # @example
+  #   # On bob's system
+  #   bobkey = Crypto::PrivateKey.generate
+  #   #=> #<Crypto::PrivateKey ...>
+  #
+  #   # send bobkey.public_key to alice
+  #   # recieve alice's public key, alicepk
+  #   # NB: This is actually the hard part of the system.  How to do it securely
+  #   # is left as an exercise to for the reader.
+  #   alice_pubkey = "..."
+  #
+  #   # make a box
+  #   alicebob_box = Crypto::Box.new(alice_pubkey, bobkey)
+  #   #=> #<Crypto::Box ...>
+  #
+  #   # encrypt a message to alice
+  #   cipher_text = alicebob_box.box("A bad example of a nonce", "Hello, Alice!")
+  #   #=> "..." # a string of bytes, 29 bytes long
+  #
+  #   # send ["A bad example of a nonce", cipher_text] to alice
+  #   # note that nonces don't have to be secret
+  #   # receive [nonce, cipher_text_to_bob] from alice
+  #
+  #   # decrypt the reply
+  #   # Alice has been a little more sensible than bob, and has a random nonce
+  #   # that is too fiddly to type here.  But there are other choices than just
+  #   # random
+  #   plain_text = alicebob_box.open(nonce, cipher_text_to_bob)
+  #   #=> "Hey there, Bob!"
+  #
+  #   # we have a new message!
+  #   # But Eve has tampered with this message, by flipping some bytes around!
+  #   # [nonce2, cipher_text_to_bob_honest_love_eve]
+  #   alicebob_box.open(nonce2, cipher_text_to_bob_honest_love_eve)
+  #
+  #   # BOOM!
+  #   # Bob gets a Crypto::CryptoError to deal with!
   #
   # It is VITALLY important that the nonce is a nonce, i.e. it is a number used
   # only once for any given pair of keys.  If you fail to do this, you
