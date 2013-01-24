@@ -36,6 +36,24 @@ module Crypto
     def self.remove_zeros(n, message)
       message.slice!(n, message.bytesize - n)
     end
+
+    # Hex encodes a message
+    #
+    # @param [String] bytes The bytes to encode
+    #
+    # @return [String] Tasty, tasty hexidecimal
+    def self.hexencode(bytes)
+      bytes.unpack("H*").first
+    end
+
+    # Hex decodes a message
+    #
+    # @param [String] hex hex to decode.
+    #
+    # @return [String] crisp and clean bytes
+    def self.hexdecode(hex)
+      [hex].pack("H*")
+    end
   end
 end
 
