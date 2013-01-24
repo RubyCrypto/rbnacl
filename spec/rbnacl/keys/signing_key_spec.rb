@@ -16,7 +16,7 @@ describe Crypto::SigningKey do
   end
 
   it "signs messages as hex" do
-    subject.hexsign(message).should eq signature_bytes
+    subject.hexsign(message).should eq signature_hex
   end
 
   it "serializes to bytes" do
