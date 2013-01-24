@@ -63,5 +63,23 @@ module Crypto
     wrap_nacl_function :crypto_secretbox_open,
                        :crypto_secretbox_xsalsa20poly1305_ref_open,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
+
+    HMACSHA512256_KEYBYTES = 32
+    HMACSHA512256_BYTES = 32
+    wrap_nacl_function :crypto_auth_hmacsha512256,
+                       :crypto_auth_hmacsha512256_ref,
+                       [:pointer, :pointer, :long_long, :pointer]
+    wrap_nacl_function :crypto_auth_hmacsha512256_verify,
+                       :crypto_auth_hmacsha512256_ref_verify,
+                       [:pointer, :pointer, :long_long, :pointer]
+
+    HMACSHA256_KEYBYTES = 32
+    HMACSHA256_BYTES = 32
+    wrap_nacl_function :crypto_auth_hmacsha256,
+                       :crypto_auth_hmacsha256_ref,
+                       [:pointer, :pointer, :long_long, :pointer]
+    wrap_nacl_function :crypto_auth_hmacsha256_verify,
+                       :crypto_auth_hmacsha256_ref_verify,
+                       [:pointer, :pointer, :long_long, :pointer]
   end
 end
