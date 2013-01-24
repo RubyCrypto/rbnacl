@@ -58,16 +58,16 @@ shared_examples "auth_hmac" do
 
   context "Instance methods" do
     let(:hmac) { described_class.new(rfc_key) }
-    let(:rfc_hex) { Crypto::Util.hex_encode(rfc_result)  }
+    let(:rfc_hex) { Crypto::Util.hexencode(rfc_result)  }
     context "#auth" do
       it "produces an authenticator" do
         hmac.auth(rfc_data).should eq rfc_result
       end
     end
 
-    context "#hex_auth" do
+    context "#hexauth" do
       it "produces a hex encoded authenticator" do
-        hmac.hex_auth(rfc_data).should eq rfc_hex
+        hmac.hexauth(rfc_data).should eq rfc_hex
       end
     end
 
@@ -86,18 +86,18 @@ shared_examples "auth_hmac" do
       end
     end
     
-    context "#hex_verify" do
+    context "#hexverify" do
       it "verifies an hexencoded authenticator" do
-        hmac.hex_verify(rfc_hex, rfc_data).should be true
+        hmac.hexverify(rfc_hex, rfc_data).should be true
       end
       it "fails to validate an invalid authenticator" do
-        hmac.hex_verify(rfc_hex, rfc_data+"\0").should be false
+        hmac.hexverify(rfc_hex, rfc_data+"\0").should be false
       end
       it "fails to validate a short authenticator" do
-        hmac.hex_verify(rfc_hex[0,62], rfc_data).should be false
+        hmac.hexverify(rfc_hex[0,62], rfc_data).should be false
       end
       it "fails to validate a long authenticator" do
-        hmac.hex_verify(rfc_hex+"00", rfc_data).should be false
+        hmac.hexverify(rfc_hex+"00", rfc_data).should be false
       end
     end
   end

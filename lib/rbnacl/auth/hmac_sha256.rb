@@ -57,14 +57,14 @@ module Crypto
         NaCl.crypto_auth_hmacsha256(authenticator, data, data.bytesize, @key)
         authenticator
       end
-      
+
       # Compute authenticator for data and hex encode it
       #
       # @param [#to_str] data the data to authenticate
       #
       # @return [String] The authenticator, hex-encoded
-      def hex_auth(data)
-        Util.hex_encode(auth(data))
+      def hexauth(data)
+        Util.hexencode(auth(data))
       end
 
       # Verifies the given authenticator with the data.
@@ -78,15 +78,15 @@ module Crypto
         return false unless auth.bytesize == BYTES
         NaCl.crypto_auth_hmacsha256_verify(authenticator, data, data.bytesize, @key)
       end
-      
+
       # Verifies the given hex-authenticator with the data.
       #
       # @param [#to_str] authenticator to be checked, hex encoded
       # @param [#to_str] data the data to be authenticated
       #
       # @return [Boolean] Was it valid?
-      def hex_verify(authenticator, data)
-        verify(Util.hex_decode(authenticator), data)
+      def hexverify(authenticator, data)
+        verify(Util.hexdecode(authenticator), data)
       end
 
       private

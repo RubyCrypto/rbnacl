@@ -42,7 +42,7 @@ module Crypto
     # @param [String] bytes The bytes to encode
     #
     # @return [String] Tasty, tasty hexidecimal
-    def self.hex_encode(bytes)
+    def self.hexencode(bytes)
       bytes.unpack("H*").first
     end
 
@@ -51,7 +51,7 @@ module Crypto
     # @param [String] hex hex to decode.
     #
     # @return [String] crisp and clean bytes
-    def self.hex_decode(hex)
+    def self.hexdecode(hex)
       [hex].pack("H*")
     end
   end
