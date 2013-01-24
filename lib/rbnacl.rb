@@ -1,6 +1,7 @@
 require "rbnacl/nacl"
 require "rbnacl/version"
-require "rbnacl/keys"
+require "rbnacl/keys/private_key"
+require "rbnacl/keys/public_key"
 require "rbnacl/box"
 require "rbnacl/secret_box"
 require "rbnacl/hash"
