@@ -81,5 +81,10 @@ module Crypto
     wrap_nacl_function :crypto_auth_hmacsha256_verify,
                        :crypto_auth_hmacsha256_ref_verify,
                        [:pointer, :pointer, :long_long, :pointer]
+
+    wrap_nacl_function :random_bytes,
+                       :randombytes,
+                       [:pointer, :long_long]
+
   end
 end
