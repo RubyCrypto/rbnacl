@@ -81,6 +81,15 @@ module Crypto
     wrap_nacl_function :crypto_auth_hmacsha256_verify,
                        :crypto_auth_hmacsha256_ref_verify,
                        [:pointer, :pointer, :long_long, :pointer]
+    
+    ONETIME_KEYBYTES = 32
+    ONETIME_BYTES = 16
+    wrap_nacl_function :crypto_auth_onetime,
+                       :crypto_onetimeauth_poly1305_ref,
+                       [:pointer, :pointer, :long_long, :pointer]
+    wrap_nacl_function :crypto_auth_onetime_verify,
+                       :crypto_onetimeauth_poly1305_ref_verify,
+                       [:pointer, :pointer, :long_long, :pointer]
 
     wrap_nacl_function :random_bytes,
                        :randombytes,
