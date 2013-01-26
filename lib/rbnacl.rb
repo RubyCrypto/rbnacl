@@ -8,6 +8,7 @@ require "rbnacl/hash"
 require "rbnacl/util"
 require "rbnacl/auth/hmac_sha512256"
 require "rbnacl/auth/hmac_sha256"
+require "rbnacl/auth/one_time"
 require "rbnacl/random"
 
 module Crypto
