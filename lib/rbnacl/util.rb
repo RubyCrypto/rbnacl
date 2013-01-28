@@ -54,6 +54,44 @@ module Crypto
     def self.hexdecode(hex)
       [hex].pack("H*")
     end
+
+
+    # Compare two 32 byte strings, in constant time
+    #
+    # This should help to avoid timing attacks for string comparisons in your
+    # application.  Note that many of the functions (such as HmacSha256#verify)
+    # use this method under the hood already.
+    #
+    # @param [String] one String #1
+    # @param [String] two String #2
+    #
+    # @raise [ArgumentError] If the strings are not equal
+    #
+    # @return [Boolean] Well, are they equal?
+    def self.verify_32(one, two)
+      raise(ArgumentError, "First message was #{one.bytesize} bytes, not 32") unless one.bytesize == 32
+      raise(ArgumentError, "Second message was #{two.bytesize} bytes, not 32") unless two.bytesize == 32
+      NaCl.crypto_verify_32(one, two)
+    end
+    
+    
+    # Compare two 16 byte strings, in constant time
+    #
+    # This should help to avoid timing attacks for string comparisons in your
+    # application.  Note that many of the functions (such as OneTime#verify)
+    # use this method under the hood already.
+    #
+    # @param [String] one String #1
+    # @param [String] two String #2
+    #
+    # @raise [ArgumentError] If the strings are not equal
+    #
+    # @return [Boolean] Well, are they equal?
+    def self.verify_16(one, two)
+      raise(ArgumentError, "First message was #{one.bytesize} bytes, not 16") unless one.bytesize == 16
+      raise(ArgumentError, "Second message was #{two.bytesize} bytes, not 16") unless two.bytesize == 16
+      NaCl.crypto_verify_16(one, two)
+    end
   end
 end
 
