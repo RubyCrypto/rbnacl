@@ -1,12 +1,9 @@
-require 'securerandom'
-
 module Crypto
   class SigningKey
     attr_reader :verify_key
 
     def self.generate
-      # TODO: use randombytes
-      new SecureRandom.random_bytes(NaCl::SECRETKEYBYTES)
+      new Crypto::Random.random_bytes(NaCl::SECRETKEYBYTES)
     end
 
     def initialize(seed)
