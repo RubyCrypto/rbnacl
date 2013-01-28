@@ -11,11 +11,15 @@ describe Crypto::SigningKey do
   # NOTE: this implicitly covers testing initialization from bytes
   subject { described_class.new(signing_key_bytes) }
 
+  it "generates keys" do
+    described_class.generate.should be_a described_class
+  end
+
   it "signs messages as bytes" do
     subject.sign(message).should eq signature_bytes
   end
 
-  it "signs messages as hex" do
+  it "signs messages as hex", :pending => "api discussion" do
     subject.hexsign(message).should eq signature_hex
   end
 
@@ -23,11 +27,11 @@ describe Crypto::SigningKey do
     subject.to_bytes.should eq signing_key_bytes
   end
 
-  it "serializes to hex" do
+  it "serializes to hex", :pending => "api discussion" do
     subject.to_hex.should eq signing_key_hex
   end
 
-  it "initializes from hex" do
+  it "initializes from hex", :pending => "api discussion" do
     described_class.new(signing_key_hex).to_bytes.should eq signing_key_bytes
   end
 end

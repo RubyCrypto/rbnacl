@@ -39,10 +39,11 @@ module Crypto
                        :crypto_box_curve25519xsalsa20poly1305_ref_keypair,
                        [:pointer, :pointer]
 
-    NONCEBYTES    = 24
-    ZEROBYTES     = 32
-    BOXZEROBYTES  = 16
-    BEFORENMBYTES = 32
+    NONCEBYTES     = 24
+    ZEROBYTES      = 32
+    BOXZEROBYTES   = 16
+    BEFORENMBYTES  = 32
+
     wrap_nacl_function :crypto_box_beforenm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_beforenm,
                        [:pointer, :pointer, :pointer]
@@ -101,5 +102,18 @@ module Crypto
     wrap_nacl_function :crypto_verify_16,
                        :crypto_verify_16_ref,
                        [:pointer, :pointer]
+
+    SIGNATUREBYTES = 64
+    wrap_nacl_function :crypto_sign_publickey,
+                       :crypto_sign_ed25519_ref_publickey,
+                       [:pointer, :pointer, :pointer]
+
+    wrap_nacl_function :crypto_sign,
+                       :crypto_sign_ed25519_ref,
+                       [:pointer, :pointer, :pointer, :long_long, :pointer]
+
+    wrap_nacl_function :crypto_sign_open,
+                       :crypto_sign_ed25519_ref_open,
+                       [:pointer, :pointer, :pointer, :long_long, :pointer]
   end
 end

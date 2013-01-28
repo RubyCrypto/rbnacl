@@ -10,18 +10,18 @@ describe Crypto::VerifyKey do
   subject { Crypto::SigningKey.new(signing_key_bytes).verify_key }
 
   it "verifies correct signatures" do
-    subject.verify(signature, message).should be_true
+    subject.verify(message, signature).should be_true
   end
 
   it "detects bad signatures" do
-    subject.verify(bad_signature, message).should be_false
+    subject.verify(message, bad_signature).should be_false
   end
 
   it "serializes to bytes" do
     subject.to_bytes.should eq verify_key_bytes
   end
 
-  it "serializes to hex" do
+  it "serializes to hex", :pending => "api discussion" do
     subject.to_hex.should eq verify_key_hex
   end
 
@@ -29,7 +29,7 @@ describe Crypto::VerifyKey do
     described_class.new(verify_key_bytes).to_bytes.should eq verify_key_bytes
   end
 
-  it "initializes from hex" do
+  it "initializes from hex", :pending => "api discussion" do
     described_class.new(verify_key_hex).to_bytes.should eq verify_key_bytes
   end
 end
