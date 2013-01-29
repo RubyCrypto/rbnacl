@@ -14,7 +14,7 @@ module Crypto
       pk = Util.zeros(NaCl::PUBLICKEYBYTES)
       sk = Util.zeros(NaCl::SECRETKEYBYTES * 2)
 
-      NaCl.crypto_sign_publickey(pk, sk, seed) || raise(CryptoError, "Failed to generate a key pair")
+      NaCl.crypto_sign_seed_keypair(pk, sk, seed) || raise(CryptoError, "Failed to generate a key pair")
 
       @seed, @signing_key = seed, sk
       @verify_key = VerifyKey.new(pk)

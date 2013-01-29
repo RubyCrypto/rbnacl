@@ -104,8 +104,8 @@ module Crypto
                        [:pointer, :pointer]
 
     SIGNATUREBYTES = 64
-    wrap_nacl_function :crypto_sign_publickey,
-                       :crypto_sign_ed25519_ref_publickey,
+    wrap_nacl_function :crypto_sign_seed_keypair,
+                       :crypto_sign_ed25519_ref_seed_keypair,
                        [:pointer, :pointer, :pointer]
 
     wrap_nacl_function :crypto_sign,
