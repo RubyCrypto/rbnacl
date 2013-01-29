@@ -1,6 +1,6 @@
 module Crypto
   # The signature was forged or otherwise corrupt
-  class BadSignatureError < StandardError; end
+  class BadSignatureError < CryptoError; end
 
   class VerifyKey
     def initialize(key)
