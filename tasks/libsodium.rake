@@ -1,5 +1,7 @@
 require "rake/clean"
 
+LIBSODIUM_VERSION = "0.2"
+
 def sh_hidden(command)
   STDERR.puts("*** Executing: #{command}")
   output = `#{command}`
@@ -11,13 +13,13 @@ def sh_hidden(command)
   end
 end
 
-file "libsodium-0.1.tar.gz" do
-  sh "wget http://download.dnscrypt.org/libsodium/releases/libsodium-0.1.tar.gz"
+file "libsodium-#{LIBSODIUM_VERSION}.tar.gz" do
+  sh "curl -O http://download.dnscrypt.org/libsodium/releases/libsodium-#{LIBSODIUM_VERSION}.tar.gz"
 end
 
-file "libsodium" => "libsodium-0.1.tar.gz" do
-  sh "tar xzf libsodium-0.1.tar.gz"
-  mv "libsodium-0.1", "libsodium"
+file "libsodium" => "libsodium-#{LIBSODIUM_VERSION}.tar.gz" do
+  sh "tar xzf libsodium-#{LIBSODIUM_VERSION}.tar.gz"
+  mv "libsodium-#{LIBSODIUM_VERSION}", "libsodium"
 end
 
 file "libsodium/Makefile" => "libsodium" do
@@ -30,4 +32,4 @@ end
 
 file "libsodium/src/libsodium/.libs/libsodium.so" => "libsodium/src/libsodium/.libs/libsodium.a"
 
-CLEAN.add "libsodium", "libsodium-0.1.tar.gz"
+CLEAN.add "libsodium", "libsodium-*.tar.gz"
