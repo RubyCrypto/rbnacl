@@ -61,6 +61,16 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Security Notes
+
+NaCl itself has been expertly crafted to avoid a whole range of
+side-channel attacks, however the RbNaCl code itself has not been
+written with the same degree of expertise. While the code is
+straightforward it should be considered experimental until audited
+by professional cryptographers.
+
+That said, it's probably still a million times better than OpenSSL...
+
 ## Contributing
 
 * Fork this repository on github
