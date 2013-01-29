@@ -17,6 +17,10 @@ describe Crypto::VerifyKey do
     subject.verify(message, bad_signature).should be_false
   end
 
+  it "raises when asked to verify with a bang" do
+    expect { subject.verify!(message, bad_signature) }.to raise_exception Crypto::BadSignatureError
+  end
+
   it "serializes to bytes" do
     subject.to_bytes.should eq verify_key_bytes
   end

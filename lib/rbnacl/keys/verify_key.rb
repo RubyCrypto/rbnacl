@@ -1,4 +1,7 @@
 module Crypto
+  # The signature was forged or otherwise corrupt
+  class BadSignatureError < StandardError; end
+
   class VerifyKey
     def initialize(key)
       if key.bytesize != NaCl::PUBLICKEYBYTES
@@ -18,6 +21,10 @@ module Crypto
       buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
       NaCl.crypto_sign_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
+    end
+
+    def verify!(message, signature)
+      verify(message, signature) or raise BadSignatureError, "signature was forged/corrupt"
     end
 
     def to_bytes
