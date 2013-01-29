@@ -95,5 +95,11 @@ module Crypto
                        :randombytes,
                        [:pointer, :long_long]
 
+    wrap_nacl_function :crypto_verify_32,
+                       :crypto_verify_32_ref,
+                       [:pointer, :pointer]
+    wrap_nacl_function :crypto_verify_16,
+                       :crypto_verify_16_ref,
+                       [:pointer, :pointer]
   end
 end
