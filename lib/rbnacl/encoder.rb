@@ -23,12 +23,17 @@ module Crypto
 
     # Register the current class as an encoder
     def self.register(name)
-      Registry[name.to_sym] = self.new
+      self[name] = self.new
     end
 
     # Look up an encoder by the given name
     def self.[](name)
       Registry[name.to_sym]
+    end
+
+    # Register an encoder object directly
+    def self.[]=(name, obj)
+      Registry[name.to_sym] = obj
     end
 
     def encode(string); raise NotImplementedError, "encoding not implemented"; end
