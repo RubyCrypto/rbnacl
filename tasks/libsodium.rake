@@ -1,5 +1,16 @@
 require "rake/clean"
 
+def sh_hidden(command)
+  STDERR.puts("*** Executing: #{command}")
+  output = `#{command}`
+
+  if !$?.success?
+    STDERR.puts "!!! Error executing: #{command}"
+    STDERR.puts output
+    exit 1
+  end
+end
+
 file "libsodium-0.1.tar.gz" do
   sh "wget http://download.dnscrypt.org/libsodium/releases/libsodium-0.1.tar.gz"
 end
@@ -10,11 +21,11 @@ file "libsodium" => "libsodium-0.1.tar.gz" do
 end
 
 file "libsodium/Makefile" => "libsodium" do
-  sh "cd libsodium && ./configure"
+  sh_hidden "cd libsodium && ./configure"
 end
 
 file "libsodium/src/libsodium/.libs/libsodium.a" => "libsodium/Makefile" do
-  sh "cd libsodium && make"
+  sh_hidden "cd libsodium && make"
 end
 
 file "libsodium/src/libsodium/.libs/libsodium.so" => "libsodium/src/libsodium/.libs/libsodium.a"
