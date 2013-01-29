@@ -13,7 +13,7 @@ module Crypto
       #
       # @return [String] Clunky old base64
       def encode(bytes)
-        [bytes].pack("m0")
+        [bytes].pack("m").gsub("\n", '')
       end
 
       # Hex decodes a message
