@@ -1,5 +1,8 @@
 module Crypto
-  # Private key for producing digital signatures using the Ed25519 algorithm
+  # Private key for producing digital signatures using the Ed25519 algorithm.
+  # Ed25519 provides a 128-bit security level, that is to say, all known attacks
+  # take at least 2^128 operations, providing the same security level as
+  # AES-128, NIST P-256, and RSA-3072.
   #
   # Signing keys are produced from a 32-byte (256-bit) random seed value.
   # This value can be passed into the SigningKey constructoras a String
