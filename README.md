@@ -152,7 +152,17 @@ TODO: Write hash instructions here
 
 ### Utilities
 
-TODO: Write random/verify32/verify64/etc instructions here
+There are some helpful functions for performing common tasks in cryptography.  These include random data generation (for example, for key material) using the operating system random source and constant-time comparisons of strings, to avoid exposing information through timing attacks.
+
+``` ruby
+# random strings
+Crypto::Random.random_bytes(32)
+#=> 32 bytes of randomness, from the OS
+
+# constant time comparisons.
+Crypto::Util.verify32(string_one, string_two)
+#=> true/false.  See also verify16 
+```
 
 ## Security Notes
 
