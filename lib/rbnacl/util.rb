@@ -37,25 +37,6 @@ module Crypto
       message.slice!(n, message.bytesize - n)
     end
 
-    # Hex encodes a message
-    #
-    # @param [String] bytes The bytes to encode
-    #
-    # @return [String] Tasty, tasty hexidecimal
-    def self.hexencode(bytes)
-      bytes.unpack("H*").first
-    end
-
-    # Hex decodes a message
-    #
-    # @param [String] hex hex to decode.
-    #
-    # @return [String] crisp and clean bytes
-    def self.hexdecode(hex)
-      [hex].pack("H*")
-    end
-
-
     # Compare two 32 byte strings in constant time
     #
     # This should help to avoid timing attacks for string comparisons in your

@@ -58,46 +58,47 @@ shared_examples "authenticator" do
 
   context "Instance methods" do
     let(:authenticator) { described_class.new(key) }
-    let(:hex) { Crypto::Util.hexencode(tag)  }
+    let(:hex) { Crypto::Encoder[:hex].encode(tag)  }
+
     context "#auth" do
       it "produces an authenticator" do
         authenticator.auth(message).should eq tag
       end
-    end
 
-    context "#hexauth" do
       it "produces a hex encoded authenticator" do
-        authenticator.hexauth(message).should eq hex
+        authenticator.auth(message, :hex).should eq hex
       end
     end
 
     context "#verify" do
-      it "verifies an authenticator" do
-        authenticator.verify(tag, message).should be true
+      context "raw bytes" do
+        it "verifies an authenticator" do
+          authenticator.verify(tag, message).should be true
+        end
+        it "fails to validate an invalid authenticator" do
+          authenticator.verify(tag, message+"\0").should be false
+        end
+        it "fails to validate a short authenticator" do
+          authenticator.verify(tag[0,tag.bytesize - 2], message).should be false
+        end
+        it "fails to validate a long authenticator" do
+          authenticator.verify(tag+"\0", message).should be false
+        end
       end
-      it "fails to validate an invalid authenticator" do
-        authenticator.verify(tag, message+"\0").should be false
-      end
-      it "fails to validate a short authenticator" do
-        authenticator.verify(tag[0,tag.bytesize - 2], message).should be false
-      end
-      it "fails to validate a long authenticator" do
-        authenticator.verify(tag+"\0", message).should be false
-      end
-    end
 
-    context "#hexverify" do
-      it "verifies an hexencoded authenticator" do
-        authenticator.hexverify(hex, message).should be true
-      end
-      it "fails to validate an invalid authenticator" do
-        authenticator.hexverify(hex, message+"\0").should be false
-      end
-      it "fails to validate a short authenticator" do
-        authenticator.hexverify(hex[0,hex.bytesize - 2], message).should be false
-      end
-      it "fails to validate a long authenticator" do
-        authenticator.hexverify(hex+"00", message).should be false
+      context "hex" do
+        it "verifies an hexencoded authenticator" do
+          authenticator.verify(hex, message, :hex).should be true
+        end
+        it "fails to validate an invalid authenticator" do
+          authenticator.verify(hex, message+"\0", :hex).should be false
+        end
+        it "fails to validate a short authenticator" do
+          authenticator.verify(hex[0,hex.bytesize - 2], message, :hex).should be false
+        end
+        it "fails to validate a long authenticator" do
+          authenticator.verify(hex+"00", message, :hex).should be false
+        end
       end
     end
   end
