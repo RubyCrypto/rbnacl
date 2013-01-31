@@ -1,4 +1,4 @@
-RbNaCl
+![RbNaCl](https://raw.github.com/cryptosphere/rbnacl/master/logo.png)
 ======
 [![Build Status](https://travis-ci.org/cryptosphere/rbnacl.png?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
 
