@@ -49,7 +49,7 @@ RbNaCl is continuously integration tested on the following Ruby VMs:
 * Rubinius HEAD (in both 1.8/1.9 mode)
 
 In theory Windows should be supported, although there are not yet any
-reports of successful windows users.
+reports of successful Windows users.
 
 ## Installation
 
