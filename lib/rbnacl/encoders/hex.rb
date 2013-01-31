@@ -13,7 +13,7 @@ module Crypto
       #
       # @return [String] Tasty, tasty hexidecimal
       def encode(bytes)
-        bytes.unpack("H*").first
+        bytes.to_s.unpack("H*").first
       end
 
       # Hex decodes a message
@@ -22,7 +22,7 @@ module Crypto
       #
       # @return [String] crisp and clean bytes
       def decode(hex)
-        [hex].pack("H*")
+        [hex.to_s].pack("H*")
       end
     end
   end

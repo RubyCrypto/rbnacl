@@ -1,11 +1,11 @@
 module Crypto
   module Encoders
-    # Null encoder that does no transformations
+    # Raw encoder which only does a string conversion (if necessary)
     class Raw < Crypto::Encoder
       register :raw
 
-      def encode(bytes); bytes; end
-      def decode(bytes); bytes; end
+      def encode(bytes); bytes.to_s; end
+      def decode(bytes); bytes.to_s; end
     end
   end
 end

@@ -16,7 +16,7 @@ module Crypto
       #
       # @return [String] Lovely, elegant "Zooko-style" Base32
       def encode(bytes)
-        ::Base32.encode(bytes).downcase
+        ::Base32.encode(bytes.to_s).downcase
       end
 
       # Hex decodes a message
@@ -25,7 +25,7 @@ module Crypto
       #
       # @return [String] crisp and clean bytes
       def decode(base32)
-        ::Base32.decode(base32.upcase)
+        ::Base32.decode(base32.to_s.upcase)
       end
     end
   end
