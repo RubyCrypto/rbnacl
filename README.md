@@ -121,7 +121,7 @@ TODO: Write Authenticator instructions here
 
 ---
 
-### Hashes
+### Hash functions
 
 TODO: Write hash instructions here
 
