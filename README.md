@@ -131,8 +131,6 @@ TODO: Write hash instructions here
 
 TODO: Write random/verify32/verify64/etc instructions here
 
----
-
 ## Security Notes
 
 NaCl itself has been expertly crafted to avoid a whole range of
