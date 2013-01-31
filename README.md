@@ -70,6 +70,8 @@ TODO: Write SecretBox usage instructions here
 * **Encryption**: XSalsa20 stream cipher
 * **Authentication**: Poly1305 one-time MAC
 
+---
+
 ### Authenticated public-key encryption: Crypto::Box
 
 Box works similarly to GPG: anyone can publish a public key, and
@@ -82,6 +84,8 @@ TODO: Write Box instructions here
 * **Encryption**: XSalsa20 stream cipher
 * **Authentication**: Poly1305 one-time MAC
 * **Public Keys**: Curve25519 elliptic curves
+
+---
 
 ### Digital signatures: Crypto::SigningKey/Crypto::VerifyKey
 
@@ -101,23 +105,33 @@ TODO: Write Ed25519 instructions here
 * **Signatures**: Ed25519 signature system
 * **Public Keys**: Curve25519 elliptic curves
 
+---
+
 ### Scalars
 
 Scalars provide direct access to the Curve25519 function
 
 TODO: Write Scalar instructions here
 
+---
+
 ### Authenticators
 
 TODO: Write Authenticator instructions here
+
+---
 
 ### Hashes
 
 TODO: Write hash instructions here
 
+---
+
 ### Utilities
 
 TODO: Write random/verify32/verify64/etc instructions here
+
+---
 
 ## Security Notes
 
