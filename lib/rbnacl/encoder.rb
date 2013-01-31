@@ -19,6 +19,7 @@ module Crypto
   # calling Crypto::Encoder[], e.g. Crypto::Encoder[:hex].encode("foobar")
   #
   class Encoder
+    # Hash where encoder objects are stored
     Registry = {}
 
     # Register the current class as an encoder
@@ -28,7 +29,7 @@ module Crypto
 
     # Look up an encoder by the given name
     def self.[](name)
-      Registry[name.to_sym]
+      Registry[name.to_sym] or raise ArgumentError, "unsupported encoder: #{name}"
     end
 
     # Register an encoder object directly

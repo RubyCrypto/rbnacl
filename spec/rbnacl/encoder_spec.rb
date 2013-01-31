@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Crypto::Encoder do
   it "registers encoders" do
-    Crypto::Encoder[:foobar].should be_nil
+    expect { Crypto::Encoder[:foobar] }.to raise_exception(ArgumentError)
 
     class FoobarEncoder < described_class
       register :foobar
