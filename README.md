@@ -2,9 +2,12 @@
 ======
 [![Build Status](https://travis-ci.org/cryptosphere/rbnacl.png?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
 
-A Ruby binding to the [Networking and Cryptography][nacl] library by Daniel
-J. Bernstein. RbNaCl is also the empirical formula for Rubidium Sodium
-Chloride. This is **NOT** Google Native Client. This is a crypto library.
+A Ruby binding to the state-of-the-art [Networking and Cryptography][nacl]
+library by Daniel J. Bernstein. This is **NOT** Google Native Client. This
+is a crypto library.
+
+On a completely unrelated topic, RbNaCl is also the empirical formula for
+Rubidium Sodium Chloride.
 
 [nacl]: http://nacl.cr.yp.to/
 
@@ -20,13 +23,13 @@ OMAC1? AEAD? NIST? CBC? CFB? CTR? ECB? OMGWTFBBQ!
 
 NaCl puts cryptography on Rails! Instead of making you choose which
 cryptographic primitives to use, NaCl provides convention over configuration
-in the form of expertly-assembled high level cryptographic APIs that ensure
+in the form of expertly-assembled high-level cryptographic APIs that ensure
 not only the confidentiality of your data, but also detect tampering.
-The result is high-level, easy-to-use APIs which are designed to be
-hard-to-attack by default in ways libraries like OpenSSL are not.
+These high-level, easy-to-use APIs which are designed to be hard to attack
+by default in ways primitives exposed by libraries like OpenSSL are not.
 
 This approach makes NaCl a lot closer to a system like GPG than it is
-to the cryptographic primitive APIs in a library like OpenSSL. However,
+to the cryptographic primitive APIs in a library like OpenSSL. In addition,
 NaCl also uses state-of-the-art encryption, including Curve25519 elliptic
 curves and the XSalsa20 stream cipher. This means with NaCl you not only get
 a system which is designed to be secure-by-default, you also get one which
