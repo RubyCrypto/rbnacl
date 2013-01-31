@@ -26,9 +26,10 @@ module Crypto
       # A new authenticator, ready for auth and verification
       #
       # @param [#to_str] key the key used for authenticators, 32 bytes.
-      def initialize(key)
+      # @param [#to_sym] encoding decode key from this format (default raw)
+      def initialize(key, encoding = :raw)
         raise ArgumentError, "Key must not be nil" if key.nil?
-        @key = key.to_str
+        @key = Encoder[encoding].decode(key)
         raise ArgumentError, "Key must be #{KEYBYTES} bytes" unless valid?
       end
 
@@ -56,44 +57,27 @@ module Crypto
       # Compute authenticator for message
       #
       # @param [#to_str] message the message to authenticate
+      # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
       #
-      # @return [String] The authenticator, as raw bytes
-      def auth(message)
+      # @return [String] The authenticator in the requested encoding (default raw)
+      def auth(message, authenticator_encoding = :raw)
         authenticator = Util.zeros(BYTES)
         message = message.to_str
         NaCl.crypto_auth_onetime(authenticator, message, message.bytesize, @key)
-        authenticator
-      end
-
-      # Compute authenticator for message and hex encode it
-      #
-      # @param [#to_str] message the message to authenticate
-      #
-      # @return [String] The authenticator, hex-encoded
-      def hexauth(message)
-        Util.hexencode(auth(message))
+        Encoder[authenticator_encoding].encode(authenticator)
       end
 
       # Verifies the given authenticator with the message.
       #
       # @param [#to_str] authenticator to be checked
       # @param [#to_str] message the message to be authenticated
+      # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
       #
       # @return [Boolean] Was it valid?
-      def verify(authenticator, message)
-        auth = authenticator.to_str
+      def verify(authenticator, message, authenticator_encoding = :raw)
+        auth = Encoder[authenticator_encoding].decode(authenticator)
         return false unless auth.bytesize == BYTES
-        NaCl.crypto_auth_onetime_verify(authenticator, message, message.bytesize, @key)
-      end
-
-      # Verifies the given hex-authenticator with the message.
-      #
-      # @param [#to_str] authenticator to be checked, hex encoded
-      # @param [#to_str] message the message to be authenticated
-      #
-      # @return [Boolean] Was it valid?
-      def hexverify(authenticator, message)
-        verify(Util.hexdecode(authenticator), message)
+        NaCl.crypto_auth_onetime_verify(auth, message, message.bytesize, @key)
       end
 
       private

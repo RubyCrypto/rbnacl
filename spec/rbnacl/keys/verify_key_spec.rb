@@ -5,12 +5,17 @@ describe Crypto::VerifyKey do
 
   let(:message)       { "example message" }
   let(:signature)     { "\e\x88\xB2X\xF67\xDC^\xF4\xA0\x023\a\xF32)\xD4cj%\xA8\x82\xB4\xED\x10\x8B\x19y\xB8r\xAE\xC7\xB1\x88@<OV\xAA\xB4\r]\xDC\xBC\xC1\xBEu5\xA2}\x95f\xA1/\xB5\x17\xC8\xC2\xB6\xB5e7\x00\x01" }
+  let(:hex_signature) { signature.unpack("H*").first }
   let(:bad_signature) { sig = signature; sig[0] = (sig[0].ord + 1).chr; sig }
 
   subject { Crypto::SigningKey.new(signing_key_bytes).verify_key }
 
   it "verifies correct signatures" do
     subject.verify(message, signature).should be_true
+  end
+
+  it "verifies correct hex signatures" do
+    subject.verify(message, hex_signature, :hex).should be_true
   end
 
   it "detects bad signatures" do
@@ -25,15 +30,15 @@ describe Crypto::VerifyKey do
     subject.to_bytes.should eq verify_key_bytes
   end
 
-  it "serializes to hex", :pending => "api discussion" do
-    subject.to_hex.should eq verify_key_hex
+  it "serializes to hex" do
+    subject.to_s(:hex).should eq verify_key_hex
   end
 
   it "initializes from bytes" do
     described_class.new(verify_key_bytes).to_bytes.should eq verify_key_bytes
   end
 
-  it "initializes from hex", :pending => "api discussion" do
-    described_class.new(verify_key_hex).to_bytes.should eq verify_key_bytes
+  it "initializes from hex" do
+    described_class.new(verify_key_hex, :hex).to_bytes.should eq verify_key_bytes
   end
 end
