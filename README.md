@@ -97,9 +97,12 @@ Box works similarly to GPG: anyone can publish a public key, and
 if you have someone's public key, you can put messages into the
 box, but once closed, only the holder of the private key can open it.
 However, unlike GPG, the box is defined by two pairs of keys (yours and
-theirs) so they need your public key to open the box, too.  This
-provides assurance the box came from you and that it has not been tampered
-with.
+theirs) so they need your public key to open the box, too. By checking
+both sets of keys, you're assured the box came from who you were expecting
+and that it has not been tampered with. This bidirectional guarantee
+around identity is known as [mutual authentication][mutualauth].
+
+[mutualauth]: http://en.wikipedia.org/wiki/Mutual_authentication
 
 TODO: Write Box instructions here
 
