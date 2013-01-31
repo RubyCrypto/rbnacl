@@ -153,6 +153,5 @@ That said, it's probably still a million times better than OpenSSL...
 
 ## License
 
-Copyright (c) 2013 Tony Arcieri, Jonathan Stott
-Distributed under the MIT License. See
-LICENSE.txt for further details.
+Copyright (c) 2013 Tony Arcieri, Jonathan Stott.
+Distributed under the MIT License. See LICENSE.txt for further details.
