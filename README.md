@@ -9,7 +9,10 @@ is a crypto library.
 On a completely unrelated topic, RbNaCl is also the empirical formula for
 Rubidium Sodium Chloride.
 
+Need help with RbNaCl? Join the [RbNaCl Google Group][group]
+
 [nacl]: http://nacl.cr.yp.to/
+[group]: http://groups.google.com/group/rbnacl
 
 ## Why NaCl?
 
@@ -34,6 +37,19 @@ NaCl also uses state-of-the-art encryption, including Curve25519 elliptic
 curves and the XSalsa20 stream cipher. This means with NaCl you not only get
 a system which is designed to be secure-by-default, you also get one which
 is extremely fast with comparatively small cryptographic keys.
+
+## Supported platforms
+
+You can use RbNaCl anywhere you can get libsodium installed (see below).
+RbNaCl is continuously integration tested on the following Ruby VMs:
+
+* MRI 1.8 / REE
+* MRI 1.9 (YARV)
+* JRuby 1.7 (in both 1.8/1.9 mode)
+* Rubinius HEAD (in both 1.8/1.9 mode)
+
+In theory Windows should be supported, although there are not yet any
+reports of successful windows users.
 
 ## Installation
 
