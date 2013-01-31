@@ -29,9 +29,12 @@ module Crypto
     # Create a SigningKey from a seed value
     #
     # @param seed [String] Random 32-byte value (i.e. private key)
+    # @param encoding [Symbol] Parse seed with the given encoding
     #
     # @return [Crypto::SigningKey] Key which can sign messages
-    def initialize(seed)
+    def initialize(seed, encoding = :raw)
+      seed = Encoder[encoding].decode(seed)
+
       if seed.bytesize != NaCl::SECRETKEYBYTES
         raise ArgumentError, "seed must be exactly #{NaCl::SECRETKEYBYTES} bytes"
       end
@@ -48,23 +51,27 @@ module Crypto
     # Sign a message using this key
     #
     # @param message [String] Message to be signed by this key
+    # @param encoding [Symbol] Encode signature in the given format
     #
     # @return [String] Signature as bytes 
-    def sign(message)
+    def sign(message, encoding = :raw)
       buffer = Util.prepend_zeros(NaCl::SIGNATUREBYTES, message)
       buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
       NaCl.crypto_sign(buffer, buffer_len, message, message.bytesize, @signing_key)
 
-      buffer[0, NaCl::SIGNATUREBYTES]
+      signature = buffer[0, NaCl::SIGNATUREBYTES]
+      Encoder[encoding].encode(signature)
     end
 
-    def to_bytes
-      @seed.dup
+    def to_bytes; @seed; end
+
+    def to_s(encoding = :raw)
+      Encoder[encoding].encode(to_bytes)
     end
 
     def inspect
-      "#<#{self.class}:#{@seed.unpack("H*").first}>"
+      "#<#{self.class}:#{to_s(:hex)}>"
     end
   end
 end

@@ -19,19 +19,19 @@ describe Crypto::SigningKey do
     subject.sign(message).should eq signature_bytes
   end
 
-  it "signs messages as hex", :pending => "api discussion" do
-    subject.hexsign(message).should eq signature_hex
+  it "signs messages as hex" do
+    subject.sign(message, :hex).should eq signature_hex
+  end
+
+  it "initializes from hex" do
+    described_class.new(signing_key_hex, :hex).to_bytes.should eq signing_key_bytes
+  end
+
+  it "serializes to hex" do
+    subject.to_s(:hex).should eq signing_key_hex
   end
 
   it "serializes to bytes" do
     subject.to_bytes.should eq signing_key_bytes
-  end
-
-  it "serializes to hex", :pending => "api discussion" do
-    subject.to_hex.should eq signing_key_hex
-  end
-
-  it "initializes from hex", :pending => "api discussion" do
-    described_class.new(signing_key_hex).to_bytes.should eq signing_key_bytes
   end
 end
