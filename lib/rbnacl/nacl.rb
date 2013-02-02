@@ -33,6 +33,11 @@ module Crypto
                        :crypto_hash_sha256_ref,
                        [:pointer, :string, :long_long]
 
+    SHA512BYTES = 64
+    wrap_nacl_function :crypto_hash_sha512,
+                       :crypto_hash_sha512_ref,
+                       [:pointer, :string, :long_long]
+
     PUBLICKEYBYTES = 32
     SECRETKEYBYTES = 32
     wrap_nacl_function :crypto_box_keypair,
