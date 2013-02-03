@@ -149,7 +149,27 @@ TODO: Write Authenticator instructions here
 
 ### Hash functions
 
-TODO: Write hash instructions here
+Cryptographic hash functions compute a fixed length string, the message digest.
+Even a small change in the input data should produce a large change in the
+digest, and it is 'very difficult' to create two messages with the same digest.
+
+A cryptographic hash can be used for checking the integrity of data, but there
+is no secret involved in the hashing, so anyone can create the hash of a given
+message.
+
+``` ruby
+# compute the SHA-256 digest of the message.
+Crypto::Hash.sha256(message)
+#=> "..." # a string of bytes.
+
+# compute the SHA-512 digest of the message and hex-encode it.
+Crypto::Hash.sha512(message, :hex)
+#=> "ab67..." # a string of hexidecimal bytes.
+```
+
+#### Algorithm Details
+
+* **SHA-256** and **SHA-512**
 
 ---
 
