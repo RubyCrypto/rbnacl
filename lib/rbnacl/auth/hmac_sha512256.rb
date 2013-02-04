@@ -41,12 +41,12 @@ module Crypto
       # Verifies the given authenticator with the message.
       #
       # @param [#to_str] key the key used for the authenticator
-      # @param [#to_str] authenticator to be checked
       # @param [#to_str] message the message to be authenticated
+      # @param [#to_str] authenticator to be checked
       #
       # @return [Boolean] Was it valid?
-      def self.verify(key, authenticator, message)
-        new(key).verify(authenticator, message)
+      def self.verify(key, message, authenticator)
+        new(key).verify(message, authenticator)
       end
 
       # Compute authenticator for message
@@ -64,12 +64,12 @@ module Crypto
 
       # Verifies the given authenticator with the message.
       #
-      # @param [#to_str] authenticator to be checked
       # @param [#to_str] message the message to be authenticated
+      # @param [#to_str] authenticator to be checked
       # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
       #
       # @return [Boolean] Was it valid?
-      def verify(authenticator, message, authenticator_encoding = :raw)
+      def verify(message, authenticator, authenticator_encoding = :raw)
         auth = Encoder[authenticator_encoding].decode(authenticator)
         return false unless auth.bytesize == BYTES
         NaCl.crypto_auth_hmacsha512256_verify(auth, message, message.bytesize, @key)
