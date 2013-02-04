@@ -81,9 +81,36 @@ Or install it yourself as:
 ### Authenticated secret-key encryption: Crypto::SecretBox
 
 Think of SecretBox like a safe: you can put information inside of
-it, and anyone with the combination can open it.
+it, and anyone with the combination can open it.  Also, like any
+high security safe, any attempts to tamper with the safe or its
+contents will be detected.
 
-TODO: Write SecretBox usage instructions here
+``` ruby
+# generate a secret key (or perhaps use scrypt or PBKDF2)
+key = Crypto::Random.random_bytes(Crypto::SecretBox::KEYBYTES)
+
+# initialize the box
+crypto_secret_box = Crypto::SecretBox.new(key)
+
+# encrypt a message using the box.
+# First, make a nonce.  One simple strategy is to use 24 random bytes.
+# The nonce isn't secret, and can be sent with the ciphertext.
+nonce = Crypto::Random.random_bytes(24)
+message = "..."
+ciphertext = crypto_secret_box.box(nonce, message)
+#=> "..." # string of random looking bytes, 16 bytes longer than message
+
+# decrypt a message
+# NB: Same nonce used here.
+decrypted_message = crypto_secret_box.open(nonce, ciphertext)
+#=> "..."
+
+# But if the ciphertext has been tampered with:
+crypto_secret_box.open(nonce, corrupted_ciphertext)
+#=> Crypto::CryptoError exception is raised.
+# Chosen ciphertext attacks are prevented.
+```
+
 
 #### Algorithm details:
 * **Encryption**: XSalsa20 stream cipher
