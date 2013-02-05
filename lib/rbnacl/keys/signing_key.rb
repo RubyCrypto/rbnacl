@@ -64,12 +64,24 @@ module Crypto
       Encoder[encoding].encode(signature)
     end
 
+    # Return the raw seed value of this key
+    #
+    # @return [String] seed used to create this public key
     def to_bytes; @seed; end
 
+    # Return a string representation of this key, possibly encoded into a
+    # given serialization format.
+    #
+    # @param encoding [String] string encoding format in which to encode the key
+    #
+    # @return [String] key encoded in the specified format
     def to_s(encoding = :raw)
       Encoder[encoding].encode(to_bytes)
     end
 
+    # Inspect this key
+    #
+    # @return [String] a string representing this key
     def inspect
       "#<#{self.class}:#{to_s(:hex)}>"
     end
