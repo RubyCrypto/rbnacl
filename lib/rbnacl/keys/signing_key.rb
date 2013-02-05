@@ -29,7 +29,7 @@ module Crypto
     # Create a SigningKey from a seed value
     #
     # @param seed [String] Random 32-byte value (i.e. private key)
-    # @param encoding [Symbol] Parse seed with the given encoding
+    # @param encoding [Symbol] Parse seed from the given encoding
     #
     # @return [Crypto::SigningKey] Key which can sign messages
     def initialize(seed, encoding = :raw)
@@ -66,7 +66,7 @@ module Crypto
 
     # Return the raw seed value of this key
     #
-    # @return [String] seed used to create this public key
+    # @return [String] seed used to create this key
     def to_bytes; @seed; end
 
     # Return a string representation of this key, possibly encoded into a
