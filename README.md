@@ -152,11 +152,58 @@ use your private signing key to sign messages. Others who have your
 public key can then use it to validate that your messages are actually
 authentic.
 
-TODO: Write Ed25519 instructions here
+#### Signer's perspective (Crypto::SigningKey):
+
+```ruby
+# Generate a new random signing key
+signing_key = Crypto::SigningKey.generate
+
+# Sign a message with the signing key
+# Signature will be returned in hex format
+signature = signing_key.sign(message, :hex)
+
+# Obtain the verify key for a given signing key
+verify_key = signing_key.verify_key
+
+# Serialize the verify key to send it to a third party
+# Verify key will be returned in hex format
+verify_key.to_s(:hex)
+```
+
+#### Verifier's perspective (Crypto::VerifyKey):
+
+```ruby
+# Create a VerifyKey object from a hex serialized public key
+verify_key = Crypto::VerifyKey.new(verify_key_hex, :hex)
+
+# Check the validity of a message's signature
+# Will raise Crypto::BadSignatureError if the signature check fails
+verify_key.verify!(message, signature, :hex)
+```
 
 #### Algorithm details:
 * **Signatures**: Ed25519 signature system
 * **Public Keys**: Curve25519 elliptic curves
+
+#### Security features:
+
+* **Small keys**: Ed25519 keys are only 256-bits (32 bytes), making them
+  small enough to easily copy around. Ed25519 also allows the public key
+  to be derived from the private key, meaning that it doesn't need to be
+  included in a serialized private key in cases you want both.
+* **Small signatures**: Ed25519 signatures are only 512-bits (64 bytes),
+  one of the smallest signature sizes available.
+* **Deterministic**: Unlike (EC)DSA, Ed25519 does not rely on an entropy
+  source when signing messages, but instead computes signature nonces from
+  a combination of a hash of the signing key's "seed" and the message to
+  be signed. This avoids using an entropy source for nonces, which can be
+  a potential attack vector if the entropy source is not generating good
+  random numbers. Even a single reused nonce can lead to a complete disclosure
+  of the private key in these schemes, which Ed25519 avoids entirely by being
+  deterministic instead of tied to an entropy source.
+* ***Collision Resistant***: Hash-function collisions do not break this
+  system. This adds a layer of defense against the possibility of weakness
+  in the selected hash function.
 
 ---
 
