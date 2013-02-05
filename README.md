@@ -98,7 +98,8 @@ crypto_secret_box = Crypto::SecretBox.new(key)
 nonce = Crypto::Random.random_bytes(24)
 message = "..."
 ciphertext = crypto_secret_box.box(nonce, message)
-#=> "..." # string of random looking bytes, 16 bytes longer than message
+#=> "..." # string of random looking bytes, 16 bytes longer than message.
+# The extra 16-bytes are the authenticator
 
 # decrypt a message
 # NB: Same nonce used here.
@@ -108,7 +109,7 @@ decrypted_message = crypto_secret_box.open(nonce, ciphertext)
 # But if the ciphertext has been tampered with:
 crypto_secret_box.open(nonce, corrupted_ciphertext)
 #=> Crypto::CryptoError exception is raised.
-# Chosen ciphertext attacks are prevented.
+# Chosen ciphertext attacks are prevented by authentication and constant-time comparisons
 ```
 
 
