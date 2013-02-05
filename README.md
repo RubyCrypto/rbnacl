@@ -247,6 +247,40 @@ Crypto::Hash.sha512(message, :hex)
 
 ---
 
+### Encoding system: Crypto::Encoder
+
+RbNaCl supports a simple pluggable system for serializing messages in different
+string encoding formats. Formats are identified as symbols and are typically
+passed as the last argument to functions dealing with instantiating keys,
+encrypting/decrypting, or signing messages.
+
+The following formats are built-in:
+
+* **:raw**: serialization as raw bytes with no additional string encoding
+* **:hex**: serializes bytes as hexadecimal. Commonly used but relatively long
+* **:base32**: (requires the base32 gem) URL-safe and relatively compact
+* **:base64**: highly compact but not URL-safe
+
+Below is an example of how to define an encoder. This is a hex encoder:
+
+```ruby
+class HexEncoder < Crypto::Encoder
+  register :hex
+
+  # Encode a message as hexadecimal
+  def encode(bytes)
+    bytes.to_s.unpack("H*").first
+  end
+
+  # Decode a message from hexadecimal
+  def decode(hex)
+    [hex.to_s].pack("H*")
+  end
+end
+```
+
+---
+
 ### Utilities
 
 There are some helpful functions for performing common tasks in cryptography.  These include random data generation (for example, for key material) using the operating system random source and constant-time comparisons of strings, to avoid exposing information through timing attacks.
