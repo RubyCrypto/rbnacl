@@ -201,7 +201,7 @@ verify_key.verify!(message, signature, :hex)
   random numbers. Even a single reused nonce can lead to a complete disclosure
   of the private key in these schemes, which Ed25519 avoids entirely by being
   deterministic instead of tied to an entropy source.
-* ***Collision Resistant***: Hash-function collisions do not break this
+* **Collision Resistant**: Hash-function collisions do not break this
   system. This adds a layer of defense against the possibility of weakness
   in the selected hash function.
 
