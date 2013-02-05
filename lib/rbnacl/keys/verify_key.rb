@@ -35,8 +35,8 @@ module Crypto
     # It's like a legal document, with the signature at the end.
     #
     # @param message [String] Message to be authenticated
-    # @param message [String] Alleged signature to be checked
-    # @param encoding [Symbol] Parse signature from the given encoding
+    # @param signature [String] Alleged signature to be checked
+    # @param signature_encoding [Symbol] Parse signature from the given encoding
     #
     # @return [Boolean] was the signature authentic?
     def verify(message, signature, signature_encoding = :raw)
@@ -62,8 +62,8 @@ module Crypto
     # The arguments are otherwise the same as the verify method.
     #
     # @param message [String] Message to be authenticated
-    # @param message [String] Alleged signature to be checked
-    # @param encoding [Symbol] Parse signature from the given encoding
+    # @param signature [String] Alleged signature to be checked
+    # @param signature_encoding [Symbol] Parse signature from the given encoding
     #
     # @return [true] Will raise BadSignatureError if signature check fails
     def verify!(message, signature, signature_encoding = :raw)
@@ -78,7 +78,7 @@ module Crypto
     # Return a string representation of this key, possibly encoded into a
     # given serialization format.
     #
-    # @param encoding [String] string encoding format in which to encode the key
+    # @param encoding [Symbol] string encoding format in which to encode the key
     #
     # @return [String] key encoded in the specified format
     def to_s(encoding = :raw)
