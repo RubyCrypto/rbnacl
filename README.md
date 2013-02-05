@@ -185,7 +185,7 @@ verify_key.verify!(message, signature, :hex)
 * **Signatures**: Ed25519 signature system
 * **Public Keys**: Curve25519 elliptic curves
 
-#### Security features:
+#### Algorithm features:
 
 * **Small keys**: Ed25519 keys are only 256-bits (32 bytes), making them
   small enough to easily copy around. Ed25519 also allows the public key
