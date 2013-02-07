@@ -120,5 +120,11 @@ module Crypto
     wrap_nacl_function :crypto_sign_open,
                        :crypto_sign_ed25519_ref_open,
                        [:pointer, :pointer, :pointer, :long_long, :pointer]
+
+    SCALARBYTES = 32
+
+    wrap_nacl_function :crypto_scalarmult,
+                       :crypto_scalarmult_curve25519_ref,
+                       [:pointer, :pointer, :pointer]
   end
 end
