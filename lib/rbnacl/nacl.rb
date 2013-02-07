@@ -123,8 +123,8 @@ module Crypto
 
     SCALARBYTES = 32
 
-    wrap_nacl_function :crypto_scalarmult_base,
-                       :crypto_scalarmult_curve25519_ref_base,
-                       [:pointer, :pointer]
+    wrap_nacl_function :crypto_scalarmult,
+                       :crypto_scalarmult_curve25519_ref,
+                       [:pointer, :pointer, :pointer]
   end
 end

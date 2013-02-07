@@ -5,42 +5,50 @@ module Crypto
   #
   # Generally you shouldn't need to use Scalars directly. Rather, they are
   # leveraged elsewhere in RbNaCl
-  class Scalar
-    # Create a new Scalar from a 32-byte value
-    #
-    # @param value [String] Random 32-byte value (i.e. private key)
-    # @param encoding [Symbol] Parse value with the given encoding
-    #
-    # @return [Crypto::Scalar] Object representing Curve25519 scalars
-    def initialize(value, encoding = :raw)
-      @value = Encoder[encoding].decode(value)
+  module Scalar
+    # Expose all methods on the Scalar module itself
+    module_function
 
-      if @value.bytesize != NaCl::SCALARBYTES
-        raise ArgumentError, "value must be exactly #{NaCl::SCALARBYTES} bytes"
-      end
-    end
+    # Standard group element used for computing Curve25519 public keys
+    STANDARD_GROUP_ELEMENT = "\t\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0".freeze
 
-    # Computes the scalar product of a standard group element (i.e. constant
-    # hardcoded into NaCl) and this scalar object.
+    # Computes the scalar product of a group element and an integer. This is
+    # useful for algorithms like Diffie-Hellman.
     #
-    # @param encoding [Symbol] Encode computed group element in this format
+    # @param value [String] 32-byte integer value
+    # @param group_element [String] 32-byte group element
+    # @param encoding [Symbol] Use the given encoding for input/output
     #
     # @return [String] New group element, serialized in the given format
-    def mult_base(encoding = :raw)
+    def mult(value, group_element, encoding = :raw)
+      value         = Encoder[encoding].decode(value)
+      group_element = Encoder[encoding].decode(group_element)
+
+      if value.bytesize != NaCl::SCALARBYTES
+        raise ArgumentError, "integer value must be exactly #{NaCl::SCALARBYTES} bytes"
+      end
+
+      if group_element.bytesize != NaCl::SCALARBYTES
+        raise ArgumentError, "group element must be exactly #{NaCl::SCALARBYTES} bytes"
+      end
+
       result = Util.zeros(NaCl::SCALARBYTES)
-      NaCl.crypto_scalarmult_base(result, @value)
+      NaCl.crypto_scalarmult(result, value, group_element)
 
       Encoder[encoding].encode(result)
     end
 
-    def to_bytes; @value; end
-
-    def to_s(encoding = :raw)
-      Encoder[encoding].encode(to_bytes)
-    end
-
-    def inspect
-      "#<#{self.class}:#{to_s(:hex)}>"
+    # Computes the scalar product of a standard group element (i.e. constant
+    # hardcoded into NaCl) and the given integer. The standard group element
+    # is used for computing all Curve25519 public keys used by other NaCl
+    # algorithms (e.g. Crypto::Box, Crypto::SigningKey/VerifyKey)
+    #
+    # @param value [String] 32-byte value (i.e. private key)
+    # @param encoding [Symbol] Use the given encoding for input/output
+    #
+    # @return [String] New group element, serialized in the given format
+    def mult_base(value, encoding = :raw)
+      mult(value, STANDARD_GROUP_ELEMENT, encoding)
     end
   end
 end
