@@ -15,17 +15,13 @@ module Crypto
     # Computes the scalar product of a group element and an integer. This is
     # useful for algorithms like Diffie-Hellman.
     #
-    # @param value [String] 32-byte integer value
+    # @param scalar [String] 32-byte integer value
     # @param group_element [String] 32-byte group element
-    # @param encoding [Symbol] Use the given encoding for input/output
     #
-    # @return [String] New group element, serialized in the given format
-    def mult(value, group_element, encoding = :raw)
-      value         = Encoder[encoding].decode(value)
-      group_element = Encoder[encoding].decode(group_element)
-
-      if value.bytesize != NaCl::SCALARBYTES
-        raise ArgumentError, "integer value must be exactly #{NaCl::SCALARBYTES} bytes"
+    # @return [String] New group element, serialized as bytes
+    def mult(scalar, group_element)
+      if scalar.bytesize != NaCl::SCALARBYTES
+        raise ArgumentError, "scalar value must be exactly #{NaCl::SCALARBYTES} bytes"
       end
 
       if group_element.bytesize != NaCl::SCALARBYTES
@@ -33,9 +29,9 @@ module Crypto
       end
 
       result = Util.zeros(NaCl::SCALARBYTES)
-      NaCl.crypto_scalarmult(result, value, group_element)
+      NaCl.crypto_scalarmult(result, scalar, group_element)
 
-      Encoder[encoding].encode(result)
+      result
     end
 
     # Computes the scalar product of a standard group element (i.e. constant
@@ -43,12 +39,11 @@ module Crypto
     # is used for computing all Curve25519 public keys used by other NaCl
     # algorithms (e.g. Crypto::Box, Crypto::SigningKey/VerifyKey)
     #
-    # @param value [String] 32-byte value (i.e. private key)
-    # @param encoding [Symbol] Use the given encoding for input/output
+    # @param scalar [String] 32-byte value (e.g. private key)
     #
-    # @return [String] New group element, serialized in the given format
-    def mult_base(value, encoding = :raw)
-      mult(value, STANDARD_GROUP_ELEMENT, encoding)
+    # @return [String] New group element, serialized as bytes
+    def mult_base(scalar)
+      mult(scalar, STANDARD_GROUP_ELEMENT)
     end
   end
 end
