@@ -12,12 +12,22 @@ module Crypto
     # The size of the key, in bytes
     SIZE = Crypto::NaCl::SECRETKEYBYTES
 
-    def initialize(private_key, public_key = nil)
-      @private_key = private_key
+    # Initializes a new PrivateKey for key operations.
+    #
+    # Takes the (optionally encoded) private key bytes.  This class can then be
+    # used for various key operations, including deriving the corresponding
+    # PublicKey
+    #
+    # @param private_key [String] The private key
+    # @param key_encoding [Symbol] The encoding of the key
+    #
+    # @raise [ArgumentError] If the key is not valid after decoding.
+    #
+    # @return A new PrivateKey
+    def initialize(private_key, key_encoding = :raw)
+      @private_key = Crypto::Encoder[key_encoding].decode(private_key)
 
       raise ArgumentError, "PrivateKey must be #{SIZE} bytes long" unless valid?
-
-      @public_key = PublicKey.new(public_key) if public_key
     end
 
     # Generates a new keypair
@@ -29,11 +39,11 @@ module Crypto
       pk = Util.zeros(NaCl::PUBLICKEYBYTES)
       sk = Util.zeros(NaCl::SECRETKEYBYTES)
       NaCl.crypto_box_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
-      new(sk, pk)
+      new(sk)
     end
 
     def inspect
-      "#<Crypto::PrivateKey:#{to_hex}>" # a bit dangerous, but okay.
+      "#<Crypto::PrivateKey:#{to_s(:hex)}>" # a bit dangerous, but okay.
     end
 
     # The raw bytes of the key
@@ -42,20 +52,22 @@ module Crypto
     def to_bytes
       @private_key
     end
-    alias_method :to_s, :to_bytes
-
-    # hex encoding of the key
+    
+    # Return a string representation of this key, possibly encoded into a
+    # given serialization format.
     #
-    # @return [String] the key, hex encoded.
-    def to_hex
-      to_bytes.unpack("H*").first
+    # @param encoding [String] string encoding format in which to encode the key
+    #
+    # @return [String] key encoded in the specified format
+    def to_s(encoding = :raw)
+      Encoder[encoding].encode(to_bytes)
     end
 
     # the public key associated with this private key
     #
     # @return [PublicKey] the key
     def public_key
-      @public_key
+      @public_key ||= PublicKey.new(Scalar.mult_base(to_bytes))
     end
 
     # Is the given key possibly a valid private key?
