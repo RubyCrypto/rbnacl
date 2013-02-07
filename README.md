@@ -38,6 +38,9 @@ curves and the XSalsa20 stream cipher. This means with NaCl you not only get
 a system which is designed to be secure-by-default, you also get one which
 is extremely fast with comparatively small cryptographic keys.
 
+For more information on NaCl's goals, see Dan Bernstein's presentation
+[Blaming the Cryptographic User](http://cr.yp.to/talks/2012.08.08/slides.pdf).
+
 ## Supported platforms
 
 You can use RbNaCl anywhere you can get libsodium installed (see below).
