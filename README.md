@@ -227,69 +227,6 @@ verify_key.verify!(message, signature, :hex)
 
 ---
 
-### Scalar multiplication
-
-![Here be DRAGONS](https://raw.github.com/cryptosphere/rbnacl/master/dragons.png)
-
-**WARNING**: Power-user feature. Not for the faint-at-heart.
-
-Scalars provide direct access to the high-speed elliptic curve cryptography
-(Curve25519) available in NaCl. It's a cryptographic power tool probably not
-for the consumption of mere mortals like most of the rest of what's provided
-in NaCl.
-
-There are a few interesting use cases you may consider using the scalar
-multiplication API for though:
-
-#### Calculating public keys from private keys
-
-**Note:** this functionality is already provided at a high level using the
-`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
-
-Unlike systems like RSA where keys must always be stored in keypairs,
-NaCl allows you to store only the private key, and in cases where you
-would like the corresponding public key, you can use the scalar
-multiplication API to calculate it for you:
-
-```ruby
-public_key_bytes = Crypto::Scalar.mult_base(private_key_bytes)
-```
-
-
-#### Diffie-Hellman
-
-**Note:** this functionality is already provided at a high level using the
-`Crypto::Box` class.  This class also provides a mechanism for exchanging
-encrypted and authenticated messages.
-
-
-The scalar multiplication function can be used as part of a
-[Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
-key exchange in which a shared session key is computed from an exchange of
-public keys.
-
-For example, Alice and Bob want to set up a shared private secret
-(e.g. a session key for a cryptographic transport protocol)
-
-Alice and Bob exchange public keys. Alice can now compute a
-shared secret with:
-
-```ruby
-shared_secret = Crypto::Scalar.mult(alice_private_key, bob_public_key)
-```
-
-Bob can likewise compute the same shared secret with:
-
-```ruby
-shared_secret = Crypto::Scalar.mult(bob_private_key, alice_public_key)
-```
-
-Together Alice and Bob have now set up a shared secret that can be used
-to set up a session key (e.g. by combining the shared secret value and an
-agreed upon nonce using an algorithm like HKDF)
-
----
-
 ### Authenticators
 
 TODO: Write Authenticator instructions here
@@ -405,6 +342,70 @@ Crypto::Random.random_bytes(32)
 Crypto::Util.verify32(string_one, string_two)
 #=> true/false.  See also verify16 
 ```
+
+---
+
+### Scalar multiplication
+
+![Here be DRAGONS](https://raw.github.com/cryptosphere/rbnacl/master/dragons.png)
+
+**WARNING**: Power-user feature. Not for the faint-at-heart.
+
+Scalars provide direct access to the high-speed elliptic curve cryptography
+(Curve25519) available in NaCl. It's a cryptographic power tool probably not
+for the consumption of mere mortals like most of the rest of what's provided
+in NaCl.
+
+There are a few interesting use cases you may consider using the scalar
+multiplication API for though:
+
+#### Calculating public keys from private keys
+
+**Note:** this functionality is already provided at a high level using the
+`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
+
+Unlike systems like RSA where keys must always be stored in keypairs,
+NaCl allows you to store only the private key, and in cases where you
+would like the corresponding public key, you can use the scalar
+multiplication API to calculate it for you:
+
+```ruby
+public_key_bytes = Crypto::Scalar.mult_base(private_key_bytes)
+```
+
+
+#### Diffie-Hellman
+
+**Note:** this functionality is already provided at a high level using the
+`Crypto::Box` class.  This class also provides a mechanism for exchanging
+encrypted and authenticated messages.
+
+
+The scalar multiplication function can be used as part of a
+[Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
+key exchange in which a shared session key is computed from an exchange of
+public keys.
+
+For example, Alice and Bob want to set up a shared private secret
+(e.g. a session key for a cryptographic transport protocol)
+
+Alice and Bob exchange public keys. Alice can now compute a
+shared secret with:
+
+```ruby
+shared_secret = Crypto::Scalar.mult(alice_private_key, bob_public_key)
+```
+
+Bob can likewise compute the same shared secret with:
+
+```ruby
+shared_secret = Crypto::Scalar.mult(bob_private_key, alice_public_key)
+```
+
+Together Alice and Bob have now set up a shared secret that can be used
+to set up a session key (e.g. by combining the shared secret value and an
+agreed upon nonce using an algorithm like HKDF)
+
 
 ## Security Notes
 
