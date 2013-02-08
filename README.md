@@ -215,6 +215,10 @@ verify_key.verify!(message, signature, :hex)
 
 ### Scalar multiplication
 
+![Here be DRAGONS](https://raw.github.com/cryptosphere/rbnacl/master/dragons.png)
+
+**WARNING**: Power-user feature. Not for the faint-at-heart.
+
 Scalars provide direct access to the high-speed elliptic curve cryptography
 (Curve25519) available in NaCl. It's a cryptographic power tool probably not
 for the consumption of mere mortals like most of the rest of what's provided
