@@ -325,6 +325,21 @@ string encoding formats. Formats are identified as symbols and are typically
 passed as the last argument to functions dealing with instantiating keys,
 encrypting/decrypting, or signing messages.
 
+For example, you can generate a `Crypto::SigningKey` and serialize it as hex:
+
+```ruby
+hex_key = Crypto::SigningKey.generate.to_s(:hex)
+```
+
+Then you can later decode it from hex:
+
+```ruby
+signing_key = Crypto::SigningKey.new(hex_key, :hex)
+```
+
+All components throughout RbNaCl are able to input and output both keys and
+ciphertexts in a variety of encodings using this system.
+
 The following formats are built-in:
 
 * **:raw**: serialization as raw bytes with no additional string encoding
