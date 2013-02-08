@@ -401,10 +401,10 @@ that you read them:
 
 ## Contributing
 
-* Fork this repository on github
-* Make your changes and send me a pull request
-* If I like them I'll merge them
-* If I've accepted a patch, feel free to ask for commit access
+* Fork this repository on Github
+* Make your changes and send a pull request
+* If your changes look good, we'll merge 'em
+* If we've accepted a patch, feel free to ask for commit access
 
 ## License
 
