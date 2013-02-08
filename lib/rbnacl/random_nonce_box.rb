@@ -75,7 +75,7 @@ module Crypto
     def box(message, encoding = :raw)
       nonce = generate_nonce
       cipher_text = @box.box(nonce, message)
-      Encoder[encoding].encode(nonce + message)
+      Encoder[encoding].encode(nonce + cipher_text)
     end
 
     # Decrypts the ciphertext with a random nonce
