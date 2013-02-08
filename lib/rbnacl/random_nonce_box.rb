@@ -18,6 +18,7 @@ module Crypto
   # encrypting tweets, but for files represents a fairly small overhead.
   #
   # Some caveats:
+  #
   # * If your random source is broken, so is the security of the messages.  You
   #   have bigger problems than just this library at that point, but it's worth
   #   saying.
@@ -25,10 +26,12 @@ module Crypto
   #   there is no protection against messages being reordered and replayed by an
   #   active adversary.
   class RandomNonceBox
-    RANDOMNONCE = 24
+    # the size of the nonce
+    NONCEBYTES = NaCl::NONCEBYTES
+
     # Create a new RandomNonceBox
     #
-    # @param box [Crypto::SecretBox, Crypto::Box] the box to use
+    # @param box [SecretBox, Box] the SecretBox or Box to use.
     #
     # @return [RandomNonceBox] Ready for use
     def initialize(box)
@@ -94,11 +97,11 @@ module Crypto
 
     private
     def generate_nonce
-      Random.random_bytes(RANDOMNONCE)
+      Random.random_bytes(NONCEBYTES)
     end
 
     def extract_nonce(bytes)
-      nonce = bytes.slice!(0, RANDOMNONCE)
+      nonce = bytes.slice!(0, NONCEBYTES)
       [nonce, bytes]
     end
   end
