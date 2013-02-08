@@ -195,14 +195,6 @@ verify_key = Crypto::VerifyKey.new(verify_key_hex, :hex)
 verify_key.verify!(message, signature, :hex)
 ```
 
-#### Algorithm details:
-* **Signatures**: Ed25519 signature system
-* **Public Keys**: Curve25519 elliptic curves
-
-#### Algorithm diagram:
-
-![Ed25519 Diagram](https://raw.github.com/cryptosphere/rbnacl/master/ed25519.png)
-
 #### Algorithm features:
 
 * **Small keys**: Ed25519 keys are only 256-bits (32 bytes), making them
@@ -222,6 +214,14 @@ verify_key.verify!(message, signature, :hex)
 * **Collision Resistant**: Hash-function collisions do not break this
   system. This adds a layer of defense against the possibility of weakness
   in the selected hash function.
+
+#### Algorithm details:
+* **Signatures**: Ed25519 signature system
+* **Public Keys**: Curve25519 elliptic curves
+
+#### Algorithm diagram:
+
+![Ed25519 Diagram](https://raw.github.com/cryptosphere/rbnacl/master/ed25519.png)
 
 ---
 
