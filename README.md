@@ -39,7 +39,7 @@ a system which is designed to be secure-by-default, you also get one which
 is extremely fast with comparatively small cryptographic keys.
 
 For more information on NaCl's goals, see Dan Bernstein's presentation
-[Blaming the Cryptographic User](http://cr.yp.to/talks/2012.08.08/slides.pdf).
+[Blaming the Cryptographic User](http://cr.yp.to/talks/2012.08.08/slides.pdf)
 
 ## Supported platforms
 
