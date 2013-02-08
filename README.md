@@ -243,6 +243,9 @@ multiplication API for though:
 
 #### Calculating public keys from private keys
 
+**Note:** this functionality is already provided at a high level using the
+`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
+
 Unlike systems like RSA where keys must always be stored in keypairs,
 NaCl allows you to store only the private key, and in cases where you
 would like the corresponding public key, you can use the scalar
@@ -252,10 +255,13 @@ multiplication API to calculate it for you:
 public_key_bytes = Crypto::Scalar.mult_base(private_key_bytes)
 ```
 
-**Note:** this functionality is already provided at a high level using the
-`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
 
 #### Diffie-Hellman
+
+**Note:** this functionality is already provided at a high level using the
+`Crypto::Box` class.  This class also provides a mechanism for exchanging
+encrypted and authenticated messages.
+
 
 The scalar multiplication function can be used as part of a
 [Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
