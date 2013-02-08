@@ -311,6 +311,20 @@ by professional cryptographers.
 
 That said, it's probably still a million times better than OpenSSL...
 
+## Suggested Reading
+
+While NaCl has designed to be easier-than-usual to use for a crypto
+library, cryptography is an incredibly difficult subject and it's
+always helpful to know as much as you can about it before applying
+it to a particular use case. That said, the creator of NaCl, Dan
+Bernstein, has published a number of papers about NaCl. If you are
+interested in learning more about how NaCl works, it's recommended
+that you read them:
+
+* [Cryptography in NaCl](http://cr.yp.to/highspeed/naclcrypto-20090310.pdf)
+* [Curve25519: new Diffie-Hellman speed records](http://cr.yp.to/ecdh/curve25519-20060209.pdf)
+* [Ed25519: High-speed high-security signatures](http://ed25519.cr.yp.to/ed25519-20110926.pdf)
+
 ## Contributing
 
 * Fork this repository on github
