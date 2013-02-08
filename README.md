@@ -198,6 +198,8 @@ verify_key.verify!(message, signature, :hex)
 * **Signatures**: Ed25519 signature system
 * **Public Keys**: Curve25519 elliptic curves
 
+#### Algorithm diagram:
+
 ![Ed25519 Diagram](https://raw.github.com/cryptosphere/rbnacl/master/ed25519.png)
 
 #### Algorithm features:
