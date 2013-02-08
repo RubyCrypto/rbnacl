@@ -216,10 +216,10 @@ verify_key.verify!(message, signature, :hex)
   in the selected hash function.
 
 #### Algorithm details:
-* **Signatures**: Ed25519 signature system
 * **Public Keys**: Curve25519 elliptic curves
+* **Signatures**: Ed25519 signature system
 
-#### Algorithm diagram:
+#### Algorithm diagram (Ed25519):
 
 ![Ed25519 Diagram](https://raw.github.com/cryptosphere/rbnacl/master/ed25519.png)
 
