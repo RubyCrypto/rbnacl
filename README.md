@@ -431,7 +431,6 @@ that you read them:
 * Fork this repository on Github
 * Make your changes and send a pull request
 * If your changes look good, we'll merge 'em
-* If we've accepted a patch, feel free to ask for commit access
 
 ## License
 
