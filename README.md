@@ -414,7 +414,7 @@ by professional cryptographers.
 
 That said, it's probably still a million times better than OpenSSL...
 
-## Suggested Reading
+## Learn More
 
 While NaCl has designed to be easier-than-usual to use for a crypto
 library, cryptography is an incredibly difficult subject and it's
@@ -427,6 +427,11 @@ that you read them:
 * [Cryptography in NaCl](http://cr.yp.to/highspeed/naclcrypto-20090310.pdf)
 * [Curve25519: new Diffie-Hellman speed records](http://cr.yp.to/ecdh/curve25519-20060209.pdf)
 * [Ed25519: High-speed high-security signatures](http://ed25519.cr.yp.to/ed25519-20110926.pdf)
+
+Have a general interest in cryptography? Check out the free course
+Coursera offers from Stanford University Professor Dan Boneh:
+
+[http://crypto-class.org](http://crypto-class.org)
 
 ## Contributing
 
