@@ -248,7 +248,7 @@ To calculate a scalar which combines a private key and a public key which
 can be shared in the clear as part of a Diffie-Hellman key exchange, we can
 use the `Crypto::Scalar.mult` method:
 
-``ruby
+```ruby
 alice_private_key = "..."
 bob_public_key = "..."
 
