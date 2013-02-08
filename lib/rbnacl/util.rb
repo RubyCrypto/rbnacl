@@ -10,7 +10,10 @@ module Crypto
     #
     # @return [String] A nice collection of zeros
     def self.zeros(n=32)
-      "\0" * n
+      zeros = "\0" * n
+      # make sure they're 8-bit zeros, not 7-bit zeros.  Otherwise we might get
+      # encoding errors later
+      zeros.respond_to?(:force_encoding) ? zeros.force_encoding('ASCII-8BIT') : zeros
     end
 
     # Prepends a message with zeros
