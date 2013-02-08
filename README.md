@@ -267,13 +267,13 @@ use the `Crypto::Scalar.mult` method:
 alice_private_key = "..."
 bob_public_key = "..."
 
-public_value = Crypto::Scalar.mult(alice_private_key, bob_public_key)
+alice_public_value = Crypto::Scalar.mult(alice_private_key, bob_public_key)
 ```
 
 The public value can then be exchanged in the clear. Bob can now compute:
 
 ```ruby
-shared_secret = Crypto::Scalar.mult(bob_private_key, public_value)
+shared_secret = Crypto::Scalar.mult(bob_private_key, alice_public_value)
 ```
 
 and Alice can likewise compute the same from the public value that Bob computed
