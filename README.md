@@ -213,11 +213,60 @@ verify_key.verify!(message, signature, :hex)
 
 ---
 
-### Scalars
+### Scalar multiplication
 
-Scalars provide direct access to the Curve25519 function
+Scalars provide direct access to the high-speed elliptic curve cryptography
+(Curve25519) available in NaCl. It's a cryptographic power tool probably not
+for the consumption of mere mortals like most of the rest of what's provided
+in NaCl.
 
-TODO: Write Scalar instructions here
+There are a few interesting use cases you may consider using the scalar
+multiplication API for though:
+
+#### Calculating public keys from private keys
+
+Unlike systems like RSA where keys must always be stored in keypairs,
+NaCl allows you to store only the private key, and in cases where you
+would like the corresponding public key, you can use the scalar
+multiplication API to calculate it for you:
+
+```ruby
+public_key_bytes = Crypto::Scalar.mult_base(private_key_bytes)
+```
+
+**Note:** this functionality is already provided at a high level using the
+`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
+
+#### Diffie-Hellman
+
+The scalar multiplication function can be used as part of a
+[Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
+key exchange in which a shared session key is computed from an exchange of
+public keys.
+
+To calculate a scalar which combines a private key and a public key which
+can be shared in the clear as part of a Diffie-Hellman key exchange, we can
+use the `Crypto::Scalar.mult` method:
+
+``ruby
+alice_private_key = "..."
+bob_public_key = "..."
+
+public_value = Crypto::Scalar.mult(alice_private_key, bob_public_key)
+```
+
+The public value can then be exchanged in the clear. Bob can now compute:
+
+```ruby
+shared_secret = Crypto::Scalar.mult(bob_private_key, public_value)
+```
+
+and Alice can likewise compute the same from the public value that Bob computed
+by doing the reciprocal operation, using her private key.
+
+Together Alice and Bob have now set up a shared secret that can be used
+to set up a session key (e.g. by combining the shared secret value and an
+agreed upon nonce using an algorithm like HKDF)
 
 ---
 
