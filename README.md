@@ -338,6 +338,27 @@ class HexEncoder < Crypto::Encoder
 end
 ```
 
+#### Base32 support
+
+Base32 encoding is pretty neat! It's relatively compact, easy on the eyes,
+and URL-safe! A serialized Base32 key looks like this:
+
+`txga6qsakmupaibzbout62qpsk647qwdn22fo73wte52pzgvvsya`
+
+To use Base32, add the following to your Gemfile:
+
+```ruby
+gem 'rbnacl'
+gem 'base32'
+```
+
+And require the following in your project:
+
+```ruby
+require 'rbnacl'
+require 'rbnacl/encoders/base32'
+```
+
 ---
 
 ### Utilities
