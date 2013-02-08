@@ -262,25 +262,21 @@ The scalar multiplication function can be used as part of a
 key exchange in which a shared session key is computed from an exchange of
 public keys.
 
-To calculate a scalar which combines a private key and a public key which
-can be shared in the clear as part of a Diffie-Hellman key exchange, we can
-use the `Crypto::Scalar.mult` method:
+For example, Alice and Bob want to set up a shared private secret
+(e.g. a session key for a cryptographic transport protocol)
+
+Alice and Bob exchange public keys. Alice can now compute a
+shared secret with:
 
 ```ruby
-alice_private_key = "..."
-bob_public_key = "..."
-
-alice_public_value = Crypto::Scalar.mult(alice_private_key, bob_public_key)
+shared_secret = Crypto::Scalar.mult(alice_private_key, bob_public_key)
 ```
 
-The public value can then be exchanged in the clear. Bob can now compute:
+Bob can likewise compute the same shared secret with:
 
 ```ruby
-shared_secret = Crypto::Scalar.mult(bob_private_key, alice_public_value)
+shared_secret = Crypto::Scalar.mult(bob_private_key, alice_public_key)
 ```
-
-and Alice can likewise compute the same from the public value that Bob computed
-by doing the reciprocal operation, using her private key.
 
 Together Alice and Bob have now set up a shared secret that can be used
 to set up a session key (e.g. by combining the shared secret value and an
