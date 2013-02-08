@@ -1,5 +1,16 @@
-#!/usr/bin/env ruby
 module Crypto
+  # Cryptographic hash functions
+  #
+  # Cryptographic hash functions take a variable length message and compute a
+  # fixed length string, the message digest. Even a small change in the input
+  # data should produce a large change in the digest, and it is 'very difficult'
+  # to create two messages with the same digest.
+  #
+  # A cryptographic hash can be used for checking the integrity of data, but
+  # there is no secret involved in the hashing, so anyone can create the hash of
+  # a given message.
+  #
+  # RbNaCl provides the SHA-256 and SHA-512 hash functions.
   module Hash
     # Returns the SHA-256 hash of the given data
     #
