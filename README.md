@@ -119,7 +119,7 @@ crypto_secret_box.open(nonce, corrupted_ciphertext)
 
 * **What the algorithm does for you**: ensures data is kept confidential and
   that it cannot be undetectably modified by an attacker
-* ***What the algorithm expects from you***: a unique bit of seed data (a nonce)
+* **What the algorithm expects from you**: a unique bit of seed data (a nonce)
   which is never, ever reused (with the same key)
 * **What happens if you reuse a nonce**: ALL IS LOST! complete loss of the
   confidentiality of your data (provided nonces are reused with the same key).
