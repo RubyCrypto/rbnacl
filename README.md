@@ -1,6 +1,7 @@
 ![RbNaCl](https://raw.github.com/cryptosphere/rbnacl/master/logo.png)
 ======
 [![Build Status](https://travis-ci.org/cryptosphere/rbnacl.png?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/cryptosphere/rbnacl)
 
 A Ruby binding to the state-of-the-art [Networking and Cryptography][nacl]
 library by Daniel J. Bernstein. This is **NOT** Google Native Client. This
