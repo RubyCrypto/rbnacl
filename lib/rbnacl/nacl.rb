@@ -4,6 +4,8 @@ module Crypto
   # This module has all the FFI code hanging off it
   #
   # And that's all it does, really.
+  #
+  # @private
   module NaCl
     extend FFI::Library
     ffi_lib 'sodium'
