@@ -1,4 +1,9 @@
 module Crypto
+  # Oh no, something went wrong!
+  #
+  # This indicates a failure in the operation of a cryptographic primitive such
+  # as authentication failing on an attempt to decrypt a ciphertext.  Classes
+  # in the library may define more specific subclasses.
   class CryptoError < StandardError; end
 end
 
