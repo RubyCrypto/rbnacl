@@ -147,7 +147,51 @@ around identity is known as [mutual authentication][mutualauth].
 
 [mutualauth]: http://en.wikipedia.org/wiki/Mutual_authentication
 
-TODO: Write Box instructions here
+``` ruby
+# generate a private key
+private_key = Crypto::PrivateKey.generate
+
+# send the public key to someone (or everyone)
+public_key  = private_key.public_key
+
+# initialize the box
+crypto_box = Crypto::Box.new(someones_public_key, private_key)
+# the other person does this with your key
+crypto_box = Crypto::Box.new(public_key, someones_private_key)
+# on sending or recieving the first message, the shared key is derived.
+
+# encrypt a message using the box.
+# First, make a nonce.  One simple strategy is to use 24 random bytes.
+# The nonce isn't secret, and can be sent with the ciphertext.
+nonce = Crypto::Random.random_bytes(24)
+message = "..."
+ciphertext = crypto_box.box(nonce, message)
+#=> "..." # string of random looking bytes, 16 bytes longer than message.
+# The extra 16-bytes are the authenticator
+
+# decrypt a message
+# NB: Same nonce used here.
+decrypted_message = crypto_box.open(nonce, ciphertext)
+#=> "..."
+
+# But if the ciphertext has been tampered with:
+crypto_box.open(nonce, corrupted_ciphertext)
+#=> Crypto::CryptoError exception is raised.
+# Chosen ciphertext attacks are prevented by authentication and constant-time comparisons
+```
+
+#### Important Usage Notes
+
+* **What the algorithm does for you**: ensures data is kept confidential and
+  that it cannot be undetectably modified by an attacker, but can be decrypted
+  by both of the private key holders.
+* **What the algorithm expects from you**: a private key which must be kept
+  confidential, a public key from someone else and a unique ("nonce") value each
+  time the Box function is used by **either** party. The Box function must never
+  ever be called with the same key:nonce pair!
+* **What happens if you reuse a nonce**: ALL IS LOST! complete loss of the
+  confidentiality of your data (provided nonces are reused with the same key).
+  Do ***NOT*** let this happen or you are breaking the security of your system.
 
 #### Algorithm details:
 * **Encryption**: XSalsa20 stream cipher
