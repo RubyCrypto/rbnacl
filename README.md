@@ -158,7 +158,7 @@ public_key  = private_key.public_key
 crypto_box = Crypto::Box.new(someones_public_key, private_key)
 # the other person does this with your key
 crypto_box = Crypto::Box.new(public_key, someones_private_key)
-# on sending or recieving the first message, the shared key is derived.
+# on sending or receiving the first message, the shared key is derived.
 
 # encrypt a message using the box.
 # First, make a nonce.  One simple strategy is to use 24 random bytes.
