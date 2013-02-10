@@ -1,4 +1,9 @@
 module Crypto
+  # Secret Key Authenticators
+  #
+  # These provide a means of verifying the integrity of a message, but only
+  # with the knowledge of a shared key.  This can be a preshared key, or one
+  # that is derived through some cryptographic protocol.
   module Auth
     # Computes an authenticator using poly1305
     #
