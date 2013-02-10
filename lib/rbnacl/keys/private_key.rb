@@ -42,6 +42,9 @@ module Crypto
       new(sk)
     end
 
+    # Inspect this key
+    #
+    # @return [String] a string representing this key
     def inspect
       "#<Crypto::PrivateKey:#{to_s(:hex)}>" # a bit dangerous, but okay.
     end

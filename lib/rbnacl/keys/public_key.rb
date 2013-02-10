@@ -25,6 +25,9 @@ module Crypto
       raise ArgumentError, "PublicKey must be #{SIZE} bytes long" unless valid?
     end
 
+    # Inspect this key
+    #
+    # @return [String] a string representing this key
     def inspect
       "#<Crypto::PublicKey:#{to_s(:hex)}>"
     end
