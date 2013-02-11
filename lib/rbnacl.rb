@@ -9,6 +9,7 @@ end
 
 require "rbnacl/nacl"
 require "rbnacl/version"
+require "rbnacl/keys/key_comparator"
 require "rbnacl/keys/private_key"
 require "rbnacl/keys/public_key"
 require "rbnacl/keys/signing_key"

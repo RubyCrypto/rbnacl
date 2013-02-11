@@ -9,6 +9,8 @@ module Crypto
   # this library its a private key, to avoid confusing the issue with the
   # SecretBox, which does symmetric encryption.
   class PrivateKey
+    include KeyComparator
+
     # The size of the key, in bytes
     SIZE = Crypto::NaCl::SECRETKEYBYTES
 
