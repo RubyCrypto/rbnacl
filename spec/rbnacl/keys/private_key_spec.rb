@@ -74,4 +74,10 @@ describe Crypto::PrivateKey do
       sk.to_s.should eq bobsk
     end
   end
+
+  include_examples "key equality" do
+    let(:key) { sk }
+    let(:key_bytes) { bobsk }
+    let(:other_key) { described_class.new(bobpk) }
+  end
 end

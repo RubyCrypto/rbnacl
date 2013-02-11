@@ -4,6 +4,8 @@ module Crypto
   # This class stores the NaCL public key, and provides some convience
   # functions for working with it.
   class PublicKey
+    include KeyComparator
+
     # The size of the key, in bytes
     SIZE = Crypto::NaCl::PUBLICKEYBYTES
 

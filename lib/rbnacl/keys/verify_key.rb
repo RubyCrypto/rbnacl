@@ -9,6 +9,7 @@ module Crypto
   # For more information on the Ed25519 digital signature system, please see
   # the SigningKey documentation.
   class VerifyKey
+    include KeyComparator
     # Create a new VerifyKey object from a serialized public key. The key can
     # be decoded from any serialization format supported by the
     # Crypto::Encoding system.
