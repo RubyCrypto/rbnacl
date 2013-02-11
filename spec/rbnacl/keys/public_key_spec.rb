@@ -49,4 +49,10 @@ describe Crypto::PublicKey do
       pk.to_s(:hex).should eq alicepk_hex
     end
   end
+  
+  include_examples "key equality" do
+    let(:key) { pk }
+    let(:key_bytes) { alicepk }
+    let(:other_key) { described_class.new(alicepk.succ) }
+  end
 end
