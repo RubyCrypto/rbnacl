@@ -17,6 +17,8 @@ module Crypto
   # algorithms like DSA and ECDSA, where poor random number generators can
   # leak enough information to recover the private key.
   class SigningKey
+    include KeyComparator
+
     attr_reader :verify_key
 
     # Generate a random SigningKey

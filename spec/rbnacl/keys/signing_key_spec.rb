@@ -34,4 +34,10 @@ describe Crypto::SigningKey do
   it "serializes to bytes" do
     subject.to_bytes.should eq signing_key_bytes
   end
+  
+  include_examples "key equality" do
+    let(:key_bytes) { signing_key_bytes }
+    let(:key) { described_class.new(key_bytes) }
+    let(:other_key) { described_class.new("B"*32) }
+  end
 end

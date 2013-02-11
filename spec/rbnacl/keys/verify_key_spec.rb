@@ -41,4 +41,10 @@ describe Crypto::VerifyKey do
   it "initializes from hex" do
     described_class.new(verify_key_hex, :hex).to_bytes.should eq verify_key_bytes
   end
+
+  include_examples "key equality" do
+    let(:key_bytes) { verify_key_bytes }
+    let(:key) { described_class.new(key_bytes) }
+    let(:other_key) { described_class.new("B"*32) }
+  end
 end
