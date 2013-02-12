@@ -17,7 +17,7 @@ module Crypto
     #
     # @return [Crypto::Point] New Crypto::Point object
     def initialize(value)
-      value = value.to_s
+      value = value.to_s.dup.freeze
 
       # FIXME: really should have a separate constant here for group element size
       # Group elements and scalars are both 32-bits, but that's for convenience
