@@ -54,7 +54,7 @@ module Crypto
     def check_length(string, length, description)
       if string.nil?
         raise LengthError,
-          "#{description} was #{nil} (Expected #{length.to_int})",
+          "#{description} was nil (Expected #{length.to_int})",
           caller
       end
       
