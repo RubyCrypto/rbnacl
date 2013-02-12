@@ -11,6 +11,8 @@ module Crypto
   # multiply by an arbitrary integer. This is how NaCl computes public
   # keys from private keys.
   class Point
+    include KeyComparator
+
     # Creates a new Point from the given serialization
     #
     # @param value [String] 32-byte value representing a group element
