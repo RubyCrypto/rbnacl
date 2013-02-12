@@ -111,5 +111,8 @@ describe Crypto::Util do
     it "rejects strings which are too long" do
       expect { Crypto::Util.check_length("A"*5, 4, "Test String") }.to raise_error(Crypto::LengthError, "Test String was 5 bytes (Expected 4)")
     end
+    it "rejects nil strings" do
+      expect { Crypto::Util.check_length(nil, 4, "Test String") }.to raise_error(Crypto::LengthError, "Test String was nil (Expected 4)")
+    end
   end
 end

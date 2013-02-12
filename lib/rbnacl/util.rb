@@ -52,6 +52,12 @@ module Crypto
     # @param length [Integer] The desired length
     # @param description [String] Description of the string (used in the error)
     def check_length(string, length, description)
+      if string.nil?
+        raise LengthError,
+          "#{description} was #{nil} (Expected #{length.to_int})",
+          caller
+      end
+      
       if string.bytesize != length.to_int
         raise LengthError,
               "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
