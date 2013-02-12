@@ -1,6 +1,6 @@
 module Crypto
   # NaCl's base point (a.k.a. standard group element), serialized as hex
-  STANDARD_GROUP_ELEMENT = "0900000000000000000000000000000000000000000000000000000000000000"
+  STANDARD_GROUP_ELEMENT = "0900000000000000000000000000000000000000000000000000000000000000".freeze
 
   # Points provide the interface to NaCl's Curve25519 high-speed elliptic
   # curve cryptography, which can be used for implementing Diffie-Hellman
