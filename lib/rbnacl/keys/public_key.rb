@@ -7,7 +7,7 @@ module Crypto
     include KeyComparator
 
     # The size of the key, in bytes
-    SIZE = Crypto::NaCl::PUBLICKEYBYTES
+    BYTES = Crypto::NaCl::PUBLICKEYBYTES
 
     # Initializes a new PublicKey for key operations.
     #
@@ -18,13 +18,12 @@ module Crypto
     # @param public_key [String] The public key
     # @param key_encoding [Symbol] The encoding of the key
     #
-    # @raise [ArgumentError] If the key is not valid after decoding.
+    # @raise [Crypto::LengthError] If the key is not valid after decoding.
     #
     # @return A new PublicKey
     def initialize(public_key, key_encoding = :raw)
       @public_key = Crypto::Encoder[key_encoding].decode(public_key)
-
-      raise ArgumentError, "PublicKey must be #{SIZE} bytes long" unless valid?
+      Util.check_length(@public_key, BYTES, "Public key")
     end
 
     # Inspect this key
@@ -49,31 +48,6 @@ module Crypto
     # @return [String] key encoded in the specified format
     def to_s(encoding = :raw)
       Encoder[encoding].encode(to_bytes)
-    end
-
-    # Is the given key possibly a valid public key?
-    #
-    # This checks the length, and does no other validation. But a public key
-    # is just a 32-byte random number without a private key to check against
-    #
-    # @param [String] key The string to test
-    #
-    # @return [Boolean] Well, is it?
-    def self.valid?(key)
-      return false unless key.respond_to?(:bytesize)
-      key.bytesize == SIZE
-    end
-
-    # Is the given key possibly a valid public key?
-    #
-    # This checks the length, and does no other validation. But a public key
-    # is just a 32-byte random number without a private key to check against
-    #
-    # @param [String] The string to test
-    #
-    # @return [Boolean] Well, is it?
-    def valid?
-      self.class.valid?(@public_key)
     end
   end
 end
