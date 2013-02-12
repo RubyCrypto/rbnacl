@@ -16,16 +16,16 @@ describe Crypto::Util do
     end
 
     it "raises descriptively on a short message in position 1" do
-      expect { Crypto::Util.verify32!(short_msg, msg) }.to raise_error(ArgumentError, /First message was 31 bytes, not 32/)
+      expect { Crypto::Util.verify32!(short_msg, msg) }.to raise_error(Crypto::LengthError)
     end
     it "raises descriptively on a short message in position 2" do
-      expect { Crypto::Util.verify32!(msg, short_msg) }.to raise_error(ArgumentError, /Second message was 31 bytes, not 32/)
+      expect { Crypto::Util.verify32!(msg, short_msg) }.to raise_error(Crypto::LengthError)
     end
     it "raises descriptively on a long message in position 1" do
-      expect { Crypto::Util.verify32!(long_msg, msg) }.to raise_error(ArgumentError, /First message was 33 bytes, not 32/)
+      expect { Crypto::Util.verify32!(long_msg, msg) }.to raise_error(Crypto::LengthError)
     end
     it "raises descriptively on a long message in position 2" do
-      expect { Crypto::Util.verify32!(msg, long_msg) }.to raise_error(ArgumentError, /Second message was 33 bytes, not 32/)
+      expect { Crypto::Util.verify32!(msg, long_msg) }.to raise_error(Crypto::LengthError)
     end
   end
   
@@ -68,16 +68,16 @@ describe Crypto::Util do
     end
 
     it "raises descriptively on a short message in position 1" do
-      expect { Crypto::Util.verify16!(short_msg, msg) }.to raise_error(ArgumentError, /First message was 15 bytes, not 16/)
+      expect { Crypto::Util.verify16!(short_msg, msg) }.to raise_error(Crypto::LengthError)
     end
     it "raises descriptively on a short message in position 2" do
-      expect { Crypto::Util.verify16!(msg, short_msg) }.to raise_error(ArgumentError, /Second message was 15 bytes, not 16/)
+      expect { Crypto::Util.verify16!(msg, short_msg) }.to raise_error(Crypto::LengthError)
     end
     it "raises descriptively on a long message in position 1" do
-      expect { Crypto::Util.verify16!(long_msg, msg) }.to raise_error(ArgumentError, /First message was 17 bytes, not 16/)
+      expect { Crypto::Util.verify16!(long_msg, msg) }.to raise_error(Crypto::LengthError)
     end
     it "raises descriptively on a long message in position 2" do
-      expect { Crypto::Util.verify16!(msg, long_msg) }.to raise_error(ArgumentError, /Second message was 17 bytes, not 16/)
+      expect { Crypto::Util.verify16!(msg, long_msg) }.to raise_error(Crypto::LengthError)
     end
   end
   

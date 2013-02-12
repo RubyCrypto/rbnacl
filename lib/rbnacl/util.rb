@@ -95,8 +95,8 @@ module Crypto
     #
     # @return [Boolean] Well, are they equal?
     def verify32!(one, two)
-      raise(ArgumentError, "First message was #{one.bytesize} bytes, not 32") unless one.bytesize == 32
-      raise(ArgumentError, "Second message was #{two.bytesize} bytes, not 32") unless two.bytesize == 32
+      check_length(one, 32, "First message")
+      check_length(two, 32, "Second message")
       NaCl.crypto_verify_32(one, two)
     end
 
@@ -128,8 +128,8 @@ module Crypto
     #
     # @return [Boolean] Well, are they equal?
     def verify16!(one, two)
-      raise(ArgumentError, "First message was #{one.bytesize} bytes, not 16") unless one.bytesize == 16
-      raise(ArgumentError, "Second message was #{two.bytesize} bytes, not 16") unless two.bytesize == 16
+      check_length(one, 16, "First message")
+      check_length(two, 16, "Second message")
       NaCl.crypto_verify_16(one, two)
     end
   end
