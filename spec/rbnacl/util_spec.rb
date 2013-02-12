@@ -101,4 +101,15 @@ describe Crypto::Util do
       Crypto::Util.verify16(msg, long_msg).should be false
     end
   end
+  context "check_length" do
+    it "accepts strings of the correct length" do
+      expect { Crypto::Util.check_length("A"*4, 4, "Test String") }.not_to raise_error
+    end
+    it "rejects strings which are too short" do
+      expect { Crypto::Util.check_length("A"*3, 4, "Test String") }.to raise_error(Crypto::LengthError, "Test String was 3 bytes (Expected 4)")
+    end
+    it "rejects strings which are too long" do
+      expect { Crypto::Util.check_length("A"*5, 4, "Test String") }.to raise_error(Crypto::LengthError, "Test String was 5 bytes (Expected 4)")
+    end
+  end
 end

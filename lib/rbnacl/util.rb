@@ -41,6 +41,25 @@ module Crypto
       message.slice!(n, message.bytesize - n)
     end
 
+    # Check the length of the passed in string
+    #
+    # In several places through the codebase we have to be VERY strict with
+    # what length of string we accept.  This method supports that.
+    #
+    # @raise [Crypto::LengthError] If the string is not the right length
+    #
+    # @param string [String] The string to compare
+    # @param length [Integer] The desired length
+    # @param description [String] Description of the string (used in the error)
+    def check_length(string, length, description)
+      if string.bytesize != length.to_int
+        raise LengthError,
+              "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
+              caller
+      end
+      true
+    end
+
 
     # Compare two 32 byte strings in constant time
     #

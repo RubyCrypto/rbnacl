@@ -5,6 +5,12 @@ module Crypto
   # as authentication failing on an attempt to decrypt a ciphertext.  Classes
   # in the library may define more specific subclasses.
   class CryptoError < StandardError; end
+
+  # Something, probably a key, is the wrong length
+  #
+  # This indicates some argument with an expected length was not that length.
+  # Since this is probably a cryptographic key, you should check that!
+  class LengthError < ArgumentError; end
 end
 
 require "rbnacl/nacl"
