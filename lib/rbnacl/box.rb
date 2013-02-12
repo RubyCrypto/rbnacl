@@ -70,14 +70,14 @@ module Crypto
     # @param public_key [String,Crypto::PublicKey] The public key to encrypt to
     # @param private_key [String,Crypto::PrivateKey] The private key to encrypt with
     #
-    # @raise [ArgumentError] on invalid keys
+    # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::Box] The new Box, ready to use
     def initialize(public_key, private_key)
       @public_key  = public_key.respond_to?(:to_bytes)  ? public_key.to_bytes  : public_key
       @private_key = private_key.respond_to?(:to_bytes) ? private_key.to_bytes : private_key
-      raise ArgumentError, "Must provide a valid public key" unless PublicKey.valid?(@public_key)
-      raise ArgumentError, "Must provide a valid private key" unless PrivateKey.valid?(@private_key)
+      Util.check_length(@public_key, PublicKey::BYTES, "Public key")
+      Util.check_length(@private_key, PrivateKey::BYTES, "Private key")
     end
 
     # Encrypts a message
@@ -91,11 +91,11 @@ module Crypto
     # @param nonce [String] A 24-byte string containing the nonce.
     # @param message [String] The message to be encrypted.
     #
-    # @raise [ArgumentError] If the nonce is not valid
+    # @raise [Crypto::LengthError] If the nonce is not valid
     #
     # @return [String] The ciphertext without the nonce prepended.
     def box(nonce, message)
-      raise ArgumentError, "Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long." unless nonce.bytesize == Crypto::NaCl::NONCEBYTES
+      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
       msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
       ct  = msg.dup
 
@@ -113,12 +113,12 @@ module Crypto
     # @param nonce [String] A 24-byte string containing the nonce.
     # @param ciphertext [String] The message to be decrypted.
     #
-    # @raise [ArgumentError] If the nonce is not valid
+    # @raise [Crypto::LengthError] If the nonce is not valid
     # @raise [Crypto::CryptoError] If the ciphertext cannot be authenticated.
     #
     # @return [String] The decrypted message.
     def open(nonce, ciphertext)
-      raise ArgumentError, "Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long." unless nonce.bytesize == Crypto::NaCl::NONCEBYTES
+      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
       message  = ct.dup
 
