@@ -19,10 +19,11 @@ module Crypto
     # Creates a new Point from the given serialization
     #
     # @param value [String] 32-byte value representing a group element
+    # @param encoding [Symbol] The encoding format of the group element
     #
     # @return [Crypto::Point] New Crypto::Point object
-    def initialize(value)
-      value = value.to_s.dup.freeze
+    def initialize(value, encoding = :raw)
+      value = Encoder[encoding].decode(value)
 
       # FIXME: really should have a separate constant here for group element size
       # Group elements and scalars are both 32-bits, but that's for convenience
@@ -34,13 +35,16 @@ module Crypto
     end
 
     # Multiply the given integer by this point
-    # FIXME: This ordering is a bit confusing because traditionally the point
+    # This ordering is a bit confusing because traditionally the point
     # would be the right-hand operand.
     #
     # @param integer [String] 32-byte integer value
+    # @param encoding [Symbol] The encoding format of the integer
     #
     # @return [Crypto::Point] Result as a Point object
-    def mult(integer)
+    def mult(integer, encoding = :raw)
+      integer = Encoder[encoding].decode(integer)
+
       if integer.bytesize != NaCl::SCALARBYTES
         raise ArgumentError, "integer must be exactly #{NaCl::SCALARBYTES} bytes"
       end
