@@ -303,6 +303,84 @@ Crypto::Hash.sha512(message, :hex)
 
 ---
 
+### Scalar multiplication: Crypto::Point
+
+![Here be DRAGONS](https://raw.github.com/cryptosphere/rbnacl/master/dragons.png)
+
+**WARNING**: Power-user feature. Not for the faint-at-heart.
+
+RbNaCl provides direct access to the high-speed elliptic curve cryptography
+available in NaCl (called Curve25519) via the `Crypto::Point` API.
+Crypto::Point is an API for performing scalar multiplication, i.e. adding
+a point on an [Edwards curve][edwards] to itself a given number of times.
+This operation can be done relatively quickly, however the inverse operation,
+finding a [discrete logarithm][discretelogarithm], is much harder to compute.
+This asymmetry forms the basis of Curve25519's public key cryptography.
+
+[edwards]: http://en.wikipedia.org/wiki/Edwards_curve
+[discretelogarithm]: http://en.wikipedia.org/wiki/Discrete_logarithm
+
+All scalar multiplication operations in NaCl start from a reference base
+point, the "standard group element". You can obtain this by calling:
+
+```ruby
+Crypto::Point.base
+```
+
+There are a few interesting use cases you may consider using the scalar
+multiplication API for:
+
+#### Calculating public keys from private keys
+
+**Note:** this functionality is already provided at a high level using the
+`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
+
+Unlike systems like RSA where keys must always be stored in keypairs,
+NaCl allows you to store only the private key, and in cases where you
+would like the corresponding public key, you can use the scalar
+multiplication API to calculate it for you:
+
+```ruby
+public_key_bytes = Crypto::Point.base.mult(private_key_bytes)
+```
+
+Note that every public key in NaCl is a point on an elliptic curve, calculated
+by multiplying the base point by your private key (which is treated as an
+integer)
+
+#### Diffie-Hellman
+
+**Note:** this functionality is already provided at a high level using the
+`Crypto::Box` class.  This class also provides a mechanism for exchanging
+encrypted and authenticated messages.
+
+The scalar multiplication function can be used as part of a
+[Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
+key exchange in which a shared session key is computed from an exchange of
+public keys.
+
+For example, Alice and Bob want to set up a shared private secret
+(e.g. a session key for a cryptographic transport protocol)
+
+Alice and Bob exchange public keys. Alice can now compute a
+shared secret with:
+
+```ruby
+shared_secret = Crypto::Point.new(bob_public_key).mult(alice_private_key)
+```
+
+Bob can likewise compute the same shared secret with:
+
+```ruby
+shared_secret = Crypto::Point.new(alice_public_key).mult(bob_private_key)
+```
+
+Together Alice and Bob have now set up a shared secret that can be used
+to set up a session key (e.g. by combining the shared secret value and an
+agreed upon nonce using an algorithm like HKDF)
+
+---
+
 ### Encoding system: Crypto::Encoder
 
 RbNaCl supports a simple pluggable system for serializing messages in different
@@ -386,85 +464,6 @@ Crypto::Random.random_bytes(32)
 Crypto::Util.verify32(string_one, string_two)
 #=> true/false.  See also verify16 
 ```
-
----
-
-### Scalar multiplication: Crypto::Point
-
-![Here be DRAGONS](https://raw.github.com/cryptosphere/rbnacl/master/dragons.png)
-
-**WARNING**: Power-user feature. Not for the faint-at-heart.
-
-RbNaCl provides direct access to the high-speed elliptic curve cryptography
-available in NaCl (called Curve25519) via the `Crypto::Point` API.
-Crypto::Point is an API for performing scalar multiplication, i.e. adding
-a point on an [Edwards curve][edwards] to itself a given number of times.
-This operation can be done relatively quickly, however the inverse operation,
-finding a [discrete logarithm][discretelogarithm], is much harder to compute.
-This asymmetry forms the basis of Curve25519's public key cryptography.
-
-[edwards]: http://en.wikipedia.org/wiki/Edwards_curve
-[discretelogarithm]: http://en.wikipedia.org/wiki/Discrete_logarithm
-
-All scalar multiplication operations in NaCl start from a reference base
-point, the "standard group element". You can obtain this by calling:
-
-```ruby
-Crypto::Point.base
-```
-
-There are a few interesting use cases you may consider using the scalar
-multiplication API for:
-
-#### Calculating public keys from private keys
-
-**Note:** this functionality is already provided at a high level using the
-`Crypto::PrivateKey#public_key` and `Crypto::SigningKey#verify_key` methods.
-
-Unlike systems like RSA where keys must always be stored in keypairs,
-NaCl allows you to store only the private key, and in cases where you
-would like the corresponding public key, you can use the scalar
-multiplication API to calculate it for you:
-
-```ruby
-public_key_bytes = Crypto::Point.base.mult(private_key_bytes)
-```
-
-Note that every public key in NaCl is a point on an elliptic curve, calculated
-by multiplying the base point by your private key (which is treated as an
-integer)
-
-#### Diffie-Hellman
-
-**Note:** this functionality is already provided at a high level using the
-`Crypto::Box` class.  This class also provides a mechanism for exchanging
-encrypted and authenticated messages.
-
-The scalar multiplication function can be used as part of a
-[Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
-key exchange in which a shared session key is computed from an exchange of
-public keys.
-
-For example, Alice and Bob want to set up a shared private secret
-(e.g. a session key for a cryptographic transport protocol)
-
-Alice and Bob exchange public keys. Alice can now compute a
-shared secret with:
-
-```ruby
-shared_secret = Crypto::Point.new(bob_public_key).mult(alice_private_key)
-```
-
-Bob can likewise compute the same shared secret with:
-
-```ruby
-shared_secret = Crypto::Point.new(alice_public_key).mult(bob_private_key)
-```
-
-Together Alice and Bob have now set up a shared secret that can be used
-to set up a session key (e.g. by combining the shared secret value and an
-agreed upon nonce using an algorithm like HKDF)
-
 
 ## Security Notes
 
