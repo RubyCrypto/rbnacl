@@ -16,19 +16,19 @@ describe Crypto::Box do
     end
 
     it "raises on a nil public key" do
-      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(ArgumentError, /Must provide a valid public key/)
+      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(Crypto::LengthError, /Public key was nil \(Expected 32\)/)
     end
 
     it "raises on an invalid public key" do
-      expect { Crypto::Box.new("hello", bobsk) }.to raise_error(ArgumentError, /Must provide a valid public key/)
+      expect { Crypto::Box.new("hello", bobsk) }.to raise_error(Crypto::LengthError, /Public key was 5 bytes \(Expected 32\)/)
     end
 
     it "raises on a nil secret key" do
-      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(ArgumentError, /Must provide a valid private key/)
+      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(Crypto::LengthError, /Private key was nil \(Expected 32\)/)
     end
 
     it "raises on an invalid secret key" do
-      expect { Crypto::Box.new(alicepk, "hello") }.to raise_error(ArgumentError, /Must provide a valid private key/)
+      expect { Crypto::Box.new(alicepk, "hello") }.to raise_error(Crypto::LengthError, /Private key was 5 bytes \(Expected 32\)/)
     end
   end
 

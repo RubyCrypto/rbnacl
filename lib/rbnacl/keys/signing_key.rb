@@ -37,9 +37,7 @@ module Crypto
     def initialize(seed, encoding = :raw)
       seed = Encoder[encoding].decode(seed)
 
-      if seed.bytesize != NaCl::SECRETKEYBYTES
-        raise ArgumentError, "seed must be exactly #{NaCl::SECRETKEYBYTES} bytes"
-      end
+      Util.check_length(seed, NaCl::SECRETKEYBYTES, "seed")
 
       pk = Util.zeros(NaCl::PUBLICKEYBYTES)
       sk = Util.zeros(NaCl::SECRETKEYBYTES * 2)

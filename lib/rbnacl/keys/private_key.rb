@@ -12,7 +12,7 @@ module Crypto
     include KeyComparator
 
     # The size of the key, in bytes
-    SIZE = Crypto::NaCl::SECRETKEYBYTES
+    BYTES = Crypto::NaCl::SECRETKEYBYTES
 
     # Initializes a new PrivateKey for key operations.
     #
@@ -23,13 +23,12 @@ module Crypto
     # @param private_key [String] The private key
     # @param key_encoding [Symbol] The encoding of the key
     #
-    # @raise [ArgumentError] If the key is not valid after decoding.
+    # @raise [Crypto::LengthError] If the key is not valid after decoding.
     #
     # @return A new PrivateKey
     def initialize(private_key, key_encoding = :raw)
       @private_key = Crypto::Encoder[key_encoding].decode(private_key)
-
-      raise ArgumentError, "PrivateKey must be #{SIZE} bytes long" unless valid?
+      Util.check_length(@private_key, BYTES, "Private key")
     end
 
     # Generates a new keypair
@@ -73,29 +72,6 @@ module Crypto
     # @return [PublicKey] the key
     def public_key
       @public_key ||= PublicKey.new(Point.base.mult(to_bytes))
-    end
-
-    # Is the given key possibly a valid private key?
-    #
-    # This checks the length, and does no other validation. But a private key
-    # is just a 32-byte random number.
-    #
-    # @param [String] key The string to test
-    #
-    # @return [Boolean] Well, is it?
-    def self.valid?(key)
-      return false unless key.respond_to?(:bytesize)
-      key.bytesize == SIZE
-    end
-
-    # Is the key possibly a valid private key?
-    #
-    # This checks the length, and does no other validation. But a private key
-    # is just a 32-byte random number.
-    #
-    # @return [Boolean] Well, is it?
-    def valid?
-      self.class.valid?(@private_key)
     end
   end
 end
