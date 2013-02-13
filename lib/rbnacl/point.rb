@@ -62,6 +62,7 @@ module Crypto
     def to_s(encoding = :raw)
       Encoder[encoding].encode(to_bytes)
     end
+    alias_method :to_str, :to_s
 
     # Inspect this point
     #
