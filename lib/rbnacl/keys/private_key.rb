@@ -72,7 +72,7 @@ module Crypto
     #
     # @return [PublicKey] the key
     def public_key
-      @public_key ||= PublicKey.new(Scalar.mult_base(to_bytes))
+      @public_key ||= PublicKey.new(Point.base.mult(to_bytes))
     end
 
     # Is the given key possibly a valid private key?
