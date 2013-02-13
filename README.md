@@ -351,7 +351,7 @@ integer)
 #### Diffie-Hellman
 
 **Note:** this functionality is already provided at a high level using the
-`Crypto::Box` class.  This class also provides a mechanism for exchanging
+`Crypto::Box` class.  That class also provides a mechanism for exchanging
 encrypted and authenticated messages.
 
 The scalar multiplication function can be used as part of a
