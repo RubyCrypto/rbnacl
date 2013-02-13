@@ -389,7 +389,7 @@ Crypto::Util.verify32(string_one, string_two)
 
 ---
 
-### Scalar multiplication (Crypto::Point)
+### Scalar multiplication: Crypto::Point
 
 ![Here be DRAGONS](https://raw.github.com/cryptosphere/rbnacl/master/dragons.png)
 
