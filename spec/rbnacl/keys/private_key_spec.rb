@@ -21,10 +21,10 @@ describe Crypto::PrivateKey do
 
   context "new" do
     it "accepts a valid key" do
-      expect { Crypto::PrivateKey.new(bobsk) }.not_to raise_error(ArgumentError)
+      expect { Crypto::PrivateKey.new(bobsk) }.not_to raise_error
     end
     it "accepts a hex encoded key" do
-      expect { Crypto::PrivateKey.new(bobsk_hex, :hex) }.not_to raise_error(ArgumentError)
+      expect { Crypto::PrivateKey.new(bobsk_hex, :hex) }.not_to raise_error
     end
     it "rejects a nil key" do
       expect { Crypto::PrivateKey.new(nil) }.to raise_error(ArgumentError)
@@ -40,19 +40,6 @@ describe Crypto::PrivateKey do
     end
     it "returns the correct public key" do
       sk.public_key.to_bytes.should eql bobpk
-    end
-  end
-
-
-  context "valid?" do
-    it "doesn't pass nil" do
-      Crypto::PrivateKey.valid?(nil).should be false
-    end
-    it "doesn't pass a short string" do
-      Crypto::PrivateKey.valid?("hello").should be false
-    end
-    it "does pass a valid key" do
-      Crypto::PrivateKey.valid?(bobsk).should be true
     end
   end
 

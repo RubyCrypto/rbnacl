@@ -7,28 +7,16 @@ describe Crypto::PublicKey do
   let (:pk_hex) { Crypto::PublicKey.new(alicepk_hex, :hex) }
   context "new" do
     it "accepts a valid key" do
-      expect { Crypto::PublicKey.new(alicepk) }.not_to raise_error(ArgumentError)
+      expect { Crypto::PublicKey.new(alicepk) }.not_to raise_error
     end
     it "accepts a valid key in hex" do
-      expect { Crypto::PublicKey.new(alicepk_hex, :hex) }.not_to raise_error(ArgumentError)
+      expect { Crypto::PublicKey.new(alicepk_hex, :hex) }.not_to raise_error
     end
     it "rejects a nil key" do
       expect { Crypto::PublicKey.new(nil) }.to raise_error(ArgumentError)
     end
     it "rejects a short key" do
       expect { Crypto::PublicKey.new("short") }.to raise_error(ArgumentError)
-    end
-  end
-
-  context "valid?" do
-    it "doesn't pass nil" do
-      Crypto::PublicKey.valid?(nil).should be false
-    end
-    it "doesn't pass a short string" do
-      Crypto::PublicKey.valid?("hello").should be false
-    end
-    it "does pass a valid key" do
-      Crypto::PublicKey.valid?(alicepk).should be true
     end
   end
 

@@ -21,9 +21,7 @@ module Crypto
     def initialize(key, encoding = :raw)
       key = Encoder[encoding].decode(key)
 
-      if key.bytesize != NaCl::PUBLICKEYBYTES
-        raise ArgumentError, "key must be exactly #{NaCl::PUBLICKEYBYTES} bytes"
-      end
+      Util.check_length(key, NaCl::PUBLICKEYBYTES, "key")
 
       @key = key
     end

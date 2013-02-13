@@ -2,6 +2,7 @@
 module Crypto
   # Various utility functions
   module Util
+    module_function
     # Returns a string of n zeros
     #
     # Lots of the functions require us to create strings to pass into functions of a specified size.
@@ -9,7 +10,7 @@ module Crypto
     # @param [Integer] n the size of the string to make
     #
     # @return [String] A nice collection of zeros
-    def self.zeros(n=32)
+    def zeros(n=32)
       zeros = "\0" * n
       # make sure they're 8-bit zeros, not 7-bit zeros.  Otherwise we might get
       # encoding errors later
@@ -24,7 +25,7 @@ module Crypto
     # @param [String] message The string to be prepended
     #
     # @return [String] a bunch of zeros
-    def self.prepend_zeros(n, message)
+    def prepend_zeros(n, message)
       zeros(n) + message
     end
 
@@ -36,8 +37,33 @@ module Crypto
     # @param [String] message The string to be slice
     #
     # @return [String] less a bunch of zeros
-    def self.remove_zeros(n, message)
+    def remove_zeros(n, message)
       message.slice!(n, message.bytesize - n)
+    end
+
+    # Check the length of the passed in string
+    #
+    # In several places through the codebase we have to be VERY strict with
+    # what length of string we accept.  This method supports that.
+    #
+    # @raise [Crypto::LengthError] If the string is not the right length
+    #
+    # @param string [String] The string to compare
+    # @param length [Integer] The desired length
+    # @param description [String] Description of the string (used in the error)
+    def check_length(string, length, description)
+      if string.nil?
+        raise LengthError,
+          "#{description} was nil (Expected #{length.to_int})",
+          caller
+      end
+      
+      if string.bytesize != length.to_int
+        raise LengthError,
+              "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
+              caller
+      end
+      true
     end
 
 
@@ -51,7 +77,7 @@ module Crypto
     # @param [String] two String #2
     #
     # @return [Boolean] Well, are they equal?
-    def self.verify32(one, two)
+    def verify32(one, two)
       return false unless two.bytesize == 32 && one.bytesize == 32
       NaCl.crypto_verify_32(one, two)
     end
@@ -68,9 +94,9 @@ module Crypto
     # @raise [ArgumentError] If the strings are not equal in length
     #
     # @return [Boolean] Well, are they equal?
-    def self.verify32!(one, two)
-      raise(ArgumentError, "First message was #{one.bytesize} bytes, not 32") unless one.bytesize == 32
-      raise(ArgumentError, "Second message was #{two.bytesize} bytes, not 32") unless two.bytesize == 32
+    def verify32!(one, two)
+      check_length(one, 32, "First message")
+      check_length(two, 32, "Second message")
       NaCl.crypto_verify_32(one, two)
     end
 
@@ -84,7 +110,7 @@ module Crypto
     # @param [String] two String #2
     #
     # @return [Boolean] Well, are they equal?
-    def self.verify16(one, two)
+    def verify16(one, two)
       return false unless two.bytesize == 16 && one.bytesize == 16
       NaCl.crypto_verify_16(one, two)
     end
@@ -101,9 +127,9 @@ module Crypto
     # @raise [ArgumentError] If the strings are not equal in length
     #
     # @return [Boolean] Well, are they equal?
-    def self.verify16!(one, two)
-      raise(ArgumentError, "First message was #{one.bytesize} bytes, not 16") unless one.bytesize == 16
-      raise(ArgumentError, "Second message was #{two.bytesize} bytes, not 16") unless two.bytesize == 16
+    def verify16!(one, two)
+      check_length(one, 16, "First message")
+      check_length(two, 16, "Second message")
       NaCl.crypto_verify_16(one, two)
     end
   end

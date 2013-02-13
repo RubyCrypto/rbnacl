@@ -29,6 +29,7 @@ shared_examples "box" do
       0x79,0x73,0xf6,0x22,0xa4,0x3d,0x14,0xa6,0x59,0x9b,0x1f,0x65,0x4c,0xb4,0x5a,0x74,
       0xe3,0x55,0xa5].pack('c*')
   }
+  let (:nonce_error_regex) { /Nonce.*(Expected #{Crypto::NaCl::NONCEBYTES})/ }
 
   let(:corrupt_ciphertext) { ciphertext[80] = " " } # picked at random by fair diceroll
   context "box" do
@@ -38,11 +39,11 @@ shared_examples "box" do
     end
 
     it "raises on a short nonce" do
-      expect { box.box(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+      expect { box.box(invalid_nonce, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { box.box(invalid_nonce_long, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+      expect { box.box(invalid_nonce_long, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
     end
   end
 
@@ -61,11 +62,11 @@ shared_examples "box" do
     end
 
     it "raises on a short nonce" do
-      expect { box.open(invalid_nonce, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+      expect { box.open(invalid_nonce, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { box.open(invalid_nonce_long, message) }.to raise_error(ArgumentError, /Nonce must be #{Crypto::NaCl::NONCEBYTES} bytes long./)
+      expect { box.open(invalid_nonce_long, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
     end
   end
 end
