@@ -15,6 +15,10 @@ shared_examples "authenticator" do
     it "raises on a key which is too long" do
       expect { described_class.new("\0"*33)  }.to raise_error(ArgumentError)
     end
+
+    it "raises on a key which is too short" do
+      expect { described_class.new("\0"*31)  }.to raise_error(ArgumentError)
+    end
   end
 
   context ".auth" do
