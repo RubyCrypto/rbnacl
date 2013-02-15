@@ -40,10 +40,7 @@ module Crypto
     # @return [Crypto::Point] Result as a Point object
     def mult(integer, encoding = :raw)
       integer = Encoder[encoding].decode(integer)
-
-      if integer.bytesize != NaCl::SCALARBYTES
-        raise ArgumentError, "integer must be exactly #{NaCl::SCALARBYTES} bytes"
-      end
+      Util.check_length(integer, NaCl::SCALARBYTES, "integer")
 
       result = Util.zeros(NaCl::SCALARBYTES)
       NaCl.crypto_scalarmult(result, integer, @point)
@@ -74,15 +71,13 @@ module Crypto
       "#<#{self.class}:#{to_s(:hex)}>"
     end
 
+    @base_point = Point.new(STANDARD_GROUP_ELEMENT, :hex)
+
     # NaCl's standard base point for all Curve25519 public keys
     #
     # @return [Crypto::Point] standard base point (a.k.a. standard group element)
     def self.base; @base_point; end
-    @base_point = Point.new Crypto::Encoder[:hex].decode(STANDARD_GROUP_ELEMENT)
-
-    class << self
-      alias_method :base_point, :base
-    end
+    def self.base_point; @base_point; end
   end
 end
    
