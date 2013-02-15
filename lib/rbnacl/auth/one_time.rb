@@ -1,10 +1,5 @@
 module Crypto
-  # Secret Key Authenticators
-  #
-  # These provide a means of verifying the integrity of a message, but only
-  # with the knowledge of a shared key.  This can be a preshared key, or one
-  # that is derived through some cryptographic protocol.
-  module Auth
+  class Auth
     # Computes an authenticator using poly1305
     #
     # The authenticator can be used at a later time to verify the provenence of
@@ -21,74 +16,22 @@ module Crypto
     # can also create them.
     #
     # @see http://nacl.cr.yp.to/onetimeauth.html
-    class OneTime
+    class OneTime < self
       # Number of bytes in a valid key
       KEYBYTES = NaCl::ONETIME_KEYBYTES
 
       # Number of bytes in a valid authenticator
       BYTES = NaCl::ONETIME_BYTES
 
-      # A new authenticator, ready for auth and verification
-      #
-      # @param [#to_str] key the key used for authenticators, 32 bytes.
-      # @param [#to_sym] encoding decode key from this format (default raw)
-      def initialize(key, encoding = :raw)
-        raise ArgumentError, "Key must not be nil" if key.nil?
-        @key = Encoder[encoding].decode(key)
-        raise ArgumentError, "Key must be #{KEYBYTES} bytes" unless valid?
-      end
-
-      # Compute authenticator for message
-      #
-      # @param [#to_str] key the key used for the authenticator
-      # @param [#to_str] message message to construct an authenticator for
-      #
-      # @return [String] The authenticator, as raw bytes
-      def self.auth(key, message)
-        new(key).auth(message)
-      end
-
-      # Verifies the given authenticator with the message.
-      #
-      # @param [#to_str] key the key used for the authenticator
-      # @param [#to_str] message the message to be authenticated
-      # @param [#to_str] authenticator to be checked
-      #
-      # @return [Boolean] Was it valid?
-      def self.verify(key, message, authenticator)
-        new(key).verify(message, authenticator)
-      end
-
-      # Compute authenticator for message
-      #
-      # @param [#to_str] message the message to authenticate
-      # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
-      #
-      # @return [String] The authenticator in the requested encoding (default raw)
-      def auth(message, authenticator_encoding = :raw)
-        authenticator = Util.zeros(BYTES)
-        message = message.to_str
-        NaCl.crypto_auth_onetime(authenticator, message, message.bytesize, @key)
-        Encoder[authenticator_encoding].encode(authenticator)
-      end
-
-      # Verifies the given authenticator with the message.
-      #
-      # @param [#to_str] authenticator to be checked
-      # @param [#to_str] message the message to be authenticated
-      # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
-      #
-      # @return [Boolean] Was it valid?
-      def verify(message, authenticator, authenticator_encoding = :raw)
-        auth = Encoder[authenticator_encoding].decode(authenticator)
-        return false unless auth.bytesize == BYTES
-        NaCl.crypto_auth_onetime_verify(auth, message, message.bytesize, @key)
-      end
-
       private
-      def valid?
-        @key.bytesize == KEYBYTES
+      def compute_authenticator(message, authenticator)
+        NaCl.crypto_auth_onetime(authenticator, message, message.bytesize, key)
       end
+
+      def verify_message(message, authenticator)
+        NaCl.crypto_auth_onetime_verify(authenticator, message, message.bytesize, key)
+      end
+
     end
   end
 end
