@@ -23,15 +23,11 @@ module Crypto
     #
     # @return [Crypto::Point] New Crypto::Point object
     def initialize(value, encoding = :raw)
-      value = Encoder[encoding].decode(value)
+      @point = Encoder[encoding].decode(value)
 
       # FIXME: really should have a separate constant here for group element size
       # Group elements and scalars are both 32-bits, but that's for convenience
-      if value.bytesize != NaCl::SCALARBYTES
-        raise ArgumentError, "group element must be exactly #{NaCl::SCALARBYTES} bytes"
-      end
-
-      @point = value
+      Util.check_length(@point, NaCl::SCALARBYTES, "group element")
     end
 
     # Multiply the given integer by this point
