@@ -1,4 +1,9 @@
 shared_examples "authenticator" do
+  let (:hex_key) { Crypto::TestVectors[:auth_key] } 
+  let (:key)     { Crypto::Encoder[:hex].decode(hex_key) }
+  let (:message) { Crypto::Encoder[:hex].decode(Crypto::TestVectors[:auth_message]) }
+  let(:tag)      { Crypto::Encoder[:hex].decode(hex_tag)  }
+  
   context ".new" do
     it "accepts a key" do
       expect { described_class.new(key)  }.to_not raise_error(ArgumentError)
@@ -62,7 +67,6 @@ shared_examples "authenticator" do
 
   context "Instance methods" do
     let(:authenticator) { described_class.new(key) }
-    let(:hex) { Crypto::Encoder[:hex].encode(tag)  }
 
     context "#auth" do
       it "produces an authenticator" do
@@ -70,7 +74,7 @@ shared_examples "authenticator" do
       end
 
       it "produces a hex encoded authenticator" do
-        authenticator.auth(message, :hex).should eq hex
+        authenticator.auth(message, :hex).should eq hex_tag
       end
     end
 
@@ -92,16 +96,16 @@ shared_examples "authenticator" do
 
       context "hex" do
         it "verifies an hexencoded authenticator" do
-          authenticator.verify(message, hex, :hex).should be true
+          authenticator.verify(message, hex_tag, :hex).should be true
         end
         it "fails to validate an invalid authenticator" do
-          authenticator.verify(message+"\0", hex , :hex).should be false
+          authenticator.verify(message+"\0", hex_tag , :hex).should be false
         end
         it "fails to validate a short authenticator" do
-          authenticator.verify( message, hex[0,hex.bytesize - 2], :hex).should be false
+          authenticator.verify( message, hex_tag[0,hex_tag.bytesize - 2], :hex).should be false
         end
         it "fails to validate a long authenticator" do
-          authenticator.verify(message, hex+"00", :hex).should be false
+          authenticator.verify(message, hex_tag+"00", :hex).should be false
         end
       end
     end
