@@ -20,7 +20,6 @@ module Crypto
     # @return [Crypto::SigningKey] Key which can sign messages
     def initialize(key, encoding = :raw)
       key = Encoder[encoding].decode(key)
-
       Util.check_length(key, NaCl::PUBLICKEYBYTES, "key")
 
       @key = key
@@ -40,10 +39,7 @@ module Crypto
     # @return [Boolean] was the signature authentic?
     def verify(message, signature, signature_encoding = :raw)
       signature = Encoder[signature_encoding].decode(signature)
-
-      if signature.bytesize != NaCl::SIGNATUREBYTES
-        raise ArgumentError, "signature must be exactly #{NaCl::SIGNATUREBYTES} bytes"
-      end
+      Util.check_length(signature, NaCl::SIGNATUREBYTES, "signature")
 
       sig_and_msg = signature + message
       buffer = Util.zeros(sig_and_msg.bytesize)
