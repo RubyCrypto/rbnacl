@@ -47,6 +47,9 @@ else
 end
 
 file "libsodium/src/libsodium/.libs/#{libsodium_lib}" => "libsodium/src/libsodium/.libs/libsodium.a"
-task :build_libsodium => "libsodium/src/libsodium/.libs/#{libsodium_lib}"
+
+task :build_libsodium => "libsodium/src/libsodium/.libs/#{libsodium_lib}" do
+  $LIBSODIUM_PATH = "libsodium/src/libsodium/.libs/#{libsodium_lib}"
+end
 
 CLEAN.add "libsodium", "libsodium-*.tar.gz"
