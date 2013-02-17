@@ -1,6 +1,6 @@
 require "rake/clean"
 
-file "lib/libsodium.so" => "libsodium/src/libsodium/.libs/libsodium.so" do
+file "lib/libsodium.so" => "libsodium/src/libsodium/.libs/libsodium.so" => :build_libsodium do
   cp "libsodium/src/libsodium/.libs/libsodium.so", "lib/libsodium.so"
 end
 
