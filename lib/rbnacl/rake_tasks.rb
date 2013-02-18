@@ -18,10 +18,10 @@ end
 libsodium_tarball = "libsodium-#{LIBSODIUM_VERSION}.tar.gz"
 
 file libsodium_tarball do
-  sh "curl -L -o #{libsodium_tarball} https://github.com/jedisct1/libsodium/archive/#{LIBSODIUM_VERSION}.tar.gz"
+  sh "curl -O http://download.dnscrypt.org/libsodium/releases/libsodium-#{LIBSODIUM_VERSION}.tar.gz"
 
   digest = Digest::SHA256.hexdigest(File.read(libsodium_tarball))
-  if digest != "4481748d35319826918afe0edd2d3440b78fa83fb0b0a67c6bd691d88cfcd06b"
+  if digest != "e99a6b69adc080a5acf6b8a49fdc74b61d6f3579b590e85c93446a8325dde100"
     rm libsodium_tarball
     raise "#{libsodium_tarball} failed checksum!"
   end
@@ -33,7 +33,7 @@ file "libsodium" => "libsodium-#{LIBSODIUM_VERSION}.tar.gz" do
 end
 
 file "libsodium/Makefile" => "libsodium" do
-  sh_hidden "cd libsodium && ./autogen.sh && ./configure"
+  sh_hidden "cd libsodium && ./configure"
 end
 
 file "libsodium/src/libsodium/.libs/libsodium.a" => "libsodium/Makefile" do
