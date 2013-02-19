@@ -5,6 +5,7 @@ module Crypto
   # functions for working with it.
   class PublicKey
     include KeyComparator
+    include Serializable
 
     # The size of the key, in bytes
     BYTES = Crypto::NaCl::PUBLICKEYBYTES
@@ -26,28 +27,11 @@ module Crypto
       Util.check_length(@public_key, BYTES, "Public key")
     end
 
-    # Inspect this key
-    #
-    # @return [String] a string representing this key
-    def inspect
-      "#<Crypto::PublicKey:#{to_s(:hex)}>"
-    end
-
     # The raw bytes of the key
     #
     # @return [String] the raw bytes.
     def to_bytes
       @public_key
-    end
-
-    # Return a string representation of this key, possibly encoded into a
-    # given serialization format.
-    #
-    # @param encoding [String] string encoding format in which to encode the key
-    #
-    # @return [String] key encoded in the specified format
-    def to_s(encoding = :raw)
-      Encoder[encoding].encode(to_bytes)
     end
   end
 end

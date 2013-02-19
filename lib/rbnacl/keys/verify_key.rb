@@ -10,6 +10,8 @@ module Crypto
   # the SigningKey documentation.
   class VerifyKey
     include KeyComparator
+    include Serializable
+
     # Create a new VerifyKey object from a serialized public key. The key can
     # be decoded from any serialization format supported by the
     # Crypto::Encoding system.
@@ -69,22 +71,5 @@ module Crypto
     #
     # @return [String] raw key as bytes
     def to_bytes; @key; end
-
-    # Return a string representation of this key, possibly encoded into a
-    # given serialization format.
-    #
-    # @param encoding [Symbol] string encoding format in which to encode the key
-    #
-    # @return [String] key encoded in the specified format
-    def to_s(encoding = :raw)
-      Encoder[encoding].encode(to_bytes)
-    end
-
-    # Inspect this key
-    #
-    # @return [String] a string representing this key
-    def inspect
-      "#<#{self.class}:#{to_s(:hex)}>"
-    end
   end
 end

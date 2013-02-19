@@ -15,6 +15,7 @@ end
 
 require "rbnacl/nacl"
 require "rbnacl/version"
+require "rbnacl/serializable"
 require "rbnacl/keys/key_comparator"
 require "rbnacl/keys/private_key"
 require "rbnacl/keys/public_key"

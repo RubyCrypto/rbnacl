@@ -10,6 +10,7 @@ module Crypto
   # SecretBox, which does symmetric encryption.
   class PrivateKey
     include KeyComparator
+    include Serializable
 
     # The size of the key, in bytes
     BYTES = Crypto::NaCl::SECRETKEYBYTES
@@ -43,28 +44,11 @@ module Crypto
       new(sk)
     end
 
-    # Inspect this key
-    #
-    # @return [String] a string representing this key
-    def inspect
-      "#<Crypto::PrivateKey:#{to_s(:hex)}>" # a bit dangerous, but okay.
-    end
-
     # The raw bytes of the key
     #
     # @return [String] the raw bytes.
     def to_bytes
       @private_key
-    end
-    
-    # Return a string representation of this key, possibly encoded into a
-    # given serialization format.
-    #
-    # @param encoding [String] string encoding format in which to encode the key
-    #
-    # @return [String] key encoded in the specified format
-    def to_s(encoding = :raw)
-      Encoder[encoding].encode(to_bytes)
     end
 
     # the public key associated with this private key
