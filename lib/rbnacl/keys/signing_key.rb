@@ -18,6 +18,7 @@ module Crypto
   # leak enough information to recover the private key.
   class SigningKey
     include KeyComparator
+    include Serializable
 
     attr_reader :verify_key
 
@@ -68,22 +69,5 @@ module Crypto
     #
     # @return [String] seed used to create this key
     def to_bytes; @seed; end
-
-    # Return a string representation of this key, possibly encoded into a
-    # given serialization format.
-    #
-    # @param encoding [String] string encoding format in which to encode the key
-    #
-    # @return [String] key encoded in the specified format
-    def to_s(encoding = :raw)
-      Encoder[encoding].encode(to_bytes)
-    end
-
-    # Inspect this key
-    #
-    # @return [String] a string representing this key
-    def inspect
-      "#<#{self.class}:#{to_s(:hex)}>"
-    end
   end
 end
