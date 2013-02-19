@@ -1,4 +1,4 @@
-![RbNaCl](https://raw.github.com/cryptosphere/rbnacl/master/logo.png)
+![RbNaCl](https://raw.github.com/cryptosphere/rbnacl/master/images/logo.png)
 ======
 [![Build Status](https://travis-ci.org/cryptosphere/rbnacl.png?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
 [![Code Climate](https://codeclimate.com/github/cryptosphere/rbnacl.png)](https://codeclimate.com/github/cryptosphere/rbnacl)
