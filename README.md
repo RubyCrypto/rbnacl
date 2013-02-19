@@ -57,6 +57,8 @@ reports of successful Windows users.
 
 ## Installation
 
+### libsodium
+
 RbNaCl is implemented as a Ruby FFI binding, which is designed to bind to
 shared libraries. Unfortunately NaCl does not presently ship a shared library,
 so RbNaCl cannot take advantage of it via FFI. RbNaCl will support usage with
@@ -67,6 +69,22 @@ of NaCl based upon the reference C code. Please see the libsodium project
 for information regarding installation:
 
 https://github.com/jedisct1/libsodium
+
+#### OS X
+
+Unfortunately libsodium is not in homebrew proper yet (I would strongly
+encourage you to [ask for libsodium's inclusion in homebrew][homebrew]),
+however you can use homebrew's "tap" feature for the time being to
+install libsodium:
+
+```
+brew tap qmx/homebrew-libsodium
+brew install libsodium
+```
+
+[homebrew]: https://github.com/mxcl/homebrew/pull/17275
+
+### RbNaCl gem
 
 Once you have libsodium installed, add this line to your application's Gemfile:
 
