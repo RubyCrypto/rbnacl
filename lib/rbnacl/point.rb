@@ -15,6 +15,7 @@ module Crypto
   # keys from private keys.
   class Point
     include KeyComparator
+    include Serializable
 
     # Creates a new Point from the given serialization
     #
@@ -52,24 +53,6 @@ module Crypto
     #
     # @return [String] 32-byte string representing this point
     def to_bytes; @point; end
-
-    # Return a string representation of this point, possibly encoded into a
-    # given serialization format.
-    #
-    # @param encoding [String] string encoding format in which to encode the point
-    #
-    # @return [String] point encoded in the specified format
-    def to_s(encoding = :raw)
-      Encoder[encoding].encode(to_bytes)
-    end
-    alias_method :to_str, :to_s
-
-    # Inspect this point
-    #
-    # @return [String] a string representing this point
-    def inspect
-      "#<#{self.class}:#{to_s(:hex)}>"
-    end
 
     @base_point = Point.new(STANDARD_GROUP_ELEMENT, :hex)
 
