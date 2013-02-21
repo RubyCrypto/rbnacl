@@ -3,6 +3,7 @@ module Crypto
 
     :alice_private  => "77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a",
     :alice_public   => "8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a",
+    :alice_verify   => "d0a4cec0f8b50ba1e936ec5615454aa97dfb27864f5f17608af2cbb10548f1b3",
 
     :bob_private    => "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb",
     :bob_public     => "de9edb7d7b7dc1b4d35b61c2ece435373f8343c85b78674dadfc7e146f882b4f",
@@ -25,7 +26,7 @@ module Crypto
                   "99832b61ca01b6de56244a9e88d5f9b37973f622a43d14a6599b1f654cb45a74" +
                   "e355a5",
 
-    :signature => "ca410c137cc593d1d5d78b4b80abef9d805ad2ca14ff0291a9aee212dbbd2f75" +
-                  "5fa6117c8f15fead92c7b45b3e132586168e9f4fe77316cc875de0c6fe6beb00"
+    :signature => "9efd5a266797dba8df47955e1ed2c04265c4be6519337984ed6fbf9e65b0c9c2" +
+                  "64fb16bb7ef5330e7bb937df7d16f42070fcd75defa0f9e7241b33c3a010fa00"
   }
 end
