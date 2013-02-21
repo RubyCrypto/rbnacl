@@ -18,5 +18,8 @@ module Crypto
     :auth_onetime       => "f3ffc7703f9400e52a7dfb4b3d3305d9",
     :auth_hmacsha256    => "7f7b9b707e8790ca8620ff94df5e6533ddc8e994060ce310c9d7de04d44aabc3",
     :auth_hmacsha512256 => "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d",
+
+    :signature => "a30fed5ad746519af85a8443b3518b6904961d04cf9f510ef723eddac0a9981d" +
+                  "105646bbf9458c5f3938ac9ed2a71788ae59f06271f31ed01926dd96fdb63206"
   }
 end
