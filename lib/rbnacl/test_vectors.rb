@@ -21,6 +21,7 @@ module Crypto
                            "99832b61ca01b6de56244a9e88d5f9b37973f622a43d14a6599b1f654cb45a74" +
                            "e355a5",
     :auth_onetime       => "f3ffc7703f9400e52a7dfb4b3d3305d9",
+    # self-created (FIXME: find standard test vectors)
     :auth_hmacsha256    => "7f7b9b707e8790ca8620ff94df5e6533ddc8e994060ce310c9d7de04d44aabc3",
     :auth_hmacsha512256 => "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d",
 
