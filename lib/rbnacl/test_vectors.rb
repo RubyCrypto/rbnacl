@@ -19,7 +19,13 @@ module Crypto
     :auth_hmacsha256    => "7f7b9b707e8790ca8620ff94df5e6533ddc8e994060ce310c9d7de04d44aabc3",
     :auth_hmacsha512256 => "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d",
 
-    :signature => "a30fed5ad746519af85a8443b3518b6904961d04cf9f510ef723eddac0a9981d" +
-                  "105646bbf9458c5f3938ac9ed2a71788ae59f06271f31ed01926dd96fdb63206"
+    :message   => "8e993b9f48681273c29650ba32fc76ce48332ea7164d96a4476fb8c531a1186a" +
+                  "c0dfc17c98dce87b4da7f011ec48c97271d2c20f9b928fe2270d6fb863d51738" +
+                  "b48eeee314a7cc8ab932164548e526ae90224368517acfeabd6bb3732bc0e9da" +
+                  "99832b61ca01b6de56244a9e88d5f9b37973f622a43d14a6599b1f654cb45a74" +
+                  "e355a5",
+
+    :signature => "ca410c137cc593d1d5d78b4b80abef9d805ad2ca14ff0291a9aee212dbbd2f75" +
+                  "5fa6117c8f15fead92c7b45b3e132586168e9f4fe77316cc875de0c6fe6beb00"
   }
 end

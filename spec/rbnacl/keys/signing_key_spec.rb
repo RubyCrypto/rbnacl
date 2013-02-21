@@ -4,7 +4,7 @@ describe Crypto::SigningKey do
   let(:signing_key)     { Crypto::TestVectors[:alice_private] }
   let(:signing_key_raw) { Crypto::Encoder[:hex].decode(signing_key) }
 
-  let(:message)         { "Now is the time for all good men to come to the aid of their country" }
+  let(:message)         { Crypto::TestVectors[:message] }
   let(:signature)       { Crypto::TestVectors[:signature] }
   let(:signature_raw)   { Crypto::Encoder[:hex].decode(signature) }
 
