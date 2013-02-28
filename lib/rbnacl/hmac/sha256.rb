@@ -1,6 +1,6 @@
 module Crypto
-  class Auth
-    # Computes an authenticator as HMAC-SHA-512 truncated to 256-bits
+  module HMAC
+    # Computes an authenticator as HMAC-SHA-256
     #
     # The authenticator can be used at a later time to verify the provenence of
     # the message by recomputing the HMAC over the message and then comparing it to
@@ -11,20 +11,20 @@ module Crypto
     # can also create them.
     #
     # @see http://nacl.cr.yp.to/auth.html
-    class HmacSha512256 < self
+    class SHA256 < Auth
       # Number of bytes in a valid key
-      KEYBYTES = NaCl::HMACSHA512256_KEYBYTES
+      KEYBYTES = NaCl::HMACSHA256_KEYBYTES
 
       # Number of bytes in a valid authenticator
-      BYTES = NaCl::HMACSHA512256_BYTES
-      
+      BYTES = NaCl::HMACSHA256_BYTES
+
       private
       def compute_authenticator(message, authenticator)
-        NaCl.crypto_auth_hmacsha512256(authenticator, message, message.bytesize, key)
+        NaCl.crypto_auth_hmacsha256(authenticator, message, message.bytesize, key)
       end
 
       def verify_message(message, authenticator)
-        NaCl.crypto_auth_hmacsha512256_verify(authenticator, message, message.bytesize, key)
+        NaCl.crypto_auth_hmacsha256_verify(authenticator, message, message.bytesize, key)
       end
     end
   end
