@@ -103,6 +103,7 @@ module Crypto
       NaCl.crypto_box_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
+    alias encrypt box
 
     # Decrypts a ciphertext
     #
@@ -126,6 +127,7 @@ module Crypto
       NaCl.crypto_box_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
+    alias decrypt open
 
     private
     def beforenm

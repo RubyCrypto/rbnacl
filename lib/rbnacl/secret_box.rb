@@ -57,6 +57,7 @@ module Crypto
       NaCl.crypto_secretbox(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
+    alias encrypt box
 
     # Decrypts a ciphertext
     #
@@ -80,5 +81,6 @@ module Crypto
       NaCl.crypto_secretbox_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
+    alias decrypt open
   end
 end
