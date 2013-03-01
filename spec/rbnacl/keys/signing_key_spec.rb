@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Crypto::SigningKey do
-  let(:signing_key)     { Crypto::TestVectors[:alice_private] }
+  let(:signing_key)     { Crypto::TestVectors[:sign_private] }
   let(:signing_key_raw) { Crypto::Encoder[:hex].decode(signing_key) }
 
-  let(:message)         { Crypto::Encoder[:hex].decode(Crypto::TestVectors[:message]) }
-  let(:signature)       { Crypto::TestVectors[:signature] }
+  let(:message)         { Crypto::Encoder[:hex].decode(Crypto::TestVectors[:sign_message]) }
+  let(:signature)       { Crypto::TestVectors[:sign_signature] }
   let(:signature_raw)   { Crypto::Encoder[:hex].decode(signature) }
 
   # NOTE: this implicitly covers testing initialization from bytes
