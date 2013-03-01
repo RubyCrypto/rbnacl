@@ -3,7 +3,8 @@ script: "LD_LIBRARY_PATH=lib bundle exec rake ci"
 rvm:
   - 1.8.7
   - 1.9.3
-  # - ree # broken on Travis
+  - 2.0.0
+  - ree
   - ruby-head
   - jruby-18mode
   - jruby-19mode
@@ -15,4 +16,3 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
-    # - rvm: ree # breaks even allowed_failures on Travis o_O
