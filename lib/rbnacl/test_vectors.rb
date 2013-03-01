@@ -5,13 +5,13 @@ module Crypto
     :alice_private  => "77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a",
     :alice_public   => "8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a",
 
-    # Self-created (FIXME: find standard test vectors)
-    :alice_verify   => "d0a4cec0f8b50ba1e936ec5615454aa97dfb27864f5f17608af2cbb10548f1b3",
-
     # From NaCl distribution
     :bob_private    => "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb",
     :bob_public     => "de9edb7d7b7dc1b4d35b61c2ece435373f8343c85b78674dadfc7e146f882b4f",
     :alice_mult_bob => "4a5d9d5ba4ce2de1728e3bf480350f25e07e21c947d19e3376f09b3c1e161742",
+
+    # From NaCl distribution
+    :secret_key     => "1b27556473e985d462cd51197a9a46c76009549eac6474f206c4ee0844f68389",
 
     # From NaCl distribution
     :auth_key           => "eea6a7251c1e72916d11c2cb214d3c252539121d8e234e652d651fa4c8cff880",

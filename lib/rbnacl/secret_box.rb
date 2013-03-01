@@ -25,12 +25,13 @@ module Crypto
     # Sets up the Box with a secret key fro encrypting and decrypting messages.
     #
     # @param key [String] The key to encrypt and decrypt with
+    # @param encoding [Symbol] Parse key from the given encoding
     #
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::SecretBox] The new Box, ready to use
-    def initialize(key)
-      @key = key
+    def initialize(key, encoding = :raw)
+      @key = Encoder[encoding].decode(key) if key
       Util.check_length(@key, KEYBYTES, "Secret key")
     end
 
