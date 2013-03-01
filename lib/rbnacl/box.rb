@@ -69,14 +69,15 @@ module Crypto
     #
     # @param public_key [String,Crypto::PublicKey] The public key to encrypt to
     # @param private_key [String,Crypto::PrivateKey] The private key to encrypt with
+    # @param encoding [Symbol] Parse keys from the given encoding
     #
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::Box] The new Box, ready to use
-    def initialize(public_key, private_key)
-      @public_key  = public_key.respond_to?(:to_bytes)  ? public_key.to_bytes  : public_key
-      @private_key = private_key.respond_to?(:to_bytes) ? private_key.to_bytes : private_key
-      Util.check_length(@public_key, PublicKey::BYTES, "Public key")
+    def initialize(public_key, private_key, encoding = :raw)
+      @public_key  = Encoder[encoding].decode(public_key)  if public_key
+      @private_key = Encoder[encoding].decode(private_key) if private_key
+      Util.check_length(@public_key,  PublicKey::BYTES,  "Public key")
       Util.check_length(@private_key, PrivateKey::BYTES, "Private key")
     end
 

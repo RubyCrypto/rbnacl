@@ -11,7 +11,7 @@ describe Crypto::Box do
 
   context "new" do
     it "accepts strings" do
-      expect { Crypto::Box.new(alicepk, bobsk) }.to_not raise_error(Exception)
+      expect { Crypto::Box.new(alicepk_hex, bobsk_hex, :hex) }.to_not raise_error(Exception)
     end
 
     it "accepts KeyPairs" do
