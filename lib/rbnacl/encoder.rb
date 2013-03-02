@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Encoders can be used to serialize or deserialize keys, ciphertexts, hashes,
   # and signatures. To provide an encoder, simply subclass Encoder and call the

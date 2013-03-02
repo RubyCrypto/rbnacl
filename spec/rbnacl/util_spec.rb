@@ -1,3 +1,4 @@
+# encoding: binary
 describe Crypto::Util do
   context ".verify32!" do
     let (:msg) { Crypto::Util.zeros(32) }

@@ -1,3 +1,4 @@
+# encoding: binary
 require 'rake'
 require 'rake/clean'
 require 'digest/sha2'

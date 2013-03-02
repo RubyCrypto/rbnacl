@@ -1,3 +1,4 @@
+# encoding: binary
 describe Crypto::VerifyKey do
   let(:signing_key)    { Crypto::TestVectors[:sign_private] }
   let(:verify_key)     { Crypto::TestVectors[:sign_public] }

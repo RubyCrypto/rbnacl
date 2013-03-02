@@ -1,3 +1,4 @@
+# encoding: binary
 require 'ffi'
 module Crypto
   # This module has all the FFI code hanging off it

@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   module Encoders
     # Base64 encoding provider

@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   module HMAC
     # Computes an authenticator as HMAC-SHA-512 truncated to 256-bits

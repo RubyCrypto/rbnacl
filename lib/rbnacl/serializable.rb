@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Serialization features shared across all "key-like" classes
   module Serializable

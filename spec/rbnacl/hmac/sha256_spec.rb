@@ -1,3 +1,4 @@
+# encoding: binary
 require 'spec_helper'
 
 describe Crypto::HMAC::SHA256 do

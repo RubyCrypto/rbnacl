@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   module Encoders
     # Raw encoder which only does a string conversion (if necessary)

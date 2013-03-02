@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # The Box class boxes and unboxes messages between a pair of keys
   #
@@ -93,11 +94,11 @@ module Crypto
     #
     # @raise [Crypto::LengthError] If the nonce is not valid
     #
-    # @return [String] The ciphertext without the nonce prepended.
+    # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
       Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
       msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
-      ct  = msg.dup
+      ct  = Util.zeros(msg.bytesize)
 
       NaCl.crypto_box_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
@@ -117,11 +118,11 @@ module Crypto
     # @raise [Crypto::LengthError] If the nonce is not valid
     # @raise [Crypto::CryptoError] If the ciphertext cannot be authenticated.
     #
-    # @return [String] The decrypted message.
+    # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
       Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
-      message  = ct.dup
+      message  = Util.zeros(ct.bytesize)
 
       NaCl.crypto_box_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)

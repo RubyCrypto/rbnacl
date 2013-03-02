@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # The simplest nonce strategy that could possibly work
   #

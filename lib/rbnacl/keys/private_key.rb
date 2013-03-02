@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Crypto::Box private key. Keep it safe
   #

@@ -1,3 +1,4 @@
+# encoding: binary
 shared_examples "authenticator" do
   let (:hex_key) { Crypto::TestVectors[:auth_key] } 
   let (:key)     { Crypto::Encoder[:hex].decode(hex_key) }

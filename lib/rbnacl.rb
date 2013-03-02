@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Oh no, something went wrong!
   #

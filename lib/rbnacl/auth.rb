@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Secret Key Authenticators
   #

@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Implements comparisons of keys
   #

@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Crypto::Box public key. Send to your friends.
   #

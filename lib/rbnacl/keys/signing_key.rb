@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Private key for producing digital signatures using the Ed25519 algorithm.
   # Ed25519 provides a 128-bit security level, that is to say, all known attacks

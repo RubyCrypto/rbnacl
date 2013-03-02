@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # NaCl's base point (a.k.a. standard group element), serialized as hex
   STANDARD_GROUP_ELEMENT = "0900000000000000000000000000000000000000000000000000000000000000".freeze

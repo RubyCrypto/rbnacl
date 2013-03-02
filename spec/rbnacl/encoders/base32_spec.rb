@@ -1,3 +1,4 @@
+# encoding: binary
 require 'spec_helper'
 require 'rbnacl/encoders/base32'
 

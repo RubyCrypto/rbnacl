@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Reference library of test vectors used to verify the software is correct
   TestVectors = {

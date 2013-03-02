@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Functions for random number generation
   #

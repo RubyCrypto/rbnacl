@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # The signature was forged or otherwise corrupt
   class BadSignatureError < CryptoError; end

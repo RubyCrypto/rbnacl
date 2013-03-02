@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   class Auth
     # Computes an authenticator using poly1305

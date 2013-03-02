@@ -1,3 +1,4 @@
+# encoding: binary
 # Requires the base32 gem
 require 'base32'
 

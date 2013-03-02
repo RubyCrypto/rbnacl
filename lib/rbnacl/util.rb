@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   # Various utility functions
   module Util

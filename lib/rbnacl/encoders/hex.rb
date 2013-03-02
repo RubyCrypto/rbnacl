@@ -1,3 +1,4 @@
+# encoding: binary
 module Crypto
   module Encoders
     # Hex encoding provider
