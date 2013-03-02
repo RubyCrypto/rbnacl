@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 module Crypto
   # The Box class boxes and unboxes messages between a pair of keys
   #

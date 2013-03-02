@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 module Crypto
   # The SecretBox class boxes and unboxes messages
   #

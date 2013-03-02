@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 module Crypto
   # Various utility functions
   module Util

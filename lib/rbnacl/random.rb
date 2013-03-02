@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 module Crypto
   # Functions for random number generation
   #

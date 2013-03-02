@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require 'ffi'
 module Crypto
   # This module has all the FFI code hanging off it

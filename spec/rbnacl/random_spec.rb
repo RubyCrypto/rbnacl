@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 describe Crypto::Random do
   it "produces random bytes" do
     Crypto::Random.random_bytes(16).bytesize.should == 16
