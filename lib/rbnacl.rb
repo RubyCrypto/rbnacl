@@ -38,3 +38,6 @@ require "rbnacl/encoders/raw"
 require "rbnacl/point"
 require "rbnacl/random_nonce_box"
 require "rbnacl/test_vectors"
+
+# Perform self test on load
+require "rbnacl/self_test"
