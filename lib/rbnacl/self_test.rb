@@ -14,6 +14,21 @@ module Crypto
       unless box.encrypt(nonce, message) == ciphertext
         raise SelfTestFailure, "failed to generate correct ciphertext"
       end
+      
+      unless box.decrypt(nonce, ciphertext) == message
+        raise SelfTestFailure, "failed to decrypt ciphertext correctly"
+      end
+      
+      begin
+        passed         = false
+        corrupt_ct     = ciphertext.dup
+        corrupt_ct[23] = ' '
+        box.decrypt(nonce, corrupt_ct)
+      rescue CryptoError
+        passed = true
+      ensure
+        passed or raise SelfTestFailure, "failed to detect corrupt ciphertext"
+      end
     end
 
     def digital_signature_test
