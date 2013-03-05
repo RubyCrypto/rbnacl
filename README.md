@@ -136,7 +136,7 @@ That said, it's probably still a million times better than OpenSSL...
 
 ## Reporting Security Problems
 
-If you have discovered a bug in RbNaCl of a sensitive nature, e.g.
+If you have discovered a bug in RbNaCl of a sensitive nature, i.e.
 one which can compromise the security of RbNaCl users, you can
 report it securely by sending a GPG encrypted message to:
 
