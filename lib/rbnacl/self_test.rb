@@ -4,9 +4,20 @@ module Crypto
   module SelfTest
     module_function
 
+    def box_test
+      alicepk = Crypto::PublicKey.new(TestVectors[:alice_public], :hex)
+      bobsk = Crypto::PrivateKey.new(TestVectors[:bob_private], :hex)
+
+      box = Crypto::Box.new(alicepk, bobsk)
+      box_common_test(box)
+    end
+
     def secret_box_test
       box = SecretBox.new(TestVectors[:secret_key], :hex)
+      box_common_test(box)
+    end
 
+    def box_common_test(box)
       nonce      = Encoder[:hex].decode TestVectors[:box_nonce]
       message    = Encoder[:hex].decode TestVectors[:box_message]
       ciphertext = Encoder[:hex].decode TestVectors[:box_ciphertext]
@@ -59,5 +70,6 @@ module Crypto
   end
 end
 
+Crypto::SelfTest.box_test
 Crypto::SelfTest.secret_box_test
 Crypto::SelfTest.digital_signature_test
