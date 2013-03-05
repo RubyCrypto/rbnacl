@@ -138,9 +138,14 @@ That said, it's probably still a million times better than OpenSSL...
 
 If you have discovered a bug in RbNaCl of a sensitive nature, i.e.
 one which can compromise the security of RbNaCl users, you can
-report it securely by sending a GPG encrypted message to:
+report it securely by sending a GPG encrypted message. Please use
+the following key:
 
-TODO: GPG infoz
+https://raw.github.com/cryptosphere/rbnacl/master/rbnacl.gpg
+
+The key fingerprint is (or should be):
+
+`190E 42D6 8327 A515 BFDF AAE0 B210 269D BB2D 8787`
 
 ## Learn More
 
