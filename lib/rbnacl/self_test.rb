@@ -25,11 +25,11 @@ module Crypto
       unless box.encrypt(nonce, message) == ciphertext
         raise SelfTestFailure, "failed to generate correct ciphertext"
       end
-      
+
       unless box.decrypt(nonce, ciphertext) == message
         raise SelfTestFailure, "failed to decrypt ciphertext correctly"
       end
-      
+
       begin
         passed         = false
         corrupt_ct     = ciphertext.dup
@@ -67,9 +67,30 @@ module Crypto
         raise SelfTestFailure, "failed to detect an invalid signature"
       end
     end
+
+    def hmac_test(klass, tag)
+      authenticator = klass.new(TestVectors[:auth_key], :hex)
+
+      message = Encoder[:hex].decode TestVectors[:auth_message]
+
+      unless authenticator.auth(message, :hex) == TestVectors[tag]
+        raise SelfTestFailure, "#{klass} failed to generate correct authentication tag"
+      end
+
+      unless authenticator.verify(message, TestVectors[tag], :hex)
+        raise SelfTestFailure, "#{klass} failed to verify correct authentication tag"
+      end
+
+      if authenticator.verify(message+' ', TestVectors[tag], :hex)
+        raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
+      end
+    end
   end
 end
 
 Crypto::SelfTest.box_test
 Crypto::SelfTest.secret_box_test
 Crypto::SelfTest.digital_signature_test
+Crypto::SelfTest.hmac_test Crypto::HMAC::SHA256,    :auth_hmacsha256
+Crypto::SelfTest.hmac_test Crypto::HMAC::SHA512256, :auth_hmacsha512256
+Crypto::SelfTest.hmac_test Crypto::Auth::OneTime,   :auth_onetime
