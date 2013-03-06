@@ -1,3 +1,5 @@
+start = Time.now if $DEBUG
+
 module Crypto
   class SelfTestFailure < Crypto::CryptoError; end
 
@@ -94,3 +96,5 @@ Crypto::SelfTest.digital_signature_test
 Crypto::SelfTest.hmac_test Crypto::HMAC::SHA256,    :auth_hmacsha256
 Crypto::SelfTest.hmac_test Crypto::HMAC::SHA512256, :auth_hmacsha512256
 Crypto::SelfTest.hmac_test Crypto::Auth::OneTime,   :auth_onetime
+
+puts "POST Completed in #{Time.now - start} s" if $DEBUG
