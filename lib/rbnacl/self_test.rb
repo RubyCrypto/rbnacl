@@ -20,9 +20,9 @@ module Crypto
     end
 
     def box_common_test(box)
-      nonce      = Encoder[:hex].decode TestVectors[:box_nonce]
-      message    = Encoder[:hex].decode TestVectors[:box_message]
-      ciphertext = Encoder[:hex].decode TestVectors[:box_ciphertext]
+      nonce      = hexdecode_vector :box_nonce
+      message    = hexdecode_vector :box_message
+      ciphertext = hexdecode_vector :box_ciphertext
 
       unless box.encrypt(nonce, message) == ciphertext
         raise SelfTestFailure, "failed to generate correct ciphertext"
@@ -52,7 +52,7 @@ module Crypto
         raise SelfTestFailure, "failed to generate verify key correctly"
       end
 
-      message   = Encoder[:hex].decode TestVectors[:sign_message]
+      message   = hexdecode_vector :sign_message
       signature = signing_key.sign(message, :hex)
 
       unless signature == TestVectors[:sign_signature]
@@ -70,10 +70,19 @@ module Crypto
       end
     end
 
+    def sha256_test
+      message = hexdecode_vector :sha256_message
+      digest  = hexdecode_vector :sha256_digest
+
+      unless Crypto::Hash.sha256(message) == digest
+        raise SelfTestFailure, "failed to generate a correct SHA256 digest"
+      end
+    end
+
     def hmac_test(klass, tag)
       authenticator = klass.new(TestVectors[:auth_key], :hex)
 
-      message = Encoder[:hex].decode TestVectors[:auth_message]
+      message = hexdecode_vector :auth_message
 
       unless authenticator.auth(message, :hex) == TestVectors[tag]
         raise SelfTestFailure, "#{klass} failed to generate correct authentication tag"
@@ -87,12 +96,21 @@ module Crypto
         raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
       end
     end
+
+    def hexdecode(string)
+      Encoder[:hex].decode(string)
+    end
+
+    def hexdecode_vector(name)
+      hexdecode TestVectors[name]
+    end
   end
 end
 
 Crypto::SelfTest.box_test
 Crypto::SelfTest.secret_box_test
 Crypto::SelfTest.digital_signature_test
+Crypto::SelfTest.sha256_test
 Crypto::SelfTest.hmac_test Crypto::HMAC::SHA256,    :auth_hmacsha256
 Crypto::SelfTest.hmac_test Crypto::HMAC::SHA512256, :auth_hmacsha512256
 Crypto::SelfTest.hmac_test Crypto::Auth::OneTime,   :auth_onetime
