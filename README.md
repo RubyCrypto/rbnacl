@@ -164,6 +164,9 @@ that you read them:
 * [Curve25519: new Diffie-Hellman speed records](http://cr.yp.to/ecdh/curve25519-20060209.pdf)
 * [Ed25519: High-speed high-security signatures](http://ed25519.cr.yp.to/ed25519-20110926.pdf)
 
+For more information on libsodium, please check out the
+[Introducing Sodium blog post](http://labs.umbrella.com/2013/03/06/announcing-sodium-a-new-cryptographic-library/)
+
 Have a general interest in cryptography? Check out the free course
 Coursera offers from Stanford University Professor Dan Boneh:
 
