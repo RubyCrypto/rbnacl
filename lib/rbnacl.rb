@@ -14,6 +14,9 @@ module Crypto
   class LengthError < ArgumentError; end
 end
 
+# TIMTOWTDI!
+RbNaCl = Crypto
+
 require "rbnacl/nacl"
 require "rbnacl/version"
 require "rbnacl/serializable"
