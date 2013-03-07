@@ -17,3 +17,6 @@ rvm:
 #     - rvm: 2.0.0 # encoding errors :(
 #     - rvm: ruby-head
 #     - rvm: jruby-head
+
+notifications:
+  irc: "irc.freenode.org#cryptosphere"
