@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe Crypto::Hash do
   context "sha256" do
-    let(:reference_string) { "The quick brown fox jumps over the lazy dog." }
-    let(:reference_string_hash) { "\xEFS\x7F%\xC8\x95\xBF\xA7\x82Re)\xA9\xB6=\x97\xAAc\x15d\xD5\xD7\x89\xC2\xB7eD\x8C\x865\xFBl" }
+    let(:reference_string)      { hex2bytes Crypto::TestVectors[:sha256_message] }
+    let(:reference_string_hash) { hex2bytes Crypto::TestVectors[:sha256_digest] }
     let(:empty_string_hash) { "\xE3\xB0\xC4B\x98\xFC\x1C\x14\x9A\xFB\xF4\xC8\x99o\xB9$'\xAEA\xE4d\x9B\x93L\xA4\x95\x99\exR\xB8U" }
     let(:reference_string_hash_hex) { reference_string_hash.unpack('H*').first }
     let(:empty_string_hash_hex) { empty_string_hash.unpack('H*').first }
