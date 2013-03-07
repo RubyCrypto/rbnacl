@@ -7,15 +7,16 @@
 [![Coverage Status](https://coveralls.io/repos/cryptosphere/rbnacl/badge.png?branch=master)](https://coveralls.io/r/cryptosphere/rbnacl)
 
 A Ruby binding to the state-of-the-art [Networking and Cryptography][nacl]
-library by Daniel J. Bernstein. This is **NOT** Google Native Client. This
-is a crypto library.
+library by [Daniel J. Bernstein][djb]. This is **NOT** Google Native Client.
+This is a crypto library.
 
 On a completely unrelated topic, RbNaCl is also the empirical formula for
 Rubidium Sodium Chloride.
 
 Need help with RbNaCl? Join the [RbNaCl Google Group][group]
 
-[nacl]: http://nacl.cr.yp.to/
+[nacl]:  http://nacl.cr.yp.to/
+[djb]:   http://cr.yp.to/djb.html
 [group]: http://groups.google.com/group/rbnacl
 
 ## Why NaCl?
