@@ -155,6 +155,8 @@ $ shasum -a 256 bascule.cert
 6e8b7e53d347ca6c6d214efef2b923aadecdd7650565f0eb1d8d0419723ae20c  bascule.cert
 ```
 
+If you get a different number than `6e8b7e53...`, your gem is corrupt!
+
 If you'd like to install the gem in high security mode, run:
 
 ```
