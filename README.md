@@ -122,12 +122,15 @@ are supported:
 Additional power-user features are available. Please see the Wiki for further
 information.
 
+[RDoc documentation][rdoc] is also available.
+
 [wiki]: https://github.com/cryptosphere/rbnacl/wiki
 [secretkey]: https://github.com/cryptosphere/rbnacl/wiki/Secret-Key-Encryption
 [publickey]: https://github.com/cryptosphere/rbnacl/wiki/Public-Key-Encryption
 [signatures]: https://github.com/cryptosphere/rbnacl/wiki/Digital-Signatures
 [macs]: https://github.com/cryptosphere/rbnacl/wiki/Authenticators
 [hashes]: https://github.com/cryptosphere/rbnacl/wiki/Hash-Functions
+[rdoc]: http://rubydoc.info/github/cryptosphere/rbnacl/master/frames
 
 ## Security Notes
 
