@@ -141,7 +141,7 @@ That said, it's probably still a million times better than OpenSSL...
 ## Using Signed Gems
 
 The RbNaCl gem is signed by Tony Arcieri's certificate, which identifies
-as bascule@gmail.com. You can obtain the official signature with:
+as `bascule@gmail.com`. You can obtain the official signature with:
 
 ```
 curl https://raw.github.com/cryptosphere/rbnacl/master/bascule.cert > /tmp/bascule.cert
