@@ -13,7 +13,8 @@ This is a crypto library.
 On a completely unrelated topic, RbNaCl is also the empirical formula for
 Rubidium Sodium Chloride.
 
-Need help with RbNaCl? Join the [RbNaCl Google Group][group]
+Need help with RbNaCl? Join the [RbNaCl Google Group][group].
+We're also on IRC at #cryptosphere on irc.freenode.net
 
 [nacl]:  http://nacl.cr.yp.to/
 [djb]:   http://cr.yp.to/djb.html
