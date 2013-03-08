@@ -6,8 +6,8 @@ require 'rbnacl/version'
 Gem::Specification.new do |gem|
   gem.name          = "rbnacl"
   gem.version       = Crypto::VERSION
-  gem.authors       = ["Tony Arcieri"]
-  gem.email         = ["tony.arcieri@gmail.com"]
+  gem.authors       = ["Tony Arcieri", "Jonathan Stott"]
+  gem.email         = ["tony.arcieri@gmail.com", "jonathan.stott@gmail.com"]
   gem.description   = "Ruby binding to the Networking and Cryptography (NaCl) library"
   gem.summary       = "The Networking and Cryptography (NaCl) library provides a high-level toolkit for building cryptographic systems and protocols"
   gem.homepage      = "https://github.com/cryptosphere/rbnacl"
