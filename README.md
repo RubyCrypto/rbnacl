@@ -76,19 +76,9 @@ for information regarding installation:
 
 https://github.com/jedisct1/libsodium
 
-#### OS X
+For OS X users, libsodium is available via homebrew and can be installed with:
 
-Unfortunately libsodium is not in homebrew proper yet (I would strongly
-encourage you to [ask for libsodium's inclusion in homebrew][homebrew]),
-however you can use homebrew's "tap" feature for the time being to
-install libsodium:
-
-```
-brew tap qmx/homebrew-libsodium
-brew install libsodium
-```
-
-[homebrew]: https://github.com/mxcl/homebrew/pull/17275
+    brew install libsodium
 
 ### RbNaCl gem
 
