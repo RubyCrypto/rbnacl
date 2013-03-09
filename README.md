@@ -94,6 +94,12 @@ Or install it yourself as:
 
     $ gem install rbnacl
 
+Inside of your Ruby program do:
+
+    require 'rbnacl'
+
+...to pull it in as a dependency.
+
 ## Documentation
 
 RbNaCl's documentation can be found [in the Wiki][wiki]. The following features
