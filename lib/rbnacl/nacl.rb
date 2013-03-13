@@ -33,12 +33,12 @@ module Crypto
     SHA256BYTES = 32
     wrap_nacl_function :crypto_hash_sha256,
                        :crypto_hash_sha256_ref,
-                       [:pointer, :string, :long_long]
+                       [:pointer, :pointer, :long_long]
 
     SHA512BYTES = 64
     wrap_nacl_function :crypto_hash_sha512,
                        :crypto_hash_sha512_ref,
-                       [:pointer, :string, :long_long]
+                       [:pointer, :pointer, :long_long]
 
     PUBLICKEYBYTES = 32
     SECRETKEYBYTES = 32

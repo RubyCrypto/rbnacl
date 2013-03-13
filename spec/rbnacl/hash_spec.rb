@@ -24,6 +24,10 @@ describe Crypto::Hash do
     it "calculates the correct hash for an empty string and returns it in hex" do
       Crypto::Hash.sha256("", :hex).should eq empty_string_hash_hex
     end
+
+    it "doesn't raise on a null byte" do
+      expect { Crypto::Hash.sha256("\0") }.to_not  raise_error(/ArgumentError: string contains null byte/)
+    end
   end
 
   context "sha512" do
@@ -47,6 +51,10 @@ describe Crypto::Hash do
 
     it "calculates the correct hash for an empty string and returns it in hex" do
       Crypto::Hash.sha512("", :hex).should eq empty_string_hash_hex
+    end
+
+    it "doesn't raise on a null byte" do
+      expect { Crypto::Hash.sha512("\0") }.to_not  raise_error(/ArgumentError: string contains null byte/)
     end
   end
 end
