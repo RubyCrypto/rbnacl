@@ -33,9 +33,6 @@ module Crypto
       # Number of bytes for a nonce
       NONCEBYTES = NaCl::XSALSA20_POLY1305_SECRETBOX_NONCEBYTES
 
-      # The cryptographic primitive used
-      PRIMITIVE  = :xsalsa20_poly1305
-
       # Create a new SecretBox
       #
       # Sets up the Box with a secret key fro encrypting and decrypting messages.
@@ -48,6 +45,20 @@ module Crypto
       def initialize(key)
         @key = key
         Util.check_length(@key, KEYBYTES, "Secret key")
+      end
+
+      # Returns the primitive name
+      #
+      # @return [Symbol] the primitive name
+      def self.primitive
+        :xsalsa20_poly1305
+      end
+
+      # Returns the primitive name
+      #
+      # @return [Symbol] the primitive name
+      def primitive
+        self.class.primitive
       end
 
       # Encrypts a message
@@ -71,7 +82,7 @@ module Crypto
 
         NaCl.crypto_secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
         ct = Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
-        Ciphertext.new(ct, PRIMITIVE)
+        Ciphertext.new(ct, primitive)
       end
       alias encrypt box
 

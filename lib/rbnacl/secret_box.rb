@@ -18,8 +18,6 @@ module Crypto
   # arbitrary valid messages, so messages you send are repudiatable.  For
   # non-repudiatable messages, sign them before or after encryption.
   class SecretBox
-    attr_reader :primitive
-
     # The default primitive to use
     DEFAULT_PRIMITIVE = SecretBox::XSalsa20Poly1305
 
@@ -38,6 +36,21 @@ module Crypto
       @primitive = primitive.new(@key)
     end
 
+    # returns the defaul primitive for the SecretBox class
+    #
+    # @return [Symbol] the default primitive
+    def self.primitive
+      DEFAULT_PRIMITIVE.primitive
+    end
+
+    # returns the primitive of this instance
+    #
+    # @return [Symbol] the default primitive
+    def primitive
+      @primitive.primitive
+    end
+    
+
     # Encrypts a message
     #
     # Encrypts the message with the given nonce to the key set up when
@@ -53,7 +66,7 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
-      self.primitive.box(nonce, message)
+      @primitive.box(nonce, message)
     end
     alias encrypt box
 
@@ -72,7 +85,7 @@ module Crypto
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
-      self.primitive.open(nonce, ciphertext)
+      @primitive.open(nonce, ciphertext)
     end
     alias decrypt open
   end
