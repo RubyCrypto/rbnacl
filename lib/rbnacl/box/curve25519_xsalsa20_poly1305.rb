@@ -38,7 +38,7 @@ module Crypto
     class Curve25519XSalsa20Poly1305
       # Number of bytes for a nonce
       NONCEBYTES = NaCl::CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES
-      
+
       # Number of bytes for the shared key
       BEFORENMBYTES = NaCl::CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES
 
@@ -101,8 +101,7 @@ module Crypto
         ct  = Util.zeros(msg.bytesize)
 
         NaCl.crypto_box_curve25519_xsalsa20_poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
-        ct = Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
-        Ciphertext.new(ct, primitive)
+        Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
       end
       alias encrypt box
 

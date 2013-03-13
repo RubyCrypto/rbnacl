@@ -89,8 +89,7 @@ module Crypto
         ct  = Util.zeros(msg.bytesize)
 
         NaCl.crypto_secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
-        ct = Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
-        Ciphertext.new(ct, primitive)
+        Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
       end
       alias encrypt box
 
