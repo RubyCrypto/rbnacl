@@ -49,20 +49,20 @@ module Crypto
                        :crypto_box_curve25519xsalsa20poly1305_ref_keypair,
                        [:pointer, :pointer]
 
-    NONCEBYTES     = 24
+    CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES    = 24
     ZEROBYTES      = 32
     BOXZEROBYTES   = 16
-    BEFORENMBYTES  = 32
+    CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES = 32
 
-    wrap_nacl_function :crypto_box_beforenm,
+    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_beforenm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_beforenm,
                        [:pointer, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_box_afternm,
+    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_afternm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_box_open_afternm,
+    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_open_afternm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 

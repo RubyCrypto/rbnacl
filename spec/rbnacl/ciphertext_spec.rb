@@ -33,6 +33,10 @@ describe Crypto::Ciphertext do
   it "behaves like a string for addition" do
     (ciphertext + text).should == text * 2
   end
+  
+  it "behaves like a string for addition" do
+    (text + ciphertext).should == text * 2
+  end
 
   it "accepts a default encoding" do
     encoded_ciphertext.should == Crypto::Encoder[:hex].encode(text)
