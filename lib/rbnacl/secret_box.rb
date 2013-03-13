@@ -1,4 +1,5 @@
 # encoding: binary
+require 'rbnacl/nacl/secret_box/xsalsa20_poly1305_box'
 module Crypto
   # The SecretBox class boxes and unboxes messages
   #
@@ -17,8 +18,7 @@ module Crypto
   # arbitrary valid messages, so messages you send are repudiatable.  For
   # non-repudiatable messages, sign them before or after encryption.
   class SecretBox
-    # Number of bytes for a secret key
-    KEYBYTES = NaCl::SECRETBOX_KEYBYTES
+    attr_reader :primitive
 
     # Create a new SecretBox
     #
@@ -30,9 +30,9 @@ module Crypto
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::SecretBox] The new Box, ready to use
-    def initialize(key, encoding = :raw)
+    def initialize(key, encoding = :raw, primitive = NaCl::SecretBox::XSalsa20Poly1305Box)
       @key = Encoder[encoding].decode(key) if key
-      Util.check_length(@key, KEYBYTES, "Secret key")
+      @primitive = primitive.new(@key)
     end
 
     # Encrypts a message
@@ -50,12 +50,7 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
-      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
-      msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
-      ct  = Util.zeros(msg.bytesize)
-
-      NaCl.crypto_secretbox(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
-      Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
+      self.primitive.box(nonce, message)
     end
     alias encrypt box
 
@@ -74,12 +69,7 @@ module Crypto
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
-      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
-      ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
-      message  = Util.zeros(ct.bytesize)
-
-      NaCl.crypto_secretbox_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
-      Util.remove_zeros(NaCl::ZEROBYTES, message)
+      self.primitive.open(nonce, ciphertext)
     end
     alias decrypt open
   end

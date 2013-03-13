@@ -29,6 +29,9 @@ module Crypto
       end
       eos
     end
+    
+    module SecretBox
+    end
 
     SHA256BYTES = 32
     wrap_nacl_function :crypto_hash_sha256,
@@ -63,12 +66,13 @@ module Crypto
                        :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    SECRETBOX_KEYBYTES = 32
-    wrap_nacl_function :crypto_secretbox,
+    SecretBox::XSALSA20_POLY1305_KEYBYTES   = 32
+    SecretBox::XSALSA20_POLY1305_NONCEBYTES = 24
+    wrap_nacl_function :crypto_secretbox_xsalsa20poly1305,
                        :crypto_secretbox_xsalsa20poly1305_ref,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_secretbox_open,
+    wrap_nacl_function :crypto_secretbox_xsalsa20poly1305_open,
                        :crypto_secretbox_xsalsa20poly1305_ref_open,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
