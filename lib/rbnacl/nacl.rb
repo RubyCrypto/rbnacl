@@ -29,9 +29,6 @@ module Crypto
       end
       eos
     end
-    
-    module SecretBox
-    end
 
     SHA256BYTES = 32
     wrap_nacl_function :crypto_hash_sha256,
