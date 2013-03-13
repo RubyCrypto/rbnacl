@@ -62,6 +62,13 @@ module Crypto
       new(Box.new(private_key, public_key))
     end
 
+    # Returns the primitive of the underlying box
+    #
+    # @return [Symbol] The primitive of the underlying box
+    def primitive
+      @box.primitive
+    end
+
     # Encrypts the message with a random nonce
     #
     # Encrypts the message with a random nonce, then returns the ciphertext with
