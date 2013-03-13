@@ -96,11 +96,11 @@ module Crypto
 
     private
     def generate_nonce
-      Random.random_bytes(box.nonce_bytes)
+      Random.random_bytes(@box.nonce_bytes)
     end
 
     def extract_nonce(bytes)
-      nonce = bytes.slice!(0, box.nonce_bytes)
+      nonce = bytes.slice!(0, @box.nonce_bytes)
       [nonce, bytes]
     end
   end
