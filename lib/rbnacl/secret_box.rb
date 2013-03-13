@@ -1,5 +1,5 @@
 # encoding: binary
-require 'rbnacl/nacl/secret_box/xsalsa20_poly1305_box'
+require 'rbnacl/secret_box/xsalsa20_poly1305'
 module Crypto
   # The SecretBox class boxes and unboxes messages
   #
@@ -20,6 +20,9 @@ module Crypto
   class SecretBox
     attr_reader :primitive
 
+    # The default primitive to use
+    DEFAULT_PRIMITIVE = SecretBox::XSalsa20Poly1305
+
     # Create a new SecretBox
     #
     # Sets up the Box with a secret key fro encrypting and decrypting messages.
@@ -30,7 +33,7 @@ module Crypto
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::SecretBox] The new Box, ready to use
-    def initialize(key, encoding = :raw, primitive = NaCl::SecretBox::XSalsa20Poly1305Box)
+    def initialize(key, encoding = :raw, primitive = DEFAULT_PRIMITIVE)
       @key = Encoder[encoding].decode(key) if key
       @primitive = primitive.new(@key)
     end

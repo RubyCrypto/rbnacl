@@ -66,8 +66,8 @@ module Crypto
                        :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    SecretBox::XSALSA20_POLY1305_KEYBYTES   = 32
-    SecretBox::XSALSA20_POLY1305_NONCEBYTES = 24
+    XSALSA20_POLY1305_SECRETBOX_KEYBYTES   = 32
+    XSALSA20_POLY1305_SECRETBOX_NONCEBYTES = 24
     wrap_nacl_function :crypto_secretbox_xsalsa20poly1305,
                        :crypto_secretbox_xsalsa20poly1305_ref,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
