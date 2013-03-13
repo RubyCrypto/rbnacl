@@ -50,6 +50,12 @@ module Crypto
       @primitive.primitive
     end
     
+    # returns the number of bytes in a nonce
+    #
+    # @return [Integer] Number of nonce bytes
+    def nonce_bytes
+      @primitive.nonce_bytes
+    end
 
     # Encrypts a message
     #

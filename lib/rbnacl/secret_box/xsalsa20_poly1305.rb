@@ -61,6 +61,14 @@ module Crypto
         self.class.primitive
       end
 
+      # returns the number of bytes in a nonce
+      #
+      # @return [Integer] Number of nonce bytes
+      def nonce_bytes
+        NONCEBYTES
+      end
+
+
       # Encrypts a message
       #
       # Encrypts the message with the given nonce to the key set up when
@@ -74,7 +82,7 @@ module Crypto
       #
       # @raise [Crypto::LengthError] If the nonce is not valid
       #
-      # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
+      # @return [Crypto::Ciphertext] The ciphertext without the nonce prepended (BINARY encoded)
       def box(nonce, message)
         Util.check_length(nonce, NONCEBYTES, "Nonce")
         msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
