@@ -8,7 +8,7 @@ shared_examples "box" do
   let(:invalid_nonce_long) { nonce + nonce  } # too long!
   let(:message)    { hex2bytes(Crypto::TestVectors[:box_message]) }
   let(:ciphertext) { hex2bytes(Crypto::TestVectors[:box_ciphertext]) }
-  let (:nonce_error_regex) { /Nonce.*(Expected #{Crypto::NaCl::NONCEBYTES})/ }
+  let (:nonce_error_regex) { /Nonce.*(Expected #{box.nonce_bytes})/ }
   let(:corrupt_ciphertext) { ciphertext[80] = " " } # picked at random by fair diceroll
 
   context "box" do
