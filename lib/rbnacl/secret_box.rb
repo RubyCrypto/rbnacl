@@ -70,7 +70,7 @@ module Crypto
     #
     # @raise [Crypto::LengthError] If the nonce is not valid
     #
-    # @return [Crypto::Ciphertext] The ciphertext without the nonce prepended (BINARY encoded)
+    # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
       @primitive.box(nonce, message)
     end
