@@ -1,7 +1,9 @@
 # encoding: binary
 require 'rbnacl/secret_box/xsalsa20_poly1305'
 module Crypto
-  # The SecretBox class boxes and unboxes messages
+  # The SecretBox class boxes and unboxes messages. The underlying primitive
+  # used is Crypto::SecretBox::XSalsa20Poly1305. More specific documentation
+  # can be found there.
   #
   # This class uses the given secret key to encrypt and decrypt messages.
   #
@@ -31,68 +33,8 @@ module Crypto
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::SecretBox] The new Box, ready to use
-    def initialize(key, encoding = :raw, primitive = DEFAULT_PRIMITIVE)
-      @key = Encoder[encoding].decode(key) if key
-      @primitive = primitive.new(@key)
+    def self.new(key, encoding = :raw)
+      DEFAULT_PRIMITIVE.new(key, encoding)
     end
-
-    # returns the defaul primitive for the SecretBox class
-    #
-    # @return [Symbol] the default primitive
-    def self.primitive
-      DEFAULT_PRIMITIVE.primitive
-    end
-
-    # returns the primitive of this instance
-    #
-    # @return [Symbol] the default primitive
-    def primitive
-      @primitive.primitive
-    end
-    
-    # returns the number of bytes in a nonce
-    #
-    # @return [Integer] Number of nonce bytes
-    def nonce_bytes
-      @primitive.nonce_bytes
-    end
-
-    # Encrypts a message
-    #
-    # Encrypts the message with the given nonce to the key set up when
-    # initializing the class.  Make sure the nonce is unique for any given
-    # key, or you might as well just send plain text.
-    #
-    # This function takes care of the padding required by the NaCL C API.
-    #
-    # @param nonce [String] A 24-byte string containing the nonce.
-    # @param message [String] The message to be encrypted.
-    #
-    # @raise [Crypto::LengthError] If the nonce is not valid
-    #
-    # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
-    def box(nonce, message)
-      @primitive.box(nonce, message)
-    end
-    alias encrypt box
-
-    # Decrypts a ciphertext
-    #
-    # Decrypts the ciphertext with the given nonce using the key setup when
-    # initializing the class.
-    #
-    # This function takes care of the padding required by the NaCL C API.
-    #
-    # @param nonce [String] A 24-byte string containing the nonce.
-    # @param ciphertext [String] The message to be decrypted.
-    #
-    # @raise [Crypto::LengthError] If the nonce is not valid
-    # @raise [Crypto::CryptoError] If the ciphertext cannot be authenticated.
-    #
-    # @return [String] The decrypted message (BINARY encoded)
-    def open(nonce, ciphertext)
-      @primitive.open(nonce, ciphertext)
-    end
-    alias decrypt open
   end
 end
