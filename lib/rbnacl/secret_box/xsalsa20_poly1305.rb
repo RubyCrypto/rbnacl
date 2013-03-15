@@ -42,8 +42,8 @@ module Crypto
       # @raise [Crypto::LengthError] on invalid keys
       #
       # @return [Crypto::SecretBox] The new Box, ready to use
-      def initialize(key)
-        @key = key
+      def initialize(key, encoding = :raw)
+        @key = Encoder[encoding].decode(key) if key
         Util.check_length(@key, KEYBYTES, "Secret key")
       end
 
