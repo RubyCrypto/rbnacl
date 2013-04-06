@@ -62,6 +62,9 @@ module Crypto
   # non-repudiatable messages, sign them before or after encryption.
   class Box
 
+    # Number of bytes in a Box nonce
+    NONCEBYTES = NaCl::CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES
+
     # Create a new Box
     #
     # Sets up the Box for deriving the shared key and encrypting and
@@ -96,11 +99,11 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
-      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      Util.check_length(nonce, nonce_bytes, "Nonce")
       msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
       ct  = Util.zeros(msg.bytesize)
 
-      NaCl.crypto_box_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+      NaCl.crypto_box_curve25519_xsalsa20_poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
     alias encrypt box
@@ -120,20 +123,48 @@ module Crypto
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
-      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      Util.check_length(nonce, nonce_bytes, "Nonce")
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
       message  = Util.zeros(ct.bytesize)
 
-      NaCl.crypto_box_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      NaCl.crypto_box_curve25519_xsalsa20_poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
     alias decrypt open
 
+    # The crypto primitive for the box class
+    #
+    # @return [Symbol] The primitive used
+    def self.primitive
+      :curve25519_xsalsa20_poly1305
+    end
+
+    # The crypto primitive for the box class
+    #
+    # @return [Symbol] The primitive used
+    def primitive
+      self.class.primitive
+    end
+
+    # The nonce bytes for the box class
+    #
+    # @return [Integer] The number of bytes in a valid nonce
+    def self.nonce_bytes
+      NONCEBYTES
+    end
+
+    # The nonce bytes for the box instance
+    #
+    # @return [Integer] The number of bytes in a valid nonce
+    def nonce_bytes
+      NONCEBYTES
+    end
+
     private
     def beforenm
       @k ||= begin
-               k = Util.zeros(NaCl::BEFORENMBYTES)
-               NaCl.crypto_box_beforenm(k, @public_key, @private_key) || raise(CryptoError, "Failed to derive shared key")
+               k = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES)
+               NaCl.crypto_box_curve25519_xsalsa20_poly1305_beforenm(k, @public_key, @private_key) || raise(CryptoError, "Failed to derive shared key")
                k
              end
     end

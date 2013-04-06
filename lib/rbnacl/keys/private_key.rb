@@ -14,7 +14,7 @@ module Crypto
     include Serializable
 
     # The size of the key, in bytes
-    BYTES = Crypto::NaCl::SECRETKEYBYTES
+    BYTES = NaCl::CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES
 
     # Initializes a new PrivateKey for key operations.
     #
@@ -39,9 +39,9 @@ module Crypto
     #
     # @return [Crypto::PrivateKey] A new private key, with the associated public key also set.
     def self.generate
-      pk = Util.zeros(NaCl::PUBLICKEYBYTES)
-      sk = Util.zeros(NaCl::SECRETKEYBYTES)
-      NaCl.crypto_box_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
+      pk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES)
+      sk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES)
+      NaCl.crypto_box_curve25519xsalsa20poly1305_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
       new(sk)
     end
 
@@ -58,5 +58,20 @@ module Crypto
     def public_key
       @public_key ||= PublicKey.new(Point.base.mult(to_bytes))
     end
+
+    # The crypto primitive the PrivateKey class is to be used for
+    #
+    # @return [Symbol] The primitive
+    def self.primitive
+      :curve25519_xsalsa20_poly1305
+    end
+
+    # The crypto primitive this PrivateKey is to be used for.
+    #
+    # @return [Symbol] The primitive
+    def primitive
+      self.class.primitive
+    end
+
   end
 end

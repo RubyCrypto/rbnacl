@@ -18,7 +18,10 @@ module Crypto
   # non-repudiatable messages, sign them before or after encryption.
   class SecretBox
     # Number of bytes for a secret key
-    KEYBYTES = NaCl::SECRETBOX_KEYBYTES
+    KEYBYTES = NaCl::XSALSA20_POLY1305_SECRETBOX_KEYBYTES
+
+    # Number of bytes for a nonce
+    NONCEBYTES = NaCl::XSALSA20_POLY1305_SECRETBOX_NONCEBYTES
 
     # Create a new SecretBox
     #
@@ -50,11 +53,11 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
-      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      Util.check_length(nonce, nonce_bytes, "Nonce")
       msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
       ct  = Util.zeros(msg.bytesize)
 
-      NaCl.crypto_secretbox(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
+      NaCl.crypto_secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
       Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
     alias encrypt box
@@ -74,13 +77,43 @@ module Crypto
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
-      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      Util.check_length(nonce, nonce_bytes, "Nonce")
       ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
       message  = Util.zeros(ct.bytesize)
 
-      NaCl.crypto_secretbox_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      NaCl.crypto_secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
       Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
     alias decrypt open
+
+    # The crypto primitive for the SecretBox class
+    #
+    # @return [Symbol] The primitive used
+    def self.primitive; :xsalsa20_poly1305; end
+
+    # The crypto primitive for the SecretBox instance
+    #
+    # @return [Symbol] The primitive used
+    def primitive; self.class.primitive; end
+
+    # The nonce bytes for the SecretBox class
+    #
+    # @return [Integer] The number of bytes in a valid nonce
+    def self.nonce_bytes; NONCEBYTES; end
+
+    # The nonce bytes for the SecretBox instance
+    #
+    # @return [Integer] The number of bytes in a valid nonce
+    def nonce_bytes; NONCEBYTES; end
+
+    # The key bytes for the SecretBox class
+    #
+    # @return [Integer] The number of bytes in a valid key
+    def self.key_bytes; KEYBYTES; end
+
+    # The key bytes for the SecretBox instance
+    #
+    # @return [Integer] The number of bytes in a valid key
+    def key_bytes; KEYBYTES; end
   end
 end
