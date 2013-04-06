@@ -16,7 +16,7 @@ describe Crypto::Point do
   end
 
   it "multiplies integers with arbitrary points" do
-    described_class.new(bob_public,).mult(alice_private).to_s.should eq alice_mult_bob
+    described_class.new(bob_public).mult(alice_private).to_s.should eq alice_mult_bob
   end
 
   it "serializes to bytes" do
