@@ -20,7 +20,7 @@ describe Crypto::Box do
     end
 
     it "raises on a nil public key" do
-      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(Crypto::LengthError, /Public key was nil \(Expected 32\)/)
+      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(Crypto::LengthError, /Public key was 0 bytes \(Expected 32\)/)
     end
 
     it "raises on an invalid public key" do
@@ -28,7 +28,7 @@ describe Crypto::Box do
     end
 
     it "raises on a nil secret key" do
-      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(Crypto::LengthError, /Private key was nil \(Expected 32\)/)
+      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(Crypto::LengthError, /Private key was 0 bytes \(Expected 32\)/)
     end
 
     it "raises on an invalid secret key" do

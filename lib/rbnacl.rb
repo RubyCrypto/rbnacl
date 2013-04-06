@@ -12,6 +12,12 @@ module Crypto
   # This indicates some argument with an expected length was not that length.
   # Since this is probably a cryptographic key, you should check that!
   class LengthError < ArgumentError; end
+
+  # An incorrect primitive has been passed to a method
+  #
+  # This indicates that an attempt has been made to use something (probably a key)
+  # with an incorrect primitive
+  class IncorrectPrimitiveError < ArgumentError; end
 end
 
 # TIMTOWTDI!

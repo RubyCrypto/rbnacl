@@ -78,10 +78,9 @@ module Crypto
     #
     # @return [Crypto::Box] The new Box, ready to use
     def initialize(public_key, private_key, encoding = :raw)
-      @public_key  = Encoder[encoding].decode(public_key)  if public_key
-      @private_key = Encoder[encoding].decode(private_key) if private_key
-      Util.check_length(@public_key,  PublicKey::BYTES,  "Public key")
-      Util.check_length(@private_key, PrivateKey::BYTES, "Private key")
+      @public_key   = PublicKey  === public_key  ? public_key  : PublicKey.new(public_key, encoding)
+      @private_key  = PrivateKey === private_key ? private_key : PrivateKey.new(private_key, encoding)
+      raise IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive
     end
 
     # Encrypts a message
@@ -164,7 +163,7 @@ module Crypto
     def beforenm
       @k ||= begin
                k = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES)
-               NaCl.crypto_box_curve25519_xsalsa20_poly1305_beforenm(k, @public_key, @private_key) || raise(CryptoError, "Failed to derive shared key")
+               NaCl.crypto_box_curve25519_xsalsa20_poly1305_beforenm(k, @public_key.to_s, @private_key.to_s) || raise(CryptoError, "Failed to derive shared key")
                k
              end
     end
