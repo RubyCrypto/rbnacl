@@ -2,11 +2,11 @@
 require 'spec_helper'
 
 describe Crypto::Box do
-  let(:alicepk_hex) { Crypto::TestVectors[:alice_public] }
-  let(:bobsk_hex)   { Crypto::TestVectors[:bob_private] }
+  let(:alicepk_hex) { hex_vector :alice_public }
+  let(:bobsk_hex)   { hex_vector :bob_private }
 
-  let(:alicepk)   { Crypto::Encoder[:hex].decode(alicepk_hex) }
-  let(:bobsk)     { Crypto::Encoder[:hex].decode(bobsk_hex) }
+  let(:alicepk)   { hex2bytes(alicepk_hex) }
+  let(:bobsk)     { hex2bytes(bobsk_hex) }
   let(:alice_key) { Crypto::PublicKey.new(alicepk) }
   let(:bob_key)   { Crypto::PrivateKey.new(bobsk) }
 
