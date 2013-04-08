@@ -21,7 +21,7 @@ module Crypto
     # @param [#to_sym] encoding decode key from this format (default raw)
     def initialize(key, encoding = :raw)
       @key = Encoder[encoding].decode(key)
-      Util.check_length(@key, self.class::KEYBYTES, "#{self.class} key")
+      Util.check_length(@key, key_bytes, "#{self.class} key")
     end
 
     # Compute authenticator for message
@@ -52,7 +52,7 @@ module Crypto
     #
     # @return [String] The authenticator in the requested encoding (default raw)
     def auth(message, authenticator_encoding = :raw)
-      authenticator = Util.zeros(self.class::BYTES)
+      authenticator = Util.zeros(tag_bytes)
       message = message.to_str
       compute_authenticator(message, authenticator)
       Encoder[authenticator_encoding].encode(authenticator)
@@ -67,9 +67,36 @@ module Crypto
     # @return [Boolean] Was it valid?
     def verify(message, authenticator, authenticator_encoding = :raw)
       auth = Encoder[authenticator_encoding].decode(authenticator)
-      return false unless auth.bytesize == self.class::BYTES
+      return false unless auth.bytesize == tag_bytes
       verify_message(message, auth)
     end
+
+    # The crypto primitive for this authenticator instance
+    #
+    # @return [Symbol] The primitive used
+    def primitive
+      self.class.primitive
+    end
+
+    # The number of key bytes for this Auth class
+    #
+    # @return [Integer] number of key bytes
+    def self.key_bytes; self::KEYBYTES; end
+
+    # The number of key bytes for this Auth instance
+    #
+    # @return [Integer] number of key bytes
+    def key_bytes; self.class.key_bytes; end
+
+    # The number bytes in the tag or authenticator from this Auth class
+    #
+    # @return [Integer] number of tag bytes
+    def self.tag_bytes; self::BYTES; end
+
+    # The number of bytes in the tag or authenticator for this Auth instance
+    #
+    # @return [Integer] number of tag bytes
+    def tag_bytes; self.class.tag_bytes; end
 
     private
     def compute_authenticator(message, authenticator); raise NotImplementedError; end
