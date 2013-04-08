@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 shared_examples "box" do
-  let(:nonce) { hex2bytes(Crypto::TestVectors[:box_nonce]) }
+  let(:nonce) { test_vector :box_nonce }
   let(:invalid_nonce) { nonce[0,12]  } # too short!
   let(:invalid_nonce_long) { nonce + nonce  } # too long!
-  let(:message)    { hex2bytes(Crypto::TestVectors[:box_message]) }
-  let(:ciphertext) { hex2bytes(Crypto::TestVectors[:box_ciphertext]) }
+  let(:message)    { test_vector :box_message }
+  let(:ciphertext) { test_vector :box_ciphertext }
   let (:nonce_error_regex) { /Nonce.*(Expected #{Crypto::NaCl::NONCEBYTES})/ }
   let(:corrupt_ciphertext) { ciphertext[80] = " " } # picked at random by fair diceroll
 

@@ -2,11 +2,11 @@
 require 'spec_helper'
 
 describe Crypto::SecretBox do
-  let (:key) { Crypto::TestVectors[:secret_key] }
+  let (:key) { test_vector :secret_key }
 
   context "new" do
     it "accepts strings" do
-      expect { Crypto::SecretBox.new(key, :hex) }.to_not raise_error(Exception)
+      expect { Crypto::SecretBox.new(key) }.to_not raise_error(Exception)
     end
 
     it "raises on a nil key" do
@@ -19,6 +19,6 @@ describe Crypto::SecretBox do
   end
 
   include_examples "box" do
-    let(:box) { Crypto::SecretBox.new(key, :hex) }
+    let(:box) { Crypto::SecretBox.new(key) }
   end
 end

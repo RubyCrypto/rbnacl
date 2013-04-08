@@ -1,10 +1,10 @@
 # encoding: binary
 shared_examples "authenticator" do
-  let (:hex_key) { Crypto::TestVectors[:auth_key] } 
-  let (:key)     { Crypto::Encoder[:hex].decode(hex_key) }
-  let (:message) { Crypto::Encoder[:hex].decode(Crypto::TestVectors[:auth_message]) }
-  let(:tag)      { Crypto::Encoder[:hex].decode(hex_tag)  }
-  
+  let (:hex_key) { hex_vector  :auth_key }
+  let (:key)     { test_vector :auth_key }
+  let (:message) { test_vector :auth_message }
+  let (:tag)     { hex2bytes hex_tag  }
+
   context ".new" do
     it "accepts a key" do
       expect { described_class.new(key)  }.to_not raise_error(ArgumentError)

@@ -19,6 +19,13 @@ module Crypto
       # Number of bytes in a valid authenticator
       BYTES = NaCl::HMACSHA256_BYTES
 
+      # The crypto primitive for the HMAC::SHA256 class
+      #
+      # @return [Symbol] The primitive used
+      def self.primitive
+        :hmac_sha256
+      end
+
       private
       def compute_authenticator(message, authenticator)
         NaCl.crypto_auth_hmacsha256(authenticator, message, message.bytesize, key)

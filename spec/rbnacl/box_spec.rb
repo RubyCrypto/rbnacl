@@ -2,11 +2,11 @@
 require 'spec_helper'
 
 describe Crypto::Box do
-  let(:alicepk_hex) { Crypto::TestVectors[:alice_public] }
-  let(:bobsk_hex)   { Crypto::TestVectors[:bob_private] }
+  let(:alicepk_hex) { hex_vector :alice_public }
+  let(:bobsk_hex)   { hex_vector :bob_private }
 
-  let(:alicepk)   { Crypto::Encoder[:hex].decode(alicepk_hex) }
-  let(:bobsk)     { Crypto::Encoder[:hex].decode(bobsk_hex) }
+  let(:alicepk)   { hex2bytes(alicepk_hex) }
+  let(:bobsk)     { hex2bytes(bobsk_hex) }
   let(:alice_key) { Crypto::PublicKey.new(alicepk) }
   let(:bob_key)   { Crypto::PrivateKey.new(bobsk) }
 
@@ -20,7 +20,7 @@ describe Crypto::Box do
     end
 
     it "raises on a nil public key" do
-      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(Crypto::LengthError, /Public key was nil \(Expected 32\)/)
+      expect { Crypto::Box.new(nil, bobsk) }.to raise_error(Crypto::LengthError, /Public key was 0 bytes \(Expected 32\)/)
     end
 
     it "raises on an invalid public key" do
@@ -28,7 +28,7 @@ describe Crypto::Box do
     end
 
     it "raises on a nil secret key" do
-      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(Crypto::LengthError, /Private key was nil \(Expected 32\)/)
+      expect { Crypto::Box.new(alicepk, nil) }.to raise_error(Crypto::LengthError, /Private key was 0 bytes \(Expected 32\)/)
     end
 
     it "raises on an invalid secret key" do

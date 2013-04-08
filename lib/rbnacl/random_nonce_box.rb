@@ -1,4 +1,5 @@
 # encoding: binary
+require 'forwardable'
 module Crypto
   # The simplest nonce strategy that could possibly work
   #
@@ -27,7 +28,11 @@ module Crypto
   #   there is no protection against messages being reordered and replayed by an
   #   active adversary.
   class RandomNonceBox
+    extend Forwardable
+    def_delegators :@box, :nonce_bytes, :primitive
+
     # the size of the nonce
+    # DO NOT USE THIS, use the #nonce_bytes method instead
     NONCEBYTES = NaCl::NONCEBYTES
 
     # Create a new RandomNonceBox
@@ -98,11 +103,11 @@ module Crypto
 
     private
     def generate_nonce
-      Random.random_bytes(NONCEBYTES)
+      Random.random_bytes(nonce_bytes)
     end
 
     def extract_nonce(bytes)
-      nonce = bytes.slice!(0, NONCEBYTES)
+      nonce = bytes.slice!(0, nonce_bytes)
       [nonce, bytes]
     end
   end
