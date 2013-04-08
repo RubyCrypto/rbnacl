@@ -27,6 +27,8 @@ module Crypto
   #   there is no protection against messages being reordered and replayed by an
   #   active adversary.
   class RandomNonceBox
+    # the size of the nonce
+    NONCEBYTES = NaCl::NONCEBYTES
 
     # Create a new RandomNonceBox
     #
@@ -60,13 +62,6 @@ module Crypto
     # @return [RandomNonceBox] Ready for use
     def self.from_keypair(private_key, public_key)
       new(Box.new(private_key, public_key))
-    end
-
-    # Returns the primitive of the underlying box
-    #
-    # @return [Symbol] The primitive of the underlying box
-    def primitive
-      @box.primitive
     end
 
     # Encrypts the message with a random nonce
@@ -103,11 +98,11 @@ module Crypto
 
     private
     def generate_nonce
-      Random.random_bytes(@box.nonce_bytes)
+      Random.random_bytes(NONCEBYTES)
     end
 
     def extract_nonce(bytes)
-      nonce = bytes.slice!(0, @box.nonce_bytes)
+      nonce = bytes.slice!(0, NONCEBYTES)
       [nonce, bytes]
     end
   end

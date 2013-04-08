@@ -1,5 +1,4 @@
 # encoding: binary
-require 'rbnacl/secret_box/xsalsa20_poly1305'
 module Crypto
   # The SecretBox class boxes and unboxes messages
   #
@@ -18,8 +17,8 @@ module Crypto
   # arbitrary valid messages, so messages you send are repudiatable.  For
   # non-repudiatable messages, sign them before or after encryption.
   class SecretBox
-    # The default primitive to use
-    DEFAULT_PRIMITIVE = SecretBox::XSalsa20Poly1305
+    # Number of bytes for a secret key
+    KEYBYTES = NaCl::SECRETBOX_KEYBYTES
 
     # Create a new SecretBox
     #
@@ -31,30 +30,9 @@ module Crypto
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::SecretBox] The new Box, ready to use
-    def initialize(key, encoding = :raw, primitive = DEFAULT_PRIMITIVE)
+    def initialize(key, encoding = :raw)
       @key = Encoder[encoding].decode(key) if key
-      @primitive = primitive.new(@key)
-    end
-
-    # returns the defaul primitive for the SecretBox class
-    #
-    # @return [Symbol] the default primitive
-    def self.primitive
-      DEFAULT_PRIMITIVE.primitive
-    end
-
-    # returns the primitive of this instance
-    #
-    # @return [Symbol] the default primitive
-    def primitive
-      @primitive.primitive
-    end
-    
-    # returns the number of bytes in a nonce
-    #
-    # @return [Integer] Number of nonce bytes
-    def nonce_bytes
-      @primitive.nonce_bytes
+      Util.check_length(@key, KEYBYTES, "Secret key")
     end
 
     # Encrypts a message
@@ -72,7 +50,12 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
-      @primitive.box(nonce, message)
+      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
+      ct  = Util.zeros(msg.bytesize)
+
+      NaCl.crypto_secretbox(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
+      Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
     alias encrypt box
 
@@ -91,7 +74,12 @@ module Crypto
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
-      @primitive.open(nonce, ciphertext)
+      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
+      message  = Util.zeros(ct.bytesize)
+
+      NaCl.crypto_secretbox_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
     alias decrypt open
   end

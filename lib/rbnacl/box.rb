@@ -1,5 +1,4 @@
 # encoding: binary
-require 'rbnacl/box/curve25519_xsalsa20_poly1305'
 module Crypto
   # The Box class boxes and unboxes messages between a pair of keys
   #
@@ -62,8 +61,6 @@ module Crypto
   # arbitrary valid messages, so messages you send are repudiatable.  For
   # non-repudiatable messages, sign them before or after encryption.
   class Box
-    # Default primitive to use
-    DEFAULT_PRIMITIVE = Box::Curve25519XSalsa20Poly1305
 
     # Create a new Box
     #
@@ -77,31 +74,11 @@ module Crypto
     # @raise [Crypto::LengthError] on invalid keys
     #
     # @return [Crypto::Box] The new Box, ready to use
-    def initialize(public_key, private_key, encoding = :raw, primitive = DEFAULT_PRIMITIVE)
-      public_key  = Encoder[encoding].decode(public_key)  if public_key
-      private_key = Encoder[encoding].decode(private_key) if private_key
-      @primitive  = primitive.new(public_key, private_key)
-    end
-
-    # returns the defaul primitive for the Box class
-    #
-    # @return [Symbol] the default primitive
-    def self.primitive
-      DEFAULT_PRIMITIVE.primitive
-    end
-
-    # returns the primitive of this instance
-    #
-    # @return [Symbol] the default primitive
-    def primitive
-      @primitive.primitive
-    end
-
-    # returns the number of bytes in a nonce
-    #
-    # @return [Integer] Number of nonce bytes
-    def nonce_bytes
-      @primitive.nonce_bytes
+    def initialize(public_key, private_key, encoding = :raw)
+      @public_key  = Encoder[encoding].decode(public_key)  if public_key
+      @private_key = Encoder[encoding].decode(private_key) if private_key
+      Util.check_length(@public_key,  PublicKey::BYTES,  "Public key")
+      Util.check_length(@private_key, PrivateKey::BYTES, "Private key")
     end
 
     # Encrypts a message
@@ -119,7 +96,12 @@ module Crypto
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
-      @primitive.box(nonce, message)
+      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
+      ct  = Util.zeros(msg.bytesize)
+
+      NaCl.crypto_box_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+      Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
     end
     alias encrypt box
 
@@ -138,8 +120,22 @@ module Crypto
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
-      @primitive.open(nonce, ciphertext)
+      Util.check_length(nonce, Crypto::NaCl::NONCEBYTES, "Nonce")
+      ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
+      message  = Util.zeros(ct.bytesize)
+
+      NaCl.crypto_box_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+      Util.remove_zeros(NaCl::ZEROBYTES, message)
     end
     alias decrypt open
+
+    private
+    def beforenm
+      @k ||= begin
+               k = Util.zeros(NaCl::BEFORENMBYTES)
+               NaCl.crypto_box_beforenm(k, @public_key, @private_key) || raise(CryptoError, "Failed to derive shared key")
+               k
+             end
+    end
   end
 end

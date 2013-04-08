@@ -10,11 +10,11 @@ describe Crypto::SecretBox do
     end
 
     it "raises on a nil key" do
-      expect { Crypto::SecretBox.new(nil) }.to raise_error(Crypto::LengthError, "Secret key was nil \(Expected #{Crypto::SecretBox::DEFAULT_PRIMITIVE::KEYBYTES}\)")
+      expect { Crypto::SecretBox.new(nil) }.to raise_error(Crypto::LengthError, "Secret key was nil \(Expected #{Crypto::NaCl::SECRETKEYBYTES}\)")
     end
 
     it "raises on a short key" do
-      expect { Crypto::SecretBox.new("hello") }.to raise_error(Crypto::LengthError, "Secret key was 5 bytes \(Expected #{Crypto::SecretBox::DEFAULT_PRIMITIVE::KEYBYTES}\)")
+      expect { Crypto::SecretBox.new("hello") }.to raise_error(Crypto::LengthError, "Secret key was 5 bytes \(Expected #{Crypto::NaCl::SECRETKEYBYTES}\)")
     end
   end
 
