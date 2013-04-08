@@ -23,7 +23,7 @@ module Crypto
     # @return [Crypto::SigningKey] Key which can sign messages
     def initialize(key, encoding = :raw)
       key = Encoder[encoding].decode(key)
-      Util.check_length(key, NaCl::PUBLICKEYBYTES, "key")
+      Util.check_length(key, NaCl::ED25519_VERIFYKEY_BYTES, "key")
 
       @key = key
     end
@@ -42,13 +42,13 @@ module Crypto
     # @return [Boolean] was the signature authentic?
     def verify(message, signature, signature_encoding = :raw)
       signature = Encoder[signature_encoding].decode(signature)
-      Util.check_length(signature, NaCl::SIGNATUREBYTES, "signature")
+      Util.check_length(signature, signature_bytes, "signature")
 
       sig_and_msg = signature + message
       buffer = Util.zeros(sig_and_msg.bytesize)
       buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
-      NaCl.crypto_sign_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
+      NaCl.crypto_sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
     end
 
     # "Dangerous" (but probably safer) verify that raises an exception if a
@@ -72,5 +72,25 @@ module Crypto
     #
     # @return [String] raw key as bytes
     def to_bytes; @key; end
+
+    # The crypto primitive the VerifyKey class uses for signatures
+    #
+    # @return [Symbol] The primitive
+    def self.primitive; :ed25519; end
+
+    # The crypto primitive this VerifyKey class uses for signatures
+    #
+    # @return [Symbol] The primitive
+    def primitive; self.class.primitive; end
+
+    # The size of signatures verified by the VerifyKey class
+    #
+    # @return [Integer] The number of bytes in a signature
+    def self.signature_bytes; NaCl::ED25519_SIGNATUREBYTES; end
+
+    # The size of signatures verified by the VerifyKey instance
+    #
+    # @return [Integer] The number of bytes in a signature
+    def signature_bytes; NaCl::ED25519_SIGNATUREBYTES; end
   end
 end

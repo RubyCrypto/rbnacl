@@ -9,7 +9,7 @@ module Crypto
     include Serializable
 
     # The size of the key, in bytes
-    BYTES = Crypto::NaCl::PUBLICKEYBYTES
+    BYTES = NaCl::CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES
 
     # Initializes a new PublicKey for key operations.
     #
@@ -33,6 +33,20 @@ module Crypto
     # @return [String] the raw bytes.
     def to_bytes
       @public_key
+    end
+
+    # The crypto primitive the PublicKey class is to be used for
+    #
+    # @return [Symbol] The primitive
+    def self.primitive
+      :curve25519_xsalsa20_poly1305
+    end
+
+    # The crypto primitive this PublicKey is to be used for.
+    #
+    # @return [Symbol] The primitive
+    def primitive
+      self.class.primitive
     end
   end
 end

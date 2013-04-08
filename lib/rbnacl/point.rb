@@ -18,6 +18,9 @@ module Crypto
     include KeyComparator
     include Serializable
 
+    # Number of bytes in a scalar on this curve
+    SCALARBYTES = NaCl::ED25519_SCALARBYTES
+
     # Creates a new Point from the given serialization
     #
     # @param value [String] 32-byte value representing a group element
@@ -29,7 +32,7 @@ module Crypto
 
       # FIXME: really should have a separate constant here for group element size
       # Group elements and scalars are both 32-bits, but that's for convenience
-      Util.check_length(@point, NaCl::SCALARBYTES, "group element")
+      Util.check_length(@point, SCALARBYTES, "group element")
     end
 
     # Multiply the given integer by this point
@@ -42,10 +45,10 @@ module Crypto
     # @return [Crypto::Point] Result as a Point object
     def mult(integer, encoding = :raw)
       integer = Encoder[encoding].decode(integer)
-      Util.check_length(integer, NaCl::SCALARBYTES, "integer")
+      Util.check_length(integer, SCALARBYTES, "integer")
 
-      result = Util.zeros(NaCl::SCALARBYTES)
-      NaCl.crypto_scalarmult(result, integer, @point)
+      result = Util.zeros(SCALARBYTES)
+      NaCl.crypto_scalarmult_curve25519(result, integer, @point)
 
       self.class.new(result)
     end

@@ -5,6 +5,11 @@ module Crypto
   #
   # And that's all it does, really.
   #
+  # HERE BE DRAGONS!
+  #
+  # Do **NOT** use constants and methods defined here.  If you do find yourself
+  # needing to, that is a bug in RbNaCl and should be reported.
+  #
   # @private
   module NaCl
     extend FFI::Library
@@ -40,35 +45,39 @@ module Crypto
                        :crypto_hash_sha512_ref,
                        [:pointer, :pointer, :long_long]
 
-    PUBLICKEYBYTES = 32
-    SECRETKEYBYTES = 32
-    wrap_nacl_function :crypto_box_keypair,
+    CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES = 32
+    PUBLICKEYBYTES = CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES
+    CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES = 32
+    SECRETKEYBYTES = CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES
+    wrap_nacl_function :crypto_box_curve25519xsalsa20poly1305_keypair,
                        :crypto_box_curve25519xsalsa20poly1305_ref_keypair,
                        [:pointer, :pointer]
 
-    NONCEBYTES     = 24
+    CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES    = 24
+    NONCEBYTES     = CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES
     ZEROBYTES      = 32
     BOXZEROBYTES   = 16
-    BEFORENMBYTES  = 32
+    CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES = 32
 
-    wrap_nacl_function :crypto_box_beforenm,
+    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_beforenm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_beforenm,
                        [:pointer, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_box_afternm,
+    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_afternm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_box_open_afternm,
+    wrap_nacl_function :crypto_box_curve25519_xsalsa20_poly1305_open_afternm,
                        :crypto_box_curve25519xsalsa20poly1305_ref_open_afternm,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    SECRETBOX_KEYBYTES = 32
-    wrap_nacl_function :crypto_secretbox,
+    XSALSA20_POLY1305_SECRETBOX_KEYBYTES   = 32
+    XSALSA20_POLY1305_SECRETBOX_NONCEBYTES = 24
+    wrap_nacl_function :crypto_secretbox_xsalsa20poly1305,
                        :crypto_secretbox_xsalsa20poly1305_ref,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_secretbox_open,
+    wrap_nacl_function :crypto_secretbox_xsalsa20poly1305_open,
                        :crypto_secretbox_xsalsa20poly1305_ref_open,
                        [:pointer, :pointer, :long_long, :pointer, :pointer]
 
@@ -110,22 +119,27 @@ module Crypto
                        :crypto_verify_16_ref,
                        [:pointer, :pointer]
 
-    SIGNATUREBYTES = 64
-    wrap_nacl_function :crypto_sign_seed_keypair,
+    ED25519_SIGNATUREBYTES   = 64
+    SIGNATUREBYTES           = ED25519_SIGNATUREBYTES
+    ED25519_SIGNINGKEY_BYTES = 64
+    ED25519_VERIFYKEY_BYTES  = 32
+    ED25519_SEED_BYTES       = 32
+    wrap_nacl_function :crypto_sign_ed25519_seed_keypair,
                        :crypto_sign_ed25519_ref_seed_keypair,
                        [:pointer, :pointer, :pointer]
 
-    wrap_nacl_function :crypto_sign,
+    wrap_nacl_function :crypto_sign_ed25519,
                        :crypto_sign_ed25519_ref,
                        [:pointer, :pointer, :pointer, :long_long, :pointer]
 
-    wrap_nacl_function :crypto_sign_open,
+    wrap_nacl_function :crypto_sign_ed25519_open,
                        :crypto_sign_ed25519_ref_open,
                        [:pointer, :pointer, :pointer, :long_long, :pointer]
 
-    SCALARBYTES = 32
+    ED25519_SCALARBYTES = 32
+    SCALARBYTES         = ED25519_SCALARBYTES
 
-    wrap_nacl_function :crypto_scalarmult,
+    wrap_nacl_function :crypto_scalarmult_curve25519,
                        :crypto_scalarmult_curve25519_ref,
                        [:pointer, :pointer, :pointer]
   end

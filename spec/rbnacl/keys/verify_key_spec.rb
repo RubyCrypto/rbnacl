@@ -1,12 +1,12 @@
 # encoding: binary
 describe Crypto::VerifyKey do
-  let(:signing_key)    { Crypto::TestVectors[:sign_private] }
-  let(:verify_key)     { Crypto::TestVectors[:sign_public] }
-  let(:verify_key_raw) { Crypto::Encoder[:hex].decode(verify_key) }
+  let(:signing_key)    { hex_vector :sign_private }
+  let(:verify_key)     { hex_vector :sign_public }
+  let(:verify_key_raw) { hex2bytes verify_key }
 
-  let(:message)        { Crypto::Encoder[:hex].decode(Crypto::TestVectors[:sign_message]) }
-  let(:signature)      { Crypto::TestVectors[:sign_signature] }
-  let(:signature_raw)  { Crypto::Encoder[:hex].decode(signature) }
+  let(:message)        { test_vector :sign_message }
+  let(:signature)      { hex_vector :sign_signature }
+  let(:signature_raw)  { hex2bytes signature }
   let(:bad_signature)  { sig = signature.dup; sig[0] = (sig[0].ord + 1).chr; sig }
 
   subject { Crypto::SigningKey.new(signing_key, :hex).verify_key }

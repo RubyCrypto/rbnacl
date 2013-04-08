@@ -23,6 +23,13 @@ module Crypto
 
       # Number of bytes in a valid authenticator
       BYTES = NaCl::ONETIME_BYTES
+      
+      # The crypto primitive for the Auth::OneTime class
+      #
+      # @return [Symbol] The primitive used
+      def self.primitive
+        :poly_1305
+      end
 
       private
       def compute_authenticator(message, authenticator)
