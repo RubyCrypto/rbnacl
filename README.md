@@ -2,7 +2,6 @@
 ======
 [![Gem Version](https://badge.fury.io/rb/rbnacl.png)](http://badge.fury.io/rb/rbnacl)
 [![Build Status](https://travis-ci.org/cryptosphere/rbnacl.png?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
-[![Dependency Status](https://gemnasium.com/cryptosphere/rbnacl.png)](https://gemnasium.com/cryptosphere/rbnacl)
 [![Code Climate](https://codeclimate.com/github/cryptosphere/rbnacl.png)](https://codeclimate.com/github/cryptosphere/rbnacl)
 [![Coverage Status](https://coveralls.io/repos/cryptosphere/rbnacl/badge.png?branch=master)](https://coveralls.io/r/cryptosphere/rbnacl)
 
