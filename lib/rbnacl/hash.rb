@@ -44,5 +44,27 @@ module Crypto
       NaCl.crypto_hash_sha512(hash, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
       Encoder[encoding].encode(hash)
     end
+
+    if NaCl.supported_version? :libsodium, '0.4.0'
+      # Returns the Blake2b hash of the given data
+      #
+      # There's no streaming done, just pass in the data and be done with it.
+      #
+      # @param [String] data The data, as a collection of bytes
+      # @param [#to_sym] encoding Encoding of the returned hash.
+      #
+      # @raise [CryptoError] If the hashing fails for some reason.
+      #
+      # @return [String] The SHA-512 hash as raw bytes (Or encoded as per the second argument)
+      def self.blake2b(data, encoding = :raw)
+        hash = Util.zeros(NaCl::BLAKE2B_OUTBYTES)
+        NaCl.crypto_hash_blake2b(hash, NaCl::BLAKE2B_OUTBYTES, data, data.bytesize, nil, 0) || raise(CryptoError, "Hashing failed!")
+        Encoder[encoding].encode(hash)
+      end
+    else
+      def self.blake2b(data, encoding = :raw)
+        raise NotImplementedError, "not supported by this version of libsodium"
+      end
+    end
   end
 end
