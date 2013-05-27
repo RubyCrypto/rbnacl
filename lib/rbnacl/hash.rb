@@ -49,13 +49,14 @@ module Crypto
       # Returns the Blake2b hash of the given data
       #
       # There's no streaming done, just pass in the data and be done with it.
+      # This method returns a 64-byte hash.
       #
       # @param [String] data The data, as a collection of bytes
       # @param [#to_sym] encoding Encoding of the returned hash.
       #
       # @raise [CryptoError] If the hashing fails for some reason.
       #
-      # @return [String] The SHA-512 hash as raw bytes (Or encoded as per the second argument)
+      # @return [String] The blake2b hash as raw bytes (Or encoded as per the second argument)
       def self.blake2b(data, encoding = :raw)
         hash = Util.zeros(NaCl::BLAKE2B_OUTBYTES)
         NaCl.crypto_hash_blake2b(hash, NaCl::BLAKE2B_OUTBYTES, data, data.bytesize, nil, 0) || raise(CryptoError, "Hashing failed!")
