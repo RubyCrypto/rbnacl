@@ -13,7 +13,18 @@ module Crypto
   # @private
   module NaCl
     extend FFI::Library
+
     ffi_lib 'sodium'
+    attach_function :sodium_version_string, [], :string
+
+    # Determine if a given feature is supported based on Sodium/NaCl version
+    def self.supported_version?(engine, version)
+      return unless engine == :libsodium
+
+      # FIXME: This sort of comparison has some edge cases we don't have to
+      # worry about... yet.
+      sodium_version_string >= version
+    end
 
     # Wraps an NaCl function so it returns a sane value
     #
@@ -44,6 +55,12 @@ module Crypto
     wrap_nacl_function :crypto_hash_sha512,
                        :crypto_hash_sha512_ref,
                        [:pointer, :pointer, :long_long]
+
+    BLAKE2B_OUTBYTES = 64
+    BLAKE2B_KEYBYTES = 64
+    wrap_nacl_function :crypto_hash_blake2b,
+                       :crypto_generichash_blake2b,
+                       [:pointer, :size_t, :pointer, :long_long, :pointer, :size_t]
 
     CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES = 32
     PUBLICKEYBYTES = CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES
