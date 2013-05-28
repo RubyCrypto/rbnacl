@@ -57,9 +57,11 @@ module Crypto
       # @raise [CryptoError] If the hashing fails for some reason.
       #
       # @return [String] The blake2b hash as raw bytes (Or encoded as per the second argument)
-      def self.blake2b(data, encoding = :raw)
+      def self.blake2b(data, key = nil, encoding = :raw)
         hash = Util.zeros(NaCl::BLAKE2B_OUTBYTES)
-        NaCl.crypto_hash_blake2b(hash, NaCl::BLAKE2B_OUTBYTES, data, data.bytesize, nil, 0) || raise(CryptoError, "Hashing failed!")
+        raise LengthError, "key too long" if key && key.bytesize > NaCl::BLAKE2B_KEYBYTES
+
+        NaCl.crypto_hash_blake2b(hash, NaCl::BLAKE2B_OUTBYTES, data, data.bytesize, key, key ? key.bytesize : 0) || raise(CryptoError, "Hashing failed!")
         Encoder[encoding].encode(hash)
       end
     else
