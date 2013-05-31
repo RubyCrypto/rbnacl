@@ -83,7 +83,7 @@ describe Crypto::Hash do
         let(:reference_key)             { hex2bytes reference_key_hex }
 
         it "calculates keyed hashes correctly" do
-          Crypto::Hash.blake2b(reference_string, key: reference_key).should eq reference_string_hash
+          Crypto::Hash.blake2b(reference_string, :key => reference_key).should eq reference_string_hash
         end
       end
     end
