@@ -2,7 +2,7 @@
 module Crypto
   # Crypto::Box public key. Send to your friends.
   #
-  # This class stores the NaCL public key, and provides some convience
+  # This class stores the NaCL public key, and provides some convenience
   # functions for working with it.
   class PublicKey
     include KeyComparator

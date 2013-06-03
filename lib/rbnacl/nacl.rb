@@ -30,7 +30,7 @@ module Crypto
     #
     # The NaCl functions generally have an integer return value which is 0 in
     # the case of success and below 0 if they failed.  This is a bit
-    # inconvinient in ruby, where 0 is a truthy value, so this makes them
+    # inconvenient in ruby, where 0 is a truthy value, so this makes them
     # return true/false based on success.
     #
     # @param [Symbol] name Function name that will return true/false
