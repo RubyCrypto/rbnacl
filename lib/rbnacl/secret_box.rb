@@ -14,8 +14,8 @@ module Crypto
   # is checked as part of the decryption.  An invalid authenticator will cause
   # the unbox function to raise.  The authenticator is not a signature.  Once
   # you've looked in the box, you've demonstrated the ability to create
-  # arbitrary valid messages, so messages you send are repudiatable.  For
-  # non-repudiatable messages, sign them before or after encryption.
+  # arbitrary valid messages, so messages you send are repudiable.  For
+  # non-repudiable messages, sign them before or after encryption.
   class SecretBox
     # Number of bytes for a secret key
     KEYBYTES = NaCl::XSALSA20_POLY1305_SECRETBOX_KEYBYTES
