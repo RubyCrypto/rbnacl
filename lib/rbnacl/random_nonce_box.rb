@@ -9,7 +9,7 @@ module Crypto
   # open the box, the message is split into nonce and ciphertext, and then the
   # box is decrypted.
   #
-  # Thanks to the size of the nonce, the chance of a collision is neglible.  For
+  # Thanks to the size of the nonce, the chance of a collision is negligible.  For
   # example, after encrypting 2^64 messages, the odds of their having been
   # repeated nonce is approximately 2^-64.  As an additional convenience, the
   # ciphertexts may be encoded or decoded by any of the encoders implemented in

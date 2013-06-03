@@ -6,12 +6,12 @@ module Crypto
   module Encoders
     # Base64 encoding provider
     #
-    # Accessable as Crypto::Encoder[:base64]
+    # Accessible as Crypto::Encoder[:base64]
     #
     class Base32 < Crypto::Encoder
       register :base32
 
-      # Base64 encodes a message
+      # Base32 encodes a message
       #
       # @param [String] bytes The bytes to encode
       #

@@ -6,7 +6,7 @@ module Crypto
   # AES-128, NIST P-256, and RSA-3072.
   #
   # Signing keys are produced from a 32-byte (256-bit) random seed value.
-  # This value can be passed into the SigningKey constructoras a String
+  # This value can be passed into the SigningKey constructor as a String
   # whose bytesize is 32.
   #
   # The public VerifyKey can be computed from the private 32-byte seed value
