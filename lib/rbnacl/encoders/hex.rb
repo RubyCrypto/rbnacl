@@ -3,7 +3,7 @@ module Crypto
   module Encoders
     # Hex encoding provider
     #
-    # Accessable as Crypto::Encoder[:hex]
+    # Accessible as Crypto::Encoder[:hex]
     #
     class Hex < Crypto::Encoder
       register :hex
@@ -12,7 +12,7 @@ module Crypto
       #
       # @param [String] bytes The bytes to encode
       #
-      # @return [String] Tasty, tasty hexidecimal
+      # @return [String] Tasty, tasty hexadecimal
       def encode(bytes)
         bytes.to_s.unpack("H*").first
       end
