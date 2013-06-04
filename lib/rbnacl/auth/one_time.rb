@@ -3,7 +3,7 @@ module Crypto
   class Auth
     # Computes an authenticator using poly1305
     #
-    # The authenticator can be used at a later time to verify the provenence of
+    # The authenticator can be used at a later time to verify the provenance of
     # the message by recomputing the tag over the message and then comparing it to
     # the provided authenticator.  The class provides methods for generating
     # signatures and also has a constant-time implementation for checking them.
