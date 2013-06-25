@@ -31,12 +31,13 @@ module Crypto
       # Calculate a Blake2b hash
       #
       # @param [String] message Message to be hashed
+      # @param [#to_sym] encoding Encoding of the returned hash
       #
       # @return [String] Blake2b digest of the string as raw bytes
-      def hash(message)
+      def hash(message, encoding = :raw)
         digest = Util.zeros(@digest_size)
         NaCl.crypto_hash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
-        digest
+        Encoder[encoding].encode(digest)
       end
     end
   end
