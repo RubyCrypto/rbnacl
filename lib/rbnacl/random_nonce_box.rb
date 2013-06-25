@@ -83,6 +83,7 @@ module Crypto
       cipher_text = @box.box(nonce, message)
       Encoder[encoding].encode(nonce + cipher_text)
     end
+    alias encrypt box
 
     # Decrypts the ciphertext with a random nonce
     #
@@ -100,6 +101,7 @@ module Crypto
       nonce, ciphertext = *extract_nonce(decoded)
       @box.open(nonce, ciphertext)
     end
+    alias decrypt open
 
     private
     def generate_nonce
