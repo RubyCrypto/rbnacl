@@ -64,7 +64,7 @@ module Crypto
         digest_size = options[:digest_size] || NaCl::BLAKE2B_OUTBYTES
         encoding    = options[:encoding] || :raw
 
-        digest = Blake2b.new(key).hash(data, digest_size)
+        digest = Blake2b.new(options).hash(data)
         Encoder[encoding].encode(digest)
       end
 
