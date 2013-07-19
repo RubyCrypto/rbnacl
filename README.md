@@ -46,6 +46,24 @@ is extremely fast with comparatively small cryptographic keys.
 For more information on NaCl's goals, see Dan Bernstein's presentation
 [Blaming the Cryptographic User](http://cr.yp.to/talks/2012.08.08/slides.pdf)
 
+### Is it any good?
+
+[Yes.](http://news.ycombinator.com/item?id=3067434)
+
+### Is it "Military Grade™"?
+
+Only if your military understands twisted Edwards curves
+
+### Is it NSA-proof?
+
+Like, totally
+
+### Does it have a lock with a checkmark?
+
+Sure, here you go:
+
+![Checkmarked Lock](http://i.imgur.com/L10E4UT.png)
+
 ## Supported platforms
 
 You can use RbNaCl anywhere you can get libsodium installed (see below).
