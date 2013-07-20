@@ -50,20 +50,6 @@ For more information on NaCl's goals, see Dan Bernstein's presentation
 
 [Yes.](http://news.ycombinator.com/item?id=3067434)
 
-### Is it "Military Grade™"?
-
-Only if your military understands twisted Edwards curves
-
-### Is it NSA-proof?
-
-Like, totally
-
-### Does it have a lock with a checkmark?
-
-Sure, here you go:
-
-![Checkmarked Lock](http://i.imgur.com/QVJa2oR.png)
-
 ## Supported platforms
 
 You can use RbNaCl anywhere you can get libsodium installed (see below).
@@ -216,6 +202,24 @@ Have a general interest in cryptography? Check out the free course
 Coursera offers from Stanford University Professor Dan Boneh:
 
 [http://crypto-class.org](http://crypto-class.org)
+
+## Important Questions
+
+### Is it "Military Grade™"?
+
+Only if your military understands twisted Edwards curves
+
+### Is it NSA-proof?
+
+Like, totally
+
+### Does it have a lock with a checkmark?
+
+Sure, here you go:
+
+![Checkmarked Lock](http://i.imgur.com/QVJa2oR.png)
+
+
 
 ## Contributing
 
