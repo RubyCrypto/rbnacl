@@ -62,7 +62,7 @@ Like, totally
 
 Sure, here you go:
 
-![Checkmarked Lock](http://i.imgur.com/L10E4UT.png)
+![Checkmarked Lock](http://i.imgur.com/QVJa2oR.png)
 
 ## Supported platforms
 
