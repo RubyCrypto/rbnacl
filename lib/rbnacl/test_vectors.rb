@@ -50,8 +50,41 @@ module Crypto
     :sha256_message => "6162636462636465636465666465666765666768666768696768696a68696a6b" +
                        "696a6b6c6a6b6c6d6b6c6d6e6c6d6e6f6d6e6f706e6f7071",
     :sha256_digest  => "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1",
+    :sha256_empty   => "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
 
     #
+    # SHA512 test vectors
+    # self-created (FIXME: find standard test vectors)
+    :sha512_message => "54686520717569636b2062726f776e20666f78206a756d7073206f7665722074" + 
+                       "6865206c617a7920646f672e",
+    :sha512_digest  => "91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bb" +
+                       "c6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed",
+    :sha512_empty   => "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce" +
+                       "47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+
+    # Blake2b test vectors
+    # self-created? (TODO: double check, fix)
+    :blake2b_message => "54686520717569636b2062726f776e20666f78206a756d7073206f7665722074" + 
+                        "6865206c617a7920646f67",
+    :blake2b_digest  => "a8add4bdddfd93e4877d2746e62817b116364a1fa7bc148d95090bc7333b3673" +
+                        "f82401cf7aa2e4cb1ecd90296e3f14cb5413f8ed77be73045b13914cdcd6a918",
+    :blake2b_empty   => "786a02f742015903c6c6fd852552d272912f4740e15847618a86e217f71f5419" +
+                        "d25e1031afee585313896444934eb04b903a685b1448b755d56f701afe9be2ce",
+
+    # from the Blake2 paper(?) (TODO: double check)
+    :blake2b_keyed_message => "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f" +
+                              "202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f" +
+                              "404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f" +
+                              "606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f" +
+                              "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f" +
+                              "a0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf" +
+                              "c0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf" +
+                              "e0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfe",
+    :blake2b_key           => "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f" +
+                              "202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
+    :blake2b_keyed_digest  => "142709d62e28fcccd0af97fad0f8465b971e82201dc51070faa0372aa43e9248" +
+                              "4be1c1e73ba10906d5d1853db6a4106e0a7bf9800d373d6dee2d46d62ef2a461",
+
     # Auth test vectors
     # Taken from NaCl distribution
     #

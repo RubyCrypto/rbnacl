@@ -28,8 +28,8 @@ module Crypto
     # @raise [Crypto::LengthError] If the key is not valid after decoding.
     #
     # @return A new PrivateKey
-    def initialize(private_key, key_encoding = :raw)
-      @private_key = Crypto::Encoder[key_encoding].decode(private_key)
+    def initialize(private_key)
+      @private_key = private_key.to_str
       Util.check_length(@private_key, BYTES, "Private key")
     end
 
