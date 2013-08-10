@@ -12,8 +12,7 @@ describe Crypto::PublicKey do
     end
 
     it "rejects a nil key" do
-      expect { Crypto::PublicKey.new(nil) }.to raise_error(NoMethodError)
-      pending "is a failed #to_s (NoMethodError) here sufficient?"
+      expect { Crypto::PublicKey.new(nil) }.to raise_error(TypeError)
     end
 
     it "rejects a short key" do

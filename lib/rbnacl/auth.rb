@@ -19,8 +19,7 @@ module Crypto
     #
     # @param [#to_str] key the key used for authenticators, 32 bytes.
     def initialize(key)
-      @key = key.to_str
-      Util.check_length(@key, key_bytes, "#{self.class} key")
+      @key = Util.check_string(key, key_bytes, "#{self.class} key")
     end
 
     # Compute authenticator for message

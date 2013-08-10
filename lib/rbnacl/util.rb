@@ -66,6 +66,27 @@ module Crypto
       true
     end
 
+    # Check a passed in string, converting the argument if necessary
+    #
+    # In several places through the codebase we have to be VERY strict with
+    # the strings we accept.  This method supports that.
+    #
+    # @raise [ArgumentError] If we cannot convert to a string with #to_str
+    # @raise [Crypto::LengthError] If the string is not the right length
+    #
+    # @param string [#to_str] The input string
+    # @param length [Integer] The only acceptable length of the string
+    # @param description [String] Description of the string (used in the error)
+    def check_string(string, length, description)
+      unless string.respond_to? :to_str
+        raise TypeError, "can't convert #{string.class} into String with #to_str"
+      end
+
+      string = string.to_str
+      check_length(string, length, description)
+
+      string
+    end
 
     # Compare two 32 byte strings in constant time
     #

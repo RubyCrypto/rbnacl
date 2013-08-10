@@ -33,8 +33,7 @@ module Crypto
     #
     # @return [Crypto::SecretBox] The new Box, ready to use
     def initialize(key)
-      @key = key.to_str
-      Util.check_length(@key, KEYBYTES, "Secret key")
+      @key = Util.check_string(key, KEYBYTES, "Secret key")
     end
 
     # Encrypts a message

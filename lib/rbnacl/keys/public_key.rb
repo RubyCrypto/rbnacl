@@ -23,8 +23,7 @@ module Crypto
     #
     # @return A new PublicKey
     def initialize(public_key)
-      @public_key = public_key.to_str
-      Util.check_length(@public_key, BYTES, "Public key")
+      @public_key = Util.check_string(public_key, BYTES, "Public key")
     end
 
     # The raw bytes of the key

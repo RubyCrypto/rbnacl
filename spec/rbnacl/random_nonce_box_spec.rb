@@ -16,18 +16,17 @@ describe Crypto::RandomNonceBox do
       Crypto::RandomNonceBox.from_secret_key(secret_key).should be_a Crypto::RandomNonceBox
     end
 
-    it "complains on an inappropriate secret key" do
-      expect { Crypto::RandomNonceBox.from_secret_key(nil) }.to raise_error(NoMethodError)
-      pending "is a failed #to_s (NoMethodError) here sufficient?"
+    it "raises TypeError when given a nil secret key" do
+      expect { Crypto::RandomNonceBox.from_secret_key(nil) }.to raise_error(TypeError)
     end
 
     it "can be instantiated from a key-pair" do
       Crypto::RandomNonceBox.from_keypair(alicepk, bobsk).should be_a Crypto::RandomNonceBox
     end
 
-    it "complains on an inappropriate key in the pair" do
-      expect { Crypto::RandomNonceBox.from_keypair(nil, bobsk) }.to raise_error(NoMethodError)
-      pending "is a failed #to_s (NoMethodError) here sufficient?"
+    it "raises TypeError when given nil secret keys in the pair" do
+      expect { Crypto::RandomNonceBox.from_keypair(nil, bobsk) }.to raise_error(TypeError)
+      expect { Crypto::RandomNonceBox.from_keypair(alicepk, nil) }.to raise_error(TypeError)
     end
   end
 

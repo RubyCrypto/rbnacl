@@ -24,12 +24,11 @@ describe Crypto::PrivateKey do
       expect { Crypto::PrivateKey.new(bobsk) }.not_to raise_error
     end
 
-    it "rejects a nil key" do
-      expect { Crypto::PrivateKey.new(nil) }.to raise_error(NoMethodError)
-      pending "is a failed #to_s (NoMethodError) here sufficient?"
+    it "raises TypeError when given a nil key" do
+      expect { Crypto::PrivateKey.new(nil) }.to raise_error(TypeError)
     end
 
-    it "rejects a short key" do
+    it "raises ArgumentError when given a short key" do
       expect { Crypto::PrivateKey.new("short") }.to raise_error(ArgumentError)
     end
   end
