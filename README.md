@@ -217,9 +217,7 @@ Like, totally
 
 Sure, here you go:
 
-![Checkmarked Lock](http://i.imgur.com/QVJa2oR.png)
-
-
+![Checkmarked Lock](http://i.imgur.com/dwA0Ffi.png)
 
 ## Contributing
 
