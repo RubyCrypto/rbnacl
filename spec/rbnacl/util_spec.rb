@@ -102,6 +102,7 @@ describe Crypto::Util do
       Crypto::Util.verify16(msg, long_msg).should be false
     end
   end
+
   context "check_length" do
     it "accepts strings of the correct length" do
       expect { Crypto::Util.check_length("A"*4, 4, "Test String") }.not_to raise_error
@@ -114,6 +115,19 @@ describe Crypto::Util do
     end
     it "rejects nil strings" do
       expect { Crypto::Util.check_length(nil, 4, "Test String") }.to raise_error(Crypto::LengthError, "Test String was nil (Expected 4)")
+    end
+  end
+
+  context "hex encoding" do
+    let (:bytes) { [0xDE,0xAD,0xBE,0xEF].pack('c*') }
+    let (:hex)   { "deadbeef" }
+
+    it "encodes to hex with bin2hex" do
+      Crypto::Util.bin2hex(bytes).should eq hex
+    end
+
+    it "decodes from hex with hex2bin" do
+      Crypto::Util.hex2bin(hex).should eq bytes
     end
   end
 end
