@@ -1,7 +1,7 @@
 # encoding: binary
 module Crypto
   # NaCl's base point (a.k.a. standard group element), serialized as hex
-  STANDARD_GROUP_ELEMENT = "0900000000000000000000000000000000000000000000000000000000000000".freeze
+  STANDARD_GROUP_ELEMENT = ["0900000000000000000000000000000000000000000000000000000000000000"].pack("H*").freeze
 
   # Order of the standard group
   STANDARD_GROUP_ORDER = 2**252 + 27742317777372353535851937790883648493
@@ -23,12 +23,11 @@ module Crypto
 
     # Creates a new Point from the given serialization
     #
-    # @param value [String] 32-byte value representing a group element
-    # @param encoding [Symbol] The encoding format of the group element
+    # @param [String] point location of a group element (32-bytes)
     #
-    # @return [Crypto::Point] New Crypto::Point object
-    def initialize(value, encoding = :raw)
-      @point = Encoder[encoding].decode(value)
+    # @return [Crypto::Point] the Point at this location
+    def initialize(point)
+      @point = point.to_str
 
       # FIXME: really should have a separate constant here for group element size
       # Group elements and scalars are both 32-bits, but that's for convenience
@@ -39,12 +38,11 @@ module Crypto
     # This ordering is a bit confusing because traditionally the point
     # would be the right-hand operand.
     #
-    # @param integer [String] 32-byte integer value
-    # @param encoding [Symbol] The encoding format of the integer
+    # @param [String] integer value to multiply with this Point (32-bytes)
     #
-    # @return [Crypto::Point] Result as a Point object
+    # @return [Crypto::Point] result as a Point object
     def mult(integer, encoding = :raw)
-      integer = Encoder[encoding].decode(integer)
+      integer = integer.to_str
       Util.check_length(integer, SCALARBYTES, "integer")
 
       result = Util.zeros(SCALARBYTES)
@@ -58,7 +56,7 @@ module Crypto
     # @return [String] 32-byte string representing this point
     def to_bytes; @point; end
 
-    @base_point = Point.new(STANDARD_GROUP_ELEMENT, :hex)
+    @base_point = Point.new(STANDARD_GROUP_ELEMENT)
 
     # NaCl's standard base point for all Curve25519 public keys
     #

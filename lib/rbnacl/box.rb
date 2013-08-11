@@ -78,8 +78,8 @@ module Crypto
     #
     # @return [Crypto::Box] The new Box, ready to use
     def initialize(public_key, private_key, encoding = :raw)
-      @public_key   = PublicKey  === public_key  ? public_key  : PublicKey.new(public_key, encoding)
-      @private_key  = PrivateKey === private_key ? private_key : PrivateKey.new(private_key, encoding)
+      @public_key   = PublicKey  === public_key  ? public_key  : PublicKey.new(public_key)
+      @private_key  = PrivateKey === private_key ? private_key : PrivateKey.new(private_key)
       raise IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive
     end
 

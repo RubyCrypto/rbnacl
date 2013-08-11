@@ -13,7 +13,7 @@ module Crypto
       # Create a new Blake2b hash object
       #
       # @param [Hash] opts Blake2b configuration
-      # @option opts [String] :key for Blake2b keyed mode
+      # @option opts [String]  :key for Blake2b keyed mode
       # @option opts [Integer] :digest_size size of output digest in bytes
       #
       # @raise [Crypto::LengthError] Invalid length specified for one or more options
@@ -31,13 +31,12 @@ module Crypto
       # Calculate a Blake2b hash
       #
       # @param [String] message Message to be hashed
-      # @param [#to_sym] encoding Encoding of the returned hash
       #
       # @return [String] Blake2b digest of the string as raw bytes
-      def hash(message, encoding = :raw)
+      def hash(message)
         digest = Util.zeros(@digest_size)
         NaCl.crypto_hash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
-        Encoder[encoding].encode(digest)
+        digest
       end
     end
   end

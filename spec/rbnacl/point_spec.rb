@@ -2,12 +2,12 @@
 require 'spec_helper'
 
 describe Crypto::Point do
-  let(:alice_private)  { test_vector :alice_private }
-  let(:alice_public)   { test_vector :alice_public }
+  let(:alice_private)  { vector :alice_private }
+  let(:alice_public)   { vector :alice_public }
 
-  let(:bob_public)     { test_vector :bob_public }
+  let(:bob_public)     { vector :bob_public }
 
-  let(:alice_mult_bob) { test_vector :alice_mult_bob }
+  let(:alice_mult_bob) { vector :alice_mult_bob }
 
   subject { described_class.new(bob_public) }
 
@@ -21,9 +21,5 @@ describe Crypto::Point do
 
   it "serializes to bytes" do
     subject.to_bytes.should eq bob_public
-  end
-
-  it "serializes to hex" do
-    subject.to_s(:hex).should eq bytes2hex bob_public
   end
 end

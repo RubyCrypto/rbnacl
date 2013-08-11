@@ -2,8 +2,7 @@
 require 'spec_helper'
 
 describe Crypto::PublicKey do
-  let(:alicepk)     { test_vector :alice_public }
-  let(:alicepk_hex) { bytes2hex alicepk }
+  let(:alicepk)     { vector :alice_public }
 
   subject { Crypto::PublicKey.new(alicepk) }
 
@@ -11,12 +10,11 @@ describe Crypto::PublicKey do
     it "accepts a valid key" do
       expect { Crypto::PublicKey.new(alicepk) }.not_to raise_error
     end
-    it "accepts a valid key in hex" do
-      expect { Crypto::PublicKey.new(alicepk_hex, :hex) }.not_to raise_error
-    end
+
     it "rejects a nil key" do
-      expect { Crypto::PublicKey.new(nil) }.to raise_error(ArgumentError)
+      expect { Crypto::PublicKey.new(nil) }.to raise_error(TypeError)
     end
+
     it "rejects a short key" do
       expect { Crypto::PublicKey.new("short") }.to raise_error(ArgumentError)
     end
@@ -31,9 +29,6 @@ describe Crypto::PublicKey do
   context "#to_s" do
     it "returns the bytes of the key" do
       subject.to_s.should eq alicepk
-    end
-    it "returns the bytes of the key hex encoded" do
-      subject.to_s(:hex).should eq alicepk_hex
     end
   end
 

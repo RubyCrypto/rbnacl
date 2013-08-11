@@ -18,10 +18,8 @@ module Crypto
     # A new authenticator, ready for auth and verification
     #
     # @param [#to_str] key the key used for authenticators, 32 bytes.
-    # @param [#to_sym] encoding decode key from this format (default raw)
-    def initialize(key, encoding = :raw)
-      @key = Encoder[encoding].decode(key)
-      Util.check_length(@key, key_bytes, "#{self.class} key")
+    def initialize(key)
+      @key = Util.check_string(key, key_bytes, "#{self.class} key")
     end
 
     # Compute authenticator for message
@@ -48,25 +46,23 @@ module Crypto
     # Compute authenticator for message
     #
     # @param [#to_str] message the message to authenticate
-    # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
     #
     # @return [String] The authenticator in the requested encoding (default raw)
-    def auth(message, authenticator_encoding = :raw)
+    def auth(message)
       authenticator = Util.zeros(tag_bytes)
       message = message.to_str
       compute_authenticator(message, authenticator)
-      Encoder[authenticator_encoding].encode(authenticator)
+      authenticator
     end
 
     # Verifies the given authenticator with the message.
     #
     # @param [#to_str] authenticator to be checked
     # @param [#to_str] message the message to be authenticated
-    # @param [#to_sym] authenticator_encoding format of the authenticator (default raw)
     #
     # @return [Boolean] Was it valid?
-    def verify(message, authenticator, authenticator_encoding = :raw)
-      auth = Encoder[authenticator_encoding].decode(authenticator)
+    def verify(message, authenticator)
+      auth = authenticator.to_s
       return false unless auth.bytesize == tag_bytes
       verify_message(message, auth)
     end

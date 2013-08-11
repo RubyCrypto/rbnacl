@@ -6,23 +6,27 @@ module Crypto
   module SelfTest
     module_function
 
+    def vector(name)
+      [TestVectors[name]].pack("H*")
+    end
+
     def box_test
-      alicepk = Crypto::PublicKey.new(TestVectors[:alice_public], :hex)
-      bobsk = Crypto::PrivateKey.new(TestVectors[:bob_private], :hex)
+      alicepk = Crypto::PublicKey.new(vector(:alice_public))
+      bobsk = Crypto::PrivateKey.new(vector(:bob_private))
 
       box = Crypto::Box.new(alicepk, bobsk)
       box_common_test(box)
     end
 
     def secret_box_test
-      box = SecretBox.new(TestVectors[:secret_key], :hex)
+      box = SecretBox.new(vector(:secret_key))
       box_common_test(box)
     end
 
     def box_common_test(box)
-      nonce      = hexdecode_vector :box_nonce
-      message    = hexdecode_vector :box_message
-      ciphertext = hexdecode_vector :box_ciphertext
+      nonce      = vector :box_nonce
+      message    = vector :box_message
+      ciphertext = vector :box_ciphertext
 
       unless box.encrypt(nonce, message) == ciphertext
         raise SelfTestFailure, "failed to generate correct ciphertext"
@@ -45,34 +49,34 @@ module Crypto
     end
 
     def digital_signature_test
-      signing_key = SigningKey.new(TestVectors[:sign_private], :hex)
+      signing_key = SigningKey.new(vector(:sign_private))
       verify_key  = signing_key.verify_key
 
-      unless verify_key.to_s(:hex) == TestVectors[:sign_public]
+      unless verify_key.to_s == vector(:sign_public)
         raise SelfTestFailure, "failed to generate verify key correctly"
       end
 
-      message   = hexdecode_vector :sign_message
-      signature = signing_key.sign(message, :hex)
+      message   = vector :sign_message
+      signature = signing_key.sign(message)
 
-      unless signature == TestVectors[:sign_signature]
+      unless signature == vector(:sign_signature)
         raise SelfTestFailure, "failed to generate correct signature"
       end
 
-      unless verify_key.verify(message, signature, :hex)
+      unless verify_key.verify(message, signature)
         raise SelfTestFailure, "failed to verify a valid signature"
       end
 
-      bad_signature = signature[0,127] + '0'
+      bad_signature = signature[0,63] + '0'
 
-      unless verify_key.verify(message, bad_signature, :hex) == false
+      unless verify_key.verify(message, bad_signature) == false
         raise SelfTestFailure, "failed to detect an invalid signature"
       end
     end
 
     def sha256_test
-      message = hexdecode_vector :sha256_message
-      digest  = hexdecode_vector :sha256_digest
+      message = vector :sha256_message
+      digest  = vector :sha256_digest
 
       unless Crypto::Hash.sha256(message) == digest
         raise SelfTestFailure, "failed to generate a correct SHA256 digest"
@@ -80,29 +84,21 @@ module Crypto
     end
 
     def hmac_test(klass, tag)
-      authenticator = klass.new(TestVectors[:auth_key], :hex)
+      authenticator = klass.new(vector(:auth_key))
 
-      message = hexdecode_vector :auth_message
+      message = vector :auth_message
 
-      unless authenticator.auth(message, :hex) == TestVectors[tag]
+      unless authenticator.auth(message) == vector(tag)
         raise SelfTestFailure, "#{klass} failed to generate correct authentication tag"
       end
 
-      unless authenticator.verify(message, TestVectors[tag], :hex)
+      unless authenticator.verify(message, vector(tag))
         raise SelfTestFailure, "#{klass} failed to verify correct authentication tag"
       end
 
-      if authenticator.verify(message+' ', TestVectors[tag], :hex)
+      if authenticator.verify(message+' ', vector(tag))
         raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
       end
-    end
-
-    def hexdecode(string)
-      Encoder[:hex].decode(string)
-    end
-
-    def hexdecode_vector(name)
-      hexdecode TestVectors[name]
     end
   end
 end

@@ -17,32 +17,31 @@ module Crypto
     #
     # There's no streaming done, just pass in the data and be done with it.
     #
-    # @param [String] data The data, as a collection of bytes
-    # @param [#to_sym] encoding Encoding of the returned hash.
+    # @param [#to_str] data The data, as a collection of bytes
     #
     # @raise [CryptoError] If the hashing fails for some reason.
     #
     # @return [String] The SHA-256 hash as raw bytes (Or encoded as per the second argument)
-    def self.sha256(data, encoding = :raw)
+    def self.sha256(data)
+      data   = data.to_str
       digest = Util.zeros(NaCl::SHA256BYTES)
       NaCl.crypto_hash_sha256(digest, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
-      Encoder[encoding].encode(digest)
+      digest
     end
 
     # Returns the SHA-512 hash of the given data
     #
     # There's no streaming done, just pass in the data and be done with it.
     #
-    # @param [String] data The data, as a collection of bytes
-    # @param [#to_sym] encoding Encoding of the returned hash.
+    # @param [#to_str] data The data, as a collection of bytes
     #
     # @raise [CryptoError] If the hashing fails for some reason.
     #
     # @return [String] The SHA-512 hash as raw bytes (Or encoded as per the second argument)
-    def self.sha512(data, encoding = :raw)
+    def self.sha512(data)
       digest = Util.zeros(NaCl::SHA512BYTES)
       NaCl.crypto_hash_sha512(digest, data, data.bytesize) || raise(CryptoError, "Hashing failed!")
-      Encoder[encoding].encode(digest)
+      digest
     end
 
     if NaCl.supported_version? :libsodium, '0.4.0'
@@ -54,7 +53,6 @@ module Crypto
       # @param [String] data The data, as a collection of bytes
       # @option options [Fixnum] digest_size Size in bytes (1-64, default 64)
       # @option options [String] key 64-byte (or less) key for keyed mode
-      # @option options [Symbol] encoding Output encoding format (default raw)
       #
       # @raise [CryptoError] If the hashing fails for some reason.
       #
@@ -62,14 +60,11 @@ module Crypto
       def self.blake2b(data, options = {})
         key         = options[:key]
         digest_size = options[:digest_size] || NaCl::BLAKE2B_OUTBYTES
-        encoding    = options[:encoding] || :raw
-
-        digest = Blake2b.new(options).hash(data)
-        Encoder[encoding].encode(digest)
+        Blake2b.new(options).hash(data)
       end
 
     else
-      def self.blake2b(data, encoding = :raw)
+      def self.blake2b(data, options = {})
         raise NotImplementedError, "not supported by this version of libsodium"
       end
     end
