@@ -9,7 +9,7 @@ module Crypto
     #
     # @return [String] a string representing this key
     def inspect
-      "#<#{self.class}:#{to_s(:hex)[0,8]}>"
+      "#<#{self.class}:#{Util.bytes2hex(to_bytes)[0,8]}>"
     end
   end
 end
