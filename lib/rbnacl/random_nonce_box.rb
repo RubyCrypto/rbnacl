@@ -75,13 +75,12 @@ module Crypto
     # the nonce prepended.  Optionally encodes the message using an encoder.
     #
     # @param message [String] The message to encrypt
-    # @param encoding [Symbol] Optional encoding for the returned ciphertext
     #
     # @return [String] The enciphered message
-    def box(message, encoding = :raw)
+    def box(message)
       nonce = generate_nonce
       cipher_text = @box.box(nonce, message)
-      Encoder[encoding].encode(nonce + cipher_text)
+      nonce + cipher_text
     end
     alias encrypt box
 
@@ -91,14 +90,12 @@ module Crypto
     # front and uses this to decrypt.  Returns the message.
     #
     # @param enciphered_message [String] The message to decrypt.
-    # @param encoding [Symbol] Optional decoding for the returned ciphertext
     #
     # @raise [CryptoError] If the message has been tampered with.
     #
     # @return [String] The decoded message
-    def open(enciphered_message, encoding = :raw)
-      decoded = Encoder[encoding].decode(enciphered_message)
-      nonce, ciphertext = *extract_nonce(decoded)
+    def open(enciphered_message)
+      nonce, ciphertext = extract_nonce(enciphered_message.to_s)
       @box.open(nonce, ciphertext)
     end
     alias decrypt open

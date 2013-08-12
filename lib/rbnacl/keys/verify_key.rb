@@ -13,35 +13,24 @@ module Crypto
     include KeyComparator
     include Serializable
 
-    # Create a new VerifyKey object from a serialized public key. The key can
-    # be decoded from any serialization format supported by the
-    # Crypto::Encoding system.
+    # Create a new VerifyKey object from a serialized public key.
     #
     # @param key [String] Serialized Ed25519 public key
-    # @param encoding [Symbol] Parse key from the given encoding
     #
     # @return [Crypto::SigningKey] Key which can sign messages
-    def initialize(key, encoding = :raw)
-      key = Encoder[encoding].decode(key)
-      Util.check_length(key, NaCl::ED25519_VERIFYKEY_BYTES, "key")
-
-      @key = key
+    def initialize(key)
+      @key = key.to_str
+      Util.check_length(@key, NaCl::ED25519_VERIFYKEY_BYTES, "key")
     end
 
-    # Create a new VerifyKey object from a serialized public key. The key can
-    # be decoded from any serialization format supported by the
-    # Crypto::Encoding system.
-    #
-    # You can remember the argument ordering by "verify message with signature"
-    # It's like a legal document, with the signature at the end.
+    # Verify a signature for a given message
     #
     # @param message [String] Message to be authenticated
     # @param signature [String] Alleged signature to be checked
-    # @param signature_encoding [Symbol] Parse signature from the given encoding
     #
     # @return [Boolean] was the signature authentic?
-    def verify(message, signature, signature_encoding = :raw)
-      signature = Encoder[signature_encoding].decode(signature)
+    def verify(message, signature)
+      signature = signature.to_str
       Util.check_length(signature, signature_bytes, "signature")
 
       sig_and_msg = signature + message
@@ -51,7 +40,7 @@ module Crypto
       NaCl.crypto_sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
     end
 
-    # "Dangerous" (but probably safer) verify that raises an exception if a
+    # "Dangerous" (but really safer) verify that raises an exception if a
     # signature check fails. This is probably less likely to go unnoticed than
     # an improperly checked verify, as you are forced to deal with the
     # exception explicitly (and failing signature checks are certainly an
@@ -61,11 +50,10 @@ module Crypto
     #
     # @param message [String] Message to be authenticated
     # @param signature [String] Alleged signature to be checked
-    # @param signature_encoding [Symbol] Parse signature from the given encoding
     #
     # @return [true] Will raise BadSignatureError if signature check fails
-    def verify!(message, signature, signature_encoding = :raw)
-      verify(message, signature, signature_encoding) or raise BadSignatureError, "signature was forged/corrupt"
+    def verify!(message, signature)
+      verify(message, signature) or raise BadSignatureError, "signature was forged/corrupt"
     end
 
     # Return the raw key in byte format

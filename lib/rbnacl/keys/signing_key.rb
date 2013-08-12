@@ -33,11 +33,10 @@ module Crypto
     # Create a SigningKey from a seed value
     #
     # @param seed [String] Random 32-byte value (i.e. private key)
-    # @param encoding [Symbol] Parse seed from the given encoding
     #
     # @return [Crypto::SigningKey] Key which can sign messages
-    def initialize(seed, encoding = :raw)
-      seed = Encoder[encoding].decode(seed)
+    def initialize(seed)
+      seed = seed.to_s
 
       Util.check_length(seed, NaCl::ED25519_SEED_BYTES, "seed")
 
@@ -53,17 +52,15 @@ module Crypto
     # Sign a message using this key
     #
     # @param message [String] Message to be signed by this key
-    # @param encoding [Symbol] Encode signature in the given format
     #
     # @return [String] Signature as bytes
-    def sign(message, encoding = :raw)
+    def sign(message)
       buffer = Util.prepend_zeros(signature_bytes, message)
       buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
       NaCl.crypto_sign_ed25519(buffer, buffer_len, message, message.bytesize, @signing_key)
 
-      signature = buffer[0, signature_bytes]
-      Encoder[encoding].encode(signature)
+      buffer[0, signature_bytes]
     end
 
     # Return the raw seed value of this key

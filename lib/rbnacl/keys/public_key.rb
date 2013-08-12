@@ -18,14 +18,12 @@ module Crypto
     # the exchanging of messages using a Crypto::Box
     #
     # @param public_key [String] The public key
-    # @param key_encoding [Symbol] The encoding of the key
     #
     # @raise [Crypto::LengthError] If the key is not valid after decoding.
     #
     # @return A new PublicKey
-    def initialize(public_key, key_encoding = :raw)
-      @public_key = Crypto::Encoder[key_encoding].decode(public_key)
-      Util.check_length(@public_key, BYTES, "Public key")
+    def initialize(public_key)
+      @public_key = Util.check_string(public_key, BYTES, "Public key")
     end
 
     # The raw bytes of the key

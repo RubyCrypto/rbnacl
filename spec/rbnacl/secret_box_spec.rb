@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Crypto::SecretBox do
-  let (:key) { test_vector :secret_key }
+  let (:key) { vector :secret_key }
 
   context "new" do
     it "accepts strings" do
@@ -10,7 +10,7 @@ describe Crypto::SecretBox do
     end
 
     it "raises on a nil key" do
-      expect { Crypto::SecretBox.new(nil) }.to raise_error(Crypto::LengthError, "Secret key was nil \(Expected #{Crypto::NaCl::SECRETKEYBYTES}\)")
+      expect { Crypto::SecretBox.new(nil) }.to raise_error(TypeError)
     end
 
     it "raises on a short key" do

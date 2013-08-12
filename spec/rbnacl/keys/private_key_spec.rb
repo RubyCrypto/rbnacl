@@ -2,10 +2,8 @@
 require 'spec_helper'
 
 describe Crypto::PrivateKey do
-  let(:bobsk)     { test_vector :bob_private }
-  let(:bobsk_hex) { bytes2hex bobsk }
-  let(:bobpk)     { test_vector :bob_public }
-  let(:bobpk_hex) { bytes2hex bobpk }
+  let(:bobsk) { vector :bob_private }
+  let(:bobpk) { vector :bob_public }
 
   subject { Crypto::PrivateKey.new(bobsk) }
 
@@ -25,13 +23,12 @@ describe Crypto::PrivateKey do
     it "accepts a valid key" do
       expect { Crypto::PrivateKey.new(bobsk) }.not_to raise_error
     end
-    it "accepts a hex encoded key" do
-      expect { Crypto::PrivateKey.new(bobsk_hex, :hex) }.not_to raise_error
+
+    it "raises TypeError when given a nil key" do
+      expect { Crypto::PrivateKey.new(nil) }.to raise_error(TypeError)
     end
-    it "rejects a nil key" do
-      expect { Crypto::PrivateKey.new(nil) }.to raise_error(ArgumentError)
-    end
-    it "rejects a short key" do
+
+    it "raises ArgumentError when given a short key" do
       expect { Crypto::PrivateKey.new("short") }.to raise_error(ArgumentError)
     end
   end
@@ -40,21 +37,19 @@ describe Crypto::PrivateKey do
     it "returns a public key" do
       subject.public_key.should be_a Crypto::PublicKey
     end
+
     it "returns the correct public key" do
-      subject.public_key.to_s(:hex).should eql bobpk_hex
+      subject.public_key.to_s.should eql bobpk
     end
   end
 
   context "#to_bytes" do
     it "returns the bytes of the key" do
-      subject.to_s(:hex).should eq bobsk_hex
+      subject.to_s.should eq bobsk
     end
   end
 
   context "#to_s" do
-    it "returns the bytes of the key hex encoded" do
-      subject.to_s(:hex).should eq bobsk_hex
-    end
     it "returns the raw bytes of the key" do
       subject.to_bytes.should eq bobsk
     end

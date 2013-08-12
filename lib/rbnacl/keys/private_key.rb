@@ -25,12 +25,12 @@ module Crypto
     # @param private_key [String] The private key
     # @param key_encoding [Symbol] The encoding of the key
     #
+    # @raise [TypeError] If the key is nil
     # @raise [Crypto::LengthError] If the key is not valid after decoding.
     #
     # @return A new PrivateKey
-    def initialize(private_key, key_encoding = :raw)
-      @private_key = Crypto::Encoder[key_encoding].decode(private_key)
-      Util.check_length(@private_key, BYTES, "Private key")
+    def initialize(private_key)
+      @private_key = Util.check_string(private_key, BYTES, "Private key")
     end
 
     # Generates a new keypair

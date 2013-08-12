@@ -8,6 +8,5 @@ group :development do
 end
 
 group :test do
-  gem 'base32'
   gem 'coveralls', :require => false
 end
