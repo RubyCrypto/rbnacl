@@ -3,7 +3,8 @@ require 'rake'
 require 'rake/clean'
 require 'digest/sha2'
 
-LIBSODIUM_VERSION = "0.4.1"
+LIBSODIUM_VERSION = "0.4.2"
+LIBSODIUM_DIGEST  = "1a7901cdd127471724e854a8eb478247dc0ca67be549345c75fc6f2d4e05ed39"
 
 def sh_hidden(command)
   STDERR.puts("*** Executing: #{command}")
@@ -19,17 +20,17 @@ end
 libsodium_tarball = "libsodium-#{LIBSODIUM_VERSION}.tar.gz"
 
 file libsodium_tarball do
-  sh "curl -O http://download.dnscrypt.org/libsodium/releases/libsodium-#{LIBSODIUM_VERSION}.tar.gz"
+  sh "curl -L -O https://github.com/jedisct1/libsodium/releases/download/#{LIBSODIUM_VERSION}/#{libsodium_tarball}"
 
   digest = Digest::SHA256.hexdigest(File.read(libsodium_tarball))
-  if digest != "65756c7832950401cc0e6ee0e99b165974244e749f40f33d465f56447bae8ce3"
+  if digest != LIBSODIUM_DIGEST
     rm libsodium_tarball
-    raise "#{libsodium_tarball} failed checksum!"
+    raise "#{libsodium_tarball} failed checksum! Got #{digest}"
   end
 end
 
-file "libsodium" => "libsodium-#{LIBSODIUM_VERSION}.tar.gz" do
-  sh "tar xzf libsodium-#{LIBSODIUM_VERSION}.tar.gz"
+file "libsodium" => libsodium_tarball do
+  sh "tar -zxf #{libsodium_tarball}"
   mv "libsodium-#{LIBSODIUM_VERSION}", "libsodium"
 end
 
