@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe Crypto::SigningKey do
+describe RbNaCl::SigningKey do
   let(:signing_key) { vector :sign_private }
   let(:message)     { vector :sign_message }
   let(:signature)   { vector :sign_signature }

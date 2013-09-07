@@ -1,6 +1,6 @@
 # encoding: binary
 require 'ffi'
-module Crypto
+module RbNaCl
   # This module has all the FFI code hanging off it
   #
   # And that's all it does, really.

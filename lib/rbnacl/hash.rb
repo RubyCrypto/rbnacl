@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Cryptographic hash functions
   #
   # Cryptographic hash functions take a variable length message and compute a

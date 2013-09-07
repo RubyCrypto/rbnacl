@@ -1,22 +1,22 @@
 # encoding: binary
 require 'spec_helper'
 
-describe Crypto::PublicKey do
+describe RbNaCl::PublicKey do
   let(:alicepk)     { vector :alice_public }
 
-  subject { Crypto::PublicKey.new(alicepk) }
+  subject { RbNaCl::PublicKey.new(alicepk) }
 
   context "new" do
     it "accepts a valid key" do
-      expect { Crypto::PublicKey.new(alicepk) }.not_to raise_error
+      expect { RbNaCl::PublicKey.new(alicepk) }.not_to raise_error
     end
 
     it "rejects a nil key" do
-      expect { Crypto::PublicKey.new(nil) }.to raise_error(TypeError)
+      expect { RbNaCl::PublicKey.new(nil) }.to raise_error(TypeError)
     end
 
     it "rejects a short key" do
-      expect { Crypto::PublicKey.new("short") }.to raise_error(ArgumentError)
+      expect { RbNaCl::PublicKey.new("short") }.to raise_error(ArgumentError)
     end
   end
 

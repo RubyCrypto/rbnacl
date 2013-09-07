@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Various utility functions
   module Util
     module_function
@@ -46,7 +46,7 @@ module Crypto
     # In several places through the codebase we have to be VERY strict with
     # what length of string we accept.  This method supports that.
     #
-    # @raise [Crypto::LengthError] If the string is not the right length
+    # @raise [RbNaCl::LengthError] If the string is not the right length
     #
     # @param string [String] The string to compare
     # @param length [Integer] The desired length
@@ -72,7 +72,7 @@ module Crypto
     # the strings we accept.  This method supports that.
     #
     # @raise [ArgumentError] If we cannot convert to a string with #to_str
-    # @raise [Crypto::LengthError] If the string is not the right length
+    # @raise [RbNaCl::LengthError] If the string is not the right length
     #
     # @param string [#to_str] The input string
     # @param length [Integer] The only acceptable length of the string

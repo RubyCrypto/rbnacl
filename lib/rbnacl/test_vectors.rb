@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Reference library of test vectors used to verify the software is correct
   TestVectors = {
     #

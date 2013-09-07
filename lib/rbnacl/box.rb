@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # The Box class boxes and unboxes messages between a pair of keys
   #
   # This class uses the given public and secret keys to derive a shared key,
@@ -11,8 +11,8 @@ module Crypto
   #
   # @example
   #   # On bob's system
-  #   bobkey = Crypto::PrivateKey.generate
-  #   #=> #<Crypto::PrivateKey ...>
+  #   bobkey = RbNaCl::PrivateKey.generate
+  #   #=> #<RbNaCl::PrivateKey ...>
   #
   #   # send bobkey.public_key to alice
   #   # recieve alice's public key, alicepk
@@ -21,8 +21,8 @@ module Crypto
   #   alice_pubkey = "..."
   #
   #   # make a box
-  #   alicebob_box = Crypto::Box.new(alice_pubkey, bobkey)
-  #   #=> #<Crypto::Box ...>
+  #   alicebob_box = RbNaCl::Box.new(alice_pubkey, bobkey)
+  #   #=> #<RbNaCl::Box ...>
   #
   #   # encrypt a message to alice
   #   cipher_text = alicebob_box.box("A bad example of a nonce", "Hello, Alice!")
@@ -45,7 +45,7 @@ module Crypto
   #   alicebob_box.open(nonce2, cipher_text_to_bob_honest_love_eve)
   #
   #   # BOOM!
-  #   # Bob gets a Crypto::CryptoError to deal with!
+  #   # Bob gets a RbNaCl::CryptoError to deal with!
   #
   # It is VITALLY important that the nonce is a nonce, i.e. it is a number used
   # only once for any given pair of keys.  If you fail to do this, you
@@ -70,13 +70,13 @@ module Crypto
     # Sets up the Box for deriving the shared key and encrypting and
     # decrypting messages.
     #
-    # @param public_key [String,Crypto::PublicKey] The public key to encrypt to
-    # @param private_key [String,Crypto::PrivateKey] The private key to encrypt with
+    # @param public_key [String,RbNaCl::PublicKey] The public key to encrypt to
+    # @param private_key [String,RbNaCl::PrivateKey] The private key to encrypt with
     # @param encoding [Symbol] Parse keys from the given encoding
     #
-    # @raise [Crypto::LengthError] on invalid keys
+    # @raise [RbNaCl::LengthError] on invalid keys
     #
-    # @return [Crypto::Box] The new Box, ready to use
+    # @return [RbNaCl::Box] The new Box, ready to use
     def initialize(public_key, private_key, encoding = :raw)
       @public_key   = PublicKey  === public_key  ? public_key  : PublicKey.new(public_key)
       @private_key  = PrivateKey === private_key ? private_key : PrivateKey.new(private_key)
@@ -94,7 +94,7 @@ module Crypto
     # @param nonce [String] A 24-byte string containing the nonce.
     # @param message [String] The message to be encrypted.
     #
-    # @raise [Crypto::LengthError] If the nonce is not valid
+    # @raise [RbNaCl::LengthError] If the nonce is not valid
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
@@ -117,8 +117,8 @@ module Crypto
     # @param nonce [String] A 24-byte string containing the nonce.
     # @param ciphertext [String] The message to be decrypted.
     #
-    # @raise [Crypto::LengthError] If the nonce is not valid
-    # @raise [Crypto::CryptoError] If the ciphertext cannot be authenticated.
+    # @raise [RbNaCl::LengthError] If the nonce is not valid
+    # @raise [RbNaCl::CryptoError] If the ciphertext cannot be authenticated.
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)

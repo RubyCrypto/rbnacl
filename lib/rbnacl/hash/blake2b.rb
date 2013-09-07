@@ -1,4 +1,4 @@
-module Crypto
+module RbNaCl
   module Hash
     # The Blake2b hash function
     #
@@ -16,9 +16,9 @@ module Crypto
       # @option opts [String]  :key for Blake2b keyed mode
       # @option opts [Integer] :digest_size size of output digest in bytes
       #
-      # @raise [Crypto::LengthError] Invalid length specified for one or more options
+      # @raise [RbNaCl::LengthError] Invalid length specified for one or more options
       #
-      # @return [Crypto::Hash::Blake2b] A Blake2b hasher object
+      # @return [RbNaCl::Hash::Blake2b] A Blake2b hasher object
       def initialize(opts = {})
         @key = opts.fetch(:key, nil)
         @key_size = @key ? @key.bytesize : 0

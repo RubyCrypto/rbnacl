@@ -1,6 +1,6 @@
 # encoding: binary
-module Crypto
-  # Crypto::Box private key. Keep it safe
+module RbNaCl
+  # RbNaCl::Box private key. Keep it safe
   #
   # This class generates and stores NaCL private keys, as well as providing a
   # reference to the public key associated with this private key, if that's
@@ -26,7 +26,7 @@ module Crypto
     # @param key_encoding [Symbol] The encoding of the key
     #
     # @raise [TypeError] If the key is nil
-    # @raise [Crypto::LengthError] If the key is not valid after decoding.
+    # @raise [RbNaCl::LengthError] If the key is not valid after decoding.
     #
     # @return A new PrivateKey
     def initialize(private_key)
@@ -35,9 +35,9 @@ module Crypto
 
     # Generates a new keypair
     #
-    # @raise [Crypto::CryptoError] if key generation fails, due to insufficient randomness.
+    # @raise [RbNaCl::CryptoError] if key generation fails, due to insufficient randomness.
     #
-    # @return [Crypto::PrivateKey] A new private key, with the associated public key also set.
+    # @return [RbNaCl::PrivateKey] A new private key, with the associated public key also set.
     def self.generate
       pk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES)
       sk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES)

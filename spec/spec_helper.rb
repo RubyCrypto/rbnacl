@@ -9,5 +9,5 @@ require 'shared/authenticator'
 require 'shared/key_equality'
 
 def vector(name)
-  [Crypto::TestVectors[name]].pack("H*")
+  [RbNaCl::TestVectors[name]].pack("H*")
 end

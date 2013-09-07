@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Private key for producing digital signatures using the Ed25519 algorithm.
   # Ed25519 provides a 128-bit security level, that is to say, all known attacks
   # take at least 2^128 operations, providing the same security level as
@@ -25,16 +25,16 @@ module Crypto
 
     # Generate a random SigningKey
     #
-    # @return [Crypto::SigningKey] Freshly-generated random SigningKey
+    # @return [RbNaCl::SigningKey] Freshly-generated random SigningKey
     def self.generate
-      new Crypto::Random.random_bytes(NaCl::ED25519_SEED_BYTES)
+      new RbNaCl::Random.random_bytes(NaCl::ED25519_SEED_BYTES)
     end
 
     # Create a SigningKey from a seed value
     #
     # @param seed [String] Random 32-byte value (i.e. private key)
     #
-    # @return [Crypto::SigningKey] Key which can sign messages
+    # @return [RbNaCl::SigningKey] Key which can sign messages
     def initialize(seed)
       seed = seed.to_s
 

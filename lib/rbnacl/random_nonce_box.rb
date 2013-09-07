@@ -1,10 +1,10 @@
 # encoding: binary
 require 'forwardable'
-module Crypto
+module RbNaCl
   # The simplest nonce strategy that could possibly work
   #
   # This class implements the simplest possible nonce generation strategy to
-  # wrap a Crypto::Box or Crypto::SecretBox.  A 24-byte random nonce is used
+  # wrap a RbNaCl::Box or RbNaCl::SecretBox.  A 24-byte random nonce is used
   # for the encryption and is prepended to the message.  When it is time to
   # open the box, the message is split into nonce and ciphertext, and then the
   # box is decrypted.

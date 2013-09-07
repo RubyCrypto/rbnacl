@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Functions for random number generation
   #
   # This uses the underlying source of random number generation on the OS, so
@@ -11,7 +11,7 @@ module Crypto
     #
     # @return [String] random bytes.
     def self.random_bytes(n=32)
-      buf = Crypto::Util.zeros(n)
+      buf = RbNaCl::Util.zeros(n)
       NaCl.random_bytes(buf, n)
       buf
     end

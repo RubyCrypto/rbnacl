@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # NaCl's base point (a.k.a. standard group element), serialized as hex
   STANDARD_GROUP_ELEMENT = ["0900000000000000000000000000000000000000000000000000000000000000"].pack("H*").freeze
 
@@ -8,7 +8,7 @@ module Crypto
 
   # Points provide the interface to NaCl's Curve25519 high-speed elliptic
   # curve cryptography, which can be used for implementing Diffie-Hellman
-  # and other forms of public key cryptography (e.g. Crypto::Box)
+  # and other forms of public key cryptography (e.g. RbNaCl::Box)
   #
   # Objects of the Point class represent points on Edwards curves. NaCl
   # defines a base point (the "standard group element") which we can
@@ -25,7 +25,7 @@ module Crypto
     #
     # @param [String] point location of a group element (32-bytes)
     #
-    # @return [Crypto::Point] the Point at this location
+    # @return [RbNaCl::Point] the Point at this location
     def initialize(point)
       @point = point.to_str
 
@@ -40,7 +40,7 @@ module Crypto
     #
     # @param [String] integer value to multiply with this Point (32-bytes)
     #
-    # @return [Crypto::Point] result as a Point object
+    # @return [RbNaCl::Point] result as a Point object
     def mult(integer, encoding = :raw)
       integer = integer.to_str
       Util.check_length(integer, SCALARBYTES, "integer")
@@ -60,7 +60,7 @@ module Crypto
 
     # NaCl's standard base point for all Curve25519 public keys
     #
-    # @return [Crypto::Point] standard base point (a.k.a. standard group element)
+    # @return [RbNaCl::Point] standard base point (a.k.a. standard group element)
     def self.base; @base_point; end
     def self.base_point; @base_point; end
   end

@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Implements comparisons of keys
   #
   # This permits both timing invariant equality tests, as well as

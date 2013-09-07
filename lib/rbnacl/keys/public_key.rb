@@ -1,6 +1,6 @@
 # encoding: binary
-module Crypto
-  # Crypto::Box public key. Send to your friends.
+module RbNaCl
+  # RbNaCl::Box public key. Send to your friends.
   #
   # This class stores the NaCL public key, and provides some convenience
   # functions for working with it.
@@ -15,11 +15,11 @@ module Crypto
     #
     # Takes the (optionally encoded) public key bytes.  This can be shared with
     # many people and used to establish key pairs with their private key, for
-    # the exchanging of messages using a Crypto::Box
+    # the exchanging of messages using a RbNaCl::Box
     #
     # @param public_key [String] The public key
     #
-    # @raise [Crypto::LengthError] If the key is not valid after decoding.
+    # @raise [RbNaCl::LengthError] If the key is not valid after decoding.
     #
     # @return A new PublicKey
     def initialize(public_key)

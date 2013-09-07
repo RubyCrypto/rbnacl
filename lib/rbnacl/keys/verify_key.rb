@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # The signature was forged or otherwise corrupt
   class BadSignatureError < CryptoError; end
 
@@ -17,7 +17,7 @@ module Crypto
     #
     # @param key [String] Serialized Ed25519 public key
     #
-    # @return [Crypto::SigningKey] Key which can sign messages
+    # @return [RbNaCl::SigningKey] Key which can sign messages
     def initialize(key)
       @key = key.to_str
       Util.check_length(@key, NaCl::ED25519_VERIFYKEY_BYTES, "key")

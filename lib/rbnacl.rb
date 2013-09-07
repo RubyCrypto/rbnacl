@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Oh no, something went wrong!
   #
   # This indicates a failure in the operation of a cryptographic primitive such
@@ -19,9 +19,6 @@ module Crypto
   # with an incorrect primitive
   class IncorrectPrimitiveError < ArgumentError; end
 end
-
-# TIMTOWTDI!
-RbNaCl = Crypto
 
 require "rbnacl/nacl"
 require "rbnacl/version"

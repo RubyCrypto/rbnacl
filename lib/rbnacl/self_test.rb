@@ -1,7 +1,7 @@
 start = Time.now if $DEBUG
 
-module Crypto
-  class SelfTestFailure < Crypto::CryptoError; end
+module RbNaCl
+  class SelfTestFailure < RbNaCl::CryptoError; end
 
   module SelfTest
     module_function
@@ -11,10 +11,10 @@ module Crypto
     end
 
     def box_test
-      alicepk = Crypto::PublicKey.new(vector(:alice_public))
-      bobsk = Crypto::PrivateKey.new(vector(:bob_private))
+      alicepk = RbNaCl::PublicKey.new(vector(:alice_public))
+      bobsk = RbNaCl::PrivateKey.new(vector(:bob_private))
 
-      box = Crypto::Box.new(alicepk, bobsk)
+      box = RbNaCl::Box.new(alicepk, bobsk)
       box_common_test(box)
     end
 
@@ -78,7 +78,7 @@ module Crypto
       message = vector :sha256_message
       digest  = vector :sha256_digest
 
-      unless Crypto::Hash.sha256(message) == digest
+      unless RbNaCl::Hash.sha256(message) == digest
         raise SelfTestFailure, "failed to generate a correct SHA256 digest"
       end
     end
@@ -103,12 +103,12 @@ module Crypto
   end
 end
 
-Crypto::SelfTest.box_test
-Crypto::SelfTest.secret_box_test
-Crypto::SelfTest.digital_signature_test
-Crypto::SelfTest.sha256_test
-Crypto::SelfTest.hmac_test Crypto::HMAC::SHA256,    :auth_hmacsha256
-Crypto::SelfTest.hmac_test Crypto::HMAC::SHA512256, :auth_hmacsha512256
-Crypto::SelfTest.hmac_test Crypto::Auth::OneTime,   :auth_onetime
+RbNaCl::SelfTest.box_test
+RbNaCl::SelfTest.secret_box_test
+RbNaCl::SelfTest.digital_signature_test
+RbNaCl::SelfTest.sha256_test
+RbNaCl::SelfTest.hmac_test RbNaCl::HMAC::SHA256,    :auth_hmacsha256
+RbNaCl::SelfTest.hmac_test RbNaCl::HMAC::SHA512256, :auth_hmacsha512256
+RbNaCl::SelfTest.hmac_test RbNaCl::Auth::OneTime,   :auth_onetime
 
 puts "POST Completed in #{Time.now - start} s" if $DEBUG

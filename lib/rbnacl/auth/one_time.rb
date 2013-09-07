@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   class Auth
     # Computes an authenticator using poly1305
     #

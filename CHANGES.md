@@ -1,6 +1,7 @@
 HEAD
 ----
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
+* Rename Crypto module to RbNaCl module
 
 1.1.0 (2013-04-19)
 ------------------

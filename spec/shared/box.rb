@@ -8,7 +8,7 @@ shared_examples "box" do
   let(:invalid_nonce_long) { nonce + nonce  } # too long!
   let(:message)    { vector :box_message }
   let(:ciphertext) { vector :box_ciphertext }
-  let (:nonce_error_regex) { /Nonce.*(Expected #{Crypto::NaCl::NONCEBYTES})/ }
+  let (:nonce_error_regex) { /Nonce.*(Expected #{RbNaCl::NaCl::NONCEBYTES})/ }
   let(:corrupt_ciphertext) { ciphertext[80] = " " } # picked at random by fair diceroll
 
   context "box" do
@@ -18,11 +18,11 @@ shared_examples "box" do
     end
 
     it "raises on a short nonce" do
-      expect { box.box(invalid_nonce, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
+      expect { box.box(invalid_nonce, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { box.box(invalid_nonce_long, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
+      expect { box.box(invalid_nonce_long, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
   end
 
@@ -33,19 +33,19 @@ shared_examples "box" do
     end
 
     it "raises on a truncated message to decrypt" do
-      expect { box.open(nonce, ciphertext[0, 64]) }.to raise_error(Crypto::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect { box.open(nonce, ciphertext[0, 64]) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a corrupt ciphertext" do
-      expect { box.open(nonce, corrupt_ciphertext) }.to raise_error(Crypto::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect { box.open(nonce, corrupt_ciphertext) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a short nonce" do
-      expect { box.open(invalid_nonce, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
+      expect { box.open(invalid_nonce, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { box.open(invalid_nonce_long, message) }.to raise_error(Crypto::LengthError, nonce_error_regex)
+      expect { box.open(invalid_nonce_long, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
   end
 end

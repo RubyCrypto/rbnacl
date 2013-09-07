@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   module HMAC
     # Computes an authenticator as HMAC-SHA-256
     #

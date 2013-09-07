@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Secret Key Authenticators
   #
   # These provide a means of verifying the integrity of a message, but only

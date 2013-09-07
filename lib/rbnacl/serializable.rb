@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # Serialization features shared across all "key-like" classes
   module Serializable
     def to_s;   to_bytes; end

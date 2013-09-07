@@ -1,5 +1,5 @@
 # encoding: binary
-module Crypto
+module RbNaCl
   # The SecretBox class boxes and unboxes messages
   #
   # This class uses the given secret key to encrypt and decrypt messages.
@@ -29,9 +29,9 @@ module Crypto
     #
     # @param key [String] The key to encrypt and decrypt with
     #
-    # @raise [Crypto::LengthError] on invalid keys
+    # @raise [RbNaCl::LengthError] on invalid keys
     #
-    # @return [Crypto::SecretBox] The new Box, ready to use
+    # @return [RbNaCl::SecretBox] The new Box, ready to use
     def initialize(key)
       @key = Util.check_string(key, KEYBYTES, "Secret key")
     end
@@ -47,7 +47,7 @@ module Crypto
     # @param nonce [String] A 24-byte string containing the nonce.
     # @param message [String] The message to be encrypted.
     #
-    # @raise [Crypto::LengthError] If the nonce is not valid
+    # @raise [RbNaCl::LengthError] If the nonce is not valid
     #
     # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
     def box(nonce, message)
@@ -70,8 +70,8 @@ module Crypto
     # @param nonce [String] A 24-byte string containing the nonce.
     # @param ciphertext [String] The message to be decrypted.
     #
-    # @raise [Crypto::LengthError] If the nonce is not valid
-    # @raise [Crypto::CryptoError] If the ciphertext cannot be authenticated.
+    # @raise [RbNaCl::LengthError] If the nonce is not valid
+    # @raise [RbNaCl::CryptoError] If the ciphertext cannot be authenticated.
     #
     # @return [String] The decrypted message (BINARY encoded)
     def open(nonce, ciphertext)
