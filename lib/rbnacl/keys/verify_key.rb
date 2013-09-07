@@ -13,11 +13,11 @@ module RbNaCl
     include KeyComparator
     include Serializable
 
-    # Create a new VerifyKey object from a serialized public key.
+    # Create a new VerifyKey object from a public key.
     #
-    # @param key [String] Serialized Ed25519 public key
+    # @param key [String] Ed25519 public key
     #
-    # @return [RbNaCl::SigningKey] Key which can sign messages
+    # @return [RbNaCl::VerifyKey] Key which can verify messages
     def initialize(key)
       @key = key.to_str
       Util.check_length(@key, NaCl::ED25519_VERIFYKEY_BYTES, "key")
@@ -40,6 +40,8 @@ module RbNaCl
       NaCl.crypto_sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
     end
 
+    # Verify a signature for a given message or raise exception
+    #
     # "Dangerous" (but really safer) verify that raises an exception if a
     # signature check fails. This is probably less likely to go unnoticed than
     # an improperly checked verify, as you are forced to deal with the
