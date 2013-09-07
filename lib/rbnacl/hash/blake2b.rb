@@ -28,12 +28,12 @@ module Crypto
         raise LengthError, "invalid digest size" if @digest_size < 1 || @digest_size > NaCl::BLAKE2B_OUTBYTES
       end
 
-      # Calculate a Blake2b hash
+      # Calculate a Blake2b digest
       #
       # @param [String] message Message to be hashed
       #
       # @return [String] Blake2b digest of the string as raw bytes
-      def hash(message)
+      def digest(message)
         digest = Util.zeros(@digest_size)
         NaCl.crypto_hash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
         digest

@@ -60,7 +60,7 @@ module Crypto
       def self.blake2b(data, options = {})
         key         = options[:key]
         digest_size = options[:digest_size] || NaCl::BLAKE2B_OUTBYTES
-        Blake2b.new(options).hash(data)
+        Blake2b.new(options).digest(data)
       end
 
     else
