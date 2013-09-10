@@ -3,8 +3,8 @@ require 'rake'
 require 'rake/clean'
 require 'digest/sha2'
 
-LIBSODIUM_VERSION = "0.4.3"
-LIBSODIUM_DIGEST  = "599ce19ae6ace2d30aee353b931088f720713c4e1d0b2918ed46de1914fb6042"
+LIBSODIUM_VERSION = "0.4.2"
+LIBSODIUM_DIGEST  = "1a7901cdd127471724e854a8eb478247dc0ca67be549345c75fc6f2d4e05ed39"
 
 def sh_hidden(command)
   STDERR.puts("*** Executing: #{command}")
