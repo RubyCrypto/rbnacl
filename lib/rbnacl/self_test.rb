@@ -71,7 +71,7 @@ module RbNaCl
         #:nocov:
       end
 
-      unless verify_key.verify(message, signature)
+      unless verify_key.verify(signature, message)
         #:nocov:
         raise SelfTestFailure, "failed to verify a valid signature"
         #:nocov:
@@ -79,7 +79,7 @@ module RbNaCl
 
       bad_signature = signature[0,63] + '0'
 
-      unless verify_key.verify(message, bad_signature) == false
+      unless verify_key.verify(bad_signature, message) == false
         #:nocov:
         raise SelfTestFailure, "failed to detect an invalid signature"
         #:nocov:

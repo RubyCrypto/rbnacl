@@ -2,6 +2,8 @@ HEAD
 ----
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
 * Rename Crypto module to RbNaCl module
+* RbNaCl::VerifyKey#verify operand order was reversed. New operand order is
+  signature, message instead of message, signature
 
 1.1.0 (2013-04-19)
 ------------------

@@ -10,15 +10,15 @@ describe RbNaCl::VerifyKey do
   subject { RbNaCl::SigningKey.new(signing_key).verify_key }
 
   it "verifies correct signatures" do
-    subject.verify(message, signature).should be_true
+    subject.verify(signature, message).should be_true
   end
 
   it "detects bad signatures" do
-    subject.verify(message, bad_signature).should be_false
+    subject.verify(bad_signature, message).should be_false
   end
 
   it "raises when asked to verify with a bang" do
-    expect { subject.verify!(message, bad_signature) }.to raise_exception RbNaCl::BadSignatureError
+    expect { subject.verify!(bad_signature, message) }.to raise_exception RbNaCl::BadSignatureError
   end
 
   it "serializes to bytes" do
