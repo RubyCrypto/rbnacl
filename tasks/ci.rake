@@ -2,6 +2,7 @@ require "rake/clean"
 
 file "lib/libsodium.so" => :build_libsodium do
   cp $LIBSODIUM_PATH, "lib/libsodium.so"
+  system "nm lib/libsodium.so"
 end
 
 task "ci:sodium" => "lib/libsodium.so"
