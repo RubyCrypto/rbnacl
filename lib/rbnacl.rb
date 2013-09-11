@@ -42,5 +42,8 @@ require "rbnacl/point"
 require "rbnacl/random_nonce_box"
 require "rbnacl/test_vectors"
 
+# Select platform-optimized versions of algorithms
+Thread.exclusive { RbNaCl::NaCl.sodium_init }
+
 # Perform self test on load
 require "rbnacl/self_test"

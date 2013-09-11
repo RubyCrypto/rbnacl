@@ -46,6 +46,8 @@ module RbNaCl
       eos
     end
 
+    attach_function :sodium_init, [], :int
+
     SHA256BYTES = 32
     wrap_nacl_function :crypto_hash_sha256,
                        :crypto_hash_sha256_ref,
