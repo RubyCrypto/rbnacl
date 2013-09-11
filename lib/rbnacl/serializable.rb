@@ -9,7 +9,7 @@ module RbNaCl
     #
     # @return [String] a string representing this key
     def inspect
-      "#<#{self.class}:#{Util.bytes2hex(to_bytes)[0,8]}>"
+      "#<#{self.class}:#{Util.bin2hex(to_bytes)[0,8]}>"
     end
   end
 end
