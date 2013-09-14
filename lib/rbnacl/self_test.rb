@@ -29,11 +29,15 @@ module RbNaCl
       ciphertext = vector :box_ciphertext
 
       unless box.encrypt(nonce, message) == ciphertext
+        #:nocov:
         raise SelfTestFailure, "failed to generate correct ciphertext"
+        #:nocov:
       end
 
       unless box.decrypt(nonce, ciphertext) == message
+        #:nocov:
         raise SelfTestFailure, "failed to decrypt ciphertext correctly"
+        #:nocov:
       end
 
       begin
@@ -53,24 +57,32 @@ module RbNaCl
       verify_key  = signing_key.verify_key
 
       unless verify_key.to_s == vector(:sign_public)
+        #:nocov:
         raise SelfTestFailure, "failed to generate verify key correctly"
+        #:nocov:
       end
 
       message   = vector :sign_message
       signature = signing_key.sign(message)
 
       unless signature == vector(:sign_signature)
+        #:nocov:
         raise SelfTestFailure, "failed to generate correct signature"
+        #:nocov:
       end
 
       unless verify_key.verify(message, signature)
+        #:nocov:
         raise SelfTestFailure, "failed to verify a valid signature"
+        #:nocov:
       end
 
       bad_signature = signature[0,63] + '0'
 
       unless verify_key.verify(message, bad_signature) == false
+        #:nocov:
         raise SelfTestFailure, "failed to detect an invalid signature"
+        #:nocov:
       end
     end
 
@@ -79,7 +91,9 @@ module RbNaCl
       digest  = vector :sha256_digest
 
       unless RbNaCl::Hash.sha256(message) == digest
+        #:nocov:
         raise SelfTestFailure, "failed to generate a correct SHA256 digest"
+        #:nocov:
       end
     end
 
@@ -89,15 +103,21 @@ module RbNaCl
       message = vector :auth_message
 
       unless authenticator.auth(message) == vector(tag)
+        #:nocov:
         raise SelfTestFailure, "#{klass} failed to generate correct authentication tag"
+        #:nocov:
       end
 
       unless authenticator.verify(message, vector(tag))
+        #:nocov:
         raise SelfTestFailure, "#{klass} failed to verify correct authentication tag"
+        #:nocov:
       end
 
       if authenticator.verify(message+' ', vector(tag))
+        #:nocov:
         raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
+        #:nocov:
       end
     end
   end
