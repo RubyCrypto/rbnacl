@@ -22,4 +22,6 @@ describe RbNaCl::Point do
   it "serializes to bytes" do
     subject.to_bytes.should eq bob_public
   end
+
+  include_examples "serializable"
 end

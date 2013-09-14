@@ -37,4 +37,6 @@ describe RbNaCl::PublicKey do
     let(:key_bytes) { subject.to_bytes }
     let(:other_key) { described_class.new(alicepk.succ) }
   end
+
+  include_examples "serializable"
 end
