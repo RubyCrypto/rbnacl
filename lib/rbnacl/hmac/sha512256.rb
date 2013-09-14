@@ -35,8 +35,5 @@ module RbNaCl
         NaCl.crypto_auth_hmacsha512256_verify(authenticator, message, message.bytesize, key)
       end
     end
-
-    # TIMTOWTDI!
-    SHA512 = SHA512256
   end
 end

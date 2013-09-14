@@ -1,6 +1,6 @@
 # encoding: binary
 module RbNaCl
-  class Auth
+  module Authenticators
     # Computes an authenticator using poly1305
     #
     # The authenticator can be used at a later time to verify the provenance of
@@ -17,7 +17,7 @@ module RbNaCl
     # can also create them.
     #
     # @see http://nacl.cr.yp.to/onetimeauth.html
-    class OneTime < self
+    class Poly1305 < Auth
       # Number of bytes in a valid key
       KEYBYTES = NaCl::ONETIME_KEYBYTES
 
