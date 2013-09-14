@@ -60,4 +60,6 @@ describe RbNaCl::PrivateKey do
     let(:key_bytes) { subject.to_bytes }
     let(:other_key) { described_class.new(bobpk) }
   end
+
+  include_examples "serializable"
 end

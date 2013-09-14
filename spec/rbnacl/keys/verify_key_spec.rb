@@ -34,4 +34,6 @@ describe RbNaCl::VerifyKey do
     let(:key)       { described_class.new(verify_key) }
     let(:other_key) { described_class.new("B"*32) }
   end
+
+  include_examples "serializable"
 end

@@ -25,4 +25,6 @@ describe RbNaCl::SigningKey do
     let(:key)       { described_class.new(key_bytes) }
     let(:other_key) { described_class.new("B"*32) }
   end
+
+  include_examples "serializable"
 end
