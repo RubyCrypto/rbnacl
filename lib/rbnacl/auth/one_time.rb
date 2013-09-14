@@ -32,11 +32,11 @@ module RbNaCl
       end
 
       private
-      def compute_authenticator(message, authenticator)
+      def compute_authenticator(authenticator, message)
         NaCl.crypto_auth_onetime(authenticator, message, message.bytesize, key)
       end
 
-      def verify_message(message, authenticator)
+      def verify_message(authenticator, message)
         NaCl.crypto_auth_onetime_verify(authenticator, message, message.bytesize, key)
       end
 

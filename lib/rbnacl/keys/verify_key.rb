@@ -25,11 +25,11 @@ module RbNaCl
 
     # Verify a signature for a given message
     #
-    # @param message [String] Message to be authenticated
     # @param signature [String] Alleged signature to be checked
+    # @param message [String] Message to be authenticated
     #
     # @return [Boolean] was the signature authentic?
-    def verify(message, signature)
+    def verify(signature, message)
       signature = signature.to_str
       Util.check_length(signature, signature_bytes, "signature")
 

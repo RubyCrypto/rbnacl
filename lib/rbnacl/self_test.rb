@@ -71,7 +71,7 @@ module RbNaCl
         #:nocov:
       end
 
-      unless verify_key.verify(message, signature)
+      unless verify_key.verify(signature, message)
         #:nocov:
         raise SelfTestFailure, "failed to verify a valid signature"
         #:nocov:
@@ -79,7 +79,7 @@ module RbNaCl
 
       bad_signature = signature[0,63] + '0'
 
-      unless verify_key.verify(message, bad_signature) == false
+      unless verify_key.verify(bad_signature, message) == false
         #:nocov:
         raise SelfTestFailure, "failed to detect an invalid signature"
         #:nocov:
@@ -108,13 +108,13 @@ module RbNaCl
         #:nocov:
       end
 
-      unless authenticator.verify(message, vector(tag))
+      unless authenticator.verify(vector(tag), message)
         #:nocov:
         raise SelfTestFailure, "#{klass} failed to verify correct authentication tag"
         #:nocov:
       end
 
-      if authenticator.verify(message+' ', vector(tag))
+      if authenticator.verify(vector(tag), message + ' ')
         #:nocov:
         raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
         #:nocov:
