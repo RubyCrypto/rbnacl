@@ -41,27 +41,27 @@ shared_examples "authenticator" do
 
   context ".verify" do
     it "verify an authenticator" do
-      described_class.verify(key, message, tag).should eq true
+      described_class.verify(key, tag, message).should eq true
     end
 
     it "raises TypeError on a nil key" do
-      expect { described_class.verify(nil, message, tag) }.to raise_error(TypeError)
+      expect { described_class.verify(nil, tag, message) }.to raise_error(TypeError)
     end
 
     it "raises ArgumentError on a key which is too long" do
-      expect { described_class.verify("\0"*33, message, tag) }.to raise_error(ArgumentError)
+      expect { described_class.verify("\0"*33, tag, message) }.to raise_error(ArgumentError)
     end
 
     it "fails to validate an invalid authenticator" do
-      described_class.verify(key, message+"\0", tag ).should be false
+      described_class.verify(key, tag, message+"\0").should be false
     end
 
     it "fails to validate a short authenticator" do
-      described_class.verify(key, message, tag[0,tag.bytesize - 2]).should be false
+      described_class.verify(key, tag[0,tag.bytesize - 2], message).should be false
     end
 
     it "fails to validate a long authenticator" do
-      described_class.verify(key, message, tag+"\0").should be false
+      described_class.verify(key, tag+"\0", message).should be false
     end
   end
 
@@ -77,7 +77,7 @@ shared_examples "authenticator" do
 
     context "#verify" do
       it "verifies an authenticator" do
-        authenticator.verify(message, tag).should be true
+        authenticator.verify(tag, message).should be true
       end
 
       it "fails to validate an invalid authenticator" do

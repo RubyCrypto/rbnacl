@@ -108,13 +108,13 @@ module RbNaCl
         #:nocov:
       end
 
-      unless authenticator.verify(message, vector(tag))
+      unless authenticator.verify(vector(tag), message)
         #:nocov:
         raise SelfTestFailure, "#{klass} failed to verify correct authentication tag"
         #:nocov:
       end
 
-      if authenticator.verify(message+' ', vector(tag))
+      if authenticator.verify(vector(tag), message + ' ')
         #:nocov:
         raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
         #:nocov:

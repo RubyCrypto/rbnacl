@@ -35,12 +35,12 @@ module RbNaCl
     # Verifies the given authenticator with the message.
     #
     # @param [#to_str] key the key used for the authenticator
-    # @param [#to_str] message the message to be authenticated
     # @param [#to_str] authenticator to be checked
+    # @param [#to_str] message the message to be authenticated
     #
     # @return [Boolean] Was it valid?
-    def self.verify(key, message, authenticator)
-      new(key).verify(message, authenticator)
+    def self.verify(key, authenticator, message)
+      new(key).verify(authenticator, message)
     end
 
     # Compute authenticator for message
@@ -51,7 +51,7 @@ module RbNaCl
     def auth(message)
       authenticator = Util.zeros(tag_bytes)
       message = message.to_str
-      compute_authenticator(message, authenticator)
+      compute_authenticator(authenticator, message)
       authenticator
     end
 
@@ -61,10 +61,10 @@ module RbNaCl
     # @param [#to_str] message the message to be authenticated
     #
     # @return [Boolean] Was it valid?
-    def verify(message, authenticator)
+    def verify(authenticator, message)
       auth = authenticator.to_s
       return false unless auth.bytesize == tag_bytes
-      verify_message(message, auth)
+      verify_message(auth, message)
     end
 
     # The crypto primitive for this authenticator instance
@@ -95,7 +95,7 @@ module RbNaCl
     def tag_bytes; self.class.tag_bytes; end
 
     private
-    def compute_authenticator(message, authenticator); raise NotImplementedError; end
-    def verify_message(message, authenticator);        raise NotImplementedError; end
+    def compute_authenticator(authenticator, message); raise NotImplementedError; end
+    def verify_message(authenticator, message);        raise NotImplementedError; end
   end
 end
