@@ -120,11 +120,19 @@ module RbNaCl
     
     ONETIME_KEYBYTES = 32
     ONETIME_BYTES = 16
+    if NaCl.supported_version? :libsodium, '0.4.3'
+      crypto_onetimeauth_poly1305 = :crypto_onetimeauth_poly1305
+      crypto_onetimeauth_poly1305_verify = :crypto_onetimeauth_poly1305_verify
+    else
+      crypto_onetimeauth_poly1305 = :crypto_onetimeauth_poly1305_ref
+      crypto_onetimeauth_poly1305_verify = :crypto_onetimeauth_poly1305_verify_ref
+    end
+
     wrap_nacl_function :crypto_auth_onetime,
-                       :crypto_onetimeauth_poly1305_ref,
+                       crypto_onetimeauth_poly1305,
                        [:pointer, :pointer, :long_long, :pointer]
     wrap_nacl_function :crypto_auth_onetime_verify,
-                       :crypto_onetimeauth_poly1305_ref_verify,
+                       crypto_onetimeauth_poly1305_verify,
                        [:pointer, :pointer, :long_long, :pointer]
 
     wrap_nacl_function :random_bytes,
