@@ -233,7 +233,7 @@ Otherwise, all of the algorithms in NaCl were designed by Dan Bernstein and his
 collaborators.
 
 The design choices in NaCl, particularly in regard to the Curve25519
-Diffie-Hellman function, ephasize security (whereas [NIST curves emphasize
+Diffie-Hellman function, emphasize security (whereas [NIST curves emphasize
 "performance" at the cost of security][nist-security-dangers]), and "magic
 constants" in NaCl are picked by theorems designed to maximize security.
 The same cannot be said of NIST curves, where the specific origins of certain
