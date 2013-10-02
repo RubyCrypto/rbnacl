@@ -1,10 +1,12 @@
 # encoding: binary
+
 module RbNaCl
-  # RbNaCl::Box public key. Send to your friends.
+  # RbNaCl::Box public key. Send it (securely!) to your friends.
   #
   # This class stores the NaCL public key, and provides some convenience
   # functions for working with it.
-  class PublicKey
+  class Boxes::Curve25519XSalsa20Poly1305::PublicKey
+
     include KeyComparator
     include Serializable
 
@@ -47,4 +49,5 @@ module RbNaCl
       self.class.primitive
     end
   end
+
 end

@@ -1,4 +1,5 @@
 # encoding: binary
+
 module RbNaCl
   # RbNaCl::Box private key. Keep it safe
   #
@@ -9,7 +10,8 @@ module RbNaCl
   # Note that the documentation for NaCl refers to this as a secret key, but in
   # this library its a private key, to avoid confusing the issue with the
   # SecretBox, which does symmetric encryption.
-  class PrivateKey
+  class Boxes::Curve25519XSalsa20Poly1305::PrivateKey
+
     include KeyComparator
     include Serializable
 
@@ -56,7 +58,7 @@ module RbNaCl
     #
     # @return [PublicKey] the key
     def public_key
-      @public_key ||= PublicKey.new(Point.base.mult(to_bytes))
+      @public_key ||= PublicKey.new GroupElements::Curve25519.base.mult(to_bytes)
     end
 
     # The crypto primitive the PrivateKey class is to be used for
@@ -72,6 +74,6 @@ module RbNaCl
     def primitive
       self.class.primitive
     end
-
   end
+
 end
