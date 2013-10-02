@@ -129,6 +129,6 @@ RbNaCl::SelfTest.digital_signature_test
 RbNaCl::SelfTest.sha256_test
 RbNaCl::SelfTest.hmac_test RbNaCl::HMAC::SHA256,    :auth_hmacsha256
 RbNaCl::SelfTest.hmac_test RbNaCl::HMAC::SHA512256, :auth_hmacsha512256
-RbNaCl::SelfTest.hmac_test RbNaCl::Auth::OneTime,   :auth_onetime
+RbNaCl::SelfTest.hmac_test RbNaCl::OneTimeAuth,     :auth_onetime
 
 puts "POST Completed in #{Time.now - start} s" if $DEBUG
