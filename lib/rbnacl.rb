@@ -44,8 +44,8 @@ module RbNaCl
   require "rbnacl/signatures/ed25519/signing_key"
   require "rbnacl/signatures/ed25519/verify_key"
 
-  # Diffie-Hellman: Curve25519
-  require "rbnacl/points/curve25519"
+  # Group Elements: Curve25519
+  require "rbnacl/group_elements/curve25519"
 
   # One-time Authentication: Poly1305
   require "rbnacl/authenticators/poly1305"
@@ -61,14 +61,14 @@ module RbNaCl
   #
   # Bind aliases used by the public API
   #
-  Box         = Boxes::Curve25519XSalsa20Poly1305
-  PrivateKey  = Boxes::Curve25519XSalsa20Poly1305::PrivateKey
-  PublicKey   = Boxes::Curve25519XSalsa20Poly1305::PublicKey
-  SecretBox   = SecretBoxes::XSalsa20Poly1305
-  SigningKey  = Signatures::Ed25519::SigningKey
-  VerifyKey   = Signatures::Ed25519::VerifyKey
-  Point       = Points::Curve25519
-  OneTimeAuth = Authenticators::Poly1305
+  Box          = Boxes::Curve25519XSalsa20Poly1305
+  PrivateKey   = Boxes::Curve25519XSalsa20Poly1305::PrivateKey
+  PublicKey    = Boxes::Curve25519XSalsa20Poly1305::PublicKey
+  SecretBox    = SecretBoxes::XSalsa20Poly1305
+  SigningKey   = Signatures::Ed25519::SigningKey
+  VerifyKey    = Signatures::Ed25519::VerifyKey
+  GroupElement = GroupElements::Curve25519
+  OneTimeAuth  = Authenticators::Poly1305
 end
 
 # Select platform-optimized versions of algorithms

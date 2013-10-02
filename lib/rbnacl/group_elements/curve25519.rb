@@ -1,6 +1,6 @@
 # encoding: binary
 module RbNaCl
-  module Points
+  module GroupElements
     # Points provide the interface to NaCl's Curve25519 high-speed elliptic
     # curve cryptography, which can be used for implementing Diffie-Hellman
     # and other forms of public key cryptography (e.g. RbNaCl::Box)

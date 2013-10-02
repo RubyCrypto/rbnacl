@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::Point do
+describe RbNaCl::GroupElement do
   let(:alice_private)  { vector :alice_private }
   let(:alice_public)   { vector :alice_public }
 

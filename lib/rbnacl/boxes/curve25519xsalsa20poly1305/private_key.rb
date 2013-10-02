@@ -58,7 +58,7 @@ module RbNaCl
     #
     # @return [PublicKey] the key
     def public_key
-      @public_key ||= PublicKey.new(Point.base.mult(to_bytes))
+      @public_key ||= PublicKey.new GroupElements::Curve25519.base.mult(to_bytes)
     end
 
     # The crypto primitive the PrivateKey class is to be used for
