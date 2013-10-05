@@ -18,26 +18,28 @@ module RbNaCl
     #
     # @see http://nacl.cr.yp.to/onetimeauth.html
     class Poly1305 < Auth
-      # Number of bytes in a valid key
-      KEYBYTES = NaCl::ONETIME_KEYBYTES
+      extend Sodium
 
-      # Number of bytes in a valid authenticator
-      BYTES = NaCl::ONETIME_BYTES
+      sodium_type      :onetimeauth
+      sodium_primitive :poly1305
+      sodium_constant  :BYTES
+      sodium_constant  :KEYBYTES
+
+      sodium_function :onetimeauth_poly1305,
+                      :crypto_onetimeauth_poly1305,
+                      [:pointer, :pointer, :ulong_long, :pointer]
       
-      # The crypto primitive for the Auth::OneTime class
-      #
-      # @return [Symbol] The primitive used
-      def self.primitive
-        :poly_1305
-      end
+      sodium_function :onetimeauth_poly1305_verify,
+                      :crypto_onetimeauth_poly1305_verify,
+                      [:pointer, :pointer, :ulong_long, :pointer]
 
       private
       def compute_authenticator(authenticator, message)
-        NaCl.crypto_auth_onetime(authenticator, message, message.bytesize, key)
+        self.class.onetimeauth_poly1305(authenticator, message, message.bytesize, key)
       end
 
       def verify_message(authenticator, message)
-        NaCl.crypto_auth_onetime_verify(authenticator, message, message.bytesize, key)
+        self.class.onetimeauth_poly1305_verify(authenticator, message, message.bytesize, key)
       end
 
     end

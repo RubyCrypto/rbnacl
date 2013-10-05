@@ -14,7 +14,7 @@ describe RbNaCl::SecretBox do
     end
 
     it "raises on a short key" do
-      expect { RbNaCl::SecretBox.new("hello") }.to raise_error(RbNaCl::LengthError, "Secret key was 5 bytes \(Expected #{RbNaCl::NaCl::SECRETKEYBYTES}\)")
+      expect { RbNaCl::SecretBox.new("hello") }.to raise_error(RbNaCl::LengthError, "Secret key was 5 bytes \(Expected #{RbNaCl::SecretBox::KEYBYTES}\)")
     end
   end
 

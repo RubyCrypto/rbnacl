@@ -14,9 +14,18 @@ module RbNaCl
 
     include KeyComparator
     include Serializable
+      
+    extend Sodium
+
+    sodium_type      :box
+    sodium_primitive :curve25519xsalsa20poly1305
+
+    sodium_function :box_curve25519xsalsa20poly1305_keypair,
+                    :crypto_box_curve25519xsalsa20poly1305_keypair,
+                    [:pointer, :pointer]
 
     # The size of the key, in bytes
-    BYTES = NaCl::CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES
+    BYTES = Boxes::Curve25519XSalsa20Poly1305::PRIVATEKEYBYTES
 
     # Initializes a new PrivateKey for key operations.
     #
@@ -41,9 +50,9 @@ module RbNaCl
     #
     # @return [RbNaCl::PrivateKey] A new private key, with the associated public key also set.
     def self.generate
-      pk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES)
-      sk = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_SECRETKEY_BYTES)
-      NaCl.crypto_box_curve25519xsalsa20poly1305_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
+      pk = Util.zeros(Boxes::Curve25519XSalsa20Poly1305::PUBLICKEYBYTES)
+      sk = Util.zeros(Boxes::Curve25519XSalsa20Poly1305::PRIVATEKEYBYTES)
+      self.box_curve25519xsalsa20poly1305_keypair(pk, sk) || raise(CryptoError, "Failed to generate a key pair")
       new(sk)
     end
 
@@ -60,14 +69,7 @@ module RbNaCl
     def public_key
       @public_key ||= PublicKey.new GroupElements::Curve25519.base.mult(to_bytes)
     end
-
-    # The crypto primitive the PrivateKey class is to be used for
-    #
-    # @return [Symbol] The primitive
-    def self.primitive
-      :curve25519_xsalsa20_poly1305
-    end
-
+    
     # The crypto primitive this PrivateKey is to be used for.
     #
     # @return [Symbol] The primitive
@@ -75,5 +77,4 @@ module RbNaCl
       self.class.primitive
     end
   end
-
 end

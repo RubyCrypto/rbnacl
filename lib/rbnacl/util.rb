@@ -2,6 +2,10 @@
 module RbNaCl
   # Various utility functions
   module Util
+    extend Sodium
+
+    sodium_function :c_verify16, :crypto_verify_16, [:pointer, :pointer]
+    sodium_function :c_verify32, :crypto_verify_32, [:pointer, :pointer]
     module_function
     # Returns a string of n zeros
     #
@@ -57,7 +61,7 @@ module RbNaCl
           "#{description} was nil (Expected #{length.to_int})",
           caller
       end
-      
+
       if string.bytesize != length.to_int
         raise LengthError,
               "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
@@ -100,7 +104,7 @@ module RbNaCl
     # @return [Boolean] Well, are they equal?
     def verify32(one, two)
       return false unless two.bytesize == 32 && one.bytesize == 32
-      NaCl.crypto_verify_32(one, two)
+      c_verify32(one, two)
     end
 
     # Compare two 32 byte strings in constant time
@@ -118,7 +122,7 @@ module RbNaCl
     def verify32!(one, two)
       check_length(one, 32, "First message")
       check_length(two, 32, "Second message")
-      NaCl.crypto_verify_32(one, two)
+      c_verify32(one, two)
     end
 
     # Compare two 16 byte strings in constant time
@@ -133,7 +137,7 @@ module RbNaCl
     # @return [Boolean] Well, are they equal?
     def verify16(one, two)
       return false unless two.bytesize == 16 && one.bytesize == 16
-      NaCl.crypto_verify_16(one, two)
+      c_verify16(one, two)
     end
 
     # Compare two 16 byte strings in constant time
@@ -151,7 +155,7 @@ module RbNaCl
     def verify16!(one, two)
       check_length(one, 16, "First message")
       check_length(two, 16, "Second message")
-      NaCl.crypto_verify_16(one, two)
+      c_verify16(one, two)
     end
 
     # Hex encodes a message

@@ -19,8 +19,20 @@ module RbNaCl
       include KeyComparator
       include Serializable
 
+      extend Sodium
+
+      sodium_type      :scalarmult
+      sodium_primitive :curve25519
+
+      sodium_function  :scalarmult_curve25519,
+                       :crypto_scalarmult_curve25519,
+                       [:pointer, :pointer, :pointer]
+
       # Number of bytes in a scalar on this curve
-      SCALARBYTES = NaCl::ED25519_SCALARBYTES
+      SCALARBYTES = 32
+      BYTES       = 32
+
+      # Number of bytes in a scalar on this curve
 
       # Creates a new Point from the given serialization
       #
@@ -47,7 +59,7 @@ module RbNaCl
         Util.check_length(integer, SCALARBYTES, "integer")
 
         result = Util.zeros(SCALARBYTES)
-        NaCl.crypto_scalarmult_curve25519(result, integer, @point)
+        self.class.scalarmult_curve25519(result, integer, @point)
 
         self.class.new(result)
       end

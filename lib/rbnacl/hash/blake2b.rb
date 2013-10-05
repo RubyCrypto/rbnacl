@@ -10,6 +10,19 @@ module RbNaCl
     # Blake2b provides for up to 64-bit digests and also supports a keyed mode
     # similar to HMAC
     class Blake2b
+      extend Sodium
+
+      sodium_type      :generichash
+      sodium_primitive :blake2b
+      sodium_constant  :BYTES_MIN
+      sodium_constant  :BYTES_MAX
+      sodium_constant  :KEYBYTES_MIN
+      sodium_constant  :KEYBYTES_MAX
+
+      sodium_function  :generichash_blake2b,
+                       :crypto_generichash_blake2b,
+                       [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long]
+
       # Create a new Blake2b hash object
       #
       # @param [Hash] opts Blake2b configuration
@@ -22,10 +35,10 @@ module RbNaCl
       def initialize(opts = {})
         @key = opts.fetch(:key, nil)
         @key_size = @key ? @key.bytesize : 0
-        raise LengthError, "key too long" if @key_size > NaCl::BLAKE2B_KEYBYTES
+        raise LengthError, "Invalid key size" if (@key_size != 0) && (@key_size < KEYBYTES_MIN || @key_size > KEYBYTES_MAX) 
 
-        @digest_size = opts.fetch(:digest_size, NaCl::BLAKE2B_OUTBYTES)
-        raise LengthError, "invalid digest size" if @digest_size < 1 || @digest_size > NaCl::BLAKE2B_OUTBYTES
+        @digest_size = opts.fetch(:digest_size, BYTES_MAX)
+        raise LengthError, "Invalid digest size" if @digest_size < BYTES_MIN || @digest_size > BYTES_MAX
       end
 
       # Calculate a Blake2b digest
@@ -35,7 +48,7 @@ module RbNaCl
       # @return [String] Blake2b digest of the string as raw bytes
       def digest(message)
         digest = Util.zeros(@digest_size)
-        NaCl.crypto_hash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
+        self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
         digest
       end
     end
