@@ -54,6 +54,8 @@ module RbNaCl
 
   # Hash functions: SHA256/512 and Blake2b
   require "rbnacl/hash"
+  require "rbnacl/hash/sha256"
+  require "rbnacl/hash/sha512"
   require "rbnacl/hash/blake2b"
 
   # HMAC: SHA256 and SHA512256

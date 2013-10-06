@@ -11,28 +11,8 @@ module RbNaCl
   # there is no secret involved in the hashing, so anyone can create the hash of
   # a given message.
   #
-  # RbNaCl provides the SHA-256 and SHA-512 hash functions.
+  # RbNaCl provides the SHA-256,SHA-512 as well as the Blake2b hash functions.
   module Hash
-    module SHA256
-      extend Sodium
-      sodium_type      :hash
-      sodium_primitive :sha256
-      sodium_constant  :BYTES
-      sodium_function  :hash_sha256,
-                       :crypto_hash_sha256,
-                       [:pointer, :pointer, :ulong_long]
-    end
-
-    module SHA512
-      extend Sodium
-      sodium_type      :hash
-      sodium_primitive :sha512
-      sodium_constant  :BYTES
-      sodium_function  :hash_sha512,
-                       :crypto_hash_sha512,
-                       [:pointer, :pointer, :ulong_long]
-    end
-
     # Returns the SHA-256 hash of the given data
     #
     # There's no streaming done, just pass in the data and be done with it.
