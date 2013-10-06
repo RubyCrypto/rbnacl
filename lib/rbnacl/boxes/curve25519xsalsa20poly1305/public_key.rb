@@ -11,7 +11,7 @@ module RbNaCl
     include Serializable
 
     # The size of the key, in bytes
-    BYTES = NaCl::CURVE25519_XSALSA20_POLY1305_PUBLICKEY_BYTES
+    BYTES = Boxes::Curve25519XSalsa20Poly1305::PUBLICKEYBYTES
 
     # Initializes a new PublicKey for key operations.
     #
@@ -39,7 +39,7 @@ module RbNaCl
     #
     # @return [Symbol] The primitive
     def self.primitive
-      :curve25519_xsalsa20_poly1305
+      :curve25519xsalsa20poly1305
     end
 
     # The crypto primitive this PublicKey is to be used for.

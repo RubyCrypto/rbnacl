@@ -62,9 +62,28 @@ module RbNaCl
     # arbitrary valid messages, so messages you send are repudiable.  For
     # non-repudiable messages, sign them before or after encryption.
     class Curve25519XSalsa20Poly1305
+      extend Sodium
 
-      # Number of bytes in a Box nonce
-      NONCEBYTES = NaCl::CURVE25519_XSALSA20_POLY1305_BOX_NONCEBYTES
+      sodium_type      :box
+      sodium_primitive :curve25519xsalsa20poly1305
+      sodium_constant  :NONCEBYTES
+      sodium_constant  :ZEROBYTES
+      sodium_constant  :BOXZEROBYTES
+      sodium_constant  :BEFORENMBYTES
+      sodium_constant  :PUBLICKEYBYTES
+      sodium_constant  :SECRETKEYBYTES, :PRIVATEKEYBYTES
+
+      sodium_function :box_curve25519xsalsa20poly1305_beforenm,
+                      :crypto_box_curve25519xsalsa20poly1305_beforenm,
+                      [:pointer, :pointer, :pointer]
+
+      sodium_function :box_curve25519xsalsa20poly1305_open_afternm,
+                      :crypto_box_curve25519xsalsa20poly1305_open_afternm,
+                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
+      
+      sodium_function :box_curve25519xsalsa20poly1305_afternm,
+                      :crypto_box_curve25519xsalsa20poly1305_afternm,
+                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
 
       # Create a new Box
       #
@@ -100,11 +119,11 @@ module RbNaCl
       # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
       def box(nonce, message)
         Util.check_length(nonce, nonce_bytes, "Nonce")
-        msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
+        msg = Util.prepend_zeros(ZEROBYTES, message)
         ct  = Util.zeros(msg.bytesize)
 
-        NaCl.crypto_box_curve25519_xsalsa20_poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
-        Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
+        self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+        Util.remove_zeros(BOXZEROBYTES, ct)
       end
       alias encrypt box
 
@@ -124,20 +143,13 @@ module RbNaCl
       # @return [String] The decrypted message (BINARY encoded)
       def open(nonce, ciphertext)
         Util.check_length(nonce, nonce_bytes, "Nonce")
-        ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
+        ct = Util.prepend_zeros(BOXZEROBYTES, ciphertext)
         message  = Util.zeros(ct.bytesize)
 
-        NaCl.crypto_box_curve25519_xsalsa20_poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
-        Util.remove_zeros(NaCl::ZEROBYTES, message)
+        self.class.box_curve25519xsalsa20poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+        Util.remove_zeros(ZEROBYTES, message)
       end
       alias decrypt open
-
-      # The crypto primitive for the box class
-      #
-      # @return [Symbol] The primitive used
-      def self.primitive
-        :curve25519_xsalsa20_poly1305
-      end
 
       # The crypto primitive for the box class
       #
@@ -163,8 +175,8 @@ module RbNaCl
       private
       def beforenm
         @k ||= begin
-                 k = Util.zeros(NaCl::CURVE25519_XSALSA20_POLY1305_BOX_BEFORENMBYTES)
-                 NaCl.crypto_box_curve25519_xsalsa20_poly1305_beforenm(k, @public_key.to_s, @private_key.to_s) || raise(CryptoError, "Failed to derive shared key")
+                 k = Util.zeros(BEFORENMBYTES)
+                 self.class.box_curve25519xsalsa20poly1305_beforenm(k, @public_key.to_s, @private_key.to_s) || raise(CryptoError, "Failed to derive shared key")
                  k
                end
       end

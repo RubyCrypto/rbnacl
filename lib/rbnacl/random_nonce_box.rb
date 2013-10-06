@@ -31,10 +31,6 @@ module RbNaCl
     extend Forwardable
     def_delegators :@box, :nonce_bytes, :primitive
 
-    # the size of the nonce
-    # DO NOT USE THIS, use the #nonce_bytes method instead
-    NONCEBYTES = NaCl::NONCEBYTES
-
     # Create a new RandomNonceBox
     #
     # @param box [SecretBox, Box] the SecretBox or Box to use.

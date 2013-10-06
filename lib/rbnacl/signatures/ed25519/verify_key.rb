@@ -12,6 +12,15 @@ module RbNaCl
         include KeyComparator
         include Serializable
 
+        extend  Sodium
+
+        sodium_type      :sign
+        sodium_primitive :ed25519
+
+        sodium_function  :sign_ed25519_open,
+                         :crypto_sign_ed25519_open,
+                         [:pointer, :pointer, :pointer, :ulong_long, :pointer]
+
         # Create a new VerifyKey object from a public key.
         #
         # @param key [String] Ed25519 public key
@@ -19,7 +28,7 @@ module RbNaCl
         # @return [RbNaCl::VerifyKey] Key which can verify messages
         def initialize(key)
           @key = key.to_str
-          Util.check_length(@key, NaCl::ED25519_VERIFYKEY_BYTES, "key")
+          Util.check_length(@key, Ed25519::VERIFYKEYBYTES, "key")
         end
 
         # Verify a signature for a given message
@@ -36,7 +45,7 @@ module RbNaCl
           buffer = Util.zeros(sig_and_msg.bytesize)
           buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
-          NaCl.crypto_sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
+          self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
         end
 
         # Verify a signature for a given message or raise exception
@@ -62,11 +71,6 @@ module RbNaCl
         # @return [String] raw key as bytes
         def to_bytes; @key; end
 
-        # The crypto primitive the VerifyKey class uses for signatures
-        #
-        # @return [Symbol] The primitive
-        def self.primitive; :ed25519; end
-
         # The crypto primitive this VerifyKey class uses for signatures
         #
         # @return [Symbol] The primitive
@@ -75,12 +79,12 @@ module RbNaCl
         # The size of signatures verified by the VerifyKey class
         #
         # @return [Integer] The number of bytes in a signature
-        def self.signature_bytes; NaCl::ED25519_SIGNATUREBYTES; end
+        def self.signature_bytes; Ed25519::SIGNATUREBYTES; end
 
         # The size of signatures verified by the VerifyKey instance
         #
         # @return [Integer] The number of bytes in a signature
-        def signature_bytes; NaCl::ED25519_SIGNATUREBYTES; end
+        def signature_bytes; Ed25519::SIGNATUREBYTES; end
       end
     end
   end

@@ -1,6 +1,6 @@
 # encoding: binary
 require "rbnacl/version"
-require "rbnacl/nacl"
+require "rbnacl/sodium"
 require "rbnacl/serializable"
 require "rbnacl/key_comparator"
 require "rbnacl/auth"
@@ -8,6 +8,7 @@ require "rbnacl/util"
 require "rbnacl/random"
 require "rbnacl/random_nonce_box"
 require "rbnacl/test_vectors"
+require "rbnacl/init"
 
 module RbNaCl
   # Oh no, something went wrong!
@@ -41,6 +42,7 @@ module RbNaCl
   require "rbnacl/secret_boxes/xsalsa20poly1305"
 
   # Digital Signatures: Ed25519
+  require "rbnacl/signatures/ed25519"
   require "rbnacl/signatures/ed25519/signing_key"
   require "rbnacl/signatures/ed25519/verify_key"
 
@@ -52,6 +54,8 @@ module RbNaCl
 
   # Hash functions: SHA256/512 and Blake2b
   require "rbnacl/hash"
+  require "rbnacl/hash/sha256"
+  require "rbnacl/hash/sha512"
   require "rbnacl/hash/blake2b"
 
   # HMAC: SHA256 and SHA512256
@@ -72,7 +76,7 @@ module RbNaCl
 end
 
 # Select platform-optimized versions of algorithms
-Thread.exclusive { RbNaCl::NaCl.sodium_init }
+Thread.exclusive { RbNaCl::Init.sodium_init }
 
 # Perform self test on load
 require "rbnacl/self_test"
