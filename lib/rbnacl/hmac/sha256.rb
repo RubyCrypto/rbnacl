@@ -13,26 +13,28 @@ module RbNaCl
     #
     # @see http://nacl.cr.yp.to/auth.html
     class SHA256 < Auth
-      # Number of bytes in a valid key
-      KEYBYTES = NaCl::HMACSHA256_KEYBYTES
+      extend Sodium
 
-      # Number of bytes in a valid authenticator
-      BYTES = NaCl::HMACSHA256_BYTES
+      sodium_type      :auth
+      sodium_primitive :hmacsha256
+      sodium_constant  :BYTES
+      sodium_constant  :KEYBYTES
 
-      # The crypto primitive for the HMAC::SHA256 class
-      #
-      # @return [Symbol] The primitive used
-      def self.primitive
-        :hmac_sha256
-      end
-
+      sodium_function  :auth_hmacsha256,
+                       :crypto_auth_hmacsha256,
+                       [:pointer, :pointer, :ulong_long, :pointer]
+      
+      sodium_function  :auth_hmacsha256_verify,
+                       :crypto_auth_hmacsha256_verify,
+                       [:pointer, :pointer, :ulong_long, :pointer]
+      
       private
       def compute_authenticator(authenticator, message)
-        NaCl.crypto_auth_hmacsha256(authenticator, message, message.bytesize, key)
+        self.class.auth_hmacsha256(authenticator, message, message.bytesize, key)
       end
 
       def verify_message(authenticator, message)
-        NaCl.crypto_auth_hmacsha256_verify(authenticator, message, message.bytesize, key)
+        self.class.auth_hmacsha256_verify(authenticator, message, message.bytesize, key)
       end
     end
   end

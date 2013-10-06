@@ -18,11 +18,22 @@ module RbNaCl
     # arbitrary valid messages, so messages you send are repudiable.  For
     # non-repudiable messages, sign them before or after encryption.
     class XSalsa20Poly1305
-      # Number of bytes for a secret key
-      KEYBYTES = NaCl::XSALSA20_POLY1305_SECRETBOX_KEYBYTES
+      extend Sodium
 
-      # Number of bytes for a nonce
-      NONCEBYTES = NaCl::XSALSA20_POLY1305_SECRETBOX_NONCEBYTES
+      sodium_type      :secretbox
+      sodium_primitive :xsalsa20poly1305
+      sodium_constant  :KEYBYTES
+      sodium_constant  :NONCEBYTES
+      sodium_constant  :ZEROBYTES
+      sodium_constant  :BOXZEROBYTES
+
+      sodium_function :secretbox_xsalsa20poly1305,
+                      :crypto_secretbox_xsalsa20poly1305,
+                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
+
+      sodium_function :secretbox_xsalsa20poly1305_open,
+                      :crypto_secretbox_xsalsa20poly1305_open,
+                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
 
       # Create a new SecretBox
       #
@@ -53,11 +64,11 @@ module RbNaCl
       # @return [String] The ciphertext without the nonce prepended (BINARY encoded)
       def box(nonce, message)
         Util.check_length(nonce, nonce_bytes, "Nonce")
-        msg = Util.prepend_zeros(NaCl::ZEROBYTES, message)
+        msg = Util.prepend_zeros(ZEROBYTES, message)
         ct  = Util.zeros(msg.bytesize)
 
-        NaCl.crypto_secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
-        Util.remove_zeros(NaCl::BOXZEROBYTES, ct)
+        self.class.secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
+        Util.remove_zeros(BOXZEROBYTES, ct)
       end
       alias encrypt box
 
@@ -77,18 +88,13 @@ module RbNaCl
       # @return [String] The decrypted message (BINARY encoded)
       def open(nonce, ciphertext)
         Util.check_length(nonce, nonce_bytes, "Nonce")
-        ct = Util.prepend_zeros(NaCl::BOXZEROBYTES, ciphertext)
+        ct = Util.prepend_zeros(BOXZEROBYTES, ciphertext)
         message  = Util.zeros(ct.bytesize)
 
-        NaCl.crypto_secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
-        Util.remove_zeros(NaCl::ZEROBYTES, message)
+        self.class.secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+        Util.remove_zeros(ZEROBYTES, message)
       end
       alias decrypt open
-
-      # The crypto primitive for the SecretBox class
-      #
-      # @return [Symbol] The primitive used
-      def self.primitive; :xsalsa20_poly1305; end
 
       # The crypto primitive for the SecretBox instance
       #
