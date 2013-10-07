@@ -21,8 +21,8 @@ Gem::Specification.new do |gem|
     gem.platform = "jruby"
   end
 
-  gem.add_runtime_dependency 'ffi'
+  gem.add_runtime_dependency "ffi"
 
   gem.add_development_dependency "rake"
-  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "rspec", ">= 2.14"
 end
