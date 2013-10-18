@@ -1,3 +1,4 @@
+# encoding: binary
 module RbNaCl
   module Signatures
     module Ed25519

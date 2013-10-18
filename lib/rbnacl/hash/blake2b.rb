@@ -1,3 +1,4 @@
+# encoding: binary
 module RbNaCl
   module Hash
     # The Blake2b hash function

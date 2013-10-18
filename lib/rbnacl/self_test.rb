@@ -1,3 +1,5 @@
+# encoding: binary
+
 start = Time.now if $DEBUG
 
 module RbNaCl

@@ -1,3 +1,4 @@
+# encoding: binary
 module RbNaCl
   # Defines the libsodium init function
   module Init
