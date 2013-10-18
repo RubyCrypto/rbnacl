@@ -79,4 +79,4 @@ end
 Thread.exclusive { RbNaCl::Init.sodium_init }
 
 # Perform self test on load
-require "rbnacl/self_test"
+require "rbnacl/self_test" unless $RBNACL_SELF_TEST == false
