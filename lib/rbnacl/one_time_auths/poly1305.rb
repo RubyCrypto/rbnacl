@@ -1,6 +1,6 @@
 # encoding: binary
 module RbNaCl
-  module Authenticators
+  module OneTimeAuths
     # Computes an authenticator using poly1305
     #
     # The authenticator can be used at a later time to verify the provenance of
@@ -28,7 +28,7 @@ module RbNaCl
       sodium_function :onetimeauth_poly1305,
                       :crypto_onetimeauth_poly1305,
                       [:pointer, :pointer, :ulong_long, :pointer]
-      
+
       sodium_function :onetimeauth_poly1305_verify,
                       :crypto_onetimeauth_poly1305_verify,
                       [:pointer, :pointer, :ulong_long, :pointer]

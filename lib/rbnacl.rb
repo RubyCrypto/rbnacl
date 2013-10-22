@@ -50,7 +50,7 @@ module RbNaCl
   require "rbnacl/group_elements/curve25519"
 
   # One-time Authentication: Poly1305
-  require "rbnacl/authenticators/poly1305"
+  require "rbnacl/one_time_auths/poly1305"
 
   # Hash functions: SHA256/512 and Blake2b
   require "rbnacl/hash"
@@ -72,7 +72,7 @@ module RbNaCl
   SigningKey   = Signatures::Ed25519::SigningKey
   VerifyKey    = Signatures::Ed25519::VerifyKey
   GroupElement = GroupElements::Curve25519
-  OneTimeAuth  = Authenticators::Poly1305
+  OneTimeAuth  = OneTimeAuths::Poly1305
 end
 
 # Select platform-optimized versions of algorithms
