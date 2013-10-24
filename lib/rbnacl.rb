@@ -11,6 +11,12 @@ require "rbnacl/test_vectors"
 require "rbnacl/init"
 
 module RbNaCl
+  REQUIRED_LIBSODIUM_VERSION = "0.4.5"
+
+  if Util.sodium_version_string < REQUIRED_LIBSODIUM_VERSION
+    raise "Sorry, you need to install libsodium #{REQUIRED_LIBSODIUM_VERSION}+. You have #{Util.sodium_version_string} installed"
+  end
+
   # Oh no, something went wrong!
   #
   # This indicates a failure in the operation of a cryptographic primitive such
