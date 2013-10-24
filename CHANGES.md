@@ -1,5 +1,6 @@
-HEAD
-----
+2.0.0.pre
+---------
+* ZOMG LOTS OF STUFF! We should make we get it all added to this file!
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
 * Rename Crypto module to RbNaCl module
 * RbNaCl::VerifyKey#verify operand order was reversed. New operand order is
