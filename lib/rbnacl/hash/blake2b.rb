@@ -36,7 +36,7 @@ module RbNaCl
       def initialize(opts = {})
         @key = opts.fetch(:key, nil)
         @key_size = @key ? @key.bytesize : 0
-        raise LengthError, "Invalid key size" if (@key_size != 0) && (@key_size < KEYBYTES_MIN || @key_size > KEYBYTES_MAX) 
+        raise LengthError, "Invalid key size" if @key_size > KEYBYTES_MAX
 
         @digest_size = opts.fetch(:digest_size, BYTES_MAX)
         raise LengthError, "Invalid digest size" if @digest_size < BYTES_MIN || @digest_size > BYTES_MAX

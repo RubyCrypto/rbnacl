@@ -20,7 +20,13 @@ describe RbNaCl::Hash::Blake2b do
     let(:reference_string_hash) { vector :blake2b_keyed_digest }
 
     it "calculates keyed hashes correctly" do
-      RbNaCl::Hash.blake2b(reference_string, :key => reference_key).should eq reference_string_hash
+      RbNaCl::Hash.blake2b(reference_string, key: reference_key).should eq reference_string_hash
+    end
+
+    it "supports short keys" do
+      expect do
+        RbNaCl::Hash.blake2b(reference_string, key: "X")
+      end.to_not raise_exception
     end
   end
 end
