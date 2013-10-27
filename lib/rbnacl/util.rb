@@ -4,8 +4,6 @@ module RbNaCl
   module Util
     extend Sodium
 
-    attach_function :sodium_version_string, [], :string
-
     sodium_function :c_verify16, :crypto_verify_16, [:pointer, :pointer]
     sodium_function :c_verify32, :crypto_verify_32, [:pointer, :pointer]
     module_function
