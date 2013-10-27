@@ -7,11 +7,11 @@ describe RbNaCl::Hash::Blake2b do
   let(:empty_string_hash)     { vector :blake2b_empty }
 
   it "calculates the correct hash for a reference string" do
-    RbNaCl::Hash.blake2b(reference_string).should eq reference_string_hash
+    expect(RbNaCl::Hash.blake2b(reference_string)).to eq reference_string_hash
   end
 
   it "calculates the correct hash for an empty string" do
-    RbNaCl::Hash.blake2b("").should eq empty_string_hash
+    expect(RbNaCl::Hash.blake2b("")).to eq empty_string_hash
   end
 
   context "keyed" do
@@ -20,7 +20,11 @@ describe RbNaCl::Hash::Blake2b do
     let(:reference_string_hash) { vector :blake2b_keyed_digest }
 
     it "calculates keyed hashes correctly" do
-      RbNaCl::Hash.blake2b(reference_string, :key => reference_key).should eq reference_string_hash
+      expect(RbNaCl::Hash.blake2b(reference_string, key: reference_key)).to eq reference_string_hash
+    end
+
+    it "doesn't accept empty strings as a key" do
+      expect { RbNaCl::Hash.blake2b(reference_string, key: "") }.to raise_exception
     end
   end
 end

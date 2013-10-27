@@ -35,11 +35,18 @@ module RbNaCl
       # @return [RbNaCl::Hash::Blake2b] A Blake2b hasher object
       def initialize(opts = {})
         @key = opts.fetch(:key, nil)
-        @key_size = @key ? @key.bytesize : 0
-        raise LengthError, "Invalid key size" if (@key_size != 0) && (@key_size < KEYBYTES_MIN || @key_size > KEYBYTES_MAX) 
+
+        if @key
+          @key_size = @key.bytesize
+          raise LengthError, "key too short" if @key_size < KEYBYTES_MIN
+          raise LengthError, "key too long"  if @key_size > KEYBYTES_MAX
+        else
+          @key_size = 0
+        end
 
         @digest_size = opts.fetch(:digest_size, BYTES_MAX)
-        raise LengthError, "Invalid digest size" if @digest_size < BYTES_MIN || @digest_size > BYTES_MAX
+        raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
+        raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
       end
 
       # Calculate a Blake2b digest
