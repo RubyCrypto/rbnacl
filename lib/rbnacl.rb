@@ -34,6 +34,10 @@ module RbNaCl
   # The signature was forged or otherwise corrupt
   class BadSignatureError < CryptoError; end
 
+  # The authenticator was forged or otherwise corrupt
+  class BadAuthenticatorError < CryptoError; end
+
+
   # Public Key Encryption (Box): Curve25519XSalsa20Poly1305
   require "rbnacl/boxes/curve25519xsalsa20poly1305"
   require "rbnacl/boxes/curve25519xsalsa20poly1305/private_key"
