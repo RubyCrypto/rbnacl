@@ -80,12 +80,14 @@ module RbNaCl
         #:nocov:
       end
 
-      bad_signature = signature[0,63] + '0'
-
-      unless verify_key.verify(bad_signature, message) == false
-        #:nocov:
-        raise SelfTestFailure, "failed to detect an invalid signature"
-        #:nocov:
+      begin
+        passed         = false
+        bad_signature = signature[0,63] + '0'
+        verify_key.verify(bad_signature, message)
+      rescue CryptoError
+        passed = true
+      ensure
+        passed or raise SelfTestFailure, "failed to detect corrupt ciphertext"
       end
     end
 
@@ -117,10 +119,13 @@ module RbNaCl
         #:nocov:
       end
 
-      if authenticator.verify(vector(tag), message + ' ')
-        #:nocov:
-        raise SelfTestFailure, "#{klass} failed to detect invalid authentication tag"
-        #:nocov:
+      begin
+        passed         = false
+        authenticator.verify(vector(tag), message + ' ')
+      rescue CryptoError
+        passed = true
+      ensure
+        passed or raise SelfTestFailure, "failed to detect corrupt ciphertext"
       end
     end
   end

@@ -53,18 +53,17 @@ shared_examples "authenticator" do
     end
 
     it "fails to validate an invalid authenticator" do
-      described_class.verify(key, tag, message+"\0").should be false
+      expect { described_class.verify(key, tag, message+"\0") }.to raise_error(RbNaCl::BadAuthenticatorError)
     end
 
     it "fails to validate a short authenticator" do
-      described_class.verify(key, tag[0,tag.bytesize - 2], message).should be false
+      expect { described_class.verify(key, tag[0,tag.bytesize - 2], message) }.to raise_error(RbNaCl::LengthError)
     end
 
     it "fails to validate a long authenticator" do
-      described_class.verify(key, tag+"\0", message).should be false
+      expect { described_class.verify(key, tag+"\0", message) }.to raise_error(RbNaCl::LengthError)
     end
   end
-
 
   context "Instance methods" do
     let(:authenticator) { described_class.new(key) }
@@ -81,15 +80,15 @@ shared_examples "authenticator" do
       end
 
       it "fails to validate an invalid authenticator" do
-        authenticator.verify(tag, message+"\0").should be false
+        expect { authenticator.verify(tag, message+"\0") }.to raise_error(RbNaCl::BadAuthenticatorError)
       end
 
       it "fails to validate a short authenticator" do
-        authenticator.verify(tag[0,tag.bytesize - 2], message).should be false
+        expect { authenticator.verify(tag[0,tag.bytesize - 2], message) }.to raise_error(RbNaCl::LengthError)
       end
 
       it "fails to validate a long authenticator" do
-        authenticator.verify(tag+"\0", message).should be false
+        expect { authenticator.verify(tag+"\0", message) }.to raise_error(RbNaCl::LengthError)
       end
     end
   end
