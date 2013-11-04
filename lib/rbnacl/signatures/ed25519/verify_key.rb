@@ -33,8 +33,12 @@ module RbNaCl
 
         # Verify a signature for a given message
         #
+        # Raises if the signature is invalid.
+        #
         # @param signature [String] Alleged signature to be checked
         # @param message [String] Message to be authenticated
+        #
+        # @raise [BadSignatureError] if the signature check fails
         #
         # @return [Boolean] was the signature authentic?
         def verify(signature, message)
@@ -45,25 +49,7 @@ module RbNaCl
           buffer = Util.zeros(sig_and_msg.bytesize)
           buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
-          self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
-        end
-
-        # Verify a signature for a given message or raise exception
-        #
-        # "Dangerous" (but really safer) verify that raises an exception if a
-        # signature check fails. This is probably less likely to go unnoticed than
-        # an improperly checked verify, as you are forced to deal with the
-        # exception explicitly (and failing signature checks are certainly an
-        # exceptional condition!)
-        #
-        # The arguments are otherwise the same as the verify method.
-        #
-        # @param message [String] Message to be authenticated
-        # @param signature [String] Alleged signature to be checked
-        #
-        # @return [true] Will raise BadSignatureError if signature check fails
-        def verify!(message, signature)
-          verify(message, signature) or raise BadSignatureError, "signature was forged/corrupt"
+          self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key) || raise(BadSignatureError, "signature was forged/corrupt")
         end
 
         # Return the raw key in byte format

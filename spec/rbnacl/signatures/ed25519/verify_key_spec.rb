@@ -13,12 +13,12 @@ describe RbNaCl::VerifyKey do
     subject.verify(signature, message).should be_true
   end
 
-  it "detects bad signatures" do
-    subject.verify(bad_signature, message).should be_false
+  it "raises when asked to verify a bad signature" do
+    expect { subject.verify(bad_signature, message) }.to raise_exception RbNaCl::BadSignatureError
   end
 
-  it "raises when asked to verify with a bang" do
-    expect { subject.verify!(bad_signature, message) }.to raise_exception RbNaCl::BadSignatureError
+  it "raises when asked to verify a short signature" do
+    expect { subject.verify(bad_signature[0,63], message) }.to raise_exception RbNaCl::LengthError
   end
 
   it "serializes to bytes" do

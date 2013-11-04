@@ -96,6 +96,21 @@ module RbNaCl
     end
     alias decrypt open
 
+    # Decrypts the ciphertext with a random nonce
+    #
+    # Takes a ciphertext, optionally decodes it, then splits the nonce off the
+    # front and uses this to decrypt.  Returns the message.
+    #
+    # @param enciphered_message [String] The message to decrypt.
+    #
+    # @return [String] The decoded message
+    # @return [false] If the ciphertext was corrupt
+    def open!(enciphered_message)
+      nonce, ciphertext = extract_nonce(enciphered_message.to_s)
+      @box.open!(nonce, ciphertext)
+    end
+    alias decrypt! open!
+
     private
     def generate_nonce
       Random.random_bytes(nonce_bytes)
