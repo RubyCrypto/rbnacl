@@ -39,6 +39,7 @@ module RbNaCl
         # @param message [String] Message to be authenticated
         #
         # @raise [BadSignatureError] if the signature check fails
+        # @raise [LengthError]  if the signature is of the wrong length
         #
         # @return [Boolean] was the signature authentic?
         def verify(signature, message)
