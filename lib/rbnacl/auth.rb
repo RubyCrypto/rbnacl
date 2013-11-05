@@ -1,5 +1,6 @@
 # encoding: binary
 module RbNaCl
+
   # Secret Key Authenticators
   #
   # These provide a means of verifying the integrity of a message, but only
@@ -38,6 +39,8 @@ module RbNaCl
     # @param [#to_str] authenticator to be checked
     # @param [#to_str] message the message to be authenticated
     #
+    # @raise [BadAuthenticatorError] if the tag isn't valid
+    #
     # @return [Boolean] Was it valid?
     def self.verify(key, authenticator, message)
       new(key).verify(authenticator, message)
@@ -60,11 +63,13 @@ module RbNaCl
     # @param [#to_str] authenticator to be checked
     # @param [#to_str] message the message to be authenticated
     #
+    # @raise [BadAuthenticatorError] if the tag isn't valid
+    #
     # @return [Boolean] Was it valid?
     def verify(authenticator, message)
       auth = authenticator.to_s
-      return false unless auth.bytesize == tag_bytes
-      verify_message(auth, message)
+      Util.check_length(auth, tag_bytes, "Provided authenticator")
+      verify_message(auth, message) || raise(BadAuthenticatorError, "Invalid authenticator provided, message is corrupt")
     end
 
     # The crypto primitive for this authenticator instance
