@@ -40,6 +40,7 @@ module RbNaCl
     # @param [#to_str] message the message to be authenticated
     #
     # @raise [BadAuthenticatorError] if the tag isn't valid
+    # @raise [LengthError]  if the tag is of the wrong length
     #
     # @return [Boolean] Was it valid?
     def self.verify(key, authenticator, message)
@@ -64,6 +65,7 @@ module RbNaCl
     # @param [#to_str] message the message to be authenticated
     #
     # @raise [BadAuthenticatorError] if the tag isn't valid
+    # @raise [LengthError]  if the tag is of the wrong length
     #
     # @return [Boolean] Was it valid?
     def verify(authenticator, message)
