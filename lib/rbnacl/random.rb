@@ -1,3 +1,5 @@
+require 'thread'
+
 # encoding: binary
 module RbNaCl
   # Functions for random number generation
@@ -6,6 +8,8 @@ module RbNaCl
   # /dev/urandom on UNIX-like systems, and the MS crypto providor on windows.
   module Random
     extend Sodium
+
+    @mutex = Mutex.new
 
     sodium_function :c_random_bytes,
                     :randombytes_buf,
@@ -17,7 +21,7 @@ module RbNaCl
     # @return [String] random bytes.
     def self.random_bytes(n=32)
       buf = RbNaCl::Util.zeros(n)
-      c_random_bytes(buf, n)
+      @mutex.synchronize { c_random_bytes(buf, n) }
       buf
     end
   end

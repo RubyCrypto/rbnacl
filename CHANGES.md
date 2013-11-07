@@ -1,6 +1,5 @@
 2.0.0.pre
 ---------
-* ZOMG LOTS OF STUFF! We should make we get it all added to this file!
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
 * Rename Crypto module to RbNaCl module
 * RbNaCl::VerifyKey#verify operand order was reversed. New operand order is
@@ -17,6 +16,7 @@
 * Call the `sodium_init()` function, to select the best algorithms.
 * Fix some typos in the documentation
 * Changes in the low level binding for libsodium and removal of the NaCl module
+* Add a mutex around calls to randombytes in libsodium
 
 1.1.0 (2013-04-19)
 ------------------
