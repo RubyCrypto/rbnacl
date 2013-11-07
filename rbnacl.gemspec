@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = "Ruby binding to the Networking and Cryptography (NaCl) library"
   gem.summary       = "The Networking and Cryptography (NaCl) library provides a high-level toolkit for building cryptographic systems and protocols"
   gem.homepage      = "https://github.com/cryptosphere/rbnacl"
+  gem.licenses    = ['MIT']
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
