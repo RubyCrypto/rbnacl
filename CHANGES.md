@@ -1,5 +1,5 @@
-2.0.0.pre
----------
+2.0.0 (2013-11-07)
+------------------
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
 * Rename Crypto module to RbNaCl module
 * RbNaCl::VerifyKey#verify operand order was reversed. New operand order is
