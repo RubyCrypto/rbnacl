@@ -1,4 +1,5 @@
 # encoding: binary
+require 'json'
 require 'coveralls'
 Coveralls.wear!
 
