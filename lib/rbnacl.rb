@@ -63,6 +63,10 @@ module RbNaCl
   require "rbnacl/hash/sha512"
   require "rbnacl/hash/blake2b"
 
+  # Password hash function: scrypt
+  require "rbnacl/password_hash"
+  require "rbnacl/password_hash/scrypt"
+
   # HMAC: SHA256 and SHA512256
   require "rbnacl/hmac/sha256"
   require "rbnacl/hmac/sha512256"
