@@ -57,12 +57,12 @@ module RbNaCl
     # This is a convenience method.  It takes a pair of keys and instantiates a
     # Box under the hood, then returns the new RandomNonceBox.
     #
-    # @param private_key [PrivateKey, String] The RbNaCl private key, as class or string
     # @param public_key  [PublicKey,  String] The RbNaCl public key, as class or string
+    # @param private_key [PrivateKey, String] The RbNaCl private key, as class or string
     #
     # @return [RandomNonceBox] Ready for use
-    def self.from_keypair(private_key, public_key)
-      new(Box.new(private_key, public_key))
+    def self.from_keypair(public_key, private_key)
+      new(Box.new(public_key, private_key))
     end
 
     # Encrypts the message with a random nonce
