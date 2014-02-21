@@ -3,15 +3,18 @@ script: "LD_LIBRARY_PATH=lib bundle exec rake ci"
 rvm:
   - 1.9.3
   - 2.0.0
+  - 2.1.0
   - ruby-head
   - jruby
   - jruby-head
-  - rbx-19mode 
+  - rbx
+  - rbx-head
 
 matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
+    - rvm: rbx-head
 
 notifications:
   irc: "irc.freenode.org#cryptosphere"
