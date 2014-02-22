@@ -102,8 +102,8 @@ module RbNaCl
     end
 
     def extract_nonce(bytes)
-      nonce = bytes.slice!(0, nonce_bytes)
-      [nonce, bytes]
+      nonce = bytes.slice(0, nonce_bytes)
+      [nonce, bytes.slice(nonce_bytes..-1)]
     end
   end
 end
