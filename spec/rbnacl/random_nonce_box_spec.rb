@@ -5,6 +5,8 @@ describe RbNaCl::RandomNonceBox do
   let(:secret_key) { vector :secret_key }
   let(:secret_box) { RbNaCl::SecretBox.new(secret_key) }
   let(:alicepk)    { vector :alice_public }
+  let(:alicesk)    { vector :alice_private }
+  let(:bobpk)      { vector :bob_public }
   let(:bobsk)      { vector :bob_private }
 
   context "instantiation" do
@@ -34,16 +36,23 @@ describe RbNaCl::RandomNonceBox do
     let(:nonce)      { vector :box_nonce }
     let(:message)    { vector :box_message }
     let(:ciphertext) { vector :box_ciphertext }
-    let(:random_box) { RbNaCl::RandomNonceBox.from_keypair(alicepk, bobsk) }
-    let(:enciphered_message) { random_box.box(message) }
-    let(:enciphered_message_hex) { random_box.box(message) }
+    let(:alice) { RbNaCl::RandomNonceBox.from_keypair(bobpk, alicesk) }
+    let(:bob) { RbNaCl::RandomNonceBox.from_keypair(alicepk, bobsk) }
 
-    it "descrypts a message with a 'random' nonce" do
-      random_box.open(nonce+ciphertext).should eql message
-    end
+    describe "bob" do
+      it "decrypts a message from alice" do
+        alices_ciphertext = alice.encrypt(message)
+        bob.decrypt(alices_ciphertext).should eql message
+      end
 
-    it "can successfully round-trip a message" do
-      random_box.open(enciphered_message).should eql message
+      it "decrypts own message" do
+        bobs_ciphertext = bob.encrypt(message)
+        bob.decrypt(bobs_ciphertext).should eql message
+      end
+
+      it "decrypts a message with a 'random' nonce" do
+        bob.decrypt(nonce+ciphertext).should eql message
+      end
     end
   end
 end
