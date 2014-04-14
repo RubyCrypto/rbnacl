@@ -106,4 +106,7 @@ module RbNaCl
       [nonce, bytes.slice(nonce_bytes..-1)]
     end
   end
+
+  # Backwards compatibility with the old RandomNonceBox name
+  RandomNonceBox = SimpleBox
 end
