@@ -57,7 +57,6 @@ module RbNaCl
     #
     # @return [String] The blake2b hash as raw bytes (Or encoded as per the second argument)
     def self.blake2b(data, options = {})
-      key         = options[:key]
       Blake2b.new(options).digest(data)
     end
   end

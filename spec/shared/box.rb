@@ -1,7 +1,5 @@
 # encoding: binary
 
-require 'spec_helper'
-
 shared_examples "box" do
   let(:nonce) { vector :box_nonce }
   let(:invalid_nonce) { nonce[0,12]  } # too short!

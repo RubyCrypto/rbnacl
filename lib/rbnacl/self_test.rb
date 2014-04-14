@@ -46,7 +46,6 @@ module RbNaCl
         passed         = false
         corrupt_ct     = ciphertext.dup
         corrupt_ct[23] = ' '
-        corrupt_ct
         box.decrypt(nonce, corrupt_ct)
       rescue CryptoError
         passed = true
