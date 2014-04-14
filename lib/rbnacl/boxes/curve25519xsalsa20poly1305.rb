@@ -92,12 +92,11 @@ module RbNaCl
       #
       # @param public_key [String,RbNaCl::PublicKey] The public key to encrypt to
       # @param private_key [String,RbNaCl::PrivateKey] The private key to encrypt with
-      # @param encoding [Symbol] Parse keys from the given encoding
       #
       # @raise [RbNaCl::LengthError] on invalid keys
       #
       # @return [RbNaCl::Box] The new Box, ready to use
-      def initialize(public_key, private_key, encoding = :raw)
+      def initialize(public_key, private_key)
         @public_key   = PublicKey  === public_key  ? public_key  : PublicKey.new(public_key)
         @private_key  = PrivateKey === private_key ? private_key : PrivateKey.new(private_key)
         raise IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive

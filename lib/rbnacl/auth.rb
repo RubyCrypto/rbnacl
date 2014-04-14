@@ -51,7 +51,7 @@ module RbNaCl
     #
     # @param [#to_str] message the message to authenticate
     #
-    # @return [String] The authenticator in the requested encoding (default raw)
+    # @return [String] the authenticator as raw bytes
     def auth(message)
       authenticator = Util.zeros(tag_bytes)
       message = message.to_str

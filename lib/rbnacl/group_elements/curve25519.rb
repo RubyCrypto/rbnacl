@@ -54,7 +54,7 @@ module RbNaCl
       # @param [String] integer value to multiply with this Point (32-bytes)
       #
       # @return [RbNaCl::Point] result as a Point object
-      def mult(integer, encoding = :raw)
+      def mult(integer)
         integer = integer.to_str
         Util.check_length(integer, SCALARBYTES, "integer")
 

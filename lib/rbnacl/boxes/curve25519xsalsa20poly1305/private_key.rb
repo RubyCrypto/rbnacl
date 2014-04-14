@@ -34,7 +34,6 @@ module RbNaCl
     # PublicKey
     #
     # @param private_key [String] The private key
-    # @param key_encoding [Symbol] The encoding of the key
     #
     # @raise [TypeError] If the key is nil
     # @raise [RbNaCl::LengthError] If the key is not valid after decoding.
