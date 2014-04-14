@@ -7,7 +7,7 @@ require "rbnacl/key_comparator"
 require "rbnacl/auth"
 require "rbnacl/util"
 require "rbnacl/random"
-require "rbnacl/random_nonce_box"
+require "rbnacl/simple_box"
 require "rbnacl/test_vectors"
 require "rbnacl/init"
 
