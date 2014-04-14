@@ -27,7 +27,7 @@ module RbNaCl
   # * The confidentiality of your messages is assured with this strategy, but
   #   there is no protection against messages being reordered and replayed by an
   #   active adversary.
-  class RandomNonceBox
+  class SimpleBox
     extend Forwardable
     def_delegators :@box, :nonce_bytes, :primitive
 
