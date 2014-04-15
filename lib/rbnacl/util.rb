@@ -87,6 +87,9 @@ module RbNaCl
       end
 
       string = string.to_str
+      unless string.encoding == Encoding::BINARY
+        raise EncodingError, "strings must use BINARY encoding (got #{string.encoding})"
+      end
       check_length(string, length, description)
 
       string
