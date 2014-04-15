@@ -118,6 +118,16 @@ describe RbNaCl::Util do
     end
   end
 
+  context "check_string" do
+    it "raises EncodingError when given strings with non-BINARY encoding" do
+      string = "foobar"
+      string.force_encoding('UTF-8')
+      expect do
+        RbNaCl::Util.check_string(string, string.bytesize, "encoding test")
+      end.to raise_error(EncodingError)
+    end
+  end
+
   context "hex encoding" do
     let (:bytes) { [0xDE,0xAD,0xBE,0xEF].pack('c*') }
     let (:hex)   { "deadbeef" }
