@@ -107,6 +107,7 @@ Inside of your Ruby program do:
 RbNaCl's documentation can be found [in the Wiki][wiki]. The following features
 are supported:
 
+* [SimpleBox]: easy-to-use public-key or secret-key encryption "on Rails"
 * [Secret-key Encryption][secretkey]: authenticated symmetric encryption using a
   single key shared among parties
 * [Public-key Encryption][publickey]: securely send messages to a given public
@@ -124,6 +125,7 @@ information.
 [RDoc documentation][rdoc] is also available.
 
 [wiki]: https://github.com/cryptosphere/rbnacl/wiki
+[simplebox]: https://github.com/cryptosphere/rbnacl/wiki/SimpleBox
 [secretkey]: https://github.com/cryptosphere/rbnacl/wiki/Secret-Key-Encryption
 [publickey]: https://github.com/cryptosphere/rbnacl/wiki/Public-Key-Encryption
 [signatures]: https://github.com/cryptosphere/rbnacl/wiki/Digital-Signatures
