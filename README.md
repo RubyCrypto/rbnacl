@@ -259,7 +259,3 @@ faster across-the-board than most implementations of the NIST standards.
 
 Copyright (c) 2013 Jonathan Stott, Tony Arcieri.
 Distributed under the MIT License. See LICENSE.txt for further details.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cryptosphere/rbnacl/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
