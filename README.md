@@ -143,32 +143,6 @@ by professional cryptographers.
 
 That said, it's probably still a million times better than OpenSSL...
 
-## Using Signed Gems
-
-The RbNaCl gem is signed by Tony Arcieri's certificate, which identifies
-as `bascule@gmail.com`. You can obtain the official certificate with:
-
-```
-curl https://raw.github.com/cryptosphere/rbnacl/master/bascule.cert > /tmp/bascule.cert
-gem cert -a /tmp/bascule.cert
-```
-
-You can verify the authenticity of bascule.cert by its SHA256 hash:
-
-```
-$ shasum -a 256 bascule.cert
-6e8b7e53d347ca6c6d214efef2b923aadecdd7650565f0eb1d8d0419723ae20c  bascule.cert
-```
-
-If you get a different number than `6e8b7e53...`, this is not the cert you are
-looking for!
-
-If you'd like to install the gem in high security mode, run:
-
-```
-gem install rbnacl-1.0.0.gem -P HighSecurity
-```
-
 ## Reporting Security Problems
 
 If you have discovered a bug in RbNaCl of a sensitive nature, i.e.
