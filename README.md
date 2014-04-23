@@ -208,6 +208,10 @@ Coursera offers from Stanford University Professor Dan Boneh:
 
 Only if your military understands twisted Edwards curves
 
+### Is it "Bank Grade™"?
+
+No, that means 3DES, which this library doesn't support, sorry
+
 ### Does it have a lock with a checkmark?
 
 Sure, here you go:
