@@ -1,3 +1,10 @@
+3.0.0 (2014-04-22)
+------------------
+* Rename RandomNonceBox to SimpleBox (backwards compatibility preserved)
+* Reverse documented order of SimpleBox/RandomNonceBox initialize parameters.
+  Technically backwards compatible, but confusing.
+* Ensure all strings are ASCII-8BIT/BINARY encoding prior to use
+
 2.0.0 (2013-11-07)
 ------------------
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
