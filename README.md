@@ -150,11 +150,11 @@ one which can compromise the security of RbNaCl users, you can
 report it securely by sending a GPG encrypted message. Please use
 the following key:
 
-https://raw.github.com/cryptosphere/rbnacl/master/rbnacl.gpg
+https://raw.github.com/cryptosphere/rbnacl/master/bascule.gpg
 
 The key fingerprint is (or should be):
 
-`190E 42D6 8327 A515 BFDF AAE0 B210 269D BB2D 8787`
+`25C1 198A C8A1 8212 7D24 E665 666B AFA9 D77E E055`
 
 ## Learn More
 
