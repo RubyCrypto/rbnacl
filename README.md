@@ -78,6 +78,16 @@ for information regarding installation:
 
 https://github.com/jedisct1/libsodium
 
+For FreeBSD users, libsodium is available both via pkgng and ports.  To install
+a binary package:
+
+    pkg install libsodium
+
+To install from ports on FreeBSD, use your favorite ports front end (e.g.
+portmaster or portupgrade), or use make as follows:
+
+    cd /usr/ports/security/libsodium; make install clean
+
 For OS X users, libsodium is available via homebrew and can be installed with:
 
     brew install libsodium
