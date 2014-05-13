@@ -1,3 +1,8 @@
+3.0.1 (2014-05-12)
+------------------
+* Load gem from RBNACL_LIBSODIUM_GEM_LIB_PATH if set. Used by rbnacl-libsodium
+  gem to use libsodium compiled from a gem.
+
 3.0.0 (2014-04-22)
 ------------------
 * Rename RandomNonceBox to SimpleBox (backwards compatibility preserved)
