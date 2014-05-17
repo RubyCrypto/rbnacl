@@ -18,46 +18,52 @@ module RbNaCl
     class SCrypt
       extend Sodium
 
-      sodium_type      :pwhash
-      sodium_primitive :scryptxsalsa208sha256
+      begin
+        sodium_type      :pwhash
+        sodium_primitive :scryptxsalsa208sha256
 
-      sodium_constant :SALTBYTES
+        sodium_constant :SALTBYTES
 
-      sodium_function  :scrypt,
-                       :crypto_pwhash_scryptxsalsa208sha256,
-                       [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t]
+        sodium_function  :scrypt,
+                         :crypto_pwhash_scryptxsalsa208sha256,
+                         [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t]
 
 
 
-      # Create a new SCrypt password hash object
-      #
-      # @param [Integer] opslimit the CPU cost (e.g. 2**20)
-      # @param [Integer] memlimit the memory cost (e.g. 2**24)
-      #
-      # @return [RbNaCl::PasswordHash::SCrypt] An SCrypt password hasher object
-      def initialize(opslimit, memlimit, digest_size = 64)
-        # TODO: sanity check these parameters
-        @opslimit, @memlimit = opslimit, memlimit
+        # Create a new SCrypt password hash object
+        #
+        # @param [Integer] opslimit the CPU cost (e.g. 2**20)
+        # @param [Integer] memlimit the memory cost (e.g. 2**24)
+        #
+        # @return [RbNaCl::PasswordHash::SCrypt] An SCrypt password hasher object
+        def initialize(opslimit, memlimit, digest_size = 64)
+          # TODO: sanity check these parameters
+          @opslimit, @memlimit = opslimit, memlimit
 
-        # TODO: check digest size validity
-        #raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
-        #raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
+          # TODO: check digest size validity
+          #raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
+          #raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
 
-        @digest_size = digest_size
-      end
+          @digest_size = digest_size
+        end
 
-      # Calculate an scrypt digest for a given password and salt
-      #
-      # @param [String] password to be hashed
-      # @param [String] salt to make the digest unique
-      #
-      # @return [String] scrypt digest of the string as raw bytes
-      def digest(password, salt)
-        digest = Util.zeros(@digest_size)
-        salt   = Util.check_string(salt, SALTBYTES, "salt")
+        # Calculate an scrypt digest for a given password and salt
+        #
+        # @param [String] password to be hashed
+        # @param [String] salt to make the digest unique
+        #
+        # @return [String] scrypt digest of the string as raw bytes
+        def digest(password, salt)
+          digest = Util.zeros(@digest_size)
+          salt   = Util.check_string(salt, SALTBYTES, "salt")
 
-        self.class.scrypt(digest, @digest_size, password, password.bytesize, salt, @opslimit, @memlimit) || raise(CryptoError, "scrypt failed!")
-        digest
+          self.class.scrypt(digest, @digest_size, password, password.bytesize, salt, @opslimit, @memlimit) || raise(CryptoError, "scrypt failed!")
+          digest
+        end
+      rescue FFI::NotFoundError
+        def initialize(opslimit, memlimit, digest_size = 64)
+          raise NotImplementedError, "scrypt not implemented in this version of libsodium"
+        end
       end
     end
   end
