@@ -19,16 +19,23 @@ module RbNaCl
       sodium_constant :BYTES_MAX
       sodium_constant :KEYBYTES_MIN
       sodium_constant :KEYBYTES_MAX
+      sodium_constant  :SALTBYTES
+      sodium_constant  :PERSONALBYTES
 
-      sodium_function :generichash_blake2b,
-                      :crypto_generichash_blake2b,
-                      [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t]
+      sodium_function  :generichash_blake2b,
+                       :crypto_generichash_blake2b_salt_personal,
+                       [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t, :pointer, :pointer]
+
+      EMPTY_PERSONAL = ("\0"*PERSONALBYTES).freeze
+      EMPTY_SALT     = ("\0"*SALTBYTES).freeze
 
       # Create a new Blake2b hash object
       #
       # @param [Hash] opts Blake2b configuration
       # @option opts [String]  :key for Blake2b keyed mode
       # @option opts [Integer] :digest_size size of output digest in bytes
+      # @option opts [String]  :salt  Provide a salt to support randomised hashing.  This is mixed into the parameters block to start the hashing.
+      # @option opts [Personal] :personal Provide personalisation string to allow pinning a hash for a particular purpose.  This is mixed into the parameters block to start the hashing
       #
       # @raise [RbNaCl::LengthError] Invalid length specified for one or more options
       #
@@ -47,6 +54,12 @@ module RbNaCl
         @digest_size = opts.fetch(:digest_size, BYTES_MAX)
         fail LengthError, "digest size too short" if @digest_size < BYTES_MIN
         fail LengthError, "digest size too long"  if @digest_size > BYTES_MAX
+
+        @personal = opts.fetch(:personal, EMPTY_PERSONAL)
+        @personal = Util.zero_pad(PERSONALBYTES, @personal)
+
+        @salt     = opts.fetch(:salt, EMPTY_SALT)
+        @salt     = Util.zero_pad(SALTBYTES, @salt)
       end
 
       # Calculate a Blake2b digest
@@ -56,7 +69,7 @@ module RbNaCl
       # @return [String] Blake2b digest of the string as raw bytes
       def digest(message)
         digest = Util.zeros(@digest_size)
-        self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || fail(CryptoError, "Hashing failed!")
+        self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size, @salt, @personal) || fail(CryptoError, "Hashing failed!")
         digest
       end
     end
