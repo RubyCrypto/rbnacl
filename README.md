@@ -67,6 +67,9 @@ reports of successful Windows users.
 
 ### libsodium
 
+**NOTE: Want to avoid the hassle of installing libsodium? Use the
+[rbnacl-libsodium](https://github.com/cryptosphere/rbnacl-libsodium) gem**
+
 RbNaCl is implemented as a Ruby FFI binding, which is designed to bind to
 shared libraries. Unfortunately NaCl does not presently ship a shared library,
 so RbNaCl cannot take advantage of it via FFI. RbNaCl will support usage with
