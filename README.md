@@ -67,8 +67,8 @@ reports of successful Windows users.
 
 ### libsodium
 
-*NOTE: Want to avoid the hassle of installing libsodium? Use the
-[rbnacl-libsodium](https://github.com/cryptosphere/rbnacl-libsodium) gem*
+**NOTE: Want to avoid the hassle of installing libsodium? Use the
+[rbnacl-libsodium](https://github.com/cryptosphere/rbnacl-libsodium) gem**
 
 To use RbNaCl, you will need to install libsodium:
 
