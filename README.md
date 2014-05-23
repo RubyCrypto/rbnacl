@@ -67,19 +67,16 @@ reports of successful Windows users.
 
 ### libsodium
 
-**NOTE: Want to avoid the hassle of installing libsodium? Use the
-[rbnacl-libsodium](https://github.com/cryptosphere/rbnacl-libsodium) gem**
+*NOTE: Want to avoid the hassle of installing libsodium? Use the
+[rbnacl-libsodium](https://github.com/cryptosphere/rbnacl-libsodium) gem*
 
-RbNaCl is implemented as a Ruby FFI binding, which is designed to bind to
-shared libraries. Unfortunately NaCl does not presently ship a shared library,
-so RbNaCl cannot take advantage of it via FFI. RbNaCl will support usage with
-the upstream NaCl once it is able to compile a shared library.
-
-For now, to use RbNaCl, you will need to install libsodium, a portable version
-of NaCl based upon the reference C code. Please see the libsodium project
-for information regarding installation:
+To use RbNaCl, you will need to install libsodium:
 
 https://github.com/jedisct1/libsodium
+
+For OS X users, libsodium is available via homebrew and can be installed with:
+
+    brew install libsodium
 
 For FreeBSD users, libsodium is available both via pkgng and ports.  To install
 a binary package:
@@ -90,10 +87,6 @@ To install from ports on FreeBSD, use your favorite ports front end (e.g.
 portmaster or portupgrade), or use make as follows:
 
     cd /usr/ports/security/libsodium; make install clean
-
-For OS X users, libsodium is available via homebrew and can be installed with:
-
-    brew install libsodium
 
 ### RbNaCl gem
 
