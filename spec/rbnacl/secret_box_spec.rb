@@ -6,7 +6,7 @@ describe RbNaCl::SecretBox do
 
   context "new" do
     it "accepts strings" do
-      expect { RbNaCl::SecretBox.new(key) }.to_not raise_error(Exception)
+      expect { RbNaCl::SecretBox.new(key) }.to_not raise_error
     end
 
     it "raises on a nil key" do

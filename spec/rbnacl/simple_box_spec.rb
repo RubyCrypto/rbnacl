@@ -15,7 +15,7 @@ describe RbNaCl::SimpleBox do
     end
 
     it "can be instantiated from a secret key" do
-      described_class.from_secret_key(secret_key).should be_a described_class
+      expect(described_class.from_secret_key(secret_key)).to be_a described_class
     end
 
     it "raises TypeError when given a nil secret key" do
@@ -23,7 +23,7 @@ describe RbNaCl::SimpleBox do
     end
 
     it "can be instantiated from a key-pair" do
-      described_class.from_keypair(alicepk, bobsk).should be_a described_class
+      expect(described_class.from_keypair(alicepk, bobsk)).to be_a described_class
     end
 
     it "raises TypeError when given nil secret keys in the pair" do
@@ -42,16 +42,16 @@ describe RbNaCl::SimpleBox do
     describe "bob" do
       it "decrypts a message from alice" do
         alices_ciphertext = alice.encrypt(message)
-        bob.decrypt(alices_ciphertext).should eql message
+        expect(bob.decrypt(alices_ciphertext)).to eql message
       end
 
       it "decrypts own message" do
         bobs_ciphertext = bob.encrypt(message)
-        bob.decrypt(bobs_ciphertext).should eql message
+        expect(bob.decrypt(bobs_ciphertext)).to eql message
       end
 
       it "decrypts a message with a 'random' nonce" do
-        bob.decrypt(nonce+ciphertext).should eql message
+        expect(bob.decrypt(nonce+ciphertext)).to eql message
       end
     end
   end

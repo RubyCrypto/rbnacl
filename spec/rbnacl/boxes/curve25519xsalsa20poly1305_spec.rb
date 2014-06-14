@@ -9,11 +9,11 @@ describe RbNaCl::Box do
 
   context "new" do
     it "accepts strings" do
-      expect { RbNaCl::Box.new(alicepk, bobsk) }.to_not raise_error(Exception)
+      expect { RbNaCl::Box.new(alicepk, bobsk) }.to_not raise_error
     end
 
     it "accepts KeyPairs" do
-      expect { RbNaCl::Box.new(alice_key, bob_key) }.to_not raise_error(Exception)
+      expect { RbNaCl::Box.new(alice_key, bob_key) }.to_not raise_error
     end
 
     it "raises TypeError on a nil public key" do

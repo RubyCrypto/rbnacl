@@ -8,11 +8,11 @@ describe RbNaCl::Hash do
     let(:empty_string_hash)     { vector :sha256_empty }
 
     it "calculates the correct hash for a reference string" do
-      RbNaCl::Hash.sha256(reference_string).should eq reference_string_hash
+      expect(RbNaCl::Hash.sha256(reference_string)).to eq reference_string_hash
     end
 
     it "calculates the correct hash for an empty string" do
-      RbNaCl::Hash.sha256("").should eq empty_string_hash
+      expect(RbNaCl::Hash.sha256("")).to eq empty_string_hash
     end
 
     it "doesn't raise on a null byte" do
@@ -26,11 +26,11 @@ describe RbNaCl::Hash do
     let(:empty_string_hash)     { vector :sha512_empty }
 
     it "calculates the correct hash for a reference string" do
-      RbNaCl::Hash.sha512(reference_string).should eq reference_string_hash
+      expect(RbNaCl::Hash.sha512(reference_string)).to eq reference_string_hash
     end
 
     it "calculates the correct hash for an empty string" do
-      RbNaCl::Hash.sha512("").should eq empty_string_hash
+      expect(RbNaCl::Hash.sha512("")).to eq empty_string_hash
     end
 
     it "doesn't raise on a null byte" do

@@ -22,13 +22,13 @@ describe RbNaCl::PublicKey do
 
   context "#to_bytes" do
     it "returns the bytes of the key" do
-      subject.to_bytes.should eq alicepk
+      expect(subject.to_bytes).to eq alicepk
     end
   end
 
   context "#to_s" do
     it "returns the bytes of the key" do
-      subject.to_s.should eq alicepk
+      expect(subject.to_s).to eq alicepk
     end
   end
 

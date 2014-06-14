@@ -27,7 +27,7 @@ shared_examples "authenticator" do
 
   context ".auth" do
     it "produces an authenticator" do
-      described_class.auth(key, message).should eq tag
+      expect(described_class.auth(key, message)).to eq tag
     end
 
     it "raises TypeError on a nil key" do
@@ -41,7 +41,7 @@ shared_examples "authenticator" do
 
   context ".verify" do
     it "verify an authenticator" do
-      described_class.verify(key, tag, message).should eq true
+      expect(described_class.verify(key, tag, message)).to eq true
     end
 
     it "raises TypeError on a nil key" do
@@ -70,13 +70,13 @@ shared_examples "authenticator" do
 
     context "#auth" do
       it "produces an authenticator" do
-        authenticator.auth(message).should eq tag
+        expect(authenticator.auth(message)).to eq tag
       end
     end
 
     context "#verify" do
       it "verifies an authenticator" do
-        authenticator.verify(tag, message).should be true
+        expect(authenticator.verify(tag, message)).to be true
       end
 
       it "fails to validate an invalid authenticator" do

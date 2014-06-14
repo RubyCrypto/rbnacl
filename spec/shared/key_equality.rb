@@ -2,25 +2,25 @@
 shared_examples "key equality" do
   context "equality" do
     it "equal keys are equal" do
-      (described_class.new(key_bytes) == key).should be true
+      expect(described_class.new(key_bytes) == key).to be true
     end
     it "equal keys are equal to the string" do
-      (key == key_bytes).should be true
+      expect(key == key_bytes).to be true
     end
     it "keys are not equal to zero" do
-      (key == RbNaCl::Util.zeros(32)).should be false
+      expect(key == RbNaCl::Util.zeros(32)).to be false
     end
     it "keys are not equal to another key" do
-      (key == other_key).should be false
+      expect(key == other_key).to be false
     end
   end
 
   context "lexicographic sorting" do
     it "can be compared lexicographically to a key smaller than it" do
-      (key > RbNaCl::Util.zeros(32)).should be true
+      expect(key > RbNaCl::Util.zeros(32)).to be true
     end
     it "can be compared lexicographically to a key larger than it" do
-      (described_class.new(RbNaCl::Util.zeros(32)) < key).should be true
+      expect(described_class.new(RbNaCl::Util.zeros(32)) < key).to be true
     end
   end
 end

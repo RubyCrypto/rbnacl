@@ -8,12 +8,12 @@ describe RbNaCl::Util do
     let (:long_msg) { RbNaCl::Util.zeros(33) }
 
     it "confirms identical messages are identical" do
-      RbNaCl::Util.verify32!(msg, identical_msg).should be true
+      expect(RbNaCl::Util.verify32!(msg, identical_msg)).to be true
     end
 
     it "confirms non-identical messages are non-identical" do
-      RbNaCl::Util.verify32!(msg, other_msg).should be false
-      RbNaCl::Util.verify32!(other_msg, msg).should be false
+      expect(RbNaCl::Util.verify32!(msg, other_msg)).to be false
+      expect(RbNaCl::Util.verify32!(other_msg, msg)).to be false
     end
 
     it "raises descriptively on a short message in position 1" do
@@ -38,16 +38,16 @@ describe RbNaCl::Util do
     let (:long_msg) { RbNaCl::Util.zeros(33) }
 
     it "confirms identical messages are identical" do
-      RbNaCl::Util.verify32(msg, identical_msg).should be true
+      expect(RbNaCl::Util.verify32(msg, identical_msg)).to be true
     end
 
     it "confirms non-identical messages are non-identical" do
-      RbNaCl::Util.verify32(msg, other_msg).should be false
-      RbNaCl::Util.verify32(other_msg, msg).should be false
-      RbNaCl::Util.verify32(short_msg, msg).should be false
-      RbNaCl::Util.verify32(msg, short_msg).should be false
-      RbNaCl::Util.verify32(long_msg, msg).should be false
-      RbNaCl::Util.verify32(msg, long_msg).should be false
+      expect(RbNaCl::Util.verify32(msg, other_msg)).to be false
+      expect(RbNaCl::Util.verify32(other_msg, msg)).to be false
+      expect(RbNaCl::Util.verify32(short_msg, msg)).to be false
+      expect(RbNaCl::Util.verify32(msg, short_msg)).to be false
+      expect(RbNaCl::Util.verify32(long_msg, msg)).to be false
+      expect(RbNaCl::Util.verify32(msg, long_msg)).to be false
     end
 
   end
@@ -60,12 +60,12 @@ describe RbNaCl::Util do
     let (:long_msg) { RbNaCl::Util.zeros(17) }
 
     it "confirms identical messages are identical" do
-      RbNaCl::Util.verify16!(msg, identical_msg).should be true
+      expect(RbNaCl::Util.verify16!(msg, identical_msg)).to be true
     end
 
     it "confirms non-identical messages are non-identical" do
-      RbNaCl::Util.verify16!(msg, other_msg).should be false
-      RbNaCl::Util.verify16!(other_msg, msg).should be false
+      expect(RbNaCl::Util.verify16!(msg, other_msg)).to be false
+      expect(RbNaCl::Util.verify16!(other_msg, msg)).to be false
     end
 
     it "raises descriptively on a short message in position 1" do
@@ -90,16 +90,16 @@ describe RbNaCl::Util do
     let (:long_msg) { RbNaCl::Util.zeros(17) }
 
     it "confirms identical messages are identical" do
-      RbNaCl::Util.verify16(msg, identical_msg).should be true
+      expect(RbNaCl::Util.verify16(msg, identical_msg)).to be true
     end
 
     it "confirms non-identical messages are non-identical" do
-      RbNaCl::Util.verify16(msg, other_msg).should be false
-      RbNaCl::Util.verify16(other_msg, msg).should be false
-      RbNaCl::Util.verify16(short_msg, msg).should be false
-      RbNaCl::Util.verify16(msg, short_msg).should be false
-      RbNaCl::Util.verify16(long_msg, msg).should be false
-      RbNaCl::Util.verify16(msg, long_msg).should be false
+      expect(RbNaCl::Util.verify16(msg, other_msg)).to be false
+      expect(RbNaCl::Util.verify16(other_msg, msg)).to be false
+      expect(RbNaCl::Util.verify16(short_msg, msg)).to be false
+      expect(RbNaCl::Util.verify16(msg, short_msg)).to be false
+      expect(RbNaCl::Util.verify16(long_msg, msg)).to be false
+      expect(RbNaCl::Util.verify16(msg, long_msg)).to be false
     end
   end
 
@@ -133,11 +133,11 @@ describe RbNaCl::Util do
     let (:hex)   { "deadbeef" }
 
     it "encodes to hex with bin2hex" do
-      RbNaCl::Util.bin2hex(bytes).should eq hex
+      expect(RbNaCl::Util.bin2hex(bytes)).to eq hex
     end
 
     it "decodes from hex with hex2bin" do
-      RbNaCl::Util.hex2bin(hex).should eq bytes
+      expect(RbNaCl::Util.hex2bin(hex)).to eq bytes
     end
   end
 end

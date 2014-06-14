@@ -11,11 +11,11 @@ describe RbNaCl::PrivateKey do
     let(:secret_key) { RbNaCl::PrivateKey.generate }
 
     it "returns a secret key" do
-      secret_key.should be_a RbNaCl::PrivateKey
+      expect(secret_key).to be_a RbNaCl::PrivateKey
     end
 
     it "has the public key also set" do
-      secret_key.public_key.should be_a RbNaCl::PublicKey
+      expect(secret_key.public_key).to be_a RbNaCl::PublicKey
     end
   end
 
@@ -35,23 +35,23 @@ describe RbNaCl::PrivateKey do
 
   context "public_key" do
     it "returns a public key" do
-      subject.public_key.should be_a RbNaCl::PublicKey
+      expect(subject.public_key).to be_a RbNaCl::PublicKey
     end
 
     it "returns the correct public key" do
-      subject.public_key.to_s.should eql bobpk
+      expect(subject.public_key.to_s).to eql bobpk
     end
   end
 
   context "#to_bytes" do
     it "returns the bytes of the key" do
-      subject.to_s.should eq bobsk
+      expect(subject.to_s).to eq bobsk
     end
   end
 
   context "#to_s" do
     it "returns the raw bytes of the key" do
-      subject.to_bytes.should eq bobsk
+      expect(subject.to_bytes).to eq bobsk
     end
   end
 

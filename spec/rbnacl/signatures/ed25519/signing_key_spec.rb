@@ -9,15 +9,15 @@ describe RbNaCl::SigningKey do
   subject { described_class.new(signing_key) }
 
   it "generates keys" do
-    described_class.generate.should be_a described_class
+    expect(described_class.generate).to be_a described_class
   end
 
   it "signs messages as bytes" do
-    subject.sign(message).should eq signature
+    expect(subject.sign(message)).to eq signature
   end
 
   it "serializes to bytes" do
-    subject.to_bytes.should eq signing_key
+    expect(subject.to_bytes).to eq signing_key
   end
 
   include_examples "key equality" do

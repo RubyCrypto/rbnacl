@@ -12,7 +12,7 @@ shared_examples "box" do
   context "box" do
 
     it "encrypts a message" do
-      box.box(nonce, message).should eq ciphertext
+      expect(box.box(nonce, message)).to eq ciphertext
     end
 
     it "raises on a short nonce" do
@@ -27,7 +27,7 @@ shared_examples "box" do
   context "open" do
 
     it "decrypts a message" do
-      box.open(nonce, ciphertext).should eq message
+      expect(box.open(nonce, ciphertext)).to eq message
     end
 
     it "raises on a truncated message to decrypt" do
