@@ -10,7 +10,7 @@ describe RbNaCl::VerifyKey do
   subject { RbNaCl::SigningKey.new(signing_key).verify_key }
 
   it "verifies correct signatures" do
-    subject.verify(signature, message).should be_true
+    expect(subject.verify(signature, message)).to eq true
   end
 
   it "raises when asked to verify a bad signature" do
@@ -22,11 +22,11 @@ describe RbNaCl::VerifyKey do
   end
 
   it "serializes to bytes" do
-    subject.to_bytes.should eq verify_key
+    expect(subject.to_bytes).to eq verify_key
   end
 
   it "initializes from bytes" do
-    described_class.new(verify_key).to_s.should eq verify_key
+    expect(described_class.new(verify_key).to_s).to eq verify_key
   end
 
   include_examples "key equality" do

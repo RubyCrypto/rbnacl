@@ -16,7 +16,7 @@ describe RbNaCl::Hash do
     end
 
     it "doesn't raise on a null byte" do
-      expect { RbNaCl::Hash.sha256("\0") }.to_not raise_error(/ArgumentError: string contains null byte/)
+      expect { RbNaCl::Hash.sha256("\0") }.to_not raise_error
     end
   end
 
@@ -34,7 +34,7 @@ describe RbNaCl::Hash do
     end
 
     it "doesn't raise on a null byte" do
-      expect { RbNaCl::Hash.sha512("\0") }.to_not raise_error(/ArgumentError: string contains null byte/)
+      expect { RbNaCl::Hash.sha512("\0") }.to_not raise_error
     end
   end
 end

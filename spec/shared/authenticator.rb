@@ -5,7 +5,7 @@ shared_examples "authenticator" do
 
   context ".new" do
     it "accepts a key" do
-      expect { described_class.new(key) }.to_not raise_error(ArgumentError)
+      expect { described_class.new(key) }.to_not raise_error
     end
 
     it "requires a key" do
