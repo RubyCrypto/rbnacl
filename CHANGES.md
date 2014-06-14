@@ -1,3 +1,9 @@
+3.1.1 (2014-06-14)
+------------------
+* Fix undefined variable warning
+* RSpec 3 fixups
+* RuboCop
+
 3.1.0 (2014-05-22)
 ------------------
 * The scrypt password hashing function: RbNaCl::PasswordHash.scrypt
