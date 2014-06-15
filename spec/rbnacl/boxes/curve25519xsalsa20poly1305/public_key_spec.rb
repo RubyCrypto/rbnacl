@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::PublicKey do
+RSpec.describe RbNaCl::PublicKey do
   let(:alicepk)     { vector :alice_public }
 
   subject { RbNaCl::PublicKey.new(alicepk) }

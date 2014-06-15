@@ -1,5 +1,5 @@
 # encoding: binary
-shared_examples "authenticator" do
+RSpec.shared_examples "authenticator" do
   let (:key)     { vector :auth_key }
   let (:message) { vector :auth_message }
 

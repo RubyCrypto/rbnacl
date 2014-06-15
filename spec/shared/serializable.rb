@@ -1,6 +1,6 @@
 # encoding: binary
 
-shared_examples "serializable" do
+RSpec.shared_examples "serializable" do
   context "serialization" do
     it "supports #to_s" do
       expect(subject.to_s).to be_a String

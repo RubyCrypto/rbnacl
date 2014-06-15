@@ -1,5 +1,5 @@
 # encoding: binary
-describe RbNaCl::VerifyKey do
+RSpec.describe RbNaCl::VerifyKey do
   let(:signing_key)    { vector :sign_private }
   let(:verify_key)     { vector :sign_public }
 

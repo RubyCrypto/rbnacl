@@ -1,5 +1,5 @@
 # encoding: binary
-shared_examples "key equality" do
+RSpec.shared_examples "key equality" do
   context "equality" do
     it "equal keys are equal" do
       expect(described_class.new(key_bytes) == key).to be true

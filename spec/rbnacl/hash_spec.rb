@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::Hash do
+RSpec.describe RbNaCl::Hash do
   context "sha256" do
     let(:reference_string)      { vector :sha256_message }
     let(:reference_string_hash) { vector :sha256_digest }

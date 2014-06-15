@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::PrivateKey do
+RSpec.describe RbNaCl::PrivateKey do
   let(:bobsk) { vector :bob_private }
   let(:bobpk) { vector :bob_public }
 

@@ -1,5 +1,5 @@
 # encoding: binary
-describe RbNaCl::Util do
+RSpec.describe RbNaCl::Util do
   context ".verify32!" do
     let (:msg) { RbNaCl::Util.zeros(32) }
     let (:identical_msg) { RbNaCl::Util.zeros(32) }

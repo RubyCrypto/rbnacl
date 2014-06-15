@@ -1,6 +1,6 @@
 # encoding: binary
 
-shared_examples "box" do
+RSpec.shared_examples "box" do
   let(:nonce) { vector :box_nonce }
   let(:invalid_nonce) { nonce[0,12]  } # too short!
   let(:invalid_nonce_long) { nonce + nonce  } # too long!

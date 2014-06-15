@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::SecretBox do
+RSpec.describe RbNaCl::SecretBox do
   let (:key) { vector :secret_key }
 
   context "new" do

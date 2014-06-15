@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::SimpleBox do
+RSpec.describe RbNaCl::SimpleBox do
   let(:secret_key) { vector :secret_key }
   let(:secret_box) { RbNaCl::SecretBox.new(secret_key) }
   let(:alicepk)    { vector :alice_public }

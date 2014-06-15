@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::PasswordHash::SCrypt do
+RSpec.describe RbNaCl::PasswordHash::SCrypt do
   let(:reference_password) { vector :scrypt_password }
   let(:reference_salt)     { vector :scrypt_salt }
   let(:reference_opslimit) { RbNaCl::TestVectors[:scrypt_opslimit] }

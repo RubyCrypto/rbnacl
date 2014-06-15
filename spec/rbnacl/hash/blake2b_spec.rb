@@ -1,7 +1,7 @@
 # encoding: binary
 require 'spec_helper'
 
-describe RbNaCl::Hash::Blake2b do
+RSpec.describe RbNaCl::Hash::Blake2b do
   let(:reference_string)      { vector :blake2b_message }
   let(:reference_string_hash) { vector :blake2b_digest }
   let(:empty_string_hash)     { vector :blake2b_empty }
