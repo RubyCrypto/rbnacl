@@ -156,11 +156,11 @@ one which can compromise the security of RbNaCl users, you can
 report it securely by sending a GPG encrypted message. Please use
 the following key:
 
-https://raw.github.com/cryptosphere/rbnacl/master/bascule.gpg
+https://raw.github.com/cryptosphere/rbnacl/master/bascule.asc
 
 The key fingerprint is (or should be):
 
-`25C1 198A C8A1 8212 7D24 E665 666B AFA9 D77E E055`
+`9148 85A2 6242 1628 B6AA AB45 4CB9 B3D0 BACC 8B71`
 
 ## Learn More
 
