@@ -8,7 +8,7 @@ RSpec.describe RbNaCl::PasswordHash::SCrypt do
   let(:reference_memlimit) { RbNaCl::TestVectors[:scrypt_memlimit] }
   let(:reference_digest)   { vector :scrypt_digest }
 
-  it "calculates the correct diest for a reference password/salt" do
+  it "calculates the correct digest for a reference password/salt" do
     digest = RbNaCl::PasswordHash.scrypt(
       reference_password,
       reference_salt,
