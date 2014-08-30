@@ -20,12 +20,12 @@ module RbNaCl
 
       begin
         sodium_type      :pwhash
-        sodium_primitive :scryptxsalsa208sha256
+        sodium_primitive :scryptsalsa208sha256
 
         sodium_constant :SALTBYTES
 
         sodium_function  :scrypt,
-                         :crypto_pwhash_scryptxsalsa208sha256,
+                         :crypto_pwhash_scryptsalsa208sha256,
                          [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t]
 
 
