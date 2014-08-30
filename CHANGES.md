@@ -1,3 +1,7 @@
+3.1.2 (2014-08-30)
+------------------
+* Fix scrypt support with libsodium 0.7.0 (scryptsalsa208sha256)
+
 3.1.1 (2014-06-14)
 ------------------
 * Fix undefined variable warning
