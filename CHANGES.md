@@ -1,3 +1,8 @@
+3.1.3 (xxxx-xx-xx)
+------------------
+
+* Fix method signature for blake2b
+
 3.1.2 (2014-08-30)
 ------------------
 * Fix scrypt support with libsodium 0.7.0 (scryptsalsa208sha256)
