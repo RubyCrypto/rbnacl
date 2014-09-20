@@ -22,7 +22,7 @@ module RbNaCl
 
       sodium_function  :generichash_blake2b,
                        :crypto_generichash_blake2b,
-                       [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long]
+                       [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t]
 
       # Create a new Blake2b hash object
       #
