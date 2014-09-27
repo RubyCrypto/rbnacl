@@ -1,4 +1,4 @@
-script: "LD_LIBRARY_PATH=lib bundle exec rake ci"
+script: bundle exec rake ci
 
 rvm:
   - 1.9.3

@@ -1,5 +1,6 @@
-require "bundler/gem_tasks"
-Dir[File.expand_path("../tasks/**/*.rake", __FILE__)].each { |task| load task }
-require File.expand_path("../lib/rbnacl/rake_tasks", __FILE__)
+require 'bundler/gem_tasks'
 
-task :default => %w(spec rubocop)
+Dir[File.expand_path('../tasks/**/*.rake', __FILE__)].each { |task| load task }
+
+task default: %w(spec rubocop)
+task ci: :spec
