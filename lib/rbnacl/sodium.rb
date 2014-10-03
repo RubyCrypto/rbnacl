@@ -30,7 +30,7 @@ module RbNaCl
 
     def sodium_constant(constant, name=constant)
       fn = "crypto_#{sodium_type}_#{sodium_primitive}_#{constant.to_s.downcase}"
-      attach_function fn, [], :ulong_long
+      attach_function fn, [], :size_t
       self.const_set(name, self.public_send(fn))
     end
 
