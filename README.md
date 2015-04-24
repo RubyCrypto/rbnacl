@@ -55,8 +55,7 @@ For more information on NaCl's goals, see Dan Bernstein's presentation
 You can use RbNaCl anywhere you can get libsodium installed (see below).
 RbNaCl is continuously integration tested on the following Ruby VMs:
 
-* MRI 2.0, 2.1
-* MRI 1.9 (YARV)
+* MRI 2.0, 2.1, 2.2
 * JRuby 1.7 (in both 1.8/1.9 mode)
 * Rubinius HEAD (in both 1.8/1.9 mode)
 
