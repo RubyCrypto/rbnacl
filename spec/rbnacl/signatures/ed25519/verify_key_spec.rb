@@ -1,11 +1,16 @@
 # encoding: binary
 RSpec.describe RbNaCl::VerifyKey do
-  let(:signing_key)    { vector :sign_private }
-  let(:verify_key)     { vector :sign_public }
+  let(:signing_key) { vector :sign_private }
+  let(:verify_key)  { vector :sign_public }
 
-  let(:message)        { vector :sign_message }
-  let(:signature)      { vector :sign_signature }
-  let(:bad_signature)  { sig = signature.dup; sig[0] = (sig[0].ord + 1).chr; sig }
+  let(:message)     { vector :sign_message }
+  let(:signature)   { vector :sign_signature }
+
+  let(:bad_signature) do
+    sig = signature.dup
+    sig[0] = (sig[0].ord + 1).chr
+    sig
+  end
 
   subject { RbNaCl::SigningKey.new(signing_key).verify_key }
 
@@ -18,7 +23,7 @@ RSpec.describe RbNaCl::VerifyKey do
   end
 
   it "raises when asked to verify a short signature" do
-    expect { subject.verify(bad_signature[0,63], message) }.to raise_exception RbNaCl::LengthError
+    expect { subject.verify(bad_signature[0, 63], message) }.to raise_exception RbNaCl::LengthError
   end
 
   it "serializes to bytes" do
@@ -32,7 +37,7 @@ RSpec.describe RbNaCl::VerifyKey do
   include_examples "key equality" do
     let(:key_bytes) { verify_key }
     let(:key)       { described_class.new(verify_key) }
-    let(:other_key) { described_class.new("B"*32) }
+    let(:other_key) { described_class.new("B" * 32) }
   end
 
   include_examples "serializable"

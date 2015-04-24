@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::GroupElement do
   let(:alice_private)  { vector :alice_private }

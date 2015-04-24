@@ -6,7 +6,7 @@ module RbNaCl
     if defined?(RBNACL_LIBSODIUM_GEM_LIB_PATH)
       ffi_lib RBNACL_LIBSODIUM_GEM_LIB_PATH
     else
-      ffi_lib 'sodium'
+      ffi_lib "sodium"
     end
 
     attach_function :sodium_init, [], :int

@@ -64,14 +64,14 @@ module RbNaCl
     class Curve25519XSalsa20Poly1305
       extend Sodium
 
-      sodium_type      :box
+      sodium_type :box
       sodium_primitive :curve25519xsalsa20poly1305
-      sodium_constant  :NONCEBYTES
-      sodium_constant  :ZEROBYTES
-      sodium_constant  :BOXZEROBYTES
-      sodium_constant  :BEFORENMBYTES
-      sodium_constant  :PUBLICKEYBYTES
-      sodium_constant  :SECRETKEYBYTES, :PRIVATEKEYBYTES
+      sodium_constant :NONCEBYTES
+      sodium_constant :ZEROBYTES
+      sodium_constant :BOXZEROBYTES
+      sodium_constant :BEFORENMBYTES
+      sodium_constant :PUBLICKEYBYTES
+      sodium_constant :SECRETKEYBYTES, :PRIVATEKEYBYTES
 
       sodium_function :box_curve25519xsalsa20poly1305_beforenm,
                       :crypto_box_curve25519xsalsa20poly1305_beforenm,
@@ -80,7 +80,7 @@ module RbNaCl
       sodium_function :box_curve25519xsalsa20poly1305_open_afternm,
                       :crypto_box_curve25519xsalsa20poly1305_open_afternm,
                       [:pointer, :pointer, :ulong_long, :pointer, :pointer]
-      
+
       sodium_function :box_curve25519xsalsa20poly1305_afternm,
                       :crypto_box_curve25519xsalsa20poly1305_afternm,
                       [:pointer, :pointer, :ulong_long, :pointer, :pointer]
@@ -97,9 +97,9 @@ module RbNaCl
       #
       # @return [RbNaCl::Box] The new Box, ready to use
       def initialize(public_key, private_key)
-        @public_key   = PublicKey  === public_key  ? public_key  : PublicKey.new(public_key)
-        @private_key  = PrivateKey === private_key ? private_key : PrivateKey.new(private_key)
-        raise IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive
+        @public_key   = public_key.is_a?(PublicKey) ? public_key : PublicKey.new(public_key)
+        @private_key  = private_key.is_a?(PrivateKey) ? private_key : PrivateKey.new(private_key)
+        fail IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive
       end
 
       # Encrypts a message
@@ -121,10 +121,10 @@ module RbNaCl
         msg = Util.prepend_zeros(ZEROBYTES, message)
         ct  = Util.zeros(msg.bytesize)
 
-        self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+        self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || fail(CryptoError, "Encryption failed")
         Util.remove_zeros(BOXZEROBYTES, ct)
       end
-      alias encrypt box
+      alias_method :encrypt, :box
 
       # Decrypts a ciphertext
       #
@@ -145,10 +145,12 @@ module RbNaCl
         ct = Util.prepend_zeros(BOXZEROBYTES, ciphertext)
         message  = Util.zeros(ct.bytesize)
 
-        self.class.box_curve25519xsalsa20poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+        success = self.class.box_curve25519xsalsa20poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm)
+        fail CryptoError, "Decryption failed. Ciphertext failed verification." unless success
+
         Util.remove_zeros(ZEROBYTES, message)
       end
-      alias decrypt open
+      alias_method :decrypt, :open
 
       # The crypto primitive for the box class
       #
@@ -172,12 +174,14 @@ module RbNaCl
       end
 
       private
+
       def beforenm
-        @k ||= begin
-                 k = Util.zeros(BEFORENMBYTES)
-                 self.class.box_curve25519xsalsa20poly1305_beforenm(k, @public_key.to_s, @private_key.to_s) || raise(CryptoError, "Failed to derive shared key")
-                 k
-               end
+        @_key ||= begin
+          key = Util.zeros(BEFORENMBYTES)
+          success = self.class.box_curve25519xsalsa20poly1305_beforenm(key, @public_key.to_s, @private_key.to_s)
+          fail CryptoError, "Failed to derive shared key" unless success
+          key
+        end
       end
     end
   end

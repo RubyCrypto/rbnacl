@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::OneTimeAuth do
   let(:tag) { vector :auth_onetime }

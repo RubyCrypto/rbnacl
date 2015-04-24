@@ -1,7 +1,7 @@
 # encoding: binary
 RSpec.shared_examples "authenticator" do
-  let (:key)     { vector :auth_key }
-  let (:message) { vector :auth_message }
+  let(:key)     { vector :auth_key }
+  let(:message) { vector :auth_message }
 
   context ".new" do
     it "accepts a key" do
@@ -17,11 +17,11 @@ RSpec.shared_examples "authenticator" do
     end
 
     it "raises ArgumentError on a key which is too long" do
-      expect { described_class.new("\0"*33) }.to raise_error(ArgumentError)
+      expect { described_class.new("\0" * 33) }.to raise_error(ArgumentError)
     end
 
     it "raises ArgumentError on a key which is too short" do
-      expect { described_class.new("\0"*31) }.to raise_error(ArgumentError)
+      expect { described_class.new("\0" * 31) }.to raise_error(ArgumentError)
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.shared_examples "authenticator" do
     end
 
     it "raises ArgumentError on a key which is too long" do
-      expect { described_class.auth("\0"*33, message) }.to raise_error(ArgumentError)
+      expect { described_class.auth("\0" * 33, message) }.to raise_error(ArgumentError)
     end
   end
 
@@ -49,19 +49,19 @@ RSpec.shared_examples "authenticator" do
     end
 
     it "raises ArgumentError on a key which is too long" do
-      expect { described_class.verify("\0"*33, tag, message) }.to raise_error(ArgumentError)
+      expect { described_class.verify("\0" * 33, tag, message) }.to raise_error(ArgumentError)
     end
 
     it "fails to validate an invalid authenticator" do
-      expect { described_class.verify(key, tag, message+"\0") }.to raise_error(RbNaCl::BadAuthenticatorError)
+      expect { described_class.verify(key, tag, message + "\0") }.to raise_error(RbNaCl::BadAuthenticatorError)
     end
 
     it "fails to validate a short authenticator" do
-      expect { described_class.verify(key, tag[0,tag.bytesize - 2], message) }.to raise_error(RbNaCl::LengthError)
+      expect { described_class.verify(key, tag[0, tag.bytesize - 2], message) }.to raise_error(RbNaCl::LengthError)
     end
 
     it "fails to validate a long authenticator" do
-      expect { described_class.verify(key, tag+"\0", message) }.to raise_error(RbNaCl::LengthError)
+      expect { described_class.verify(key, tag + "\0", message) }.to raise_error(RbNaCl::LengthError)
     end
   end
 
@@ -80,15 +80,15 @@ RSpec.shared_examples "authenticator" do
       end
 
       it "fails to validate an invalid authenticator" do
-        expect { authenticator.verify(tag, message+"\0") }.to raise_error(RbNaCl::BadAuthenticatorError)
+        expect { authenticator.verify(tag, message + "\0") }.to raise_error(RbNaCl::BadAuthenticatorError)
       end
 
       it "fails to validate a short authenticator" do
-        expect { authenticator.verify(tag[0,tag.bytesize - 2], message) }.to raise_error(RbNaCl::LengthError)
+        expect { authenticator.verify(tag[0, tag.bytesize - 2], message) }.to raise_error(RbNaCl::LengthError)
       end
 
       it "fails to validate a long authenticator" do
-        expect { authenticator.verify(tag+"\0", message) }.to raise_error(RbNaCl::LengthError)
+        expect { authenticator.verify(tag + "\0", message) }.to raise_error(RbNaCl::LengthError)
       end
     end
   end

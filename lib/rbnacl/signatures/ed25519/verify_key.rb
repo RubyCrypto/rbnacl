@@ -12,14 +12,14 @@ module RbNaCl
         include KeyComparator
         include Serializable
 
-        extend  Sodium
+        extend Sodium
 
-        sodium_type      :sign
+        sodium_type :sign
         sodium_primitive :ed25519
 
-        sodium_function  :sign_ed25519_open,
-                         :crypto_sign_ed25519_open,
-                         [:pointer, :pointer, :pointer, :ulong_long, :pointer]
+        sodium_function :sign_ed25519_open,
+                        :crypto_sign_ed25519_open,
+                        [:pointer, :pointer, :pointer, :ulong_long, :pointer]
 
         # Create a new VerifyKey object from a public key.
         #
@@ -50,28 +50,39 @@ module RbNaCl
           buffer = Util.zeros(sig_and_msg.bytesize)
           buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
-          self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key) || raise(BadSignatureError, "signature was forged/corrupt")
+          success = self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
+          fail(BadSignatureError, "signature was forged/corrupt") unless success
+
+          true
         end
 
         # Return the raw key in byte format
         #
         # @return [String] raw key as bytes
-        def to_bytes; @key; end
+        def to_bytes
+          @key
+        end
 
         # The crypto primitive this VerifyKey class uses for signatures
         #
         # @return [Symbol] The primitive
-        def primitive; self.class.primitive; end
+        def primitive
+          self.class.primitive
+        end
 
         # The size of signatures verified by the VerifyKey class
         #
         # @return [Integer] The number of bytes in a signature
-        def self.signature_bytes; Ed25519::SIGNATUREBYTES; end
+        def self.signature_bytes
+          Ed25519::SIGNATUREBYTES
+        end
 
         # The size of signatures verified by the VerifyKey instance
         #
         # @return [Integer] The number of bytes in a signature
-        def signature_bytes; Ed25519::SIGNATUREBYTES; end
+        def signature_bytes
+          Ed25519::SIGNATUREBYTES
+        end
       end
     end
   end

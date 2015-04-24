@@ -1,7 +1,8 @@
-require 'rbnacl/sodium'
+require "rbnacl/sodium"
 
 module RbNaCl
   module Sodium
+    # libsodium version API
     module Version
       MINIMUM_LIBSODIUM_VERSION = "0.4.3"
 
@@ -16,7 +17,7 @@ module RbNaCl
 
       case installed_version <=> minimum_version
       when -1
-        raise "Sorry, you need to install libsodium #{MINIMUM_LIBSODIUM_VERSION}+. You have #{Version::STRING} installed"
+        fail "Sorry, you need to install libsodium #{MINIMUM_LIBSODIUM_VERSION}+. You have #{Version::STRING} installed"
       end
     end
   end

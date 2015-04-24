@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::Hash::Blake2b do
   let(:reference_string)      { vector :blake2b_message }

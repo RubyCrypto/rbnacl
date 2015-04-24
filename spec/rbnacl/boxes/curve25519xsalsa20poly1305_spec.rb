@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::Box do
   let(:alicepk)   { vector :alice_public }
@@ -33,7 +33,7 @@ RSpec.describe RbNaCl::Box do
     end
   end
 
-  include_examples 'box' do
+  include_examples "box" do
     let(:box) { RbNaCl::Box.new(alicepk, bobsk) }
   end
 end

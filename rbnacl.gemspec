@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rbnacl/version'
+require "rbnacl/version"
 
 Gem::Specification.new do |gem|
   gem.name          = "rbnacl"
@@ -11,16 +11,14 @@ Gem::Specification.new do |gem|
   gem.description   = "Ruby binding to the Networking and Cryptography (NaCl) library"
   gem.summary       = "The Networking and Cryptography (NaCl) library provides a high-level toolkit for building cryptographic systems and protocols"
   gem.homepage      = "https://github.com/cryptosphere/rbnacl"
-  gem.licenses    = ['MIT']
+  gem.licenses    = ["MIT"]
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  if defined? JRUBY_VERSION
-    gem.platform = "jruby"
-  end
+  gem.platform = "jruby" if defined? JRUBY_VERSION
 
   gem.add_runtime_dependency "ffi"
 

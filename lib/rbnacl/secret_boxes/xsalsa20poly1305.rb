@@ -20,12 +20,12 @@ module RbNaCl
     class XSalsa20Poly1305
       extend Sodium
 
-      sodium_type      :secretbox
+      sodium_type :secretbox
       sodium_primitive :xsalsa20poly1305
-      sodium_constant  :KEYBYTES
-      sodium_constant  :NONCEBYTES
-      sodium_constant  :ZEROBYTES
-      sodium_constant  :BOXZEROBYTES
+      sodium_constant :KEYBYTES
+      sodium_constant :NONCEBYTES
+      sodium_constant :ZEROBYTES
+      sodium_constant :BOXZEROBYTES
 
       sodium_function :secretbox_xsalsa20poly1305,
                       :crypto_secretbox_xsalsa20poly1305,
@@ -67,10 +67,12 @@ module RbNaCl
         msg = Util.prepend_zeros(ZEROBYTES, message)
         ct  = Util.zeros(msg.bytesize)
 
-        self.class.secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key) || raise(CryptoError, "Encryption failed")
+        success = self.class.secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key)
+        fail CryptoError, "Encryption failed" unless success
+
         Util.remove_zeros(BOXZEROBYTES, ct)
       end
-      alias encrypt box
+      alias_method :encrypt, :box
 
       # Decrypts a ciphertext
       #
@@ -91,35 +93,47 @@ module RbNaCl
         ct = Util.prepend_zeros(BOXZEROBYTES, ciphertext)
         message  = Util.zeros(ct.bytesize)
 
-        self.class.secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key) || raise(CryptoError, "Decryption failed. Ciphertext failed verification.")
+        success = self.class.secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key)
+        fail CryptoError, "Decryption failed. Ciphertext failed verification." unless success
+
         Util.remove_zeros(ZEROBYTES, message)
       end
-      alias decrypt open
+      alias_method :decrypt, :open
 
       # The crypto primitive for the SecretBox instance
       #
       # @return [Symbol] The primitive used
-      def primitive; self.class.primitive; end
+      def primitive
+        self.class.primitive
+      end
 
       # The nonce bytes for the SecretBox class
       #
       # @return [Integer] The number of bytes in a valid nonce
-      def self.nonce_bytes; NONCEBYTES; end
+      def self.nonce_bytes
+        NONCEBYTES
+      end
 
       # The nonce bytes for the SecretBox instance
       #
       # @return [Integer] The number of bytes in a valid nonce
-      def nonce_bytes; NONCEBYTES; end
+      def nonce_bytes
+        NONCEBYTES
+      end
 
       # The key bytes for the SecretBox class
       #
       # @return [Integer] The number of bytes in a valid key
-      def self.key_bytes; KEYBYTES; end
+      def self.key_bytes
+        KEYBYTES
+      end
 
       # The key bytes for the SecretBox instance
       #
       # @return [Integer] The number of bytes in a valid key
-      def key_bytes; KEYBYTES; end
+      def key_bytes
+        KEYBYTES
+      end
     end
   end
 end

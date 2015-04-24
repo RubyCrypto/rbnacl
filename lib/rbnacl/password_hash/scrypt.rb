@@ -19,16 +19,14 @@ module RbNaCl
       extend Sodium
 
       begin
-        sodium_type      :pwhash
+        sodium_type :pwhash
         sodium_primitive :scryptsalsa208sha256
 
         sodium_constant :SALTBYTES
 
-        sodium_function  :scrypt,
-                         :crypto_pwhash_scryptsalsa208sha256,
-                         [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t]
-
-
+        sodium_function :scrypt,
+                        :crypto_pwhash_scryptsalsa208sha256,
+                        [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t]
 
         # Create a new SCrypt password hash object
         #
@@ -41,8 +39,8 @@ module RbNaCl
           @opslimit, @memlimit = opslimit, memlimit
 
           # TODO: check digest size validity
-          #raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
-          #raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
+          # raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
+          # raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
 
           @digest_size = digest_size
         end
@@ -57,11 +55,11 @@ module RbNaCl
           digest = Util.zeros(@digest_size)
           salt   = Util.check_string(salt, SALTBYTES, "salt")
 
-          self.class.scrypt(digest, @digest_size, password, password.bytesize, salt, @opslimit, @memlimit) || raise(CryptoError, "scrypt failed!")
+          self.class.scrypt(digest, @digest_size, password, password.bytesize, salt, @opslimit, @memlimit) || fail(CryptoError, "scrypt failed!")
           digest
         end
       rescue FFI::NotFoundError
-        def initialize(opslimit, memlimit, digest_size = 64)
+        def initialize(_opslimit, _memlimit, _digest_size = 64)
           raise NotImplementedError, "scrypt not implemented in this version of libsodium"
         end
       end

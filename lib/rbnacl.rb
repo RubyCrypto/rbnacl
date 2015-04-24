@@ -11,6 +11,7 @@ require "rbnacl/simple_box"
 require "rbnacl/test_vectors"
 require "rbnacl/init"
 
+# NaCl/libsodium for Ruby
 module RbNaCl
   # Oh no, something went wrong!
   #
@@ -36,7 +37,6 @@ module RbNaCl
 
   # The authenticator was forged or otherwise corrupt
   class BadAuthenticatorError < CryptoError; end
-
 
   # Public Key Encryption (Box): Curve25519XSalsa20Poly1305
   require "rbnacl/boxes/curve25519xsalsa20poly1305"

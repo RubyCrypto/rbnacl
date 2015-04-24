@@ -1,5 +1,7 @@
 # encoding: binary
-require 'forwardable'
+require "forwardable"
+
+# NaCl/libsodium for Ruby
 module RbNaCl
   # The simplest nonce strategy that could possibly work
   #
@@ -78,7 +80,7 @@ module RbNaCl
       cipher_text = @box.box(nonce, message)
       nonce + cipher_text
     end
-    alias encrypt box
+    alias_method :encrypt, :box
 
     # Decrypts the ciphertext with a random nonce
     #
@@ -94,9 +96,10 @@ module RbNaCl
       nonce, ciphertext = extract_nonce(enciphered_message.to_s)
       @box.open(nonce, ciphertext)
     end
-    alias decrypt open
+    alias_method :decrypt, :open
 
     private
+
     def generate_nonce
       Random.random_bytes(nonce_bytes)
     end

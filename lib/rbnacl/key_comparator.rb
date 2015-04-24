@@ -23,9 +23,9 @@ module RbNaCl
         return nil
       end
 
-      if Util.verify32(self.to_bytes, other)
+      if Util.verify32(to_bytes, other)
         return 0
-      elsif self.to_bytes > other
+      elsif to_bytes > other
         return 1
       else
         return -1
@@ -53,7 +53,7 @@ module RbNaCl
       else
         return false
       end
-      Util.verify32(self.to_bytes, other)
+      Util.verify32(to_bytes, other)
     end
   end
 end
