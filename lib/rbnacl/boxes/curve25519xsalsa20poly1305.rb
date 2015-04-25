@@ -66,12 +66,12 @@ module RbNaCl
 
       sodium_type :box
       sodium_primitive :curve25519xsalsa20poly1305
-      sodium_constant :NONCEBYTES
-      sodium_constant :ZEROBYTES
-      sodium_constant :BOXZEROBYTES
-      sodium_constant :BEFORENMBYTES
-      sodium_constant :PUBLICKEYBYTES
-      sodium_constant :SECRETKEYBYTES, :PRIVATEKEYBYTES
+      sodium_constant  :NONCEBYTES
+      sodium_constant  :ZEROBYTES
+      sodium_constant  :BOXZEROBYTES
+      sodium_constant  :BEFORENMBYTES
+      sodium_constant  :PUBLICKEYBYTES
+      sodium_constant  :SECRETKEYBYTES, :PRIVATEKEYBYTES
 
       sodium_function :box_curve25519xsalsa20poly1305_beforenm,
                       :crypto_box_curve25519xsalsa20poly1305_beforenm,
