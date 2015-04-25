@@ -1,0 +1,27 @@
+#
+# Style
+#
+
+# TODO: turn this down
+LineLength:
+  Max: 150
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+#
+# Metrics
+#
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 20

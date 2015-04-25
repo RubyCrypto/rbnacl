@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::SigningKey do
   let(:signing_key) { vector :sign_private }
@@ -23,7 +23,7 @@ RSpec.describe RbNaCl::SigningKey do
   include_examples "key equality" do
     let(:key_bytes) { signing_key }
     let(:key)       { described_class.new(key_bytes) }
-    let(:other_key) { described_class.new("B"*32) }
+    let(:other_key) { described_class.new("B" * 32) }
   end
 
   include_examples "serializable"

@@ -6,7 +6,9 @@ module RbNaCl
 
     sodium_function :c_verify16, :crypto_verify_16, [:pointer, :pointer]
     sodium_function :c_verify32, :crypto_verify_32, [:pointer, :pointer]
+
     module_function
+
     # Returns a string of n zeros
     #
     # Lots of the functions require us to create strings to pass into functions of a specified size.
@@ -14,11 +16,11 @@ module RbNaCl
     # @param [Integer] n the size of the string to make
     #
     # @return [String] A nice collection of zeros
-    def zeros(n=32)
+    def zeros(n = 32)
       zeros = "\0" * n
       # make sure they're 8-bit zeros, not 7-bit zeros.  Otherwise we might get
       # encoding errors later
-      zeros.respond_to?(:force_encoding) ? zeros.force_encoding('ASCII-8BIT') : zeros
+      zeros.respond_to?(:force_encoding) ? zeros.force_encoding("ASCII-8BIT") : zeros
     end
 
     # Prepends a message with zeros
@@ -57,15 +59,15 @@ module RbNaCl
     # @param description [String] Description of the string (used in the error)
     def check_length(string, length, description)
       if string.nil?
-        raise LengthError,
-          "#{description} was nil (Expected #{length.to_int})",
-          caller
+        fail LengthError,
+             "#{description} was nil (Expected #{length.to_int})",
+             caller
       end
 
       if string.bytesize != length.to_int
-        raise LengthError,
-              "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
-              caller
+        fail LengthError,
+             "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
+             caller
       end
       true
     end
@@ -83,12 +85,12 @@ module RbNaCl
     # @param description [String] Description of the string (used in the error)
     def check_string(string, length, description)
       unless string.respond_to? :to_str
-        raise TypeError, "can't convert #{string.class} into String with #to_str"
+        fail TypeError, "can't convert #{string.class} into String with #to_str"
       end
 
       string = string.to_str
       unless string.encoding == Encoding::BINARY
-        raise EncodingError, "strings must use BINARY encoding (got #{string.encoding})"
+        fail EncodingError, "strings must use BINARY encoding (got #{string.encoding})"
       end
       check_length(string, length, description)
 
@@ -180,4 +182,3 @@ module RbNaCl
     end
   end
 end
-

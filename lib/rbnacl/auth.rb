@@ -1,6 +1,5 @@
 # encoding: binary
 module RbNaCl
-
   # Secret Key Authenticators
   #
   # These provide a means of verifying the integrity of a message, but only
@@ -71,7 +70,7 @@ module RbNaCl
     def verify(authenticator, message)
       auth = authenticator.to_s
       Util.check_length(auth, tag_bytes, "Provided authenticator")
-      verify_message(auth, message) || raise(BadAuthenticatorError, "Invalid authenticator provided, message is corrupt")
+      verify_message(auth, message) || fail(BadAuthenticatorError, "Invalid authenticator provided, message is corrupt")
     end
 
     # The crypto primitive for this authenticator instance
@@ -84,25 +83,39 @@ module RbNaCl
     # The number of key bytes for this Auth class
     #
     # @return [Integer] number of key bytes
-    def self.key_bytes; self::KEYBYTES; end
+    def self.key_bytes
+      self::KEYBYTES
+    end
 
     # The number of key bytes for this Auth instance
     #
     # @return [Integer] number of key bytes
-    def key_bytes; self.class.key_bytes; end
+    def key_bytes
+      self.class.key_bytes
+    end
 
     # The number bytes in the tag or authenticator from this Auth class
     #
     # @return [Integer] number of tag bytes
-    def self.tag_bytes; self::BYTES; end
+    def self.tag_bytes
+      self::BYTES
+    end
 
     # The number of bytes in the tag or authenticator for this Auth instance
     #
     # @return [Integer] number of tag bytes
-    def tag_bytes; self.class.tag_bytes; end
+    def tag_bytes
+      self.class.tag_bytes
+    end
 
     private
-    def compute_authenticator(authenticator, message); raise NotImplementedError; end
-    def verify_message(authenticator, message);        raise NotImplementedError; end
+
+    def compute_authenticator(_authenticator, _message)
+      fail NotImplementedError
+    end
+
+    def verify_message(_authenticator, _message)
+      fail NotImplementedError
+    end
   end
 end

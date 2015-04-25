@@ -2,15 +2,14 @@
 
 RSpec.shared_examples "box" do
   let(:nonce) { vector :box_nonce }
-  let(:invalid_nonce) { nonce[0,12]  } # too short!
+  let(:invalid_nonce) { nonce[0, 12]  } # too short!
   let(:invalid_nonce_long) { nonce + nonce  } # too long!
   let(:message)    { vector :box_message }
   let(:ciphertext) { vector :box_ciphertext }
-  let (:nonce_error_regex) { /Nonce.*(Expected #{box.nonce_bytes})/ }
+  let(:nonce_error_regex) { /Nonce.*(Expected #{box.nonce_bytes})/ }
   let(:corrupt_ciphertext) { ciphertext[80] = " " } # picked at random by fair diceroll
 
   context "box" do
-
     it "encrypts a message" do
       expect(box.box(nonce, message)).to eq ciphertext
     end
@@ -25,7 +24,6 @@ RSpec.shared_examples "box" do
   end
 
   context "open" do
-
     it "decrypts a message" do
       expect(box.open(nonce, ciphertext)).to eq message
     end

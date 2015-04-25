@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::Hash do
   context "sha256" do

@@ -1,5 +1,5 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::SimpleBox do
   let(:secret_key) { vector :secret_key }
@@ -51,7 +51,7 @@ RSpec.describe RbNaCl::SimpleBox do
       end
 
       it "decrypts a message with a 'random' nonce" do
-        expect(bob.decrypt(nonce+ciphertext)).to eql message
+        expect(bob.decrypt(nonce + ciphertext)).to eql message
       end
     end
   end

@@ -14,19 +14,19 @@ module RbNaCl
       STANDARD_GROUP_ELEMENT = ["0900000000000000000000000000000000000000000000000000000000000000"].pack("H*").freeze
 
       # Order of the standard group
-      STANDARD_GROUP_ORDER = 2**252 + 27742317777372353535851937790883648493
+      STANDARD_GROUP_ORDER = 2**252 + 27_742_317_777_372_353_535_851_937_790_883_648_493
 
       include KeyComparator
       include Serializable
 
       extend Sodium
 
-      sodium_type      :scalarmult
+      sodium_type :scalarmult
       sodium_primitive :curve25519
 
-      sodium_function  :scalarmult_curve25519,
-                       :crypto_scalarmult_curve25519,
-                       [:pointer, :pointer, :pointer]
+      sodium_function :scalarmult_curve25519,
+                      :crypto_scalarmult_curve25519,
+                      [:pointer, :pointer, :pointer]
 
       # Number of bytes in a scalar on this curve
       SCALARBYTES = 32
@@ -67,15 +67,21 @@ module RbNaCl
       # Return the point serialized as bytes
       #
       # @return [String] 32-byte string representing this point
-      def to_bytes; @point; end
+      def to_bytes
+        @point
+      end
 
       @base_point = new(STANDARD_GROUP_ELEMENT)
 
       # NaCl's standard base point for all Curve25519 public keys
       #
       # @return [RbNaCl::Point] standard base point (a.k.a. standard group element)
-      def self.base; @base_point; end
-      def self.base_point; @base_point; end
+      def self.base
+        @base_point
+      end
+      class << self
+        attr_reader :base_point
+      end
     end
   end
 end

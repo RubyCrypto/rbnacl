@@ -13,16 +13,16 @@ module RbNaCl
     class Blake2b
       extend Sodium
 
-      sodium_type      :generichash
+      sodium_type :generichash
       sodium_primitive :blake2b
-      sodium_constant  :BYTES_MIN
-      sodium_constant  :BYTES_MAX
-      sodium_constant  :KEYBYTES_MIN
-      sodium_constant  :KEYBYTES_MAX
+      sodium_constant :BYTES_MIN
+      sodium_constant :BYTES_MAX
+      sodium_constant :KEYBYTES_MIN
+      sodium_constant :KEYBYTES_MAX
 
-      sodium_function  :generichash_blake2b,
-                       :crypto_generichash_blake2b,
-                       [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t]
+      sodium_function :generichash_blake2b,
+                      :crypto_generichash_blake2b,
+                      [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t]
 
       # Create a new Blake2b hash object
       #
@@ -38,15 +38,15 @@ module RbNaCl
 
         if @key
           @key_size = @key.bytesize
-          raise LengthError, "key too short" if @key_size < KEYBYTES_MIN
-          raise LengthError, "key too long"  if @key_size > KEYBYTES_MAX
+          fail LengthError, "key too short" if @key_size < KEYBYTES_MIN
+          fail LengthError, "key too long"  if @key_size > KEYBYTES_MAX
         else
           @key_size = 0
         end
 
         @digest_size = opts.fetch(:digest_size, BYTES_MAX)
-        raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
-        raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
+        fail LengthError, "digest size too short" if @digest_size < BYTES_MIN
+        fail LengthError, "digest size too long"  if @digest_size > BYTES_MAX
       end
 
       # Calculate a Blake2b digest
@@ -56,7 +56,7 @@ module RbNaCl
       # @return [String] Blake2b digest of the string as raw bytes
       def digest(message)
         digest = Util.zeros(@digest_size)
-        self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || raise(CryptoError, "Hashing failed!")
+        self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size) || fail(CryptoError, "Hashing failed!")
         digest
       end
     end

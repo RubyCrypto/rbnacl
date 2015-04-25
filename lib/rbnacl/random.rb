@@ -1,4 +1,4 @@
-require 'thread'
+require "thread"
 
 # encoding: binary
 module RbNaCl
@@ -19,7 +19,7 @@ module RbNaCl
     # @param [Integer] n number of random bytes desired
     #
     # @return [String] random bytes.
-    def self.random_bytes(n=32)
+    def self.random_bytes(n = 32)
       buf = RbNaCl::Util.zeros(n)
       @mutex.synchronize { c_random_bytes(buf, n) }
       buf

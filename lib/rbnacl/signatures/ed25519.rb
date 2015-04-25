@@ -1,6 +1,7 @@
 # encoding: binary
 module RbNaCl
   module Signatures
+    # The EdDSA signature system implemented using the Ed25519 elliptic curve
     module Ed25519
       extend Sodium
 

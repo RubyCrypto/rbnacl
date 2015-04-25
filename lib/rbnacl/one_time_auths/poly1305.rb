@@ -20,10 +20,10 @@ module RbNaCl
     class Poly1305 < Auth
       extend Sodium
 
-      sodium_type      :onetimeauth
+      sodium_type :onetimeauth
       sodium_primitive :poly1305
-      sodium_constant  :BYTES
-      sodium_constant  :KEYBYTES
+      sodium_constant :BYTES
+      sodium_constant :KEYBYTES
 
       sodium_function :onetimeauth_poly1305,
                       :crypto_onetimeauth_poly1305,
@@ -34,6 +34,7 @@ module RbNaCl
                       [:pointer, :pointer, :ulong_long, :pointer]
 
       private
+
       def compute_authenticator(authenticator, message)
         self.class.onetimeauth_poly1305(authenticator, message, message.bytesize, key)
       end
@@ -41,7 +42,6 @@ module RbNaCl
       def verify_message(authenticator, message)
         self.class.onetimeauth_poly1305_verify(authenticator, message, message.bytesize, key)
       end
-
     end
   end
 end

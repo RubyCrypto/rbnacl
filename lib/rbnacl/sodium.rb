@@ -1,5 +1,5 @@
 # encoding: binary
-require 'ffi'
+require "ffi"
 
 module RbNaCl
   # Provides helpers for defining the libsodium bindings
@@ -9,10 +9,9 @@ module RbNaCl
       if defined?(RBNACL_LIBSODIUM_GEM_LIB_PATH)
         klass.ffi_lib RBNACL_LIBSODIUM_GEM_LIB_PATH
       else
-        klass.ffi_lib 'sodium'
+        klass.ffi_lib "sodium"
       end
     end
-
 
     def sodium_type(type = nil)
       return @type if type.nil?
@@ -28,14 +27,14 @@ module RbNaCl
       sodium_primitive
     end
 
-    def sodium_constant(constant, name=constant)
+    def sodium_constant(constant, name = constant)
       fn = "crypto_#{sodium_type}_#{sodium_primitive}_#{constant.to_s.downcase}"
       attach_function fn, [], :size_t
-      self.const_set(name, self.public_send(fn))
+      const_set(name, public_send(fn))
     end
 
     def sodium_function(name, function, arguments)
-      self.module_eval <<-eos, __FILE__, __LINE__ + 1
+      module_eval <<-eos, __FILE__, __LINE__ + 1
       attach_function #{function.inspect}, #{arguments.inspect}, :int
       def self.#{name}(*args)
         ret = #{function}(*args)

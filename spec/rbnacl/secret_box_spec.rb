@@ -1,8 +1,8 @@
 # encoding: binary
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RbNaCl::SecretBox do
-  let (:key) { vector :secret_key }
+  let(:key) { vector :secret_key }
 
   context "new" do
     it "accepts strings" do
@@ -14,7 +14,7 @@ RSpec.describe RbNaCl::SecretBox do
     end
 
     it "raises on a short key" do
-      expect { RbNaCl::SecretBox.new("hello") }.to raise_error(RbNaCl::LengthError, "Secret key was 5 bytes \(Expected #{RbNaCl::SecretBox::KEYBYTES}\)")
+      expect { RbNaCl::SecretBox.new("hello") }.to raise_error RbNaCl::LengthError
     end
   end
 
