@@ -64,7 +64,7 @@ module RbNaCl
     class Curve25519XSalsa20Poly1305
       extend Sodium
 
-      sodium_type :box
+      sodium_type      :box
       sodium_primitive :curve25519xsalsa20poly1305
       sodium_constant  :NONCEBYTES
       sodium_constant  :ZEROBYTES

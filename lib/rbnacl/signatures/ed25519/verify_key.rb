@@ -14,12 +14,12 @@ module RbNaCl
 
         extend Sodium
 
-        sodium_type :sign
+        sodium_type      :sign
         sodium_primitive :ed25519
 
-        sodium_function :sign_ed25519_open,
-                        :crypto_sign_ed25519_open,
-                        [:pointer, :pointer, :pointer, :ulong_long, :pointer]
+        sodium_function  :sign_ed25519_open,
+                         :crypto_sign_ed25519_open,
+                         [:pointer, :pointer, :pointer, :ulong_long, :pointer]
 
         # Create a new VerifyKey object from a public key.
         #

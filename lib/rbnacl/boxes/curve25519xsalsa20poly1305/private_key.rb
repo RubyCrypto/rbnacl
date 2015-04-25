@@ -18,12 +18,12 @@ module RbNaCl
 
         extend Sodium
 
-        sodium_type :box
+        sodium_type      :box
         sodium_primitive :curve25519xsalsa20poly1305
 
-        sodium_function :box_curve25519xsalsa20poly1305_keypair,
-                        :crypto_box_curve25519xsalsa20poly1305_keypair,
-                        [:pointer, :pointer]
+        sodium_function  :box_curve25519xsalsa20poly1305_keypair,
+                         :crypto_box_curve25519xsalsa20poly1305_keypair,
+                         [:pointer, :pointer]
 
         # The size of the key, in bytes
         BYTES = Boxes::Curve25519XSalsa20Poly1305::PRIVATEKEYBYTES

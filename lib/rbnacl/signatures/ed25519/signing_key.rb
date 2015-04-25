@@ -25,16 +25,16 @@ module RbNaCl
 
         extend Sodium
 
-        sodium_type :sign
+        sodium_type      :sign
         sodium_primitive :ed25519
 
-        sodium_function :sign_ed25519,
-                        :crypto_sign_ed25519,
-                        [:pointer, :pointer, :pointer, :ulong_long, :pointer]
+        sodium_function  :sign_ed25519,
+                         :crypto_sign_ed25519,
+                         [:pointer, :pointer, :pointer, :ulong_long, :pointer]
 
-        sodium_function :sign_ed25519_seed_keypair,
-                        :crypto_sign_ed25519_seed_keypair,
-                        [:pointer, :pointer, :pointer]
+        sodium_function  :sign_ed25519_seed_keypair,
+                         :crypto_sign_ed25519_seed_keypair,
+                         [:pointer, :pointer, :pointer]
 
         attr_reader :verify_key
 
