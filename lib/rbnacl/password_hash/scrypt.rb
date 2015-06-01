@@ -36,7 +36,8 @@ module RbNaCl
         # @return [RbNaCl::PasswordHash::SCrypt] An SCrypt password hasher object
         def initialize(opslimit, memlimit, digest_size = 64)
           # TODO: sanity check these parameters
-          @opslimit, @memlimit = opslimit, memlimit
+          @opslimit = opslimit
+          @memlimit = memlimit
 
           # TODO: check digest size validity
           # raise LengthError, "digest size too short" if @digest_size < BYTES_MIN

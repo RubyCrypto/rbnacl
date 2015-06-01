@@ -60,8 +60,9 @@ module RbNaCl
 
           self.class.sign_ed25519_seed_keypair(pk, sk, seed) || fail(CryptoError, "Failed to generate a key pair")
 
-          @seed, @signing_key = seed, sk
-          @verify_key = VerifyKey.new(pk)
+          @seed        = seed
+          @signing_key = sk
+          @verify_key  = VerifyKey.new(pk)
         end
 
         # Sign a message using this key
