@@ -1,7 +1,7 @@
-3.1.3 (xxxx-xx-xx)
+3.2.0 (2015-05-31)
 ------------------
-
 * Fix method signature for blake2b
+* RuboCop-friendly codebase
 
 3.1.2 (2014-08-30)
 ------------------
