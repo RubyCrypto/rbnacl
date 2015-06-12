@@ -21,7 +21,7 @@ module RbNaCl
     #
     # @raise [CryptoError] If the hashing fails for some reason.
     #
-    # @return [String] The SHA-256 hash as raw bytes (Or encoded as per the second argument)
+    # @return [String] The SHA-256 hash digest as raw bytes
     def self.sha256(data)
       data   = data.to_str
       digest = Util.zeros(SHA256::BYTES)
@@ -37,7 +37,7 @@ module RbNaCl
     #
     # @raise [CryptoError] If the hashing fails for some reason.
     #
-    # @return [String] The SHA-512 hash as raw bytes (Or encoded as per the second argument)
+    # @return [String] The SHA-512 hash digest as raw bytes
     def self.sha512(data)
       digest = Util.zeros(SHA512::BYTES)
       SHA512.hash_sha512(digest, data, data.bytesize) || fail(CryptoError, "Hashing failed!")
@@ -55,7 +55,7 @@ module RbNaCl
     #
     # @raise [CryptoError] If the hashing fails for some reason.
     #
-    # @return [String] The blake2b hash as raw bytes (Or encoded as per the second argument)
+    # @return [String] The Blake2b hash digest as raw bytes
     def self.blake2b(data, options = {})
       Blake2b.new(options).digest(data)
     end
