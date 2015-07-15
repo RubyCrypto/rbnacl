@@ -33,36 +33,36 @@ module RbNaCl
     extend Forwardable
     def_delegators :@box, :nonce_bytes, :primitive
 
-    # Create a new RandomNonceBox
+    # Create a new SimpleBox
     #
     # @param box [SecretBox, Box] the SecretBox or Box to use.
     #
-    # @return [RandomNonceBox] Ready for use
+    # @return [SimpleBox] Ready for use
     def initialize(box)
       @box = box
     end
 
-    # Use a secret key to create a RandomNonceBox
+    # Use a secret key to create a SimpleBox
     #
     # This is a convenience method.  It takes a secret key and instantiates a
-    # SecretBox under the hood, then returns the new RandomNonceBox.
+    # SecretBox under the hood, then returns the new SimpleBox.
     #
     # @param secret_key [String] The secret key, 32 bytes long.
     #
-    # @return [RandomNonceBox] Ready for use
+    # @return [SimpleBox] Ready for use
     def self.from_secret_key(secret_key)
       new(SecretBox.new(secret_key))
     end
 
-    # Use a pair of keys to create a RandomNonceBox
+    # Use a pair of keys to create a SimpleBox
     #
     # This is a convenience method.  It takes a pair of keys and instantiates a
-    # Box under the hood, then returns the new RandomNonceBox.
+    # Box under the hood, then returns the new SimpleBox.
     #
     # @param public_key  [PublicKey,  String] The RbNaCl public key, as class or string
     # @param private_key [PrivateKey, String] The RbNaCl private key, as class or string
     #
-    # @return [RandomNonceBox] Ready for use
+    # @return [SimpleBox] Ready for use
     def self.from_keypair(public_key, private_key)
       new(Box.new(public_key, private_key))
     end
