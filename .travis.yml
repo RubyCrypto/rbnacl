@@ -9,6 +9,10 @@ rvm:
   - jruby-head
   - rbx-2
 
+env:
+  - LIBSODIUM_VERSION=1.0.0 # Minimum supported
+  - LIBSODIUM_VERSION=1.0.3 # Latest released
+
 matrix:
   fast_finish: true
   allow_failures:
