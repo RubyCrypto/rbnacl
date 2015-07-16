@@ -11,7 +11,3 @@ group :test do
   gem "coveralls", require: false
   gem "rbnacl-libsodium", ENV["LIBSODIUM_VERSION"]
 end
-
-group :development, :test do
-  gem "rubocop"
-end
