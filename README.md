@@ -59,9 +59,9 @@ RbNaCl is continuously integration tested on the following Ruby VMs:
 * JRuby 1.7 (in both 1.8/1.9 mode)
 * Rubinius HEAD (in both 1.8/1.9 mode)
 
-[Windows installation instructions are available](https://github.com/cryptosphere/rbnacl/wiki/Windows-Installation).
-
 ## Installation
+
+Note: [Windows installation instructions are available](https://github.com/cryptosphere/rbnacl/wiki/Windows-Installation).
 
 ### libsodium
 
