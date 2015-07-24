@@ -60,7 +60,7 @@ module RbNaCl
       if len == n
         message
       elsif len > n
-        raise LengthError, "String too long for zero-padding to #{n} bytes"
+        fail LengthError, "String too long for zero-padding to #{n} bytes"
       else
         message + zeros(n - len)
       end

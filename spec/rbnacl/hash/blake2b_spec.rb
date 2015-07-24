@@ -40,7 +40,7 @@ RSpec.describe RbNaCl::Hash::Blake2b do
     end
 
     it "calculates personalised hashes correctly with a short personal" do
-      expect(RbNaCl::Hash.blake2b(reference_string, personal: reference_personal_short )).to eq reference_personal_short_hash
+      expect(RbNaCl::Hash.blake2b(reference_string, personal: reference_personal_short)).to eq reference_personal_short_hash
     end
   end
 
@@ -56,7 +56,7 @@ RSpec.describe RbNaCl::Hash::Blake2b do
     end
 
     it "calculates saltised hashes correctly with a short salt" do
-      expect(RbNaCl::Hash.blake2b(reference_string, salt: reference_salt_short )).to eq reference_salt_short_hash
+      expect(RbNaCl::Hash.blake2b(reference_string, salt: reference_salt_short)).to eq reference_salt_short_hash
     end
   end
 end

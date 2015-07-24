@@ -52,8 +52,10 @@ module RbNaCl
     # @param [String] data The data, as a collection of bytes
     # @option options [Fixnum]   digest_size Size in bytes (1-64, default 64)
     # @option options [String]   key 64-byte (or less) key for keyed mode
-    # @option options [String]   salt  Provide a salt to support randomised hashing.  This is mixed into the parameters block to start the hashing.
-    # @option options [Personal] personal Provide personalisation string to allow pinning a hash for a particular purpose.  This is mixed into the parameters block to start the hashing
+    # @option options [String]   salt  Provide a salt to support randomised hashing.
+    #                                  This is mixed into the parameters block to start the hashing.
+    # @option options [Personal] personal Provide personalisation string to allow pinning a hash for a particular purpose.
+    #                                     This is mixed into the parameters block to start the hashing
     #
     # @raise [CryptoError] If the hashing fails for some reason.
     #
