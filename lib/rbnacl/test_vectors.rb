@@ -87,6 +87,27 @@ module RbNaCl
     blake2b_keyed_digest: "142709d62e28fcccd0af97fad0f8465b971e82201dc51070faa0372aa43e9248" \
                               "4be1c1e73ba10906d5d1853db6a4106e0a7bf9800d373d6dee2d46d62ef2a461",
 
+    # Generated using the blake2 reference code
+    blake2b_personal:         "000102030405060708090a0b0c0d0e0f",
+
+    blake2b_personal_digest:  "7c86d3f929c9ac7f08c7940095da7c1cad2cf29db2e7a25fb05d99163e587cbd" \
+                              "f3564e8ce727b734a0559ee76f6ff5aeebd4e1e8872f1829174c9b1a9dab80e3",
+
+    blake2b_salt:             "000102030405060708090a0b0c0d0e0f",
+
+    blake2b_salt_digest:      "16e2e2cfb97e6061bccf2fcc1e605e117dee806c959ef2ad01249d4d12ce98cb" \
+                              "c993f400003ba57449f60a7b071ffdaff9c0acb16891a01a9b397ffe89db96bb",
+
+    blake2b_personal_short:   "0001020304050607",
+
+    blake2b_personal_short_digest:  "41b984967f852308710a6042d25f5faf4a84900b2001039075dab13aecfab7c8" \
+                              "40def9506326563fbb355b3da629181d97d2556e4624711d68f8f655b7cbb435",
+
+    blake2b_salt_short:       "0001020304050607",
+
+    blake2b_salt_short_digest: "873f35a1ca28febc872d6f842a8cd23136f3a2c22c19e8f0dac4cc704ced3371"\
+                              "abe5105f65d344cd48bad8aba755620f63f1e0b35ae4439bf871ffe72485a309",
+
     # scrypt test vectors
     # Taken from http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#page-14
     scrypt_password: "4a857e2ee8aa9b6056f2424e84d24a72473378906ee04a46cb05311502d5250b" \
