@@ -47,6 +47,25 @@ module RbNaCl
       message.slice!(n, message.bytesize - n)
     end
 
+    # Pad a string out to n characters with zeros
+    #
+    # @param [Integer] n The length of the resulting string
+    # @param [String]  message the message to be padded
+    #
+    # @raise [RbNaCl::LengthError] If the string is too long
+    #
+    # @return [String] A string, n bytes long
+    def zero_pad(n, message)
+      len = message.bytesize
+      if len == n
+        message
+      elsif len > n
+        fail LengthError, "String too long for zero-padding to #{n} bytes"
+      else
+        message + zeros(n - len)
+      end
+    end
+
     # Check the length of the passed in string
     #
     # In several places through the codebase we have to be VERY strict with
