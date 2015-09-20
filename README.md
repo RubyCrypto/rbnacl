@@ -137,16 +137,6 @@ information.
 [hashes]: https://github.com/cryptosphere/rbnacl/wiki/Hash-Functions
 [rdoc]: http://rubydoc.info/github/cryptosphere/rbnacl/master/frames
 
-## Security Notes
-
-NaCl itself has been expertly crafted to avoid a whole range of
-side-channel attacks, however the RbNaCl code itself has not been
-written with the same degree of expertise. While the code is
-straightforward it should be considered experimental until audited
-by professional cryptographers.
-
-That said, it's probably still a million times better than OpenSSL...
-
 ## Reporting Security Problems
 
 If you have discovered a bug in RbNaCl of a sensitive nature, i.e.
@@ -206,5 +196,5 @@ Sure, here you go:
 
 ## License
 
-Copyright (c) 2012-14 Jonathan Stott, Tony Arcieri.
+Copyright (c) 2012-2015 Jonathan Stott, Tony Arcieri.
 Distributed under the MIT License. See LICENSE.txt for further details.
