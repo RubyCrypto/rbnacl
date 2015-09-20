@@ -2,7 +2,7 @@
 require "spec_helper"
 
 RSpec.describe RbNaCl::PublicKey do
-  let(:alicepk)     { vector :alice_public }
+  let(:alicepk) { vector :alice_public }
 
   subject { RbNaCl::PublicKey.new(alicepk) }
 

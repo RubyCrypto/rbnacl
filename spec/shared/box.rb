@@ -2,8 +2,8 @@
 
 RSpec.shared_examples "box" do
   let(:nonce) { vector :box_nonce }
-  let(:invalid_nonce) { nonce[0, 12]  } # too short!
-  let(:invalid_nonce_long) { nonce + nonce  } # too long!
+  let(:invalid_nonce) { nonce[0, 12] } # too short!
+  let(:invalid_nonce_long) { nonce + nonce } # too long!
   let(:message)    { vector :box_message }
   let(:ciphertext) { vector :box_ciphertext }
   let(:nonce_error_regex) { /Nonce.*(Expected #{box.nonce_bytes})/ }

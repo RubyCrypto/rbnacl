@@ -73,7 +73,7 @@ module RbNaCl
       end
 
       begin
-        passed         = false
+        passed = false
         bad_signature = signature[0, 63] + "0"
         verify_key.verify(bad_signature, message)
       rescue CryptoError
@@ -99,7 +99,7 @@ module RbNaCl
       fail SelfTestFailure, "#{klass} failed to verify correct authentication tag" unless authenticator.verify(vector(tag), message)
 
       begin
-        passed         = false
+        passed = false
         authenticator.verify(vector(tag), message + " ")
       rescue CryptoError
         passed = true

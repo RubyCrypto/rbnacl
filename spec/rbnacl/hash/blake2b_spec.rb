@@ -45,7 +45,7 @@ RSpec.describe RbNaCl::Hash::Blake2b do
   end
 
   context "salted" do
-    let(:reference_string)              { vector :blake2b_message }
+    let(:reference_string)          { vector :blake2b_message }
     let(:reference_salt)            { vector :blake2b_salt }
     let(:reference_salt_hash)       { vector :blake2b_salt_digest }
     let(:reference_salt_short)      { vector :blake2b_salt_short }

@@ -143,7 +143,7 @@ module RbNaCl
       def open(nonce, ciphertext)
         Util.check_length(nonce, nonce_bytes, "Nonce")
         ct = Util.prepend_zeros(BOXZEROBYTES, ciphertext)
-        message  = Util.zeros(ct.bytesize)
+        message = Util.zeros(ct.bytesize)
 
         success = self.class.box_curve25519xsalsa20poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm)
         fail CryptoError, "Decryption failed. Ciphertext failed verification." unless success
