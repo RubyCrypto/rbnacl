@@ -85,7 +85,7 @@ module RbNaCl
 end
 
 # Select platform-optimized versions of algorithms
-Thread.exclusive { RbNaCl::Init.sodium_init }
+RbNaCl::Init.sodium_init
 
 # Perform self test on load
 require "rbnacl/self_test" unless defined?($RBNACL_SELF_TEST) && $RBNACL_SELF_TEST == false
