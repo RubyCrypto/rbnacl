@@ -1,3 +1,13 @@
+3.3.0 (2015-12-29)
+------------------
+* [#105](https://github.com/cryptosphere/rbnacl/pull/105)
+  Add salt/personalisation strings for Blake2b.
+  ([@namelessjon])
+
+* [#128](https://github.com/cryptosphere/rbnacl/pull/128)
+  Remove use of Thread.exclusive when initializing library.
+  ([@tarcieri])
+
 3.2.0 (2015-05-31)
 ------------------
 * Fix method signature for blake2b
@@ -59,3 +69,6 @@
 1.0.0 (2013-03-08)
 ------------------
 * Initial release
+
+[@namelessjon]: https://github.com/namelessjon
+[@tarcieri]: https://github.com/tarcieri
