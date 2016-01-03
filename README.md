@@ -195,5 +195,5 @@ Sure, here you go:
 
 ## License
 
-Copyright (c) 2012-2015 Jonathan Stott, Tony Arcieri.
-Distributed under the MIT License. See LICENSE.txt for further details.
+Copyright (c) 2012-2016 Jonathan Stott, Tony Arcieri. Distributed under the MIT License.
+See LICENSE.txt for further details.
