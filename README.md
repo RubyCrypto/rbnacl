@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/cryptosphere/rbnacl.svg?branch=master)](https://travis-ci.org/cryptosphere/rbnacl)
 [![Code Climate](https://codeclimate.com/github/cryptosphere/rbnacl.svg)](https://codeclimate.com/github/cryptosphere/rbnacl)
 [![Coverage Status](https://coveralls.io/repos/cryptosphere/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/cryptosphere/rbnacl)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cryptosphere/rbnacl/blob/master/LICENSE.txt)
 
 A Ruby binding to the state-of-the-art [Networking and Cryptography][nacl]
 library by [Daniel J. Bernstein][djb]. This is **NOT** Google Native Client.
