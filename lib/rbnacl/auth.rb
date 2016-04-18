@@ -70,7 +70,7 @@ module RbNaCl
     def verify(authenticator, message)
       auth = authenticator.to_s
       Util.check_length(auth, tag_bytes, "Provided authenticator")
-      verify_message(auth, message) || fail(BadAuthenticatorError, "Invalid authenticator provided, message is corrupt")
+      verify_message(auth, message) || raise(BadAuthenticatorError, "Invalid authenticator provided, message is corrupt")
     end
 
     # The crypto primitive for this authenticator instance
@@ -111,11 +111,11 @@ module RbNaCl
     private
 
     def compute_authenticator(_authenticator, _message)
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def verify_message(_authenticator, _message)
-      fail NotImplementedError
+      raise NotImplementedError
     end
   end
 end

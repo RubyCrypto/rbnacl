@@ -9,7 +9,7 @@ LineLength:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Enabled: false
 
 Style/GlobalVars:
@@ -20,8 +20,13 @@ Style/GlobalVars:
 #
 
 Metrics/MethodLength:
-  CountComments: false
-  Max: 25
+  Max: 22
 
 Metrics/AbcSize:
   Max: 20
+
+AllCops:
+  Include:
+    - '**/Rakefile'
+  Exclude:
+    - 'spec/**/*'

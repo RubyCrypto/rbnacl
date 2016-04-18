@@ -22,14 +22,7 @@ module RbNaCl
       else
         return nil
       end
-
-      if Util.verify32(to_bytes, other)
-        return 0
-      elsif to_bytes > other
-        return 1
-      else
-        return -1
-      end
+      compare32(other)
     end
 
     # equality operator
@@ -54,6 +47,18 @@ module RbNaCl
         return false
       end
       Util.verify32(to_bytes, other)
+    end
+
+    private
+
+    def compare32(other)
+      if Util.verify32(to_bytes, other)
+        0
+      elsif to_bytes > other
+        1
+      else
+        -1
+      end
     end
   end
 end

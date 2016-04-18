@@ -47,15 +47,15 @@ module RbNaCl
 
         if @key
           @key_size = @key.bytesize
-          fail LengthError, "key too short" if @key_size < KEYBYTES_MIN
-          fail LengthError, "key too long"  if @key_size > KEYBYTES_MAX
+          raise LengthError, "key too short" if @key_size < KEYBYTES_MIN
+          raise LengthError, "key too long"  if @key_size > KEYBYTES_MAX
         else
           @key_size = 0
         end
 
         @digest_size = opts.fetch(:digest_size, BYTES_MAX)
-        fail LengthError, "digest size too short" if @digest_size < BYTES_MIN
-        fail LengthError, "digest size too long"  if @digest_size > BYTES_MAX
+        raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
+        raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
 
         @personal = opts.fetch(:personal, EMPTY_PERSONAL)
         @personal = Util.zero_pad(PERSONALBYTES, @personal)
@@ -72,7 +72,7 @@ module RbNaCl
       def digest(message)
         digest = Util.zeros(@digest_size)
         self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size, @salt, @personal) ||
-          fail(CryptoError, "Hashing failed!")
+          raise(CryptoError, "Hashing failed!")
         digest
       end
     end

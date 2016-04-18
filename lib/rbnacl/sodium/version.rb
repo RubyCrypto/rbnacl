@@ -4,7 +4,7 @@ module RbNaCl
   module Sodium
     # libsodium version API
     module Version
-      MINIMUM_LIBSODIUM_VERSION = "0.4.3"
+      MINIMUM_LIBSODIUM_VERSION = "0.4.3".freeze
 
       extend Sodium
       attach_function :sodium_version_string, [], :string
@@ -17,7 +17,7 @@ module RbNaCl
 
       case installed_version <=> minimum_version
       when -1
-        fail "Sorry, you need to install libsodium #{MINIMUM_LIBSODIUM_VERSION}+. You have #{Version::STRING} installed"
+        raise "Sorry, you need to install libsodium #{MINIMUM_LIBSODIUM_VERSION}+. You have #{Version::STRING} installed"
       end
     end
   end

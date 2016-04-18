@@ -80,7 +80,7 @@ module RbNaCl
       cipher_text = @box.box(nonce, message)
       nonce + cipher_text
     end
-    alias_method :encrypt, :box
+    alias encrypt box
 
     # Decrypts the ciphertext with a random nonce
     #
@@ -96,7 +96,7 @@ module RbNaCl
       nonce, ciphertext = extract_nonce(enciphered_message.to_s)
       @box.open(nonce, ciphertext)
     end
-    alias_method :decrypt, :open
+    alias decrypt open
 
     private
 

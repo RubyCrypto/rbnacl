@@ -58,7 +58,7 @@ module RbNaCl
           pk = Util.zeros(Ed25519::VERIFYKEYBYTES)
           sk = Util.zeros(Ed25519::SIGNINGKEYBYTES)
 
-          self.class.sign_ed25519_seed_keypair(pk, sk, seed) || fail(CryptoError, "Failed to generate a key pair")
+          self.class.sign_ed25519_seed_keypair(pk, sk, seed) || raise(CryptoError, "Failed to generate a key pair")
 
           @seed        = seed
           @signing_key = sk
