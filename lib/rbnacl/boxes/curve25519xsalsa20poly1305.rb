@@ -99,7 +99,7 @@ module RbNaCl
       def initialize(public_key, private_key)
         @public_key   = public_key.is_a?(PublicKey) ? public_key : PublicKey.new(public_key)
         @private_key  = private_key.is_a?(PrivateKey) ? private_key : PrivateKey.new(private_key)
-        fail IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive
+        raise IncorrectPrimitiveError unless @public_key.primitive == primitive && @private_key.primitive == primitive
       end
 
       # Encrypts a message
@@ -121,10 +121,10 @@ module RbNaCl
         msg = Util.prepend_zeros(ZEROBYTES, message)
         ct  = Util.zeros(msg.bytesize)
 
-        self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || fail(CryptoError, "Encryption failed")
+        self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
         Util.remove_zeros(BOXZEROBYTES, ct)
       end
-      alias_method :encrypt, :box
+      alias encrypt box
 
       # Decrypts a ciphertext
       #
@@ -146,11 +146,11 @@ module RbNaCl
         message = Util.zeros(ct.bytesize)
 
         success = self.class.box_curve25519xsalsa20poly1305_open_afternm(message, ct, ct.bytesize, nonce, beforenm)
-        fail CryptoError, "Decryption failed. Ciphertext failed verification." unless success
+        raise CryptoError, "Decryption failed. Ciphertext failed verification." unless success
 
         Util.remove_zeros(ZEROBYTES, message)
       end
-      alias_method :decrypt, :open
+      alias decrypt open
 
       # The crypto primitive for the box class
       #
@@ -179,7 +179,7 @@ module RbNaCl
         @_key ||= begin
           key = Util.zeros(BEFORENMBYTES)
           success = self.class.box_curve25519xsalsa20poly1305_beforenm(key, @public_key.to_s, @private_key.to_s)
-          fail CryptoError, "Failed to derive shared key" unless success
+          raise CryptoError, "Failed to derive shared key" unless success
           key
         end
       end

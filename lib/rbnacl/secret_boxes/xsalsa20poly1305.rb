@@ -68,11 +68,11 @@ module RbNaCl
         ct  = Util.zeros(msg.bytesize)
 
         success = self.class.secretbox_xsalsa20poly1305(ct, msg, msg.bytesize, nonce, @key)
-        fail CryptoError, "Encryption failed" unless success
+        raise CryptoError, "Encryption failed" unless success
 
         Util.remove_zeros(BOXZEROBYTES, ct)
       end
-      alias_method :encrypt, :box
+      alias encrypt box
 
       # Decrypts a ciphertext
       #
@@ -94,11 +94,11 @@ module RbNaCl
         message = Util.zeros(ct.bytesize)
 
         success = self.class.secretbox_xsalsa20poly1305_open(message, ct, ct.bytesize, nonce, @key)
-        fail CryptoError, "Decryption failed. Ciphertext failed verification." unless success
+        raise CryptoError, "Decryption failed. Ciphertext failed verification." unless success
 
         Util.remove_zeros(ZEROBYTES, message)
       end
-      alias_method :decrypt, :open
+      alias decrypt open
 
       # The crypto primitive for the SecretBox instance
       #

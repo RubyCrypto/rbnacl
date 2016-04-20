@@ -60,7 +60,7 @@ module RbNaCl
       if len == n
         message
       elsif len > n
-        fail LengthError, "String too long for zero-padding to #{n} bytes"
+        raise LengthError, "String too long for zero-padding to #{n} bytes"
       else
         message + zeros(n - len)
       end
@@ -78,15 +78,15 @@ module RbNaCl
     # @param description [String] Description of the string (used in the error)
     def check_length(string, length, description)
       if string.nil?
-        fail LengthError,
-             "#{description} was nil (Expected #{length.to_int})",
-             caller
+        raise LengthError,
+              "#{description} was nil (Expected #{length.to_int})",
+              caller
       end
 
       if string.bytesize != length.to_int
-        fail LengthError,
-             "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
-             caller
+        raise LengthError,
+              "#{description} was #{string.bytesize} bytes (Expected #{length.to_int})",
+              caller
       end
       true
     end
@@ -104,12 +104,12 @@ module RbNaCl
     # @param description [String] Description of the string (used in the error)
     def check_string(string, length, description)
       unless string.respond_to? :to_str
-        fail TypeError, "can't convert #{string.class} into String with #to_str"
+        raise TypeError, "can't convert #{string.class} into String with #to_str"
       end
 
       string = string.to_str
       unless string.encoding == Encoding::BINARY
-        fail EncodingError, "strings must use BINARY encoding (got #{string.encoding})"
+        raise EncodingError, "strings must use BINARY encoding (got #{string.encoding})"
       end
       check_length(string, length, description)
 

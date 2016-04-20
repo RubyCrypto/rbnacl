@@ -51,7 +51,7 @@ module RbNaCl
           buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
 
           success = self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
-          fail(BadSignatureError, "signature was forged/corrupt") unless success
+          raise(BadSignatureError, "signature was forged/corrupt") unless success
 
           true
         end

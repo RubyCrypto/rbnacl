@@ -132,5 +132,5 @@ module RbNaCl
     # self-created (FIXME: find standard test vectors)
     auth_hmacsha256:    "7f7b9b707e8790ca8620ff94df5e6533ddc8e994060ce310c9d7de04d44aabc3",
     auth_hmacsha512256: "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d"
-  }
+  }.freeze
 end

@@ -72,6 +72,8 @@ To use RbNaCl, you will need to install libsodium:
 
 https://github.com/jedisct1/libsodium
 
+At least version `1.0.0` is recommended.
+
 For OS X users, libsodium is available via homebrew and can be installed with:
 
     brew install libsodium

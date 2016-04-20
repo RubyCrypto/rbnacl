@@ -32,8 +32,8 @@ module RbNaCl
       message    = vector :box_message
       ciphertext = vector :box_ciphertext
 
-      fail SelfTestFailure, "failed to generate correct ciphertext" unless box.encrypt(nonce, message) == ciphertext
-      fail SelfTestFailure, "failed to decrypt ciphertext correctly" unless box.decrypt(nonce, ciphertext) == message
+      raise SelfTestFailure, "failed to generate correct ciphertext" unless box.encrypt(nonce, message) == ciphertext
+      raise SelfTestFailure, "failed to decrypt ciphertext correctly" unless box.decrypt(nonce, ciphertext) == message
 
       begin
         passed         = false
@@ -43,7 +43,7 @@ module RbNaCl
       rescue CryptoError
         passed = true
       ensure
-        passed || fail(SelfTestFailure, "failed to detect corrupt ciphertext")
+        passed || raise(SelfTestFailure, "failed to detect corrupt ciphertext")
       end
     end
 
@@ -53,7 +53,7 @@ module RbNaCl
 
       unless verify_key.to_s == vector(:sign_public)
         #:nocov:
-        fail SelfTestFailure, "failed to generate verify key correctly"
+        raise SelfTestFailure, "failed to generate verify key correctly"
         #:nocov:
       end
 
@@ -62,13 +62,13 @@ module RbNaCl
 
       unless signature == vector(:sign_signature)
         #:nocov:
-        fail SelfTestFailure, "failed to generate correct signature"
+        raise SelfTestFailure, "failed to generate correct signature"
         #:nocov:
       end
 
       unless verify_key.verify(signature, message)
         #:nocov:
-        fail SelfTestFailure, "failed to verify a valid signature"
+        raise SelfTestFailure, "failed to verify a valid signature"
         #:nocov:
       end
 
@@ -79,7 +79,7 @@ module RbNaCl
       rescue CryptoError
         passed = true
       ensure
-        passed || fail(SelfTestFailure, "failed to detect corrupt ciphertext")
+        passed || raise(SelfTestFailure, "failed to detect corrupt ciphertext")
       end
     end
 
@@ -87,7 +87,7 @@ module RbNaCl
       message = vector :sha256_message
       digest  = vector :sha256_digest
 
-      fail SelfTestFailure, "failed to generate a correct SHA256 digest" unless RbNaCl::Hash.sha256(message) == digest
+      raise SelfTestFailure, "failed to generate a correct SHA256 digest" unless RbNaCl::Hash.sha256(message) == digest
     end
 
     def hmac_test(klass, tag)
@@ -95,8 +95,8 @@ module RbNaCl
 
       message = vector :auth_message
 
-      fail SelfTestFailure, "#{klass} failed to generate correct authentication tag" unless authenticator.auth(message) == vector(tag)
-      fail SelfTestFailure, "#{klass} failed to verify correct authentication tag" unless authenticator.verify(vector(tag), message)
+      raise SelfTestFailure, "#{klass} failed to generate correct authentication tag" unless authenticator.auth(message) == vector(tag)
+      raise SelfTestFailure, "#{klass} failed to verify correct authentication tag" unless authenticator.verify(vector(tag), message)
 
       begin
         passed = false
@@ -104,7 +104,7 @@ module RbNaCl
       rescue CryptoError
         passed = true
       ensure
-        passed || fail(SelfTestFailure, "failed to detect corrupt ciphertext")
+        passed || raise(SelfTestFailure, "failed to detect corrupt ciphertext")
       end
     end
   end
