@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in rbnacl.gemspec
 gemspec
 
 group :development do
@@ -8,6 +7,12 @@ group :development do
 end
 
 group :test do
+  gem "rspec"
+  gem "rubocop", "0.39.0"
   gem "coveralls", require: false
   gem "rbnacl-libsodium", ENV["LIBSODIUM_VERSION"]
+end
+
+group :development, :test do
+  gem "rake"
 end
