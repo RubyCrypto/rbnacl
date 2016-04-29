@@ -86,6 +86,14 @@ module RbNaCl
           @seed
         end
 
+        # Return the raw 64 byte value of this key
+        #
+        # @return [String] The signature key bytes. Left half is 32-byte
+        #   curve25519 private scalar, right half is 32-byte group element
+        def keypair_bytes
+          @signing_key
+        end
+
         # The crypto primitive this SigningKey class uses for signatures
         #
         # @return [Symbol] The primitive
