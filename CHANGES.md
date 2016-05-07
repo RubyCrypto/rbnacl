@@ -1,3 +1,13 @@
+3.4.0 (2015-05-07)
+------------------
+* [#135](https://github.com/cryptosphere/rbnacl/pull/135)
+  Expose RbNaCl::Signatures::Ed25519#keypair_bytes.
+  (@grempe)
+
+* [#137](https://github.com/cryptosphere/rbnacl/pull/137)
+  Expose HMAC-SHA512 (with 64-byte keys)
+  (@mwpastore)
+
 3.3.0 (2015-12-29)
 ------------------
 * [#105](https://github.com/cryptosphere/rbnacl/pull/105)
