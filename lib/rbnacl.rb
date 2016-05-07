@@ -67,9 +67,10 @@ module RbNaCl
   require "rbnacl/password_hash"
   require "rbnacl/password_hash/scrypt"
 
-  # HMAC: SHA256 and SHA512256
+  # HMAC: SHA256/512 and SHA512256
   require "rbnacl/hmac/sha256"
   require "rbnacl/hmac/sha512256"
+  require "rbnacl/hmac/sha512"
 
   #
   # Bind aliases used by the public API
