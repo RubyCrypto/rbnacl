@@ -91,7 +91,7 @@ module RbNaCl
     end
 
     def hmac_test(klass, tag)
-      authenticator = klass.new(vector(:auth_key))
+      authenticator = klass.new(vector("auth_key_#{klass.key_bytes}".to_sym))
 
       message = vector :auth_message
 

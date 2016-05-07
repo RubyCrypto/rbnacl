@@ -122,7 +122,9 @@ module RbNaCl
     # Auth test vectors
     # Taken from NaCl distribution
     #
-    auth_key:     "eea6a7251c1e72916d11c2cb214d3c252539121d8e234e652d651fa4c8cff880",
+    auth_key_32:  "eea6a7251c1e72916d11c2cb214d3c252539121d8e234e652d651fa4c8cff880",
+    auth_key_64:  "eaaa4c73ef13e7e9a53011304c5be141da9c3713b5ca822037ed57aded31b70a" \
+                  "50a0dd80843d580fe5b57e470bb534333e907a624cf02873c6b9eaba70e0fc7e",
     auth_message: "8e993b9f48681273c29650ba32fc76ce48332ea7164d96a4476fb8c531a1186a" \
                   "c0dfc17c98dce87b4da7f011ec48c97271d2c20f9b928fe2270d6fb863d51738" \
                   "b48eeee314a7cc8ab932164548e526ae90224368517acfeabd6bb3732bc0e9da" \
@@ -131,6 +133,8 @@ module RbNaCl
     auth_onetime: "f3ffc7703f9400e52a7dfb4b3d3305d9",
     # self-created (FIXME: find standard test vectors)
     auth_hmacsha256:    "7f7b9b707e8790ca8620ff94df5e6533ddc8e994060ce310c9d7de04d44aabc3",
-    auth_hmacsha512256: "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d"
+    auth_hmacsha512256: "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d",
+    auth_hmacsha512:    "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d" \
+                        "270e3921f69016c267a63ab4b226449a0dee0dc7dcb897a9bce9d27d788f8e8d"
   }.freeze
 end
