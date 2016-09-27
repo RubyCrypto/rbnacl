@@ -1,21 +1,21 @@
 # encoding: binary
 module RbNaCl
   module AEAD
-    class Chacha20Poly1305
+    class Chacha20Poly1305IETF
       extend Sodium
 
       sodium_type :aead
-      sodium_primitive :chacha20poly1305
+      sodium_primitive :chacha20poly1305_ietf
       sodium_constant :KEYBYTES
       sodium_constant :NPUBBYTES
       sodium_constant :ABYTES
 
-      sodium_function :aead_chacha20poly1305_encrypt,
-                      :crypto_aead_chacha20poly1305_encrypt,
+      sodium_function :aead_chacha20poly1305_ietf_encrypt,
+                      :crypto_aead_chacha20poly1305_ietf_encrypt,
                       [:pointer, :pointer, :pointer, :ulong_long, :pointer, :ulong_long, :pointer, :pointer, :pointer]
 
-      sodium_function :aead_chacha20poly1305_decrypt,
-                      :crypto_aead_chacha20poly1305_decrypt,
+      sodium_function :aead_chacha20poly1305_ietf_decrypt,
+                      :crypto_aead_chacha20poly1305_ietf_decrypt,
                       [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer, :ulong_long, :pointer, :pointer]
 
 
@@ -27,7 +27,7 @@ module RbNaCl
         Util.check_length(nonce, NPUBBYTES, "Nonce")
         key = Util.check_string(key, KEYBYTES, "Secret key")
 
-        success = self.class.aead_chacha20poly1305_encrypt(ciphertext, ciphertext_len,
+        success = self.class.aead_chacha20poly1305_ietf_encrypt(ciphertext, ciphertext_len,
                                                            message, message.bytesize,
                                                            additional_data, additional_data.bytesize,
                                                            nil, nonce, key)
@@ -43,7 +43,7 @@ module RbNaCl
         Util.check_length(nonce, NPUBBYTES, "Nonce")
         key = Util.check_string(key, KEYBYTES, "Secret key")
 
-        success = self.class.aead_chacha20poly1305_decrypt(message, message_len, nil,
+        success = self.class.aead_chacha20poly1305_ietf_decrypt(message, message_len, nil,
                                                            ciphertext, ciphertext.bytesize,
                                                            additional_data, additional_data.bytesize,
                                                            nonce, key)

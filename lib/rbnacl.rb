@@ -74,6 +74,7 @@ module RbNaCl
 
   # AEAD: ChaCha20-Poly1305
   require "rbnacl/aead/chacha20poly1305"
+  require "rbnacl/aead/chacha20poly1305_ietf"
 
   #
   # Bind aliases used by the public API
