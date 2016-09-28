@@ -1,6 +1,8 @@
 # encoding: binary
 module RbNaCl
   module AEAD
+    # This class contains wrappers for the original libsodium implementation of
+    # Authenticated Encryption with Additional Data using ChaCha20-Poly1305
     class Chacha20Poly1305
       extend Sodium
 
@@ -18,7 +20,6 @@ module RbNaCl
                       :crypto_aead_chacha20poly1305_decrypt,
                       [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer, :ulong_long, :pointer, :pointer]
 
-
       # Create a new AEAD using the original chacha20poly1305 construction
       #
       # Sets up the AEAD with a secret key for encrypting and decrypting messages.
@@ -32,8 +33,7 @@ module RbNaCl
         @key = Util.check_string(key, KEYBYTES, "Secret key")
       end
 
-
-      # Encrypts and authenticates a message with additional data
+      # Encrypts and authenticates a message with additional authenticated data
       #
       # @param nonce [String] An 8-byte string containing the nonce.
       # @param message [String] The message to be encrypted.
@@ -57,7 +57,7 @@ module RbNaCl
         ciphertext
       end
 
-      # Decrypts and verifies an encrypted message with additional data
+      # Decrypts and verifies an encrypted message with additional authenticated data
       #
       # @param nonce [String] An 8-byte string containing the nonce.
       # @param ciphertext [String] The message to be decrypted.

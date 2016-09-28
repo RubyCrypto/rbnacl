@@ -1,6 +1,8 @@
 # encoding: binary
 module RbNaCl
   module AEAD
+    # This class contains wrappers for the IETF implementation of
+    # Authenticated Encryption with Additional Data using ChaCha20-Poly1305
     class Chacha20Poly1305IETF
       extend Sodium
 
@@ -17,7 +19,6 @@ module RbNaCl
       sodium_function :aead_chacha20poly1305_ietf_decrypt,
                       :crypto_aead_chacha20poly1305_ietf_decrypt,
                       [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer, :ulong_long, :pointer, :pointer]
-
 
       # Create a new AEAD using the IETF chacha20poly1305 construction
       #
@@ -49,9 +50,9 @@ module RbNaCl
         ciphertext = Util.zeros(message.bytesize + ABYTES)
 
         success = self.class.aead_chacha20poly1305_ietf_encrypt(ciphertext, ciphertext_len,
-                                                           message, message.bytesize,
-                                                           additional_data, additional_data.bytesize,
-                                                           nil, nonce, @key)
+                                                                message, message.bytesize,
+                                                                additional_data, additional_data.bytesize,
+                                                                nil, nonce, @key)
         raise CryptoError, "Encryption failed" unless success
         ciphertext
       end
@@ -73,9 +74,9 @@ module RbNaCl
         message = Util.zeros(ciphertext.bytesize - ABYTES)
 
         success = self.class.aead_chacha20poly1305_ietf_decrypt(message, message_len, nil,
-                                                           ciphertext, ciphertext.bytesize,
-                                                           additional_data, additional_data.bytesize,
-                                                           nonce, @key)
+                                                                ciphertext, ciphertext.bytesize,
+                                                                additional_data, additional_data.bytesize,
+                                                                nonce, @key)
         raise CryptoError, "Decryption failed. Ciphertext failed verification." unless success
         message
       end
