@@ -157,6 +157,29 @@ module RbNaCl
     auth_hmacsha256:    "7f7b9b707e8790ca8620ff94df5e6533ddc8e994060ce310c9d7de04d44aabc3",
     auth_hmacsha512256: "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d",
     auth_hmacsha512:    "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d" \
-                        "270e3921f69016c267a63ab4b226449a0dee0dc7dcb897a9bce9d27d788f8e8d"
+                        "270e3921f69016c267a63ab4b226449a0dee0dc7dcb897a9bce9d27d788f8e8d",
+
+    # AEAD ChaCha20-Poly1305 original implementation test vectors
+    # Taken from https://tools.ietf.org/html/draft-agl-tls-chacha20poly1305-04
+    aead_chacha20poly1305_orig_key:             "4290bcb154173531f314af57f3be3b5006da371ece272afa1b5dbdd1100a1007",
+    aead_chacha20poly1305_orig_message:         "86d09974840bded2a5ca",
+    aead_chacha20poly1305_orig_nonce:           "cd7cf67be39c794a",
+    aead_chacha20poly1305_orig_ad:              "87e229d4500845a079c0",
+    aead_chacha20poly1305_orig_ciphertext:      "e3e446f7ede9a19b62a4677dabf4e3d24b876bb284753896e1d6",
+
+    # AEAD ChaCha20-Poly1305 IETF test vectors
+    # Taken from https://tools.ietf.org/html/rfc7539
+    aead_chacha20poly1305_ietf_key:             "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
+    aead_chacha20poly1305_ietf_message:         "4c616469657320616e642047656e746c656d656e206f662074686520636c6173" \
+                                                "73206f66202739393a204966204920636f756c64206f6666657220796f75206f" \
+                                                "6e6c79206f6e652074697020666f7220746865206675747572652c2073756e73" \
+                                                "637265656e20776f756c642062652069742e",
+    aead_chacha20poly1305_ietf_nonce:           "070000004041424344454647",
+    aead_chacha20poly1305_ietf_ad:              "50515253c0c1c2c3c4c5c6c7",
+    aead_chacha20poly1305_orig_ciphertext:      "d31a8d34648e60db7b86afbc53ef7ec2a4aded51296e08fea9e2b5a736ee62d6" \
+                                                "3dbea45e8ca9671282fafb69da92728b1a71de0a9e060b2905d6a5b67ecd3b36" \
+                                                "92ddbd7f2d778b8c9803aee328091b58fab324e4fad675945585808b4831d7bc" \
+                                                "3ff4def08e4b7a9de576d26586cec64b61161ae10b594f09e26a7e902ecbd060" \
+                                                "0691"
   }.freeze
 end
