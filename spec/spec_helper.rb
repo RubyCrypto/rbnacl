@@ -12,6 +12,7 @@ require "shared/box"
 require "shared/authenticator"
 require "shared/key_equality"
 require "shared/serializable"
+require "shared/aead"
 
 def vector(name)
   [RbNaCl::TEST_VECTORS[name]].pack("H*")

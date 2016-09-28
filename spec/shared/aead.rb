@@ -1,15 +1,7 @@
 # encoding: binary
 require "spec_helper"
 
-RSpec.describe RbNaCl::AEAD::Chacha20Poly1305 do
-  let(:key) {vector :aead_chacha20poly1305_orig_key}
-  let(:message) {vector :aead_chacha20poly1305_orig_message}
-  let(:nonce) {vector :aead_chacha20poly1305_orig_nonce}
-  let(:ad) {vector :aead_chacha20poly1305_orig_ad}
-  let(:ciphertext) {vector :aead_chacha20poly1305_orig_ciphertext}
-
-  let(:aead) { RbNaCl::AEAD::Chacha20Poly1305.new(key) }
-
+RSpec.shared_examples "aead" do
   let(:corrupt_ciphertext) { ciphertext.succ}
   let(:trunc_ciphertext) { ciphertext[0, 20]}
   let(:invalid_nonce) { nonce[0, nonce.bytesize/2] } # too short!
@@ -20,19 +12,19 @@ RSpec.describe RbNaCl::AEAD::Chacha20Poly1305 do
 
   context "new" do
     it "accepts strings" do
-      expect { RbNaCl::AEAD::Chacha20Poly1305.new(key) }.to_not raise_error
+      expect { described_class.new(key) }.to_not raise_error
     end
 
     it "raises on a nil key" do
-      expect { RbNaCl::AEAD::Chacha20Poly1305.new(nil) }.to raise_error(TypeError)
+      expect { described_class.new(nil) }.to raise_error(TypeError)
     end
 
     it "raises on a short key" do
-      expect { RbNaCl::AEAD::Chacha20Poly1305.new("hello") }.to raise_error RbNaCl::LengthError
+      expect { described_class.new("hello") }.to raise_error RbNaCl::LengthError
     end
 
     it "raises on a long key" do
-      expect { RbNaCl::AEAD::Chacha20Poly1305.new("hello" + key) }.to raise_error RbNaCl::LengthError
+      expect { described_class.new("hello" + key) }.to raise_error RbNaCl::LengthError
     end
   end
 
