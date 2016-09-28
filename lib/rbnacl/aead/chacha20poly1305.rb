@@ -80,6 +80,27 @@ module RbNaCl
         raise CryptoError, "Decryption failed. Ciphertext failed verification." unless success
         message
       end
+
+      # The nonce bytes for the AEAD class
+      #
+      # @return [Integer] The number of bytes in a valid nonce
+      def self.nonce_bytes
+        NPUBBYTES
+      end
+
+      # The nonce bytes for the AEAD instance
+      #
+      # @return [Integer] The number of bytes in a valid nonce
+      def nonce_bytes
+        NPUBBYTES
+      end
+
+      # The key bytes for the AEAD class
+      #
+      # @return [Integer] The number of bytes in a valid key
+      def self.key_bytes
+        KEYBYTES
+      end
     end
   end
 end
