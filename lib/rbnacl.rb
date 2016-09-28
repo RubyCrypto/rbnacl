@@ -10,6 +10,7 @@ require "rbnacl/random"
 require "rbnacl/simple_box"
 require "rbnacl/test_vectors"
 require "rbnacl/init"
+require "rbnacl/aead/aead"
 
 # NaCl/libsodium for Ruby
 module RbNaCl
