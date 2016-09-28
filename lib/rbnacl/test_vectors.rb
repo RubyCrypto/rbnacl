@@ -154,7 +154,7 @@ module RbNaCl
                                                 "637265656e20776f756c642062652069742e",
     aead_chacha20poly1305_ietf_nonce:           "070000004041424344454647",
     aead_chacha20poly1305_ietf_ad:              "50515253c0c1c2c3c4c5c6c7",
-    aead_chacha20poly1305_orig_ciphertext:      "d31a8d34648e60db7b86afbc53ef7ec2a4aded51296e08fea9e2b5a736ee62d6" \
+    aead_chacha20poly1305_ietf_ciphertext:      "d31a8d34648e60db7b86afbc53ef7ec2a4aded51296e08fea9e2b5a736ee62d6" \
                                                 "3dbea45e8ca9671282fafb69da92728b1a71de0a9e060b2905d6a5b67ecd3b36" \
                                                 "92ddbd7f2d778b8c9803aee328091b58fab324e4fad675945585808b4831d7bc" \
                                                 "3ff4def08e4b7a9de576d26586cec64b61161ae10b594f09e26a7e902ecbd060" \
