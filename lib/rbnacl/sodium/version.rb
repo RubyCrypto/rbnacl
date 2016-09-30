@@ -21,6 +21,11 @@ module RbNaCl
       end
 
       ARGON2_SUPPORTED = (INSTALLED_VERSION <=> MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2) == -1 ? false : true
+
+      # Determine if a given feature is supported based on Sodium version
+      def self.supported_version?(version)
+        sodium_version_string >= version
+      end
     end
   end
 end
