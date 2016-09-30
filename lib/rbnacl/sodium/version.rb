@@ -15,6 +15,11 @@ module RbNaCl
       installed_version = [MAJOR, MINOR, PATCH]
       minimum_version   = MINIMUM_LIBSODIUM_VERSION.split(".").map(&:to_i)
 
+      # Determine if a given feature is supported based on Sodium version
+      def self.supported_version?(version)
+        sodium_version_string >= version
+      end
+
       case installed_version <=> minimum_version
       when -1
         raise "Sorry, you need to install libsodium #{MINIMUM_LIBSODIUM_VERSION}+. You have #{Version::STRING} installed"
