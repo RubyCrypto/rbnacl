@@ -1,4 +1,5 @@
 # encoding: binary
+# rubocop:disable ModuleLength
 
 # NaCl/libsodium for Ruby
 module RbNaCl
