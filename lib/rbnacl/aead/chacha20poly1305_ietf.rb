@@ -25,15 +25,15 @@ module RbNaCl
 
         def do_encrypt(ciphertext, ciphertext_len, nonce, message, additional_data)
           self.class.aead_chacha20poly1305_ietf_encrypt(ciphertext, ciphertext_len,
-                                                        message, message.bytesize,
-                                                        additional_data, additional_data.bytesize,
+                                                        message, data_len(message),
+                                                        additional_data, data_len(additional_data),
                                                         nil, nonce, @key)
         end
 
         def do_decrypt(message, message_len, nonce, ciphertext, additional_data)
           self.class.aead_chacha20poly1305_ietf_decrypt(message, message_len, nil,
-                                                        ciphertext, ciphertext.bytesize,
-                                                        additional_data, additional_data.bytesize,
+                                                        ciphertext, data_len(ciphertext),
+                                                        additional_data, data_len(additional_data),
                                                         nonce, @key)
         end
       end

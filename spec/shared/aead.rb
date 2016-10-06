@@ -38,6 +38,14 @@ RSpec.shared_examples "aead" do
     it "raises on a long nonce" do
       expect { aead.encrypt(invalid_nonce_long, message, ad) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
+
+    it "works with an empty message" do
+      expect { aead.encrypt(nonce, nil, ad)}.to_not raise_error
+    end
+
+    it "works with an empty additional data" do
+      expect{ aead.encrypt(nonce, message, nil)}.to_not raise_error
+    end
   end
 
   context "decrypt" do
