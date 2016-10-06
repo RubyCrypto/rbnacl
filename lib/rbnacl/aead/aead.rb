@@ -45,7 +45,7 @@ module RbNaCl
         Util.check_length(nonce, nonce_bytes, "Nonce")
 
         ciphertext_len = Util.zeros(1)
-        ciphertext = Util.zeros(message.bytesize + tag_bytes)
+        ciphertext = Util.zeros(data_len(message) + tag_bytes)
 
         success = do_encrypt(ciphertext, ciphertext_len, nonce, message, additional_data)
         raise CryptoError, "Encryption failed" unless success
@@ -66,7 +66,7 @@ module RbNaCl
         Util.check_length(nonce, nonce_bytes, "Nonce")
 
         message_len = Util.zeros(1)
-        message = Util.zeros(ciphertext.bytesize - tag_bytes)
+        message = Util.zeros(data_len(ciphertext) - tag_bytes)
 
         success = do_decrypt(message, message_len, nonce, ciphertext, additional_data)
         raise CryptoError, "Decryption failed. Ciphertext failed verification." unless success
@@ -123,6 +123,11 @@ module RbNaCl
       end
 
       private
+
+      def data_len(data)
+        return 0 if data.nil?
+        data.bytesize
+      end
 
       def do_encrypt(_ciphertext, _ciphertext_len, _nonce, _message, _additional_data)
         raise NotImplementedError
