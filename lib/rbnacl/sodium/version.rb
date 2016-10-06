@@ -17,7 +17,7 @@ module RbNaCl
 
       # Determine if a given feature is supported based on Sodium version
       def self.supported_version?(version)
-        sodium_version_string >= version
+        sodium_version_string <= version
       end
 
       case installed_version <=> minimum_version
