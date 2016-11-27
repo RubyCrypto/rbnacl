@@ -10,6 +10,7 @@ require "rbnacl/random"
 require "rbnacl/simple_box"
 require "rbnacl/test_vectors"
 require "rbnacl/init"
+require "rbnacl/aead/aead"
 
 # NaCl/libsodium for Ruby
 module RbNaCl
@@ -71,6 +72,10 @@ module RbNaCl
   require "rbnacl/hmac/sha256"
   require "rbnacl/hmac/sha512256"
   require "rbnacl/hmac/sha512"
+
+  # AEAD: ChaCha20-Poly1305
+  require "rbnacl/aead/chacha20poly1305"
+  require "rbnacl/aead/chacha20poly1305_ietf"
 
   #
   # Bind aliases used by the public API
