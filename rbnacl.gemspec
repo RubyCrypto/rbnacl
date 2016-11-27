@@ -3,26 +3,27 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "rbnacl/version"
 
-Gem::Specification.new do |gem|
-  gem.name          = "rbnacl"
-  gem.version       = RbNaCl::VERSION
-  gem.authors       = ["Tony Arcieri", "Jonathan Stott"]
-  gem.email         = ["tony.arcieri@gmail.com", "jonathan.stott@gmail.com"]
-  gem.description   = "Ruby binding to the Networking and Cryptography (NaCl) library"
-  gem.summary       = "The Networking and Cryptography (NaCl) library provides a high-level toolkit for building cryptographic systems and protocols"
-  gem.homepage      = "https://github.com/cryptosphere/rbnacl"
-  gem.licenses      = ["MIT"]
+Gem::Specification.new do |spec|
+  spec.name          = "rbnacl"
+  spec.version       = RbNaCl::VERSION
+  spec.authors       = ["Tony Arcieri", "Jonathan Stott"]
+  spec.email         = ["bascule@gmail.com", "jonathan.stott@gmail.com"]
+  spec.homepage      = "https://github.com/cryptosphere/rbnacl"
+  spec.licenses      = ["MIT"]
+  spec.summary       = "Ruby binding to the Networking and Cryptography (NaCl) library"
+  spec.description = <<-DESCRIPTION.strip.gsub(/\s+/, " ")
+    The Networking and Cryptography (NaCl) library provides a high-level toolkit for building
+    cryptographic systems and protocols
+  DESCRIPTION
 
-  gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
-  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  spec.executables   = spec.files.grep(%r{^bin/}).map { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ["lib"]
 
-  gem.platform = "jruby" if defined? JRUBY_VERSION
+  spec.platform = "jruby" if defined? JRUBY_VERSION
 
-  gem.add_runtime_dependency "ffi"
+  spec.add_runtime_dependency "ffi"
 
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "rspec", "~> 3.0.0"
-  gem.add_development_dependency "rubocop"
+  spec.add_development_dependency "bundler"
 end
