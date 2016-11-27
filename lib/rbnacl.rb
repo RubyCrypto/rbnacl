@@ -63,9 +63,12 @@ module RbNaCl
   require "rbnacl/hash/sha512"
   require "rbnacl/hash/blake2b"
 
-  # Password hash function: scrypt
+  # Password hash functions
   require "rbnacl/password_hash"
   require "rbnacl/password_hash/scrypt"
+  if RbNaCl::Sodium::Version::ARGON2_SUPPORTED
+    require "rbnacl/password_hash/argon2"
+  end
 
   # HMAC: SHA256/512 and SHA512256
   require "rbnacl/hmac/sha256"

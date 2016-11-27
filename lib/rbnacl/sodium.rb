@@ -42,5 +42,14 @@ module RbNaCl
       end
       eos
     end
+
+    def sodium_function_with_return_code(name, function, arguments)
+      module_eval <<-eos, __FILE__, __LINE__ + 1
+      attach_function #{function.inspect}, #{arguments.inspect}, :int
+      def self.#{name}(*args)
+        #{function}(*args)
+      end
+      eos
+    end
   end
 end

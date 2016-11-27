@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - 'spec/**/*'
     - 'vendor/**/*'
+    - 'lib/rbnacl/test_vectors.rb'
 
 #
 # Style
