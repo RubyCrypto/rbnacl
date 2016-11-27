@@ -58,11 +58,29 @@ For more information on NaCl's goals, see Dan Bernstein's presentation
 
 ## Supported platforms
 
-You can use RbNaCl anywhere you can get libsodium installed (see below).
-RbNaCl is continuously integration tested on the following Ruby VMs:
+You can use RbNaCl on platforms libsodium is supported (see below).
 
-* MRI 2.0, 2.1, 2.2, 2.3
-* JRuby 1.7, 9000
+This library aims to support and is [tested against][travis] the following Ruby
+versions:
+
+* Ruby 2.2.6+
+* Ruby 2.3.0+
+* JRuby 9.1.6.0+
+
+If something doesn't work on one of these versions, it's a bug.
+
+This library may inadvertently work (or seem to work) on other Ruby versions,
+however support will only be provided for the versions listed above.
+
+If you would like this library to support another Ruby version or
+implementation, you may volunteer to be a maintainer. Being a maintainer
+entails making sure all tests run and pass on that implementation. When
+something breaks on your implementation, you will be responsible for providing
+patches in a timely fashion. If critical issues for a particular implementation
+exist at the time of a major release, support for that Ruby version may be
+dropped.
+
+[travis]: http://travis-ci.org/cryptosphere/rbnacl
 
 ## Installation
 
@@ -77,7 +95,7 @@ To use RbNaCl, you will need to install libsodium:
 
 https://github.com/jedisct1/libsodium
 
-At least version `1.0.0` is recommended.
+At least version `1.0.0` is required.
 
 For OS X users, libsodium is available via homebrew and can be installed with:
 
@@ -143,19 +161,6 @@ information.
 [macs]: https://github.com/cryptosphere/rbnacl/wiki/Authenticators
 [hashes]: https://github.com/cryptosphere/rbnacl/wiki/Hash-Functions
 [rdoc]: http://rubydoc.info/github/cryptosphere/rbnacl/master/frames
-
-## Reporting Security Problems
-
-If you have discovered a bug in RbNaCl of a sensitive nature, i.e.
-one which can compromise the security of RbNaCl users, you can
-report it securely by sending a GPG encrypted message. Please use
-the following key:
-
-https://raw.github.com/cryptosphere/rbnacl/master/bascule.asc
-
-The key fingerprint is (or should be):
-
-`9148 85A2 6242 1628 B6AA AB45 4CB9 B3D0 BACC 8B71`
 
 ## Learn More
 
