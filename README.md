@@ -173,6 +173,7 @@ interested in learning more about how NaCl works, it's recommended
 that you read them:
 
 * [Cryptography in NaCl](http://cr.yp.to/highspeed/naclcrypto-20090310.pdf)
+* [Salsa20 Design](https://cr.yp.to/snuffle/design.pdf)
 * [Curve25519: new Diffie-Hellman speed records](http://cr.yp.to/ecdh/curve25519-20060209.pdf)
 * [Ed25519: High-speed high-security signatures](http://ed25519.cr.yp.to/ed25519-20110926.pdf)
 
