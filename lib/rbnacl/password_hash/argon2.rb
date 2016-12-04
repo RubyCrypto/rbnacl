@@ -1,4 +1,5 @@
 # encoding: binary
+# rubocop:disable Metrics/ClassLength
 module RbNaCl
   module PasswordHash
     # Since version 1.0.9, Sodium provides a password hashing scheme called
@@ -15,6 +16,7 @@ module RbNaCl
 
       sodium_constant :ALG_ARGON2I13
       sodium_constant :SALTBYTES
+      sodium_constant :STRBYTES
       sodium_constant :OPSLIMIT_INTERACTIVE  # 4
       sodium_constant :MEMLIMIT_INTERACTIVE  # 2 ** 25 (32mb)
       sodium_constant :OPSLIMIT_MODERATE     # 6
@@ -32,8 +34,20 @@ module RbNaCl
 
       sodium_function_with_return_code(
         :pwhash,
-        :crypto_pwhash,
+        :crypto_pwhash_argon2i,
         [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t, :int]
+      )
+
+      sodium_function(
+        :pwhash_str,
+        :crypto_pwhash_argon2i_str,
+        [:pointer, :pointer, :ulong_long, :ulong_long, :size_t]
+      )
+
+      sodium_function(
+        :pwhash_str_verify,
+        :crypto_pwhash_argon2i_str_verify,
+        [:pointer, :pointer, :ulong_long]
       )
 
       ALG_DEFAULT = ALG_ARGON2I13
@@ -78,10 +92,10 @@ module RbNaCl
       # @param [Integer] digest_size the byte length of the resulting digest
       #
       # @return [RbNaCl::PasswordHash::Argon2] An Argon2 password hasher object
-      def initialize(opslimit, memlimit, digest_size)
+      def initialize(opslimit, memlimit, digest_size = nil)
         @opslimit    = self.class.opslimit_value(opslimit)
         @memlimit    = self.class.memlimit_value(memlimit)
-        @digest_size = self.class.digest_size_value(digest_size)
+        @digest_size = self.class.digest_size_value(digest_size) if digest_size
       end
 
       # Calculate an Argon2 digest for a given password and salt
@@ -91,6 +105,7 @@ module RbNaCl
       #
       # @return [String] scrypt digest of the string as raw bytes
       def digest(password, salt)
+        raise ArgumentError, "digest_size is required" unless @digest_size
         digest = Util.zeros(@digest_size)
         salt   = Util.check_string(salt, SALTBYTES, "salt")
 
@@ -101,6 +116,37 @@ module RbNaCl
         )
         raise CryptoError, ARGON_ERROR_CODES[status] if status.nonzero?
         digest
+      end
+
+      # Calculate an Argon2 digest in the form of a crypt-style string.
+      # The resulting string encodes the parameters and salt.
+      #
+      # @param [String] password to be hashed
+      #
+      # @return [String] argon2 digest string
+      def digest_str(password)
+        result = Util.zeros(STRBYTES)
+
+        ok = self.class.pwhash_str(
+          result,
+          password, password.bytesize,
+          @opslimit, @memlimit
+        )
+        raise CryptoError, "unknown error in Argon2#digest_str" unless ok
+        result.delete("\x00")
+      end
+
+      # Compares a password with a digest string
+      #
+      # @param [String] password to be hashed
+      # @param [String] digest_string to compare to
+      #
+      # @return [boolean] true if password matches digest_string
+      def self.digest_str_verify(password, digest_string)
+        pwhash_str_verify(
+          digest_string,
+          password, password.bytesize
+        )
       end
 
       # Clamps opslimit to an acceptable range (3..10)
