@@ -135,6 +135,12 @@ module RbNaCl
                      "4b137b52e7d5ee7b37f7d936dcee51362bcf792595e3c896ad5042734fc90c92cae" \
                      "572ce63ff659a2f7974a3bd730d04d525d253ccc38",
 
+    # argon2_str vectors
+    # from libsodium/test/default/pwhash.c
+    argon2_str_digest: "$argon2i$v=19$m=4096,t=3,p=2$b2RpZHVlamRpc29kaXNrdw" \
+                       "$TNnWIwlu1061JHrnCqIAmjs3huSxYIU+0jWipu7Kc9M",
+    argon2_str_passwd: "password",
+
     # Auth test vectors
     # Taken from NaCl distribution
     #
