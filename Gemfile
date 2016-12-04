@@ -8,7 +8,7 @@ end
 
 group :test do
   gem "rspec"
-  gem "rubocop", "0.39.0"
+  gem "rubocop", "0.46.0"
   gem "coveralls", require: false
   gem "rbnacl-libsodium", ENV["LIBSODIUM_VERSION"]
 end

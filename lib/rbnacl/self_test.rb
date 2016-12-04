@@ -1,4 +1,5 @@
 # encoding: binary
+# frozen_string_literal: true
 
 start = Time.now if $DEBUG
 

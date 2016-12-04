@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module Boxes
     # The Box class boxes and unboxes messages between a pair of keys

@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module GroupElements
     # Points provide the interface to NaCl's Curve25519 high-speed elliptic

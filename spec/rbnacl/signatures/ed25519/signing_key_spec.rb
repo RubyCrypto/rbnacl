@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::SigningKey do
   let(:signing_key) { vector :sign_private }

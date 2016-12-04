@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 require "rbnacl/version"
 require "rbnacl/sodium"
 require "rbnacl/sodium/version"

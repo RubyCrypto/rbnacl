@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module AEAD
     # This class contains wrappers for the IETF implementation of

@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::PasswordHash::SCrypt do
   let(:reference_password) { vector :scrypt_password }

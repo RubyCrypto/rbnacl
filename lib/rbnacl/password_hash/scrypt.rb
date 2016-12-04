@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module PasswordHash
     # The scrypt sequential memory hard password hashing function

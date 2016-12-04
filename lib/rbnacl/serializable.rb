@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   # Serialization features shared across all "key-like" classes
   module Serializable

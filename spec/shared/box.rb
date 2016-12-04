@@ -1,4 +1,5 @@
 # encoding: binary
+# frozen_string_literal: true
 
 RSpec.shared_examples "box" do
   let(:nonce) { vector :box_nonce }

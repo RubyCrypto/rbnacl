@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::Hash::Blake2b do
   let(:reference_string)      { vector :blake2b_message }

@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module SecretBoxes
     # The SecretBox class boxes and unboxes messages

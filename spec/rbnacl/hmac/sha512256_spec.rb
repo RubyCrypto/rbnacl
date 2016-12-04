@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::HMAC::SHA512256 do
   let(:tag) { vector :auth_hmacsha512256 }

@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module OneTimeAuths
     # Computes an authenticator using poly1305

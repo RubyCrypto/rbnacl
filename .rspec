@@ -3,3 +3,4 @@
 --backtrace
 --order random
 --warnings
+--require spec_helper

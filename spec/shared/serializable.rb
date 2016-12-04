@@ -1,4 +1,5 @@
 # encoding: binary
+# frozen_string_literal: true
 
 RSpec.shared_examples "serializable" do
   context "serialization" do

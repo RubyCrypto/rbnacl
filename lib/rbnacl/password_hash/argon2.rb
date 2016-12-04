@@ -1,5 +1,6 @@
 # encoding: binary
-# rubocop:disable Metrics/ClassLength
+# frozen_string_literal: true
+
 module RbNaCl
   module PasswordHash
     # Since version 1.0.9, Sodium provides a password hashing scheme called

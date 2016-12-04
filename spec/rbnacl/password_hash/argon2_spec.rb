@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 if RbNaCl::Sodium::Version::ARGON2_SUPPORTED
   RSpec.describe RbNaCl::PasswordHash::Argon2 do
