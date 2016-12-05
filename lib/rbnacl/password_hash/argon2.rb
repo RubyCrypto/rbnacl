@@ -126,6 +126,7 @@ module RbNaCl
       #
       # @return [String] argon2 digest string
       def digest_str(password)
+        raise ArgumentError, "password must be a String" unless password.is_a?(String)
         result = Util.zeros(STRBYTES)
 
         ok = self.class.pwhash_str(
@@ -144,6 +145,8 @@ module RbNaCl
       #
       # @return [boolean] true if password matches digest_string
       def self.digest_str_verify(password, digest_string)
+        raise ArgumentError, "password must be a String" unless password.is_a?(String)
+        raise ArgumentError, "digest_string must be a String" unless digest_string.is_a?(String)
         pwhash_str_verify(
           digest_string,
           password, password.bytesize
