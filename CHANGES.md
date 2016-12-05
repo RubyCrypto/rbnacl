@@ -1,12 +1,27 @@
+4.0.0.pre (2016-12-04)
+----------------------
+
+* [#141](https://github.com/cryptosphere/rbnacl/pull/141)
+  Add wrappers for ChaCha20Poly1305 AEAD ciphers.
+  ([@aadavids])
+
+* [#142](https://github.com/cryptosphere/rbnacl/pull/142)
+  Added support for Argon2 password hash.
+  ([@elijh])
+
+* [#143](https://github.com/cryptosphere/rbnacl/pull/143)
+  Require Ruby 2.2.6+.
+  ([@tarcieri])
+
 3.4.0 (2015-05-07)
 ------------------
 * [#135](https://github.com/cryptosphere/rbnacl/pull/135)
   Expose RbNaCl::Signatures::Ed25519#keypair_bytes.
-  (@grempe)
+  ([@grempe])
 
 * [#137](https://github.com/cryptosphere/rbnacl/pull/137)
   Expose HMAC-SHA512 (with 64-byte keys)
-  (@mwpastore)
+  ([@mwpastore])
 
 3.3.0 (2015-12-29)
 ------------------
@@ -82,3 +97,7 @@
 
 [@namelessjon]: https://github.com/namelessjon
 [@tarcieri]: https://github.com/tarcieri
+[@aadavids]: https://github.com/aadavids
+[@grempe]: https://github.com/grempe
+[@mwpastore]: https://github.com/mwpastore
+[@elijh]: https://github.com/elijh
