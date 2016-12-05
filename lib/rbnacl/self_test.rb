@@ -96,8 +96,8 @@ module RbNaCl
 
       message = vector :auth_message
 
-      raise SelfTestFailure, "#{klass} failed to generate correct authentication tag" unless authenticator.auth(message) == vector(tag)
-      raise SelfTestFailure, "#{klass} failed to verify correct authentication tag" unless authenticator.verify(vector(tag), message)
+      raise SelfTestFailure, "#{klass} generated incorrect authentication tag" unless authenticator.auth(message) == vector(tag)
+      raise SelfTestFailure, "#{klass} failed to verify authentication tag" unless authenticator.verify(vector(tag), message)
 
       begin
         passed = false

@@ -24,9 +24,8 @@ Metrics/MethodLength:
 # Style
 #
 
-# TODO: turn this down
 LineLength:
-  Max: 150
+  Max: 128
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
