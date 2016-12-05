@@ -81,8 +81,8 @@ module RbNaCl
         if RbNaCl::Sodium::Version::ARGON2_SUPPORTED
           true
         else
-          raise NoMethodError, "argon2 requires libsodium version >= 1.0.9" \
-                               " (currently running #{RbNaCl::Sodium::Version::STRING})"
+          raise NotImplementedError, "argon2 requires libsodium version >= 1.0.9" \
+                                     " (currently running #{RbNaCl::Sodium::Version::STRING})"
         end
       end
     end
