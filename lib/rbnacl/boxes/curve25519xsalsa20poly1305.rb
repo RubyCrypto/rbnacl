@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module Boxes
     # The Box class boxes and unboxes messages between a pair of keys
@@ -121,7 +123,9 @@ module RbNaCl
         msg = Util.prepend_zeros(ZEROBYTES, message)
         ct  = Util.zeros(msg.bytesize)
 
-        self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm) || raise(CryptoError, "Encryption failed")
+        success = self.class.box_curve25519xsalsa20poly1305_afternm(ct, msg, msg.bytesize, nonce, beforenm)
+        raise CryptoError, "Encryption failed" unless success
+
         Util.remove_zeros(BOXZEROBYTES, ct)
       end
       alias encrypt box

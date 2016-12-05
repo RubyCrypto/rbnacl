@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::AEAD::Chacha20Poly1305 do
   include_examples "aead" do

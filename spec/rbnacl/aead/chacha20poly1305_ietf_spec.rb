@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::AEAD::Chacha20Poly1305IETF do
   if RbNaCl::Sodium::Version.supported_version?("1.0.9")

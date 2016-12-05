@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module PasswordHash
     # The scrypt sequential memory hard password hashing function
@@ -54,7 +56,9 @@ module RbNaCl
         digest = Util.zeros(@digest_size)
         salt   = Util.check_string(salt, SALTBYTES, "salt")
 
-        self.class.scrypt(digest, @digest_size, password, password.bytesize, salt, @opslimit, @memlimit) || raise(CryptoError, "scrypt failed!")
+        success = self.class.scrypt(digest, @digest_size, password, password.bytesize, salt, @opslimit, @memlimit)
+        raise CryptoError, "scrypt failed!" unless success
+
         digest
       end
     end

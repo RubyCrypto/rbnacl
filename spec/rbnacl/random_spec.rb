@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 RSpec.describe RbNaCl::Random do
   it "produces random bytes" do
     expect(RbNaCl::Random.random_bytes(16).bytesize).to eq(16)

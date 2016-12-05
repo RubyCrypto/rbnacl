@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module HMAC
     # Computes an authenticator as HMAC-SHA-512 truncated to 256-bits

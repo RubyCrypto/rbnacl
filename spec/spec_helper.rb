@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 require "json"
 require "coveralls"
 Coveralls.wear!

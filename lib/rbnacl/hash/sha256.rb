@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module Hash
     # Provides a binding for the SHA256 function in libsodium

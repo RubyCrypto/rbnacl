@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 RSpec.shared_examples "authenticator" do
   let(:key)     { vector "auth_key_#{described_class.key_bytes}".to_sym }
   let(:message) { vector :auth_message }

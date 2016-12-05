@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 RSpec.shared_examples "aead" do
   let(:corrupt_ciphertext) { ciphertext.succ}
   let(:trunc_ciphertext) { ciphertext[0, 20]}

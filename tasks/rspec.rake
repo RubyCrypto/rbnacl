@@ -1,3 +1,6 @@
+# encoding: binary
+# frozen_string_literal: true
+
 gem "rspec"
 require "rspec/core/rake_task"
 

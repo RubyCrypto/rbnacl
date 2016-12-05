@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 RSpec.shared_examples "key equality" do
   context "equality" do
     it "equal keys are equal" do

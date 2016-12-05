@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::PrivateKey do
   let(:bobsk) { vector :bob_private }

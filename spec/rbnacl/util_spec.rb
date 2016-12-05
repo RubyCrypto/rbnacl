@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 RSpec.describe RbNaCl::Util do
   context ".verify32!" do
     let(:msg) { RbNaCl::Util.zeros(32) }
@@ -118,11 +120,11 @@ RSpec.describe RbNaCl::Util do
   end
 
   context "check_string" do
+    let(:example_string) { "foobar".dup.force_encoding("UTF-8") }
+
     it "raises EncodingError when given strings with non-BINARY encoding" do
-      string = "foobar"
-      string.force_encoding("UTF-8")
       expect do
-        RbNaCl::Util.check_string(string, string.bytesize, "encoding test")
+        RbNaCl::Util.check_string(example_string, example_string.bytesize, "encoding test")
       end.to raise_error(EncodingError)
     end
   end

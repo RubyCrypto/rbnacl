@@ -1,5 +1,5 @@
 # encoding: binary
-require "spec_helper"
+# frozen_string_literal: true
 
 RSpec.describe RbNaCl::Hash::Blake2b do
   let(:reference_string)      { vector :blake2b_message }
@@ -24,7 +24,7 @@ RSpec.describe RbNaCl::Hash::Blake2b do
     end
 
     it "doesn't accept empty strings as a key" do
-      expect { RbNaCl::Hash.blake2b(reference_string, key: "") }.to raise_exception
+      expect { RbNaCl::Hash.blake2b(reference_string, key: "") }.to raise_error(RbNaCl::LengthError)
     end
   end
 

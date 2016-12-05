@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   # Various utility functions
   module Util
@@ -37,7 +39,8 @@ module RbNaCl
 
     # Remove zeros from the start of a message
     #
-    # Many functions require a string with some zeros prepended, then need them removing after.  Note, this modifies the passed in string
+    # Many functions require a string with some zeros prepended, then need them removing after.
+    # Note: this modifies the passed in string
     #
     # @param [Integer] n The number of zeros to remove
     # @param [String] message The string to be slice

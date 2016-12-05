@@ -1,4 +1,6 @@
 # encoding: binary
+# frozen_string_literal: true
+
 module RbNaCl
   module Signatures
     # The EdDSA signature system implemented using the Ed25519 elliptic curve
