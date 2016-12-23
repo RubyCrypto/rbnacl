@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/cryptosphere/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/cryptosphere/rbnacl)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cryptosphere/rbnacl/blob/master/LICENSE.txt)
 
-_NOTE: This is the 4.x **development** branch of RbNaCl. For the 3.x **stable**
+_NOTE: This is the 4.x **stable** branch of RbNaCl. For the 3.x **legacy**
 branch, please see:_
 
 https://github.com/cryptosphere/rbnacl/tree/3-x-stable
