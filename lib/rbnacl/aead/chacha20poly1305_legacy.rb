@@ -5,7 +5,7 @@ module RbNaCl
   module AEAD
     # This class contains wrappers for the original libsodium implementation of
     # Authenticated Encryption with Additional Data using ChaCha20-Poly1305
-    class Chacha20Poly1305 < GenericAEAD
+    class ChaCha20Poly1305Legacy < RbNaCl::AEAD::Base
       extend Sodium
 
       sodium_type :aead

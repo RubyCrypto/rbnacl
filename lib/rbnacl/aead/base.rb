@@ -3,14 +3,14 @@
 
 module RbNaCl
   module AEAD
-    # Authenticated Encryption with Additional Data
+    # Abstract base class for Authenticated Encryption with Additional Data
     #
     # This construction encrypts a message, and computes an authentication
     # tag for the encrypted message and some optional additional data
     #
     # RbNaCl provides wrappers for both ChaCha20-Poly1305 AEAD implementations
     # in libsodium: the original, and the IETF version.
-    class GenericAEAD
+    class Base
       # Number of bytes in a valid key
       KEYBYTES = 0
 
