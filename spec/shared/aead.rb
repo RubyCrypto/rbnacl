@@ -2,13 +2,15 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples "aead" do
-  let(:corrupt_ciphertext) { ciphertext.succ}
-  let(:trunc_ciphertext) { ciphertext[0, 20]}
-  let(:invalid_nonce) { nonce[0, nonce.bytesize/2] } # too short!
+  let(:corrupt_ciphertext) { ciphertext.succ }
+  let(:trunc_ciphertext)   { ciphertext[0, 20] }
+  let(:invalid_nonce)      { nonce[0, nonce.bytesize/2] } # too short!
   let(:invalid_nonce_long) { nonce + nonce } # too long!
-  let(:nonce_error_regex) { /Nonce.*(Expected #{aead.nonce_bytes})/ }
-  let(:corrupt_ad) {ad.succ}
-  let(:trunc_ad) {ad[0, ad.bytesize/2]}
+  let(:nonce_error_regex)  { %r{Nonce.*(Expected #{aead.nonce_bytes})} }
+  let(:corrupt_ad)         { ad.succ }
+  let(:trunc_ad)           { ad[0, ad.bytesize/2] }
+
+  let(:aead) { described_class.new(key) }
 
   context "new" do
     it "accepts strings" do
