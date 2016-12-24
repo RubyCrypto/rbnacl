@@ -1,5 +1,12 @@
+4.0.1 (2016-12-04)
+------------------
+
+* [#148](https://github.com/cryptosphere/rbnacl/pull/148)
+  Last minute changes to the ChaCha20Poly1305 API.
+  ([@tarcieri])
+
 4.0.0 (2016-12-04)
-----------------------
+------------------
 
 * [#141](https://github.com/cryptosphere/rbnacl/pull/141)
   Add wrappers for ChaCha20Poly1305 AEAD ciphers.
