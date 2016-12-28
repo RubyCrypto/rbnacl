@@ -151,7 +151,7 @@ are supported:
 Additional power-user features are available. Please see the Wiki for further
 information.
 
-[RDoc documentation][rdoc] is also available.
+[YARD API documentation][yard] is also available.
 
 [wiki]: https://github.com/cryptosphere/rbnacl/wiki
 [simplebox]: https://github.com/cryptosphere/rbnacl/wiki/SimpleBox
@@ -160,7 +160,7 @@ information.
 [signatures]: https://github.com/cryptosphere/rbnacl/wiki/Digital-Signatures
 [macs]: https://github.com/cryptosphere/rbnacl/wiki/Authenticators
 [hashes]: https://github.com/cryptosphere/rbnacl/wiki/Hash-Functions
-[rdoc]: http://rubydoc.info/github/cryptosphere/rbnacl/master/frames
+[yard]: http://www.rubydoc.info/gems/rbnacl
 
 ## Learn More
 
