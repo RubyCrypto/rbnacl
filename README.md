@@ -209,5 +209,7 @@ Sure, here you go:
 
 ## License
 
-Copyright (c) 2012-2016 Jonathan Stott, Tony Arcieri. Distributed under the MIT License.
-See LICENSE.txt for further details.
+Copyright (c) 2012-2017 Tony Arcieri, Jonathan Stott. Distributed under the MIT License.
+See [LICENSE.txt] for further details.
+
+[LICENSE.txt]: https://github.com/cryptosphere/rbnacl/blob/master/LICENSE.txt
