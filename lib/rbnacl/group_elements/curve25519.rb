@@ -61,7 +61,9 @@ module RbNaCl
         Util.check_length(integer, SCALARBYTES, "integer")
 
         result = Util.zeros(SCALARBYTES)
-        self.class.scalarmult_curve25519(result, integer, @point)
+        ret = self.class.scalarmult_curve25519(result, integer, @point)
+        if ret != 0
+          raise "Invalid curve25519 result"
 
         self.class.new(result)
       end
