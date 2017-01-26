@@ -64,6 +64,7 @@ module RbNaCl
         ret = self.class.scalarmult_curve25519(result, integer, @point)
         if ret != 0
           raise "Invalid curve25519 result"
+        end
 
         self.class.new(result)
       end
