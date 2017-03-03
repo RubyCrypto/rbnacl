@@ -61,11 +61,11 @@ module RbNaCl
         Util.check_length(integer, SCALARBYTES, "integer")
 
         result = Util.zeros(SCALARBYTES)
-        if self.class.scalarmult_curve25519(result, integer, @point) != 0
-          raise CryptoError "Invalid curve25519 result"
+        if self.class.scalarmult_curve25519(result, integer, @point)
+          self.class.new(result)
+        else 
+          raise CryptoError, "Invalid curve25519 result"
         end
-
-        self.class.new(result)
       end
 
       # Return the point serialized as bytes
