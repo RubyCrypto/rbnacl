@@ -9,6 +9,8 @@ RSpec.describe RbNaCl::GroupElement do
 
   let(:alice_mult_bob) { vector :alice_mult_bob }
 
+  let(:degenerate_key) { RbNaCl::GroupElements::Curve25519::DEGENERATE_KEY }
+
   subject { described_class.new(bob_public) }
 
   it "multiplies integers with the base point" do
@@ -21,6 +23,10 @@ RSpec.describe RbNaCl::GroupElement do
 
   it "serializes to bytes" do
     expect(subject.to_bytes).to eq bob_public
+  end
+
+  it "detects degenerate keys" do
+    expect { described_class.new(degenerate_key).mult(alice_private) }.to raise_error RbNaCl::CryptoError
   end
 
   include_examples "serializable"
