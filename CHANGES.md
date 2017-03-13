@@ -1,12 +1,16 @@
-4.0.1 (2016-12-04)
-------------------
+## 4.0.2 (2016-03-12)
+
+* [#157](https://github.com/cryptosphere/rbnacl/pull/157)
+  Raise error on degenerate keys (fixes #152).
+  ([@paragonie-scott], [@tarcieri])
+
+## 4.0.1 (2016-12-04)
 
 * [#148](https://github.com/cryptosphere/rbnacl/pull/148)
   Last minute changes to the ChaCha20Poly1305 API.
   ([@tarcieri])
 
-4.0.0 (2016-12-04)
-------------------
+## 4.0.0 (2016-12-04)
 
 * [#141](https://github.com/cryptosphere/rbnacl/pull/141)
   Add wrappers for ChaCha20Poly1305 AEAD ciphers.
@@ -20,18 +24,18 @@
   Require Ruby 2.2.6+.
   ([@tarcieri])
 
-3.4.0 (2015-05-07)
-------------------
+## 3.4.0 (2015-05-07)
+
 * [#135](https://github.com/cryptosphere/rbnacl/pull/135)
-  Expose RbNaCl::Signatures::Ed25519#keypair_bytes.
+  Expose `RbNaCl::Signatures::Ed25519#keypair_bytes`.
   ([@grempe])
 
 * [#137](https://github.com/cryptosphere/rbnacl/pull/137)
   Expose HMAC-SHA512 (with 64-byte keys)
   ([@mwpastore])
 
-3.3.0 (2015-12-29)
-------------------
+## 3.3.0 (2015-12-29)
+
 * [#105](https://github.com/cryptosphere/rbnacl/pull/105)
   Add salt/personalisation strings for Blake2b.
   ([@namelessjon])
@@ -40,39 +44,39 @@
   Remove use of Thread.exclusive when initializing library.
   ([@tarcieri])
 
-3.2.0 (2015-05-31)
-------------------
+## 3.2.0 (2015-05-31)
+
 * Fix method signature for blake2b
 * RuboCop-friendly codebase
 
-3.1.2 (2014-08-30)
-------------------
+## 3.1.2 (2014-08-30)
+
 * Fix scrypt support with libsodium 0.7.0 (scryptsalsa208sha256)
 
-3.1.1 (2014-06-14)
-------------------
+## 3.1.1 (2014-06-14)
+
 * Fix undefined variable warning
 * RSpec 3 fixups
 * RuboCop
 
-3.1.0 (2014-05-22)
-------------------
-* The scrypt password hashing function: RbNaCl::PasswordHash.scrypt
+## 3.1.0 (2014-05-22)
 
-3.0.1 (2014-05-12)
-------------------
-* Load gem from RBNACL_LIBSODIUM_GEM_LIB_PATH if set. Used by rbnacl-libsodium
+* The scrypt password hashing function: `RbNaCl::PasswordHash.scrypt`
+
+## 3.0.1 (2014-05-12)
+
+* Load gem from `RBNACL_LIBSODIUM_GEM_LIB_PATH` if set. Used by rbnacl-libsodium
   gem to use libsodium compiled from a gem.
 
-3.0.0 (2014-04-22)
-------------------
+## 3.0.0 (2014-04-22)
+
 * Rename RandomNonceBox to SimpleBox (backwards compatibility preserved)
 * Reverse documented order of SimpleBox/RandomNonceBox initialize parameters.
   Technically backwards compatible, but confusing.
 * Ensure all strings are ASCII-8BIT/BINARY encoding prior to use
 
-2.0.0 (2013-11-07)
-------------------
+## 2.0.0 (2013-11-07)
+
 * Add encrypt/decrypt aliases for Crypto::RandomNonceBox
 * Rename Crypto module to RbNaCl module
 * RbNaCl::VerifyKey#verify operand order was reversed. New operand order is
@@ -91,15 +95,14 @@
 * Changes in the low level binding for libsodium and removal of the NaCl module
 * Add a mutex around calls to randombytes in libsodium
 
-1.1.0 (2013-04-19)
-------------------
+## 1.1.0 (2013-04-19)
 
 * Provide API for querying primitives and details about them, such as key
   lengths, nonce lengths, etc.
 * Fixed bug on passing null bytes to sha256, sha512 functions.
 
-1.0.0 (2013-03-08)
-------------------
+## 1.0.0 (2013-03-08)
+
 * Initial release
 
 [@namelessjon]: https://github.com/namelessjon
@@ -108,3 +111,4 @@
 [@grempe]: https://github.com/grempe
 [@mwpastore]: https://github.com/mwpastore
 [@elijh]: https://github.com/elijh
+[@paragonie-scott]: https://github.com/paragonie-scott
