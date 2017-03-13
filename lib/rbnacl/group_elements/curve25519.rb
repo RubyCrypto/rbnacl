@@ -18,6 +18,9 @@ module RbNaCl
       # Order of the standard group
       STANDARD_GROUP_ORDER = 2**252 + 27_742_317_777_372_353_535_851_937_790_883_648_493
 
+      # Degenerate key (all-zeroes, results in an all-zero shared secret)
+      DEGENERATE_KEY = ("\0" * 32).freeze
+
       include KeyComparator
       include Serializable
 
@@ -44,6 +47,8 @@ module RbNaCl
       def initialize(point)
         @point = point.to_str
 
+        raise CryptoError, "degenerate key detected" if @point == DEGENERATE_KEY
+
         # FIXME: really should have a separate constant here for group element size
         # Group elements and scalars are both 32-bits, but that's for convenience
         Util.check_length(@point, SCALARBYTES, "group element")
@@ -61,8 +66,8 @@ module RbNaCl
         Util.check_length(integer, SCALARBYTES, "integer")
 
         result = Util.zeros(SCALARBYTES)
-        self.class.scalarmult_curve25519(result, integer, @point)
 
+        raise CryptoError, "degenerate key detected" unless self.class.scalarmult_curve25519(result, integer, @point)
         self.class.new(result)
       end
 
@@ -79,6 +84,7 @@ module RbNaCl
       #
       # @return [RbNaCl::Point] standard base point (a.k.a. standard group element)
       def self.base
+        # TODO: better support fixed-based scalar multiplication (this glosses over native support)
         @base_point
       end
       class << self
