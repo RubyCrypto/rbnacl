@@ -95,7 +95,7 @@ module RbNaCl
       # Initialize state for Blake2b hash calculation,
       # this will be called automatically from #update if needed
       def reset
-        @instate.release if @instate
+        @instate&.release
         @instate = Blake2bState.new
         self.class.generichash_blake2b_init(@instate.pointer, @key, @key_size, @digest_size, @salt, @personal) ||
           raise(CryptoError, "Hash init failed!")
