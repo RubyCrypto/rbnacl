@@ -64,6 +64,7 @@ module RbNaCl
   require "rbnacl/hash"
   require "rbnacl/hash/sha256"
   require "rbnacl/hash/sha512"
+  require "rbnacl/hash/blake2b_state"
   require "rbnacl/hash/blake2b"
 
   # Password hash functions

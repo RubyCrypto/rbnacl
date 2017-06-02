@@ -28,6 +28,18 @@ module RbNaCl
                        :crypto_generichash_blake2b_salt_personal,
                        [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t, :pointer, :pointer]
 
+      sodium_function :generichash_blake2b_init,
+                      :crypto_generichash_blake2b_init_salt_personal,
+                      [:pointer, :pointer, :size_t, :size_t, :pointer, :pointer]
+
+      sodium_function :generichash_blake2b_update,
+                      :crypto_generichash_blake2b_update,
+                      [:pointer, :pointer, :ulong_long]
+
+      sodium_function :generichash_blake2b_final,
+                      :crypto_generichash_blake2b_final,
+                      [:pointer, :pointer, :size_t]
+
       EMPTY_PERSONAL = ("\0" * PERSONALBYTES).freeze
       EMPTY_SALT     = ("\0" * SALTBYTES).freeze
 
@@ -64,6 +76,8 @@ module RbNaCl
 
         @salt     = opts.fetch(:salt, EMPTY_SALT)
         @salt     = Util.zero_pad(SALTBYTES, @salt)
+        @incycle  = false
+        @instate  = nil
       end
 
       # Calculate a Blake2b digest
@@ -77,6 +91,42 @@ module RbNaCl
           raise(CryptoError, "Hashing failed!")
         digest
       end
+
+      # Initialize state for Blake2b hash calculation,
+      # this will be called automatically from #update if needed
+      def reset
+        @instate.release if @instate
+        @instate = Blake2bState.new
+        self.class.generichash_blake2b_init(@instate.pointer, @key, @key_size, @digest_size, @salt, @personal) ||
+          raise(CryptoError, "Hash init failed!")
+        @incycle = true
+        @digest = nil
+      end
+
+      # Reentrant version of Blake2b digest calculation method
+      #
+      # @param [String] message Message to be hashed
+      def update(message)
+        reset unless @incycle
+        self.class.generichash_blake2b_update(@instate.pointer, message, message.bytesize) ||
+          raise(CryptoError, "Hashing failed!")
+      end
+
+      def <<(message)
+        update(message)
+      end
+
+      # Finalize digest calculation, return cached digest if any
+      #
+      # @return [String] Blake2b digest of the string as raw bytes
+      def final_digest
+        return @digest if @digest
+        @digest = Util.zeros(@digest_size)
+        self.class.generichash_blake2b_final(@instate.pointer, @digest, @digest_size) ||
+          raise(CryptoError, "Hash finalization failed!")
+        @digest
+      end
+      alias digest2 final_digest
     end
   end
 end
