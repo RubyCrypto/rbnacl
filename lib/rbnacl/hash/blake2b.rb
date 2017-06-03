@@ -103,6 +103,13 @@ module RbNaCl
         opts
       end
 
+      private_class_method :validate_opts
+
+      def self.new(opts = {})
+        opts = validate_opts(opts)
+        super
+      end
+
       # Create a new Blake2b hash object
       #
       # @param [Hash] opts Blake2b configuration
@@ -117,7 +124,6 @@ module RbNaCl
       #
       # @return [RbNaCl::Hash::Blake2b] A Blake2b hasher object
       def initialize(opts = {})
-        opts         = self.class.validate_opts(opts)
         @key         = opts[:key]
         @key_size    = opts[:key_size]
         @digest_size = opts[:digest_size]
@@ -132,7 +138,7 @@ module RbNaCl
       # this will be called automatically from #update if needed
       def reset
         @instate.release if @instate
-        @instate = Blake2bState.new
+        @instate = State.new
         self.class.generichash_blake2b_init(@instate.pointer, @key, @key_size, @digest_size, @salt, @personal) ||
           raise(CryptoError, "Hash init failed!")
         @incycle = true
@@ -147,10 +153,7 @@ module RbNaCl
         self.class.generichash_blake2b_update(@instate.pointer, message, message.bytesize) ||
           raise(CryptoError, "Hashing failed!")
       end
-
-      def <<(message)
-        update(message)
-      end
+      alias << update
 
       # Finalize digest calculation, return cached digest if any
       #
@@ -163,17 +166,17 @@ module RbNaCl
           raise(CryptoError, "Hash finalization failed!")
         @digest
       end
-    end
 
-    # The crypto_generichash_blake2b_state struct representation
-    # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_generichash_blake2b.h#L23
-    class Blake2bState < FFI::Struct
-      layout :h, [:uint64, 8],
-             :t, [:uint64, 2],
-             :f, [:uint64, 2],
-             :buf, [:uint8, 2 * 128],
-             :buflen, :size_t,
-             :last_node, :uint8
+      # The crypto_generichash_blake2b_state struct representation
+      # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_generichash_blake2b.h#L23
+      class State < FFI::Struct
+        layout :h, [:uint64, 8],
+               :t, [:uint64, 2],
+               :f, [:uint64, 2],
+               :buf, [:uint8, 2 * 128],
+               :buflen, :size_t,
+               :last_node, :uint8
+      end
     end
   end
 end
