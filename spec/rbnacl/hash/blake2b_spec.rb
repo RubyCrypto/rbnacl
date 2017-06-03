@@ -19,12 +19,21 @@ RSpec.describe RbNaCl::Hash::Blake2b do
 
     it "calculates the correct hash for a reference string" do
       blake2b << reference_string
-      expect(blake2b.digest2).to eq reference_string_hash
+      expect(blake2b.digest).to eq reference_string_hash
     end
 
     it "calculates the correct hash for an empty string" do
       blake2b << ""
-      expect(blake2b.digest2).to eq empty_string_hash
+      expect(blake2b.digest).to eq empty_string_hash
+    end
+
+    it "raise CryptoError when digest called without reset / message" do
+      expect { blake2b.digest }.to raise_error(RbNaCl::CryptoError)
+    end
+
+    it "calculates hash for empty string when digest called directly after reset" do
+      blake2b.reset
+      expect(blake2b.digest).to eq empty_string_hash
     end
   end
 
@@ -47,13 +56,13 @@ RSpec.describe RbNaCl::Hash::Blake2b do
 
       it "calculates keyed hashes correctly" do
         blake2b_wk << reference_string
-        expect(blake2b_wk.digest2).to eq reference_string_hash
+        expect(blake2b_wk.digest).to eq reference_string_hash
       end
 
       it "doesn't accept empty strings as a key" do
         expect do
           blake2b << reference_string
-          blake2b.digest2
+          blake2b.digest
         end.to raise_error(RbNaCl::LengthError)
       end
     end
@@ -80,12 +89,12 @@ RSpec.describe RbNaCl::Hash::Blake2b do
 
       it "calculates personalised hashes correctly" do
         blake2b << reference_string
-        expect(blake2b.digest2).to eq reference_personal_hash
+        expect(blake2b.digest).to eq reference_personal_hash
       end
 
       it "calculates personalised hashes correctly with a short personal" do
         blake2b_sh << reference_string
-        expect(blake2b_sh.digest2).to eq reference_personal_short_hash
+        expect(blake2b_sh.digest).to eq reference_personal_short_hash
       end
     end
   end
@@ -111,12 +120,12 @@ RSpec.describe RbNaCl::Hash::Blake2b do
 
       it "calculates saltised hashes correctly" do
         blake2b << reference_string
-        expect(blake2b.digest2).to eq reference_salt_hash
+        expect(blake2b.digest).to eq reference_salt_hash
       end
 
       it "calculates saltised hashes correctly with a short salt" do
         blake2b_sh << reference_string
-        expect(blake2b_sh.digest2).to eq reference_salt_short_hash
+        expect(blake2b_sh.digest).to eq reference_salt_short_hash
       end
     end
   end

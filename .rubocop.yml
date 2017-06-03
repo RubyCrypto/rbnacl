@@ -35,3 +35,6 @@ Style/SpaceBeforeFirstArg:
 
 Style/GlobalVars:
   Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false

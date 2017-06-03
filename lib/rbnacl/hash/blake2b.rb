@@ -85,7 +85,9 @@ module RbNaCl
       # @param [String] message Message to be hashed
       #
       # @return [String] Blake2b digest of the string as raw bytes
-      def digest(message)
+      def digest(*message)
+        return final_digest if message.empty?
+        message = message[0]
         digest = Util.zeros(@digest_size)
         self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size, @salt, @personal) ||
           raise(CryptoError, "Hashing failed!")
@@ -95,7 +97,7 @@ module RbNaCl
       # Initialize state for Blake2b hash calculation,
       # this will be called automatically from #update if needed
       def reset
-        @instate&.release
+        @instate.release if @instate
         @instate = Blake2bState.new
         self.class.generichash_blake2b_init(@instate.pointer, @key, @key_size, @digest_size, @salt, @personal) ||
           raise(CryptoError, "Hash init failed!")
@@ -116,17 +118,19 @@ module RbNaCl
         update(message)
       end
 
+      private
+
       # Finalize digest calculation, return cached digest if any
       #
       # @return [String] Blake2b digest of the string as raw bytes
       def final_digest
+        raise(CryptoError, "No message to hash yet!") unless @incycle
         return @digest if @digest
         @digest = Util.zeros(@digest_size)
         self.class.generichash_blake2b_final(@instate.pointer, @digest, @digest_size) ||
           raise(CryptoError, "Hash finalization failed!")
         @digest
       end
-      alias digest2 final_digest
     end
   end
 end
