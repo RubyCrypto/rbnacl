@@ -63,7 +63,7 @@ module RbNaCl
     #
     # @return [String] The Blake2b hash digest as raw bytes
     def self.blake2b(data, options = {})
-      Blake2b.new(options).digest(data)
+      Blake2b.digest(data, options)
     end
   end
 end

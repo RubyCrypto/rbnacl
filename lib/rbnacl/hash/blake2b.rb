@@ -43,6 +43,66 @@ module RbNaCl
       EMPTY_PERSONAL = ("\0" * PERSONALBYTES).freeze
       EMPTY_SALT     = ("\0" * SALTBYTES).freeze
 
+      # Calculate a Blake2b digest
+      #
+      # @param [String] message Message to be hashed
+      # @param [Hash] options Blake2b configuration
+      # @option opts [String]  :key for Blake2b keyed mode
+      # @option opts [Integer] :digest_size size of output digest in bytes
+      # @option opts [String]  :salt  Provide a salt to support randomised hashing.
+      #                               This is mixed into the parameters block to start the hashing.
+      # @option opts [Personal] :personal Provide personalisation string to allow pinning a hash for a particular purpose.
+      #                                   This is mixed into the parameters block to start the hashing
+      #
+      # @raise [RbNaCl::LengthError] Invalid length specified for one or more options
+      #
+      # @return [String] Blake2b digest of the string as raw bytes
+      def self.digest(message, options)
+        opts = validate_opts(options)
+        digest = Util.zeros(opts[:digest_size])
+        generichash_blake2b(digest, opts[:digest_size], message, message.bytesize,
+                            opts[:key], opts[:key_size], opts[:salt], opts[:personal]) ||
+          raise(CryptoError, "Hashing failed!")
+        digest
+      end
+
+      # Validate and sanitize values for Blake2b configuration
+      #
+      # @param [Hash] options Blake2b configuration
+      # @option opts [String]  :key for Blake2b keyed mode
+      # @option opts [Integer] :digest_size size of output digest in bytes
+      # @option opts [String]  :salt  Provide a salt to support randomised hashing.
+      #                               This is mixed into the parameters block to start the hashing.
+      # @option opts [Personal] :personal Provide personalisation string to allow pinning a hash for a particular purpose.
+      #                                   This is mixed into the parameters block to start the hashing
+      #
+      # @raise [RbNaCl::LengthError] Invalid length specified for one or more options
+      #
+      # @return [Hash] opts Configuration hash with sanitized values
+      def self.validate_opts(opts)
+        key = opts.fetch(:key, nil)
+        if key
+          key_size = key.bytesize
+          raise LengthError, "key too short" if key_size < KEYBYTES_MIN
+          raise LengthError, "key too long"  if key_size > KEYBYTES_MAX
+        else
+          key_size = 0
+        end
+        opts[:key_size] = key_size
+
+        digest_size = opts.fetch(:digest_size, BYTES_MAX)
+        raise LengthError, "digest size too short" if digest_size < BYTES_MIN
+        raise LengthError, "digest size too long"  if digest_size > BYTES_MAX
+        opts[:digest_size] = digest_size
+
+        personal = opts.fetch(:personal, EMPTY_PERSONAL)
+        opts[:personal] = Util.zero_pad(PERSONALBYTES, personal)
+
+        salt = opts.fetch(:salt, EMPTY_SALT)
+        opts[:salt] = Util.zero_pad(SALTBYTES, salt)
+        opts
+      end
+
       # Create a new Blake2b hash object
       #
       # @param [Hash] opts Blake2b configuration
@@ -57,41 +117,15 @@ module RbNaCl
       #
       # @return [RbNaCl::Hash::Blake2b] A Blake2b hasher object
       def initialize(opts = {})
-        @key = opts.fetch(:key, nil)
+        opts         = self.class.validate_opts(opts)
+        @key         = opts[:key]
+        @key_size    = opts[:key_size]
+        @digest_size = opts[:digest_size]
+        @personal    = opts[:personal]
+        @salt        = opts[:salt]
 
-        if @key
-          @key_size = @key.bytesize
-          raise LengthError, "key too short" if @key_size < KEYBYTES_MIN
-          raise LengthError, "key too long"  if @key_size > KEYBYTES_MAX
-        else
-          @key_size = 0
-        end
-
-        @digest_size = opts.fetch(:digest_size, BYTES_MAX)
-        raise LengthError, "digest size too short" if @digest_size < BYTES_MIN
-        raise LengthError, "digest size too long"  if @digest_size > BYTES_MAX
-
-        @personal = opts.fetch(:personal, EMPTY_PERSONAL)
-        @personal = Util.zero_pad(PERSONALBYTES, @personal)
-
-        @salt     = opts.fetch(:salt, EMPTY_SALT)
-        @salt     = Util.zero_pad(SALTBYTES, @salt)
         @incycle  = false
         @instate  = nil
-      end
-
-      # Calculate a Blake2b digest
-      #
-      # @param [String] message Message to be hashed
-      #
-      # @return [String] Blake2b digest of the string as raw bytes
-      def digest(*message)
-        return final_digest if message.empty?
-        message = message[0]
-        digest = Util.zeros(@digest_size)
-        self.class.generichash_blake2b(digest, @digest_size, message, message.bytesize, @key, @key_size, @salt, @personal) ||
-          raise(CryptoError, "Hashing failed!")
-        digest
       end
 
       # Initialize state for Blake2b hash calculation,
@@ -118,12 +152,10 @@ module RbNaCl
         update(message)
       end
 
-      private
-
       # Finalize digest calculation, return cached digest if any
       #
       # @return [String] Blake2b digest of the string as raw bytes
-      def final_digest
+      def digest
         raise(CryptoError, "No message to hash yet!") unless @incycle
         return @digest if @digest
         @digest = Util.zeros(@digest_size)
@@ -131,6 +163,17 @@ module RbNaCl
           raise(CryptoError, "Hash finalization failed!")
         @digest
       end
+    end
+
+    # The crypto_generichash_blake2b_state struct representation
+    # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_generichash_blake2b.h#L23
+    class Blake2bState < FFI::Struct
+      layout :h, [:uint64, 8],
+             :t, [:uint64, 2],
+             :f, [:uint64, 2],
+             :buf, [:uint8, 2 * 128],
+             :buflen, :size_t,
+             :last_node, :uint8
     end
   end
 end
