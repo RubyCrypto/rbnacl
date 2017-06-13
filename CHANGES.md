@@ -1,4 +1,10 @@
-## 4.0.2 (2016-03-12)
+## 5.0.0 (2017-06-13)
+
+* [#159](https://github.com/cryptosphere/rbnacl/pull/159)
+  Support the BLAKE2b Initialize-Update-Finalize API.
+  ([@fudanchii])
+
+## 4.0.2 (2017-03-12)
 
 * [#157](https://github.com/cryptosphere/rbnacl/pull/157)
   Raise error on degenerate keys (fixes #152).
@@ -112,3 +118,4 @@
 [@mwpastore]: https://github.com/mwpastore
 [@elijh]: https://github.com/elijh
 [@paragonie-scott]: https://github.com/paragonie-scott
+[@fudanchii]: https://github.com/fudanchii

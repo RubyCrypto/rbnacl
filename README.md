@@ -6,10 +6,10 @@
 [![Coverage Status](https://coveralls.io/repos/cryptosphere/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/cryptosphere/rbnacl)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cryptosphere/rbnacl/blob/master/LICENSE.txt)
 
-_NOTE: This is the 4.x **stable** branch of RbNaCl. For the 3.x **legacy**
+_NOTE: This is the 5.x **stable** branch of RbNaCl. For the 4.x **legacy**
 branch, please see:_
 
-https://github.com/cryptosphere/rbnacl/tree/3-x-stable
+https://github.com/cryptosphere/rbnacl/tree/4-x-stable
 
 A Ruby binding to the state-of-the-art [Networking and Cryptography][nacl]
 library by [Daniel J. Bernstein][djb]. This is **NOT** Google Native Client.
