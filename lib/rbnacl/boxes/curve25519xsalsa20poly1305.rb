@@ -18,7 +18,7 @@ module RbNaCl
     #   #=> #<RbNaCl::PrivateKey ...>
     #
     #   # send bobkey.public_key to alice
-    #   # recieve alice's public key, alicepk
+    #   # receive alice's public key, alicepk
     #   # NB: This is actually the hard part of the system.  How to do it securely
     #   # is left as an exercise to for the reader.
     #   alice_pubkey = "..."
