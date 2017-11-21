@@ -4,11 +4,11 @@
 RSpec.shared_examples "aead" do
   let(:corrupt_ciphertext) { ciphertext.succ }
   let(:trunc_ciphertext)   { ciphertext[0, 20] }
-  let(:invalid_nonce)      { nonce[0, nonce.bytesize/2] } # too short!
+  let(:invalid_nonce)      { nonce[0, nonce.bytesize / 2] } # too short!
   let(:invalid_nonce_long) { nonce + nonce } # too long!
-  let(:nonce_error_regex)  { %r{Nonce.*(Expected #{aead.nonce_bytes})} }
+  let(:nonce_error_regex)  { /Nonce.*(Expected #{aead.nonce_bytes})/ }
   let(:corrupt_ad)         { ad.succ }
-  let(:trunc_ad)           { ad[0, ad.bytesize/2] }
+  let(:trunc_ad)           { ad[0, ad.bytesize / 2] }
 
   let(:aead) { described_class.new(key) }
 
@@ -36,19 +36,27 @@ RSpec.shared_examples "aead" do
     end
 
     it "raises on a short nonce" do
-      expect { aead.encrypt(invalid_nonce, message, ad) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        aead.encrypt(invalid_nonce, message, ad)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { aead.encrypt(invalid_nonce_long, message, ad) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        aead.encrypt(invalid_nonce_long, message, ad)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "works with an empty message" do
-      expect { aead.encrypt(nonce, nil, ad)}.to_not raise_error
+      expect do
+        aead.encrypt(nonce, nil, ad)
+      end.to_not raise_error
     end
 
     it "works with an empty additional data" do
-      expect{ aead.encrypt(nonce, message, nil)}.to_not raise_error
+      expect do
+        aead.encrypt(nonce, message, nil)
+      end.to_not raise_error
     end
   end
 
@@ -58,27 +66,39 @@ RSpec.shared_examples "aead" do
     end
 
     it "raises on a truncated message to decrypt" do
-      expect { aead.decrypt(nonce, trunc_ciphertext, ad) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect do
+        aead.decrypt(nonce, trunc_ciphertext, ad)
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a corrupt ciphertext" do
-      expect { aead.decrypt(nonce, corrupt_ciphertext, ad) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect do
+        aead.decrypt(nonce, corrupt_ciphertext, ad)
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises when the additional data is truncated" do
-      expect { aead.decrypt(nonce, ciphertext, corrupt_ad) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect do
+        aead.decrypt(nonce, ciphertext, corrupt_ad)
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises when the additional data is corrupt " do
-      expect { aead.decrypt(nonce, ciphertext, trunc_ad) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect do
+        aead.decrypt(nonce, ciphertext, trunc_ad)
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a short nonce" do
-      expect { aead.decrypt(invalid_nonce, message, ad) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        aead.decrypt(invalid_nonce, message, ad)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { aead.decrypt(invalid_nonce_long, message, ad) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        aead.decrypt(invalid_nonce_long, message, ad)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
   end
 end

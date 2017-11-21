@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 # NaCl/libsodium for Ruby
+# rubocop:disable Metrics/ModuleLength
 module RbNaCl
   # Reference library of test vectors used to verify the software is correct
   TEST_VECTORS = {
@@ -39,6 +40,8 @@ module RbNaCl
     #
     sign_private:   "b18e1d0045995ec3d010c387ccfeb984d783af8fbb0f40fa7db126d889f6dadd",
     sign_public:    "77f48b59caeda77751ed138b0ec667ff50f8768c25d48309a8f386a2bad187fb",
+    sign_keypair:   "b18e1d0045995ec3d010c387ccfeb984d783af8fbb0f40fa7db126d889f6dadd" \
+                    "77f48b59caeda77751ed138b0ec667ff50f8768c25d48309a8f386a2bad187fb",
     sign_message:   "916c7d1d268fc0e77c1bef238432573c39be577bbea0998936add2b50a653171" \
                     "ce18a542b0b7f96c1691a3be6031522894a8634183eda38798a0c5d5d79fbd01" \
                     "dd04a8646d71873b77b221998a81922d8105f892316369d5224c9983372d2313" \

@@ -31,7 +31,7 @@ module RbNaCl
 
       sodium_function :scalarmult_curve25519,
                       :crypto_scalarmult_curve25519,
-                      [:pointer, :pointer, :pointer]
+                      %i[pointer pointer pointer]
 
       # Number of bytes in a scalar on this curve
       SCALARBYTES = 32

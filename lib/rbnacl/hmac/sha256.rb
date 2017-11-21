@@ -24,11 +24,11 @@ module RbNaCl
 
       sodium_function :auth_hmacsha256,
                       :crypto_auth_hmacsha256,
-                      [:pointer, :pointer, :ulong_long, :pointer]
+                      %i[pointer pointer ulong_long pointer]
 
       sodium_function :auth_hmacsha256_verify,
                       :crypto_auth_hmacsha256_verify,
-                      [:pointer, :pointer, :ulong_long, :pointer]
+                      %i[pointer pointer ulong_long pointer]
 
       private
 

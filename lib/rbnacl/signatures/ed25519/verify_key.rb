@@ -21,7 +21,7 @@ module RbNaCl
 
         sodium_function  :sign_ed25519_open,
                          :crypto_sign_ed25519_open,
-                         [:pointer, :pointer, :pointer, :ulong_long, :pointer]
+                         %i[pointer pointer pointer ulong_long pointer]
 
         # Create a new VerifyKey object from a public key.
         #

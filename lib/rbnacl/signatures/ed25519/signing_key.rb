@@ -32,11 +32,11 @@ module RbNaCl
 
         sodium_function  :sign_ed25519,
                          :crypto_sign_ed25519,
-                         [:pointer, :pointer, :pointer, :ulong_long, :pointer]
+                         %i[pointer pointer pointer ulong_long pointer]
 
         sodium_function  :sign_ed25519_seed_keypair,
                          :crypto_sign_ed25519_seed_keypair,
-                         [:pointer, :pointer, :pointer]
+                         %i[pointer pointer pointer]
 
         attr_reader :verify_key
 

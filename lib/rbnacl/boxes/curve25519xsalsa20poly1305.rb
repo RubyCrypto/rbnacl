@@ -77,15 +77,15 @@ module RbNaCl
 
       sodium_function :box_curve25519xsalsa20poly1305_beforenm,
                       :crypto_box_curve25519xsalsa20poly1305_beforenm,
-                      [:pointer, :pointer, :pointer]
+                      %i[pointer pointer pointer]
 
       sodium_function :box_curve25519xsalsa20poly1305_open_afternm,
                       :crypto_box_curve25519xsalsa20poly1305_open_afternm,
-                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
+                      %i[pointer pointer ulong_long pointer pointer]
 
       sodium_function :box_curve25519xsalsa20poly1305_afternm,
                       :crypto_box_curve25519xsalsa20poly1305_afternm,
-                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
+                      %i[pointer pointer ulong_long pointer pointer]
 
       # Create a new Box
       #
