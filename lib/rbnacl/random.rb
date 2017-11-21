@@ -1,8 +1,6 @@
 # encoding: binary
 # frozen_string_literal: true
 
-require "thread"
-
 module RbNaCl
   # Functions for random number generation
   #
@@ -15,7 +13,7 @@ module RbNaCl
 
     sodium_function :c_random_bytes,
                     :randombytes_buf,
-                    [:pointer, :ulong_long]
+                    %i[pointer ulong_long]
 
     # Returns a string of random bytes
     #

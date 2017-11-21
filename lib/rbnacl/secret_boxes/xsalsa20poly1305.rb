@@ -31,11 +31,11 @@ module RbNaCl
 
       sodium_function :secretbox_xsalsa20poly1305,
                       :crypto_secretbox_xsalsa20poly1305,
-                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
+                      %i[pointer pointer ulong_long pointer pointer]
 
       sodium_function :secretbox_xsalsa20poly1305_open,
                       :crypto_secretbox_xsalsa20poly1305_open,
-                      [:pointer, :pointer, :ulong_long, :pointer, :pointer]
+                      %i[pointer pointer ulong_long pointer pointer]
 
       # Create a new SecretBox
       #

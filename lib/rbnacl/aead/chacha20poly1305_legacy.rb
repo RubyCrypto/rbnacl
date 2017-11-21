@@ -16,11 +16,11 @@ module RbNaCl
 
       sodium_function :aead_chacha20poly1305_encrypt,
                       :crypto_aead_chacha20poly1305_encrypt,
-                      [:pointer, :pointer, :pointer, :ulong_long, :pointer, :ulong_long, :pointer, :pointer, :pointer]
+                      %i[pointer pointer pointer ulong_long pointer ulong_long pointer pointer pointer]
 
       sodium_function :aead_chacha20poly1305_decrypt,
                       :crypto_aead_chacha20poly1305_decrypt,
-                      [:pointer, :pointer, :pointer, :pointer, :ulong_long, :pointer, :ulong_long, :pointer, :pointer]
+                      %i[pointer pointer pointer pointer ulong_long pointer ulong_long pointer pointer]
 
       private
 

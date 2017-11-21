@@ -16,11 +16,15 @@ RSpec.shared_examples "box" do
     end
 
     it "raises on a short nonce" do
-      expect { box.box(invalid_nonce, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        box.box(invalid_nonce, message)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { box.box(invalid_nonce_long, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        box.box(invalid_nonce_long, message)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
   end
 
@@ -30,19 +34,27 @@ RSpec.shared_examples "box" do
     end
 
     it "raises on a truncated message to decrypt" do
-      expect { box.open(nonce, ciphertext[0, 64]) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect do
+        box.open(nonce, ciphertext[0, 64])
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a corrupt ciphertext" do
-      expect { box.open(nonce, corrupt_ciphertext) }.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+      expect do
+        box.open(nonce, corrupt_ciphertext)
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
     it "raises on a short nonce" do
-      expect { box.open(invalid_nonce, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        box.open(invalid_nonce, message)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
 
     it "raises on a long nonce" do
-      expect { box.open(invalid_nonce_long, message) }.to raise_error(RbNaCl::LengthError, nonce_error_regex)
+      expect do
+        box.open(invalid_nonce_long, message)
+      end.to raise_error(RbNaCl::LengthError, nonce_error_regex)
     end
   end
 end

@@ -106,16 +106,24 @@ RSpec.describe RbNaCl::Util do
 
   context "check_length" do
     it "accepts strings of the correct length" do
-      expect { RbNaCl::Util.check_length("A" * 4, 4, "Test String") }.not_to raise_error
+      expect do
+        RbNaCl::Util.check_length("A" * 4, 4, "Test String")
+      end.not_to raise_error
     end
     it "rejects strings which are too short" do
-      expect { RbNaCl::Util.check_length("A" * 3, 4, "Test String") }.to raise_error(RbNaCl::LengthError, "Test String was 3 bytes (Expected 4)")
+      expect do
+        RbNaCl::Util.check_length("A" * 3, 4, "Test String")
+      end.to raise_error(RbNaCl::LengthError, "Test String was 3 bytes (Expected 4)")
     end
     it "rejects strings which are too long" do
-      expect { RbNaCl::Util.check_length("A" * 5, 4, "Test String") }.to raise_error(RbNaCl::LengthError, "Test String was 5 bytes (Expected 4)")
+      expect do
+        RbNaCl::Util.check_length("A" * 5, 4, "Test String")
+      end.to raise_error(RbNaCl::LengthError, "Test String was 5 bytes (Expected 4)")
     end
     it "rejects nil strings" do
-      expect { RbNaCl::Util.check_length(nil, 4, "Test String") }.to raise_error(RbNaCl::LengthError, "Test String was nil (Expected 4)")
+      expect do
+        RbNaCl::Util.check_length(nil, 4, "Test String")
+      end.to raise_error(RbNaCl::LengthError, "Test String was nil (Expected 4)")
     end
   end
 

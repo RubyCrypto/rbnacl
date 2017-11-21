@@ -36,19 +36,19 @@ module RbNaCl
       sodium_function_with_return_code(
         :pwhash,
         :crypto_pwhash_argon2i,
-        [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t, :int]
+        %i[pointer ulong_long pointer ulong_long pointer ulong_long size_t int]
       )
 
       sodium_function(
         :pwhash_str,
         :crypto_pwhash_argon2i_str,
-        [:pointer, :pointer, :ulong_long, :ulong_long, :size_t]
+        %i[pointer pointer ulong_long ulong_long size_t]
       )
 
       sodium_function(
         :pwhash_str_verify,
         :crypto_pwhash_argon2i_str_verify,
-        [:pointer, :pointer, :ulong_long]
+        %i[pointer pointer ulong_long]
       )
 
       ALG_DEFAULT = ALG_ARGON2I13

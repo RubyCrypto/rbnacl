@@ -11,7 +11,7 @@ module RbNaCl
       sodium_constant :BYTES
       sodium_function :hash_sha256,
                       :crypto_hash_sha256,
-                      [:pointer, :pointer, :ulong_long]
+                      %i[pointer pointer ulong_long]
     end
   end
 end

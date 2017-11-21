@@ -23,7 +23,7 @@ module RbNaCl
         raise "Sorry, you need to install libsodium #{MINIMUM_LIBSODIUM_VERSION}+. You have #{Version::STRING} installed"
       end
 
-      ARGON2_SUPPORTED = (INSTALLED_VERSION <=> MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2) == -1 ? false : true
+      ARGON2_SUPPORTED = (INSTALLED_VERSION <=> MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2) != -1
 
       # Determine if a given feature is supported based on Sodium version
       def self.supported_version?(version)

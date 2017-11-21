@@ -26,19 +26,19 @@ module RbNaCl
 
       sodium_function  :generichash_blake2b,
                        :crypto_generichash_blake2b_salt_personal,
-                       [:pointer, :size_t, :pointer, :ulong_long, :pointer, :size_t, :pointer, :pointer]
+                       %i[pointer size_t pointer ulong_long pointer size_t pointer pointer]
 
       sodium_function :generichash_blake2b_init,
                       :crypto_generichash_blake2b_init_salt_personal,
-                      [:pointer, :pointer, :size_t, :size_t, :pointer, :pointer]
+                      %i[pointer pointer size_t size_t pointer pointer]
 
       sodium_function :generichash_blake2b_update,
                       :crypto_generichash_blake2b_update,
-                      [:pointer, :pointer, :ulong_long]
+                      %i[pointer pointer ulong_long]
 
       sodium_function :generichash_blake2b_final,
                       :crypto_generichash_blake2b_final,
-                      [:pointer, :pointer, :size_t]
+                      %i[pointer pointer size_t]
 
       EMPTY_PERSONAL = ("\0" * PERSONALBYTES).freeze
       EMPTY_SALT     = ("\0" * SALTBYTES).freeze

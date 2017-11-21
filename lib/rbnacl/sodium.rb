@@ -36,22 +36,22 @@ module RbNaCl
     end
 
     def sodium_function(name, function, arguments)
-      module_eval <<-eos, __FILE__, __LINE__ + 1
+      module_eval <<-RUBY, __FILE__, __LINE__ + 1
       attach_function #{function.inspect}, #{arguments.inspect}, :int
       def self.#{name}(*args)
         ret = #{function}(*args)
         ret == 0
       end
-      eos
+      RUBY
     end
 
     def sodium_function_with_return_code(name, function, arguments)
-      module_eval <<-eos, __FILE__, __LINE__ + 1
+      module_eval <<-RUBY, __FILE__, __LINE__ + 1
       attach_function #{function.inspect}, #{arguments.inspect}, :int
       def self.#{name}(*args)
         #{function}(*args)
       end
-      eos
+      RUBY
     end
   end
 end

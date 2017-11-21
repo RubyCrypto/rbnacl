@@ -29,11 +29,11 @@ module RbNaCl
 
       sodium_function :onetimeauth_poly1305,
                       :crypto_onetimeauth_poly1305,
-                      [:pointer, :pointer, :ulong_long, :pointer]
+                      %i[pointer pointer ulong_long pointer]
 
       sodium_function :onetimeauth_poly1305_verify,
                       :crypto_onetimeauth_poly1305_verify,
-                      [:pointer, :pointer, :ulong_long, :pointer]
+                      %i[pointer pointer ulong_long pointer]
 
       private
 

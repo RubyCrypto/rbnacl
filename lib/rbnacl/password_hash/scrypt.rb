@@ -26,7 +26,7 @@ module RbNaCl
 
       sodium_function :scrypt,
                       :crypto_pwhash_scryptsalsa208sha256,
-                      [:pointer, :ulong_long, :pointer, :ulong_long, :pointer, :ulong_long, :size_t]
+                      %i[pointer ulong_long pointer ulong_long pointer ulong_long size_t]
 
       # Create a new SCrypt password hash object
       #
