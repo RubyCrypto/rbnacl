@@ -19,7 +19,7 @@ rvm:
 
 env:
   - LIBSODIUM_VERSION=1.0.0  # Minimum supported
-  - LIBSODIUM_VERSION=1.0.11 # Latest released
+  - LIBSODIUM_VERSION=1.0.15.1 # Latest released
 
 matrix:
   fast_finish: true
