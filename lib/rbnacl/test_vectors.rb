@@ -163,6 +163,23 @@ module RbNaCl
     auth_hmacsha512:    "b2a31b8d4e01afcab2ee545b5caf4e3d212a99d7b3a116a97cec8e83c32e107d" \
                         "270e3921f69016c267a63ab4b226449a0dee0dc7dcb897a9bce9d27d788f8e8d",
 
+    # HMAC-SHA Identifiers and Test Vectors
+    # ref: https://tools.ietf.org/html/rfc4231#section-4.8
+    #
+    auth_hmac_key:       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" \
+                         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" \
+                         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" \
+                         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" \
+                         "aaaaaa",
+    auth_hmac_data:      "5468697320697320612074657374207573696e672061206c6172676572207468" \
+                         "616e20626c6f636b2d73697a65206b657920616e642061206c61726765722074" \
+                         "68616e20626c6f636b2d73697a6520646174612e20546865206b6579206e6565" \
+                         "647320746f20626520686173686564206265666f7265206265696e6720757365" \
+                         "642062792074686520484d414320616c676f726974686d2e",
+    auth_hmacsha256_tag: "9b09ffa71b942fcb27635fbcd5b0e944bfdc63644f0713938a7f51535c3a35e2",
+    auth_hmacsha512_tag: "e37b6a775dc87dbaa4dfa9f96e5e3ffddebd71f8867289865df5a32d20cdc944" \
+                         "b6022cac3c4982b10d5eeb55c3e4de15134676fb6de0446065c97440fa8c6a58",
+
     # AEAD ChaCha20-Poly1305 original implementation test vectors
     # Taken from https://tools.ietf.org/html/draft-agl-tls-chacha20poly1305-04
     aead_chacha20poly1305_orig_key:             "4290bcb154173531f314af57f3be3b5006da371ece272afa1b5dbdd1100a1007",

@@ -22,23 +22,60 @@ module RbNaCl
       sodium_constant :BYTES
       sodium_constant :KEYBYTES
 
-      sodium_function :auth_hmacsha512,
-                      :crypto_auth_hmacsha512,
-                      %i[pointer pointer ulong_long pointer]
+      sodium_function :auth_hmacsha512_init,
+                      :crypto_auth_hmacsha512_init,
+                      %i[pointer pointer size_t]
 
-      sodium_function :auth_hmacsha512_verify,
-                      :crypto_auth_hmacsha512_verify,
-                      %i[pointer pointer ulong_long pointer]
+      sodium_function :auth_hmacsha512_update,
+                      :crypto_auth_hmacsha512_update,
+                      %i[pointer pointer ulong_long]
+
+      sodium_function :auth_hmacsha512_final,
+                      :crypto_auth_hmacsha512_final,
+                      %i[pointer pointer]
+
+      # Create instance without checking key length
+      #
+      # RFC 2104 HMAC
+      # The key for HMAC can be of any length.
+      #
+      # see https://tools.ietf.org/html/rfc2104#section-3
+      def initialize(key)
+        @key = Util.check_hmac_key(key, "#{self.class} key")
+      end
 
       private
 
       def compute_authenticator(authenticator, message)
-        self.class.auth_hmacsha512(authenticator, message, message.bytesize, key)
+        state = State.new
+
+        self.class.auth_hmacsha512_init(state, key, key.bytesize)
+        self.class.auth_hmacsha512_update(state, message, message.bytesize)
+        self.class.auth_hmacsha512_final(state, authenticator)
       end
 
+      # libsodium crypto_auth_hmacsha512_verify works only for 32 byte keys
+      # ref: https://github.com/jedisct1/libsodium/blob/master/src/libsodium/crypto_auth/hmacsha512/auth_hmacsha512.c#L109
       def verify_message(authenticator, message)
-        self.class.auth_hmacsha512_verify(authenticator, message, message.bytesize, key)
+        correct = Util.zeros(BYTES)
+        compute_authenticator(correct, message)
+        Util.verify64(correct, authenticator)
       end
+    end
+
+    # The crypto_auth_hmacsha512_state struct representation
+    # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_auth_hmacsha512.h
+    class SHA512State < FFI::Struct
+      layout :state, [:uint64, 8],
+             :count, [:uint64, 2],
+             :buf, [:uint8, 128]
+    end
+
+    # The crypto_hash_sha512_state struct representation
+    # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_hash_sha512.h
+    class State < FFI::Struct
+      layout :ictx, SHA512State,
+             :octx, SHA512State
     end
   end
 end
