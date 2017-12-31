@@ -11,6 +11,7 @@ $RBNACL_SELF_TEST = false
 require "bundler/setup"
 require "rbnacl/libsodium"
 require "shared/box"
+require "shared/sealed_box"
 require "shared/authenticator"
 require "shared/key_equality"
 require "shared/serializable"
