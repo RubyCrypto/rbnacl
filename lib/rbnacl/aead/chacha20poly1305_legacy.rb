@@ -10,9 +10,9 @@ module RbNaCl
 
       sodium_type :aead
       sodium_primitive :chacha20poly1305
-      sodium_constant :KEYBYTES
-      sodium_constant :NPUBBYTES
-      sodium_constant :ABYTES
+      sodium_type_primitive_constant :KEYBYTES
+      sodium_type_primitive_constant :NPUBBYTES
+      sodium_type_primitive_constant :ABYTES
 
       sodium_function :aead_chacha20poly1305_encrypt,
                       :crypto_aead_chacha20poly1305_encrypt,

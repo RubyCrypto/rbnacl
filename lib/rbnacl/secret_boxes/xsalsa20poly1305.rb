@@ -24,10 +24,10 @@ module RbNaCl
 
       sodium_type :secretbox
       sodium_primitive :xsalsa20poly1305
-      sodium_constant :KEYBYTES
-      sodium_constant :NONCEBYTES
-      sodium_constant :ZEROBYTES
-      sodium_constant :BOXZEROBYTES
+      sodium_type_primitive_constant :KEYBYTES
+      sodium_type_primitive_constant :NONCEBYTES
+      sodium_type_primitive_constant :ZEROBYTES
+      sodium_type_primitive_constant :BOXZEROBYTES
 
       sodium_function :secretbox_xsalsa20poly1305,
                       :crypto_secretbox_xsalsa20poly1305,

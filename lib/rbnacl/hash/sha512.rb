@@ -8,7 +8,7 @@ module RbNaCl
       extend Sodium
       sodium_type :hash
       sodium_primitive :sha512
-      sodium_constant :BYTES
+      sodium_type_primitive_constant :BYTES
       sodium_function :hash_sha512,
                       :crypto_hash_sha512,
                       %i[pointer pointer ulong_long]

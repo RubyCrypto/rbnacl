@@ -24,8 +24,8 @@ module RbNaCl
 
       sodium_type :onetimeauth
       sodium_primitive :poly1305
-      sodium_constant :BYTES
-      sodium_constant :KEYBYTES
+      sodium_type_primitive_constant :BYTES
+      sodium_type_primitive_constant :KEYBYTES
 
       sodium_function :onetimeauth_poly1305,
                       :crypto_onetimeauth_poly1305,

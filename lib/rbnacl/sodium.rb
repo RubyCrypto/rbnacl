@@ -29,10 +29,14 @@ module RbNaCl
       sodium_primitive
     end
 
-    def sodium_constant(constant, name = constant)
+    def sodium_type_primitive_constant(constant, name = constant)
       fn = "crypto_#{sodium_type}_#{sodium_primitive}_#{constant.to_s.downcase}"
-      attach_function fn, [], :size_t
-      const_set(name, public_send(fn))
+      _generic_constant(fn, name)
+    end
+
+    def sodium_type_constant(constant, name = constant)
+      fn = "crypto_#{sodium_type}_#{constant.to_s.downcase}"
+      _generic_constant(fn, name)
     end
 
     def sodium_function(name, function, arguments)
@@ -52,6 +56,16 @@ module RbNaCl
         #{function}(*args)
       end
       RUBY
+    end
+
+    # this alias exists to ensure we have a stable API
+    # remove for 6.0
+    alias sodium_constant sodium_type_primitive_constant
+
+    private
+    def _generic_constant(fn, name)
+      attach_function fn, [], :size_t
+      const_set(name, public_send(fn))
     end
   end
 end

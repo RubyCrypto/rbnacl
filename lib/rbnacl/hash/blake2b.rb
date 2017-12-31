@@ -17,12 +17,12 @@ module RbNaCl
 
       sodium_type :generichash
       sodium_primitive :blake2b
-      sodium_constant :BYTES_MIN
-      sodium_constant :BYTES_MAX
-      sodium_constant :KEYBYTES_MIN
-      sodium_constant :KEYBYTES_MAX
-      sodium_constant  :SALTBYTES
-      sodium_constant  :PERSONALBYTES
+      sodium_type_primitive_constant :BYTES_MIN
+      sodium_type_primitive_constant :BYTES_MAX
+      sodium_type_primitive_constant :KEYBYTES_MIN
+      sodium_type_primitive_constant :KEYBYTES_MAX
+      sodium_type_primitive_constant  :SALTBYTES
+      sodium_type_primitive_constant  :PERSONALBYTES
 
       sodium_function  :generichash_blake2b,
                        :crypto_generichash_blake2b_salt_personal,

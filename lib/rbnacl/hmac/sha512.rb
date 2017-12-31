@@ -19,8 +19,8 @@ module RbNaCl
 
       sodium_type :auth
       sodium_primitive :hmacsha512
-      sodium_constant :BYTES
-      sodium_constant :KEYBYTES
+      sodium_type_primitive_constant :BYTES
+      sodium_type_primitive_constant :KEYBYTES
 
       sodium_function :auth_hmacsha512,
                       :crypto_auth_hmacsha512,

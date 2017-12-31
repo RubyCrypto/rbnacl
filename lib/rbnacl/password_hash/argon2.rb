@@ -15,15 +15,15 @@ module RbNaCl
       sodium_type :pwhash
       sodium_primitive :argon2i
 
-      sodium_constant :ALG_ARGON2I13
-      sodium_constant :SALTBYTES
-      sodium_constant :STRBYTES
-      sodium_constant :OPSLIMIT_INTERACTIVE  # 4
-      sodium_constant :MEMLIMIT_INTERACTIVE  # 2 ** 25 (32mb)
-      sodium_constant :OPSLIMIT_MODERATE     # 6
-      sodium_constant :MEMLIMIT_MODERATE     # 2 ** 27 (128mb)
-      sodium_constant :OPSLIMIT_SENSITIVE    # 8
-      sodium_constant :MEMLIMIT_SENSITIVE    # 2 ** 29 (512mb)
+      sodium_type_primitive_constant :ALG_ARGON2I13
+      sodium_type_primitive_constant :SALTBYTES
+      sodium_type_primitive_constant :STRBYTES
+      sodium_type_primitive_constant :OPSLIMIT_INTERACTIVE  # 4
+      sodium_type_primitive_constant :MEMLIMIT_INTERACTIVE  # 2 ** 25 (32mb)
+      sodium_type_primitive_constant :OPSLIMIT_MODERATE     # 6
+      sodium_type_primitive_constant :MEMLIMIT_MODERATE     # 2 ** 27 (128mb)
+      sodium_type_primitive_constant :OPSLIMIT_SENSITIVE    # 8
+      sodium_type_primitive_constant :MEMLIMIT_SENSITIVE    # 2 ** 29 (512mb)
 
       ARGON2_MIN_OUTLEN = 16
       ARGON2_MAX_OUTLEN = 0xFFFFFFFF
