@@ -17,3 +17,4 @@ test/version_tmp
 tmp
 libsodium
 libsodium-*.tar.gz
+.rakeTasks
