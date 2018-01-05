@@ -57,6 +57,17 @@ For more information on NaCl's goals, see Dan Bernstein's presentation
 
 [Yes.](http://news.ycombinator.com/item?id=3067434)
 
+## Help and Discussion
+
+Have questions? Want to suggest a feature or change? Join a discussion group:
+
+* [Crypto.rb Gitter]: web-based chat about Ruby crypto projects including **RbNaCl**.
+* [Crypto.rb Google Group]: join via web or email ([crypto-rb+subscribe@googlegroups.com])
+
+[Crypto.rb Gitter]: https://gitter.im/crypto-rb/Lobby
+[Crypto.rb Google Group]: https://groups.google.com/forum/#!forum/crypto-rb
+[crypto-rb+subscribe@googlegroups.com]: mailto:crypto-rb+subscribe@googlegroups.com?subject=subscribe
+
 ## Supported platforms
 
 You can use RbNaCl on platforms libsodium is supported (see below).
