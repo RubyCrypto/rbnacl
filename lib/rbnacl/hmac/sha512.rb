@@ -42,6 +42,32 @@ module RbNaCl
       # see https://tools.ietf.org/html/rfc2104#section-3
       def initialize(key)
         @key = Util.check_hmac_key(key, "#{self.class} key")
+        @state = State.new
+        @authenticator = Util.zeros(tag_bytes)
+
+        self.class.auth_hmacsha512_init(@state, key, key.bytesize)
+      end
+
+      # Compute authenticator for message
+      #
+      # @params [#to_str] message message to construct an authenticator for
+      def update(message)
+        self.class.auth_hmacsha512_update(@state, message, message.bytesize)
+        self.class.auth_hmacsha512_final(@state.clone, @authenticator)
+      end
+
+      # Return the authenticator, as raw bytes
+      #
+      # @return [String] The authenticator, as raw bytes
+      def digest
+        @authenticator
+      end
+
+      # Return the authenticator, as hex string
+      #
+      # @return [String] The authenticator, as hex string
+      def hexdigest
+        @authenticator.unpack('H*').last
       end
 
       private
