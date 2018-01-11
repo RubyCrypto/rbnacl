@@ -67,7 +67,7 @@ module RbNaCl
       #
       # @return [String] The authenticator, as hex string
       def hexdigest
-        @authenticator.unpack('H*').last
+        @authenticator.unpack("H*").last
       end
 
       private

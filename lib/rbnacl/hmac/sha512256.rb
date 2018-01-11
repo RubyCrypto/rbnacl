@@ -67,7 +67,7 @@ module RbNaCl
       #
       # @return [String] The authenticator, as hex string
       def hexdigest
-        @authenticator.unpack('H*').last
+        @authenticator.unpack("H*").last
       end
 
       private
@@ -91,8 +91,8 @@ module RbNaCl
     # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_auth_hmacsha512256.h
     class SHA512256State < FFI::Struct
       layout :state, [:uint64, 8],
-              :count, [:uint64, 2],
-              :buf, [:uint8, 128]
+             :count, [:uint64, 2],
+             :buf, [:uint8, 128]
     end
 
     # The crypto_hash_sha512_state struct representation

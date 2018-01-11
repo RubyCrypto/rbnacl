@@ -39,7 +39,7 @@ RSpec.shared_examples "hmac" do
 
     context "#hexdigest" do
       it "returns hex authenticator" do
-        expect(authenticator.hexdigest).to eq tag.unpack('H*').first
+        expect(authenticator.hexdigest).to eq tag.unpack("H*").first
       end
     end
   end
