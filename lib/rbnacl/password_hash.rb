@@ -36,7 +36,23 @@ module RbNaCl
       SCrypt.new(opslimit, memlimit, digest_size).digest(password, salt)
     end
 
-    # argon2: state of the art in the design of memory-hard hashing functions.
+    # argon2: state of the art in the design of memory-hard hashing functions
+    # (default digest algorithm).
+    #
+    # @param [String] password to be hashed
+    # @param [String] salt to make the digest unique
+    # @param [Integer] opslimit the CPU cost (3..10)
+    # @param [Integer] memlimit the memory cost, in bytes
+    # @param [Integer] digest_size of the output
+    #
+    # @raise [CryptoError] If calculating the digest fails for some reason.
+    #
+    # @return [String] The argon2 digest as raw bytes
+    def self.argon2(password, salt, opslimit, memlimit, digest_size = 64)
+      argon2_supported? && Argon2.new(opslimit, memlimit, digest_size).digest(password, salt)
+    end
+
+    # argon2i: argon2, using argon2i digest algorithm.
     #
     # @param [String] password to be hashed
     # @param [String] salt to make the digest unique
@@ -47,8 +63,23 @@ module RbNaCl
     # @raise [CryptoError] If calculating the digest fails for some reason.
     #
     # @return [String] The argon2i digest as raw bytes
-    def self.argon2(password, salt, opslimit, memlimit, digest_size = 64)
-      argon2_supported? && Argon2.new(opslimit, memlimit, digest_size).digest(password, salt)
+    def self.argon2i(password, salt, opslimit, memlimit, digest_size = 64)
+      argon2_supported? && Argon2.new(opslimit, memlimit, digest_size).digest(password, salt, :argon2i)
+    end
+
+    # argon2id: argon2, using argon2id digest algorithm.
+    #
+    # @param [String] password to be hashed
+    # @param [String] salt to make the digest unique
+    # @param [Integer] opslimit the CPU cost (3..10)
+    # @param [Integer] memlimit the memory cost, in bytes
+    # @param [Integer] digest_size of the output
+    #
+    # @raise [CryptoError] If calculating the digest fails for some reason.
+    #
+    # @return [String] The argon2id digest as raw bytes
+    def self.argon2id(password, salt, opslimit, memlimit, digest_size = 64)
+      argon2_supported? && Argon2.new(opslimit, memlimit, digest_size).digest(password, salt, :argon2id)
     end
 
     # argon2_str: crypt-style password digest
