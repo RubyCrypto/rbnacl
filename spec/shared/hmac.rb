@@ -26,8 +26,8 @@ RSpec.shared_examples "hmac" do
     before(:each) { authenticator.update(message) }
 
     context "#update" do
-      it "returns true when produces an authenticator" do
-        expect(authenticator.update(message)).to eq true
+      it "returns hexdigest when produces an authenticator" do
+        expect(authenticator.update(message)).to eq mult_tag.unpack("H*").first
       end
     end
 

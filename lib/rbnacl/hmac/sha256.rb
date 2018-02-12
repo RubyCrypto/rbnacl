@@ -54,6 +54,8 @@ module RbNaCl
       def update(message)
         self.class.auth_hmacsha256_update(@state, message, message.bytesize)
         self.class.auth_hmacsha256_final(@state.clone, @authenticator)
+
+        hexdigest
       end
 
       # Return the authenticator, as raw bytes
