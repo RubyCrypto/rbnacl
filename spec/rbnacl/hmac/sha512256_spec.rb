@@ -8,6 +8,6 @@ RSpec.describe RbNaCl::HMAC::SHA512256 do
   let(:mult_tag)  { vector :auth_hmacsha512256_mult_tag }
   let(:wrong_key) { "key".encode("utf-8") }
 
-  include_examples "hmac"
+  include_examples "HMAC"
   include_examples "authenticator"
 end

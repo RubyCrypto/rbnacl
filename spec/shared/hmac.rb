@@ -1,7 +1,7 @@
 # encoding: binary
 # frozen_string_literal: true
 
-RSpec.shared_examples "hmac" do
+RSpec.shared_examples "HMAC" do
   context ".new" do
     it "raises EncodingError on a key with wrong encoding" do
       expect { described_class.new(wrong_key) }.to raise_error(EncodingError)

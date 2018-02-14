@@ -91,7 +91,7 @@ module RbNaCl
       end
     end
 
-    # The crupto_auth_hmacsha256_state struct representation
+    # The crypto_auth_hmacsha256_state struct representation
     # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_auth_hmacsha256.h
     class SHA256State < FFI::Struct
       layout :state, [:uint32, 8],
