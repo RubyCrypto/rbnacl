@@ -8,6 +8,7 @@ module RbNaCl
 
     sodium_function :c_verify16, :crypto_verify_16, %i[pointer pointer]
     sodium_function :c_verify32, :crypto_verify_32, %i[pointer pointer]
+    sodium_function :c_verify64, :crypto_verify_64, %i[pointer pointer]
 
     module_function
 
@@ -81,6 +82,8 @@ module RbNaCl
     # @param description [String] Description of the string (used in the error)
     def check_length(string, length, description)
       if string.nil?
+        # code below is runs only in test cases
+        # nil can't be converted to str with #to_str method
         raise LengthError,
               "#{description} was nil (Expected #{length.to_int})",
               caller
@@ -106,17 +109,97 @@ module RbNaCl
     # @param length [Integer] The only acceptable length of the string
     # @param description [String] Description of the string (used in the error)
     def check_string(string, length, description)
+      check_string_validation(string)
+      string = string.to_s
+      check_length(string, length, description)
+
+      string
+    end
+
+    # Check a passed in string, convertion if necessary
+    #
+    # This method will check the key, and raise error
+    # if argument is not a string, and if it's empty string.
+    #
+    # RFC 2104 HMAC
+    # The key for HMAC can be of any length (keys longer than B bytes are
+    # first hashed using H). However, less than L bytes is strongly
+    # discouraged as it would decrease the security strength of the
+    # function.  Keys longer than L bytes are acceptable but the extra
+    # length would not significantly increase the function strength. (A
+    # longer key may be advisable if the randomness of the key is
+    # considered weak.)
+    #
+    # see https://tools.ietf.org/html/rfc2104#section-3
+    #
+    #
+    # @raise [ArgumentError] If we cannot convert to a string with #to_str
+    # @raise [RbNaCl::LengthError] If the string is empty
+    #
+    # @param string [#to_str] The input string
+    def check_hmac_key(string, _description)
+      check_string_validation(string)
+
+      string = string.to_str
+
+      if string.bytesize.zero?
+        raise LengthError,
+              "#{Description} was #{string.bytesize} bytes (Expected more than 0)",
+              caller
+      end
+
+      string
+    end
+
+    # Check a passed string is it valid
+    #
+    # Raise an error if passed argument is invalid
+    #
+    # @raise [TypeError] If string cannot convert to a string with #to_str
+    # @raise [EncodingError] If string have wrong encoding
+    #
+    # @param string [#to_str] The input string
+    def check_string_validation(string)
       unless string.respond_to? :to_str
         raise TypeError, "can't convert #{string.class} into String with #to_str"
       end
 
       string = string.to_str
-      unless string.encoding == Encoding::BINARY
-        raise EncodingError, "strings must use BINARY encoding (got #{string.encoding})"
-      end
-      check_length(string, length, description)
 
-      string
+      raise EncodingError, "strings must use BINARY encoding (got #{string.encoding})" if string.encoding != Encoding::BINARY
+    end
+
+    # Compare two 64 byte strings in constant time
+    #
+    # This should help to avoid timing attacks for string comparisons in your
+    # application.  Note that many of the functions (such as HmacSha512#verify)
+    # use this method under the hood already.
+    #
+    # @param [String] one String #1
+    # @param [String] two String #2
+    #
+    # @return [Boolean] Well, are they equal?
+    def verify64(one, two)
+      return false unless two.bytesize == 64 && one.bytesize == 64
+      c_verify64(one, two)
+    end
+
+    # Compare two 64 byte strings in constant time
+    #
+    # This should help to avoid timing attacks for string comparisons in your
+    # application.  Note that many of the functions (such as HmacSha512#verify)
+    # use this method under the hood already.
+    #
+    # @param [String] one String #1
+    # @param [String] two String #2
+    #
+    # @raise [ArgumentError] If the strings are not equal in length
+    #
+    # @return [Boolean] Well, are they equal?
+    def verify64!(one, two)
+      check_length(one, 64, "First message")
+      check_length(two, 64, "Second message")
+      c_verify64(one, two)
     end
 
     # Compare two 32 byte strings in constant time

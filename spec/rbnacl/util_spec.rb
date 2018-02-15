@@ -2,6 +2,57 @@
 # frozen_string_literal: true
 
 RSpec.describe RbNaCl::Util do
+  context ".verify64" do
+    let(:msg) { RbNaCl::Util.zeros(64) }
+    let(:identical_msg) { RbNaCl::Util.zeros(64) }
+    let(:other_msg) { RbNaCl::Util.zeros(63) + "\001" }
+    let(:short_msg) { RbNaCl::Util.zeros(63) }
+    let(:long_msg) { RbNaCl::Util.zeros(65) }
+
+    it "confirms identical messages are identical" do
+      expect(RbNaCl::Util.verify64(msg, identical_msg)).to be true
+    end
+
+    it "confirms non-identical messages are non-identical" do
+      expect(RbNaCl::Util.verify64(msg, other_msg)).to be false
+      expect(RbNaCl::Util.verify64(other_msg, msg)).to be false
+      expect(RbNaCl::Util.verify64(short_msg, msg)).to be false
+      expect(RbNaCl::Util.verify64(msg, short_msg)).to be false
+      expect(RbNaCl::Util.verify64(long_msg, msg)).to be false
+      expect(RbNaCl::Util.verify64(msg, long_msg)).to be false
+    end
+  end
+
+  context ".verify64!" do
+    let(:msg) { RbNaCl::Util.zeros(64) }
+    let(:identical_msg) { RbNaCl::Util.zeros(64) }
+    let(:other_msg) { RbNaCl::Util.zeros(63) + "\001" }
+    let(:short_msg) { RbNaCl::Util.zeros(63) }
+    let(:long_msg) { RbNaCl::Util.zeros(65) }
+
+    it "confirms identical messages are identical" do
+      expect(RbNaCl::Util.verify64!(msg, identical_msg)).to be true
+    end
+
+    it "confirms non-identical messages are non-identical" do
+      expect(RbNaCl::Util.verify64!(msg, other_msg)).to be false
+      expect(RbNaCl::Util.verify64!(other_msg, msg)).to be false
+    end
+
+    it "raises descriptively on a short message in position 1" do
+      expect { RbNaCl::Util.verify64!(short_msg, msg) }.to raise_error(RbNaCl::LengthError)
+    end
+    it "raises descriptively on a short message in position 2" do
+      expect { RbNaCl::Util.verify64!(msg, short_msg) }.to raise_error(RbNaCl::LengthError)
+    end
+    it "raises descriptively on a long message in position 1" do
+      expect { RbNaCl::Util.verify64!(long_msg, msg) }.to raise_error(RbNaCl::LengthError)
+    end
+    it "raises descriptively on a long message in position 2" do
+      expect { RbNaCl::Util.verify64!(msg, long_msg) }.to raise_error(RbNaCl::LengthError)
+    end
+  end
+
   context ".verify32!" do
     let(:msg) { RbNaCl::Util.zeros(32) }
     let(:identical_msg) { RbNaCl::Util.zeros(32) }

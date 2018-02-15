@@ -2,9 +2,6 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples "authenticator" do
-  let(:key)     { vector "auth_key_#{described_class.key_bytes}".to_sym }
-  let(:message) { vector :auth_message }
-
   context ".new" do
     it "accepts a key" do
       expect { described_class.new(key) }.to_not raise_error
@@ -17,14 +14,6 @@ RSpec.shared_examples "authenticator" do
     it "raises TypeError on a nil key" do
       expect { described_class.new(nil) }.to raise_error(TypeError)
     end
-
-    it "raises ArgumentError on a key which is too long" do
-      expect { described_class.new("\0" * described_class.key_bytes.succ) }.to raise_error(ArgumentError)
-    end
-
-    it "raises ArgumentError on a key which is too short" do
-      expect { described_class.new("\0" * described_class.key_bytes.pred) }.to raise_error(ArgumentError)
-    end
   end
 
   context ".auth" do
@@ -35,10 +24,6 @@ RSpec.shared_examples "authenticator" do
     it "raises TypeError on a nil key" do
       expect { described_class.auth(nil, message) }.to raise_error(TypeError)
     end
-
-    it "raises ArgumentError on a key which is too long" do
-      expect { described_class.auth("\0" * described_class.key_bytes.succ, message) }.to raise_error(ArgumentError)
-    end
   end
 
   context ".verify" do
@@ -48,10 +33,6 @@ RSpec.shared_examples "authenticator" do
 
     it "raises TypeError on a nil key" do
       expect { described_class.verify(nil, tag, message) }.to raise_error(TypeError)
-    end
-
-    it "raises ArgumentError on a key which is too long" do
-      expect { described_class.verify("\0" * described_class.key_bytes.succ, tag, message) }.to raise_error(ArgumentError)
     end
 
     it "fails to validate an invalid authenticator" do

@@ -15,6 +15,7 @@ require "shared/authenticator"
 require "shared/key_equality"
 require "shared/serializable"
 require "shared/aead"
+require "shared/hmac"
 
 def vector(name)
   [RbNaCl::TEST_VECTORS[name]].pack("H*")
