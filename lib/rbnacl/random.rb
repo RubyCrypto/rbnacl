@@ -13,7 +13,7 @@ module RbNaCl
 
     sodium_function :c_random_bytes,
                     :randombytes_buf,
-                    %i[pointer ulong_long]
+                    %i[pointer size_t]
 
     # Returns a string of random bytes
     #
