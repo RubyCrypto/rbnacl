@@ -171,7 +171,7 @@ information.
 [secretkey]: https://github.com/crypto-rb/rbnacl/wiki/Secret-Key-Encryption
 [publickey]: https://github.com/crypto-rb/rbnacl/wiki/Public-Key-Encryption
 [signatures]: https://github.com/crypto-rb/rbnacl/wiki/Digital-Signatures
-[macs]: https://github.com/crypto-rb/rbnacl/wiki/Authenticators
+[macs]: https://github.com/crypto-rb/rbnacl/wiki/HMAC
 [hashes]: https://github.com/crypto-rb/rbnacl/wiki/Hash-Functions
 [yard]: http://www.rubydoc.info/gems/rbnacl
 
