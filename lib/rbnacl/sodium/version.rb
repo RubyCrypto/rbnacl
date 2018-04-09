@@ -9,6 +9,7 @@ module RbNaCl
     module Version
       MINIMUM_LIBSODIUM_VERSION = [0, 4, 3].freeze
       MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2 = [1, 0, 9].freeze
+      MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2ID = [1, 0, 13].freeze
 
       extend Sodium
       attach_function :sodium_version_string, [], :string
@@ -24,6 +25,7 @@ module RbNaCl
       end
 
       ARGON2_SUPPORTED = (INSTALLED_VERSION <=> MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2) != -1
+      ARGON2ID_SUPPORTED = (INSTALLED_VERSION <=> MINIMUM_LIBSODIUM_VERSION_FOR_ARGON2ID) != -1
 
       # Determine if a given feature is supported based on Sodium version
       def self.supported_version?(version)

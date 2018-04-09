@@ -13,45 +13,44 @@ module RbNaCl
       extend Sodium
 
       sodium_type :pwhash
-      sodium_primitive :argon2i
 
+      sodium_constant :ALG_DEFAULT
       sodium_constant :ALG_ARGON2I13
-      sodium_constant :SALTBYTES
-      sodium_constant :STRBYTES
+      sodium_constant :ALG_ARGON2ID13 if Sodium::Version::ARGON2ID_SUPPORTED
+
+      sodium_constant :SALTBYTES             # 16
+      sodium_constant :STRBYTES              # 128
       sodium_constant :OPSLIMIT_INTERACTIVE  # 4
       sodium_constant :MEMLIMIT_INTERACTIVE  # 2 ** 25 (32mb)
       sodium_constant :OPSLIMIT_MODERATE     # 6
       sodium_constant :MEMLIMIT_MODERATE     # 2 ** 27 (128mb)
       sodium_constant :OPSLIMIT_SENSITIVE    # 8
       sodium_constant :MEMLIMIT_SENSITIVE    # 2 ** 29 (512mb)
+      sodium_constant :MEMLIMIT_MIN          # 8192
+      sodium_constant :MEMLIMIT_MAX          # 4_294_967_296
+      sodium_constant :OPSLIMIT_MIN          # 3
+      sodium_constant :OPSLIMIT_MAX          # 10
 
       ARGON2_MIN_OUTLEN = 16
       ARGON2_MAX_OUTLEN = 0xFFFFFFFF
 
-      MEMLIMIT_MIN = 8192
-      MEMLIMIT_MAX = 4_294_967_296
-      OPSLIMIT_MIN = 3
-      OPSLIMIT_MAX = 10
-
       sodium_function_with_return_code(
         :pwhash,
-        :crypto_pwhash_argon2i,
+        :crypto_pwhash,
         %i[pointer ulong_long pointer ulong_long pointer ulong_long size_t int]
       )
 
       sodium_function(
         :pwhash_str,
-        :crypto_pwhash_argon2i_str,
+        :crypto_pwhash_str,
         %i[pointer pointer ulong_long ulong_long size_t]
       )
 
       sodium_function(
         :pwhash_str_verify,
-        :crypto_pwhash_argon2i_str_verify,
+        :crypto_pwhash_str_verify,
         %i[pointer pointer ulong_long]
       )
-
-      ALG_DEFAULT = ALG_ARGON2I13
 
       ARGON_ERROR_CODES = {
         -1 => "ARGON2_OUTPUT_PTR_NULL", -2 => "ARGON2_OUTPUT_TOO_SHORT",
@@ -103,17 +102,31 @@ module RbNaCl
       #
       # @param [String] password to be hashed
       # @param [String] salt to make the digest unique
+      # @param [Symbol] digest algorithm to use (may be :argon2i or :argon2id)
+      #                 if nil, the default is determined by libsodium
+      #                 (argon2i for libsodium < 1.0.15, and argon2id for
+      #                 libsodium >= 1.0.15).
       #
       # @return [String] scrypt digest of the string as raw bytes
-      def digest(password, salt)
+      def digest(password, salt, algo = nil)
         raise ArgumentError, "digest_size is required" unless @digest_size
         digest = Util.zeros(@digest_size)
         salt   = Util.check_string(salt, SALTBYTES, "salt")
 
+        if algo.nil?
+          algorithm = ALG_DEFAULT
+        elsif algo == :argon2i
+          algorithm = ALG_ARGON2I13
+        elsif algo == :argon2id && Sodium::Version::ARGON2ID_SUPPORTED
+          algorithm = ALG_ARGON2ID13
+        else
+          raise ArgumentError, "digest algorithm is not supported"
+        end
+
         status = self.class.pwhash(
           digest, @digest_size,
           password, password.bytesize, salt,
-          @opslimit, @memlimit, ALG_DEFAULT
+          @opslimit, @memlimit, algorithm
         )
         raise CryptoError, ARGON_ERROR_CODES[status] if status.nonzero?
         digest

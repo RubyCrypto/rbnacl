@@ -124,20 +124,35 @@ module RbNaCl
                      "451a5c8ddbb4862c03d45c75bf91b7fb49265feb667ad5c899fdbf2ca19eac67",
 
     # argon2 vectors
-    # from libsodium/test/default/pwhash.c
-    argon2_password: "a347ae92bce9f80f6f595a4480fc9c2fe7e7d7148d371e9487d75f5c23008ffae0" \
+    # from libsodium/test/default/pwhash_argon2i.c
+    argon2i_password: "a347ae92bce9f80f6f595a4480fc9c2fe7e7d7148d371e9487d75f5c23008ffae0" \
                      "65577a928febd9b1973a5a95073acdbeb6a030cfc0d79caa2dc5cd011cef02c08d" \
                      "a232d76d52dfbca38ca8dcbd665b17d1665f7cf5fe59772ec909733b24de97d6f5" \
                      "8d220b20c60d7c07ec1fd93c52c31020300c6c1facd77937a597c7a6",
-    argon2_salt:     "5541fbc995d5c197ba290346d2c559de",
-    argon2_outlen:   155,
-    argon2_opslimit: 5,
-    argon2_memlimit: 7_256_678,
-    argon2_digest:   "23b803c84eaa25f4b44634cc1e5e37792c53fcd9b1eb20f865329c68e09cbfa9f19" \
+    argon2i_salt:     "5541fbc995d5c197ba290346d2c559de",
+    argon2i_outlen:   155,
+    argon2i_opslimit: 5,
+    argon2i_memlimit: 7_256_678,
+    argon2i_digest:   "23b803c84eaa25f4b44634cc1e5e37792c53fcd9b1eb20f865329c68e09cbfa9f19" \
                      "68757901b383fce221afe27713f97914a041395bbe1fb70e079e5bed2c7145b1f61" \
                      "54046f5958e9b1b29055454e264d1f2231c316f26be2e3738e83a80315e9a0951ce" \
                      "4b137b52e7d5ee7b37f7d936dcee51362bcf792595e3c896ad5042734fc90c92cae" \
                      "572ce63ff659a2f7974a3bd730d04d525d253ccc38",
+
+    # from libsodium/test/default/pwhash_argon2id.c
+    argon2id_password: "a347ae92bce9f80f6f595a4480fc9c2fe7e7d7148d371e9487d75f5c23008ffae0" \
+                       "65577a928febd9b1973a5a95073acdbeb6a030cfc0d79caa2dc5cd011cef02c08d" \
+                       "a232d76d52dfbca38ca8dcbd665b17d1665f7cf5fe59772ec909733b24de97d6f5" \
+                       "8d220b20c60d7c07ec1fd93c52c31020300c6c1facd77937a597c7a6",
+    argon2id_salt:     "5541fbc995d5c197ba290346d2c559de",
+    argon2id_outlen:   155,
+    argon2id_opslimit: 5,
+    argon2id_memlimit: 7_256_678,
+    argon2id_digest:   "18acec5d6507739f203d1f5d9f1d862f7c2cdac4f19d2bdff64487e60d969e3ced6" \
+                       "15337b9eec6ac4461c6ca07f0939741e57c24d0005c7ea171a0ee1e7348249d135b" \
+                       "38f222e4dad7b9a033ed83f5ca27277393e316582033c74affe2566a2bea47f91f0" \
+                       "fd9fe49ece7e1f79f3ad6e9b23e0277c8ecc4b313225748dd2a80f5679534a0700e" \
+                       "246a79a49b3f74eb89ec6205fe1eeb941c73b1fcf1",
 
     # argon2_str vectors
     # from libsodium/test/default/pwhash.c

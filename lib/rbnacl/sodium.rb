@@ -30,7 +30,11 @@ module RbNaCl
     end
 
     def sodium_constant(constant, name = constant)
-      fn = "crypto_#{sodium_type}_#{sodium_primitive}_#{constant.to_s.downcase}"
+      fn = if sodium_primitive
+             "crypto_#{sodium_type}_#{sodium_primitive}_#{constant.to_s.downcase}"
+           else
+             "crypto_#{sodium_type}_#{constant.to_s.downcase}"
+           end
       attach_function fn, [], :size_t
       const_set(name, public_send(fn))
     end
