@@ -221,6 +221,25 @@ module RbNaCl
                                                 "3dbea45e8ca9671282fafb69da92728b1a71de0a9e060b2905d6a5b67ecd3b36" \
                                                 "92ddbd7f2d778b8c9803aee328091b58fab324e4fad675945585808b4831d7bc" \
                                                 "3ff4def08e4b7a9de576d26586cec64b61161ae10b594f09e26a7e902ecbd060" \
-                                                "0691"
+                                                "0691",
+
+    # Jank AEAD XChaCha20-Poly1305 test vectors
+    # Unfortunately, I couldn't find any public variants of these, so I used:
+    # https://github.com/jedisct1/libsodium/blob/1.0.16/test/default/aead_xchacha20poly1305.c
+    # Doubly unfortunately, that doesn't even have a ciphertext vector. I
+    # generated one using crypto_aead_xchacha20poly1305_ietf_encrypt on
+    # libsodium 1.0.16
+    aead_xchacha20poly1305_ietf_key:            "808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f",
+    aead_xchacha20poly1305_ietf_message:        "4c616469657320616e642047656e746c656d656e206f662074686520636c6173" \
+                                                "73206f66202739393a204966204920636f756c64206f6666657220796f75206f" \
+                                                "6e6c79206f6e652074697020666f7220746865206675747572652c2073756e73" \
+                                                "637265656e20776f756c642062652069742e",
+    aead_xchacha20poly1305_ietf_nonce:          "07000000404142434445464748494a4b0000000000000000",
+    aead_xchacha20poly1305_ietf_ad:             "50515253c0c1c2c3c4c5c6c7",
+    aead_xchacha20poly1305_ietf_ciphertext:     "453c0693a7407f04ff4c56aedb17a3c0a1afff01174930fc22287c33dbcf0ac8" \
+                                                "b89ad929530a1bb3ab5e69f24c7f6070c8f840c9abb4f69fbfc8a7ff5126faee" \
+                                                "bbb55805ee9c1cf2ce5a57263287aec5780f04ec324c3514122cfc3231fc1a8b" \
+                                                "718a62863730a2702bb76366116bed09e0fd5c6d84b6b0c1abaf249d5dd0f7f5" \
+                                                "a7ea"
   }.freeze
 end
