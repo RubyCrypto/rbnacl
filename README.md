@@ -7,26 +7,13 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/crypto-rb/rbnacl/blob/master/LICENSE.txt)
 [![Gitter Chat](https://badges.gitter.im/badge.svg)](https://gitter.im/crypto-rb/Lobby)
 
-_NOTE: This is the 5.x **stable** branch of RbNaCl. For the 4.x **legacy**
-branch, please see:_
+Ruby binding for [libsodium], a fork of the [Networking and Cryptography][nacl]
+library.
 
-https://github.com/crypto-rb/rbnacl/tree/4-x-stable
-
-A Ruby binding to the state-of-the-art [Networking and Cryptography][nacl]
-library by [Daniel J. Bernstein][djb]. This is **NOT** Google Native Client.
-This is a crypto library.
-
-On a completely unrelated topic, RbNaCl is also the empirical formula for
-Rubidium Sodium Chloride.
-
-Need help with RbNaCl? Join the [RbNaCl Google Group][group].
-We're also on IRC at #crypto-rb on irc.freenode.net
-
+[libsodium]: https://libsodium.org
 [nacl]:  http://nacl.cr.yp.to/
-[djb]:   http://cr.yp.to/djb.html
-[group]: http://groups.google.com/group/rbnacl
 
-## Why NaCl?
+## Why libsodium/NaCl?
 
 NaCl is a different kind of cryptographic library. In the past crypto
 libraries were kitchen sinks of little bits and pieces, like ciphers,
@@ -50,9 +37,6 @@ curves and the XSalsa20 stream cipher. This means with NaCl you not only get
 a system which is designed to be secure-by-default, you also get one which
 is extremely fast with comparatively small cryptographic keys.
 
-For more information on NaCl's goals, see Dan Bernstein's presentation
-[Blaming the Cryptographic User](http://cr.yp.to/talks/2012.08.08/slides.pdf)
-
 ### Is it any good?
 
 [Yes.](http://news.ycombinator.com/item?id=3067434)
@@ -75,23 +59,13 @@ You can use RbNaCl on platforms libsodium is supported (see below).
 This library aims to support and is [tested against][travis] the following Ruby
 versions:
 
-* Ruby 2.2.6+
-* Ruby 2.3.0+
-* Ruby 2.4.2+
-* JRuby 9.1.6.0+
+* Ruby 2.2
+* Ruby 2.3
+* Ruby 2.4
+* Ruby 2.5
+* JRuby 9.1
 
 If something doesn't work on one of these versions, it's a bug.
-
-This library may inadvertently work (or seem to work) on other Ruby versions,
-however support will only be provided for the versions listed above.
-
-If you would like this library to support another Ruby version or
-implementation, you may volunteer to be a maintainer. Being a maintainer
-entails making sure all tests run and pass on that implementation. When
-something breaks on your implementation, you will be responsible for providing
-patches in a timely fashion. If critical issues for a particular implementation
-exist at the time of a major release, support for that Ruby version may be
-dropped.
 
 [travis]: http://travis-ci.org/crypto-rb/rbnacl
 
