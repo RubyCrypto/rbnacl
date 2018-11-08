@@ -93,6 +93,7 @@ module RbNaCl
         digest_size = opts.fetch(:digest_size, BYTES_MAX)
         raise LengthError, "digest size too short" if digest_size < BYTES_MIN
         raise LengthError, "digest size too long"  if digest_size > BYTES_MAX
+
         opts[:digest_size] = digest_size
 
         personal = opts.fetch(:personal, EMPTY_PERSONAL)
@@ -161,6 +162,7 @@ module RbNaCl
       def digest
         raise(CryptoError, "No message to hash yet!") unless @incycle
         return @digest if @digest
+
         @digest = Util.zeros(@digest_size)
         self.class.generichash_blake2b_final(@instate.pointer, @digest, @digest_size) ||
           raise(CryptoError, "Hash finalization failed!")

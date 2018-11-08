@@ -184,6 +184,7 @@ module RbNaCl
           key = Util.zeros(BEFORENMBYTES)
           success = self.class.box_curve25519xsalsa20poly1305_beforenm(key, @public_key.to_s, @private_key.to_s)
           raise CryptoError, "Failed to derive shared key" unless success
+
           key
         end
       end
