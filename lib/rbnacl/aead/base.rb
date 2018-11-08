@@ -51,6 +51,7 @@ module RbNaCl
 
         success = do_encrypt(ciphertext, ciphertext_len, nonce, message, additional_data)
         raise CryptoError, "Encryption failed" unless success
+
         ciphertext
       end
 
@@ -72,6 +73,7 @@ module RbNaCl
 
         success = do_decrypt(message, message_len, nonce, ciphertext, additional_data)
         raise CryptoError, "Decryption failed. Ciphertext failed verification." unless success
+
         message
       end
 
@@ -128,6 +130,7 @@ module RbNaCl
 
       def data_len(data)
         return 0 if data.nil?
+
         data.bytesize
       end
 

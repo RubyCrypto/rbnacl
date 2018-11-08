@@ -179,6 +179,7 @@ module RbNaCl
     # @return [Boolean] Well, are they equal?
     def verify64(one, two)
       return false unless two.bytesize == 64 && one.bytesize == 64
+
       c_verify64(one, two)
     end
 
@@ -212,6 +213,7 @@ module RbNaCl
     # @return [Boolean] Well, are they equal?
     def verify32(one, two)
       return false unless two.bytesize == 32 && one.bytesize == 32
+
       c_verify32(one, two)
     end
 
@@ -245,6 +247,7 @@ module RbNaCl
     # @return [Boolean] Well, are they equal?
     def verify16(one, two)
       return false unless two.bytesize == 16 && one.bytesize == 16
+
       c_verify16(one, two)
     end
 

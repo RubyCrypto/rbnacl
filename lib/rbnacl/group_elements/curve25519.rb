@@ -68,6 +68,7 @@ module RbNaCl
         result = Util.zeros(SCALARBYTES)
 
         raise CryptoError, "degenerate key detected" unless self.class.scalarmult_curve25519(result, integer, @point)
+
         self.class.new(result)
       end
 

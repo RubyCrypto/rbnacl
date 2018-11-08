@@ -49,6 +49,9 @@ Performance/UnfreezeString:
 # Style
 #
 
+Style/AccessModifierDeclarations:
+  Enabled: false
+
 Style/GlobalVars:
   Enabled: false
 

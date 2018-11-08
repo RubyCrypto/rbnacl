@@ -13,12 +13,16 @@ module RbNaCl
 
     def sodium_type(type = nil)
       return @type if type.nil?
+
       @type = type
     end
 
     def sodium_primitive(primitive = nil)
-      return @primitive if primitive.nil?
-      @primitive = primitive
+      if primitive.nil?
+        @primitive if defined?(@primitive)
+      else
+        @primitive = primitive
+      end
     end
 
     def primitive

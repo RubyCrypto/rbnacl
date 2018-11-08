@@ -110,6 +110,7 @@ module RbNaCl
       # @return [String] scrypt digest of the string as raw bytes
       def digest(password, salt, algo = nil)
         raise ArgumentError, "digest_size is required" unless @digest_size
+
         digest = Util.zeros(@digest_size)
         salt   = Util.check_string(salt, SALTBYTES, "salt")
 
@@ -129,6 +130,7 @@ module RbNaCl
           @opslimit, @memlimit, algorithm
         )
         raise CryptoError, ARGON_ERROR_CODES[status] if status.nonzero?
+
         digest
       end
 
@@ -140,6 +142,7 @@ module RbNaCl
       # @return [String] argon2 digest string
       def digest_str(password)
         raise ArgumentError, "password must be a String" unless password.is_a?(String)
+
         result = Util.zeros(STRBYTES)
 
         ok = self.class.pwhash_str(
@@ -148,6 +151,7 @@ module RbNaCl
           @opslimit, @memlimit
         )
         raise CryptoError, "unknown error in Argon2#digest_str" unless ok
+
         result.delete("\x00")
       end
 
@@ -160,6 +164,7 @@ module RbNaCl
       def self.digest_str_verify(password, digest_string)
         raise ArgumentError, "password must be a String" unless password.is_a?(String)
         raise ArgumentError, "digest_string must be a String" unless digest_string.is_a?(String)
+
         pwhash_str_verify(
           digest_string,
           password, password.bytesize
@@ -211,6 +216,7 @@ module RbNaCl
         digest_size = digest_size.to_i
         raise LengthError, "digest size too short" if digest_size < ARGON2_MIN_OUTLEN
         raise LengthError, "digest size too long"  if digest_size > ARGON2_MAX_OUTLEN
+
         digest_size
       end
     end
