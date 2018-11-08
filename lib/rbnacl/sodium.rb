@@ -8,11 +8,7 @@ module RbNaCl
   module Sodium
     def self.extended(klass)
       klass.extend FFI::Library
-      if defined?(RBNACL_LIBSODIUM_GEM_LIB_PATH)
-        klass.ffi_lib RBNACL_LIBSODIUM_GEM_LIB_PATH
-      else
-        klass.ffi_lib "sodium"
-      end
+      klass.ffi_lib "sodium"
     end
 
     def sodium_type(type = nil)

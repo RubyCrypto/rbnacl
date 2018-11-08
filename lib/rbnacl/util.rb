@@ -160,9 +160,7 @@ module RbNaCl
     #
     # @param string [#to_str] The input string
     def check_string_validation(string)
-      unless string.respond_to? :to_str
-        raise TypeError, "can't convert #{string.class} into String with #to_str"
-      end
+      raise TypeError, "can't convert #{string.class} into String with #to_str" unless string.respond_to? :to_str
 
       string = string.to_str
 

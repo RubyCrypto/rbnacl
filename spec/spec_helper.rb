@@ -9,7 +9,8 @@ Coveralls.wear!
 $RBNACL_SELF_TEST = false
 
 require "bundler/setup"
-require "rbnacl/libsodium"
+require "rbnacl"
+
 require "shared/box"
 require "shared/authenticator"
 require "shared/key_equality"
