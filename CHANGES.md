@@ -1,3 +1,27 @@
+## [6.0.0] (2018-11-08)
+
+[6.0.0]: https://github.com/crypto-rb/rbnacl/pull/182
+
+* [#180](https://github.com/crypto-rb/rbnacl/pull/180)
+  Deprecate rbnacl-libsodium.
+  ([@tarcieri])
+
+* [#176](https://github.com/crypto-rb/rbnacl/pull/176)
+  Add support for XChaCha20-Poly1305.
+  ([@AnIrishDuck])
+
+* [#174](https://github.com/crypto-rb/rbnacl/pull/174)
+  Fix buffer size type in `randombytes_buf` binding.
+  ([@elijh])
+
+* [#172](https://github.com/crypto-rb/rbnacl/pull/172)
+  Add support for argon2id digest.
+  ([@trofi])
+
+* [#166](https://github.com/crypto-rb/rbnacl/pull/166)
+  Support for non-32-byte HMAC-SHA256/512 keys.
+  ([@nsheremet])
+
 ## 5.0.0 (2017-06-13)
 
 * [#159](https://github.com/crypto-rb/rbnacl/pull/159)
@@ -119,3 +143,6 @@
 [@elijh]: https://github.com/elijh
 [@paragonie-scott]: https://github.com/paragonie-scott
 [@fudanchii]: https://github.com/fudanchii
+[@nsheremet]: https://github.com/nsheremet
+[@trofi]: https://github.com/trofi
+[@AnIrishDuck]: https://github.com/AnIrishDuck
