@@ -2,21 +2,20 @@ language: ruby
 cache: bundler
 
 before_install:
+  - sudo add-apt-repository -y ppa:chris-lea/libsodium
+  - sudo apt-get update -q
+  - sudo apt-get install libsodium-dev
   - gem update --system
   - gem --version
-  - gem install bundler -v 1.16.1
+  - gem install bundler -v 1.17.1
   - bundle --version
 
 rvm:
   - jruby-9.1.15.0
   - 2.2
   - 2.3
-  - 2.4.3
-  - 2.5.0
-
-env:
-  - LIBSODIUM_VERSION=1.0.0  # Minimum supported
-  - LIBSODIUM_VERSION=1.0.16 # Latest released
+  - 2.4
+  - 2.5
 
 matrix:
   fast_finish: true

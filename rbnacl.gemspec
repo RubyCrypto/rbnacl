@@ -1,7 +1,6 @@
-
 # frozen_string_literal: true
 
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "rbnacl/version"
 
@@ -23,7 +22,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = ">= 2.2.6"
-  spec.platform = "jruby" if defined? JRUBY_VERSION
 
   spec.add_runtime_dependency "ffi"
 

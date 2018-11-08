@@ -243,3 +243,4 @@ module RbNaCl
                                                 "a7ea"
   }.freeze
 end
+# rubocop:enable Metrics/ModuleLength

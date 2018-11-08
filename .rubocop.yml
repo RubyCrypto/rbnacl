@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.2
   DisplayCopNames: true
   Exclude:
     - 'vendor/**/*'
@@ -32,6 +32,13 @@ Metrics/PerceivedComplexity:
   Max: 15
 
 #
+# Naming
+#
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+#
 # Performance
 #
 
@@ -42,11 +49,11 @@ Performance/UnfreezeString:
 # Style
 #
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
 Style/GlobalVars:
   Enabled: false
 
 Style/SafeNavigation:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

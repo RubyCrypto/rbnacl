@@ -101,9 +101,6 @@ Note: [Windows installation instructions are available](https://github.com/crypt
 
 ### libsodium
 
-**NOTE: Want to avoid the hassle of installing libsodium? Use the
-[rbnacl-libsodium](https://github.com/crypto-rb/rbnacl-libsodium) gem**
-
 To use RbNaCl, you will need to install libsodium:
 
 https://github.com/jedisct1/libsodium

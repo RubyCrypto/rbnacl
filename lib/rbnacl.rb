@@ -1,6 +1,12 @@
 # encoding: binary
 # frozen_string_literal: true
 
+if defined?(RBNACL_LIBSODIUM_GEM_LIB_PATH)
+  raise "rbnacl-libsodium is not supported by rbnacl 6.0+. "\
+        "Please remove it as a dependency and install libsodium using your system package manager. "\
+        "See https://github.com/crypto-rb/rbnacl#installation"
+end
+
 require "rbnacl/version"
 require "rbnacl/sodium"
 require "rbnacl/sodium/version"
@@ -69,9 +75,7 @@ module RbNaCl
   # Password hash functions
   require "rbnacl/password_hash"
   require "rbnacl/password_hash/scrypt"
-  if RbNaCl::Sodium::Version::ARGON2_SUPPORTED
-    require "rbnacl/password_hash/argon2"
-  end
+  require "rbnacl/password_hash/argon2" if RbNaCl::Sodium::Version::ARGON2_SUPPORTED
 
   # HMAC: SHA256/512 and SHA512256
   require "rbnacl/hmac/sha256"
