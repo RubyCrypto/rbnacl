@@ -8,7 +8,7 @@ module RbNaCl
   module Sodium
     def self.extended(klass)
       klass.extend FFI::Library
-      klass.ffi_lib "sodium"
+      klass.ffi_lib ["sodium", "libsodium.so.18", "libsodium.so.23"]
     end
 
     def sodium_type(type = nil)
