@@ -52,6 +52,9 @@ module RbNaCl
   require "rbnacl/boxes/curve25519xsalsa20poly1305/private_key"
   require "rbnacl/boxes/curve25519xsalsa20poly1305/public_key"
 
+  # Sealed boxes
+  require "rbnacl/boxes/sealed"
+
   # Secret Key Encryption (SecretBox): XSalsa20Poly1305
   require "rbnacl/secret_boxes/xsalsa20poly1305"
 
@@ -93,6 +96,7 @@ module RbNaCl
   Box          = Boxes::Curve25519XSalsa20Poly1305
   PrivateKey   = Boxes::Curve25519XSalsa20Poly1305::PrivateKey
   PublicKey    = Boxes::Curve25519XSalsa20Poly1305::PublicKey
+  SealedBox    = Boxes::Sealed
   SecretBox    = SecretBoxes::XSalsa20Poly1305
   SigningKey   = Signatures::Ed25519::SigningKey
   VerifyKey    = Signatures::Ed25519::VerifyKey

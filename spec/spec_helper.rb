@@ -12,6 +12,7 @@ require "bundler/setup"
 require "rbnacl"
 
 require "shared/box"
+require "shared/sealed_box"
 require "shared/authenticator"
 require "shared/key_equality"
 require "shared/serializable"
