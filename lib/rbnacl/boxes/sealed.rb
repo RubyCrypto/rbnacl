@@ -90,8 +90,6 @@ module RbNaCl
       #
       # @return [String] The ciphertext (BINARY encoded)
       def box(message)
-        raise CryptoError, "Encryption failed. No public key." unless @public_key
-
         # No padding needed.
         msg = message # variable name to match other RbNaCl code.
         # ensure enough space in result
