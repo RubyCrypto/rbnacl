@@ -71,7 +71,7 @@ If something doesn't work on one of these versions, it's a bug.
 
 ## Installation
 
-Note: [Windows installation instructions are available](https://github.com/crypto-rb/rbnacl/wiki/Windows-Installation).
+Note: [Windows installation instructions are available](https://github.com/crypto-rb/rbnacl/wiki/Installing-libsodium#windows).
 
 ### libsodium
 
