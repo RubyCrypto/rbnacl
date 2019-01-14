@@ -18,18 +18,18 @@ module RbNaCl
       sodium_constant :ALG_ARGON2I13
       sodium_constant :ALG_ARGON2ID13 if Sodium::Version::ARGON2ID_SUPPORTED
 
-      sodium_constant :SALTBYTES             # 16
-      sodium_constant :STRBYTES              # 128
-      sodium_constant :OPSLIMIT_INTERACTIVE  # 4
-      sodium_constant :MEMLIMIT_INTERACTIVE  # 2 ** 25 (32mb)
-      sodium_constant :OPSLIMIT_MODERATE     # 6
-      sodium_constant :MEMLIMIT_MODERATE     # 2 ** 27 (128mb)
-      sodium_constant :OPSLIMIT_SENSITIVE    # 8
-      sodium_constant :MEMLIMIT_SENSITIVE    # 2 ** 29 (512mb)
-      sodium_constant :MEMLIMIT_MIN          # 8192
-      sodium_constant :MEMLIMIT_MAX          # 4_294_967_296
-      sodium_constant :OPSLIMIT_MIN          # 3
-      sodium_constant :OPSLIMIT_MAX          # 10
+      sodium_constant :SALTBYTES, fallback: 16
+      sodium_constant :STRBYTES, fallback: 128
+      sodium_constant :OPSLIMIT_INTERACTIVE, fallback: 4
+      sodium_constant :MEMLIMIT_INTERACTIVE, fallback: 2**25 # (32mb)
+      sodium_constant :OPSLIMIT_MODERATE, fallback: 6
+      sodium_constant :MEMLIMIT_MODERATE, fallback: 2**27 # (128mb)
+      sodium_constant :OPSLIMIT_SENSITIVE, fallback: 8
+      sodium_constant :MEMLIMIT_SENSITIVE, fallback: 2**29 # (512mb)
+      sodium_constant :MEMLIMIT_MIN, fallback: 8192
+      sodium_constant :MEMLIMIT_MAX, fallback: 4_294_967_296
+      sodium_constant :OPSLIMIT_MIN, fallback: 3
+      sodium_constant :OPSLIMIT_MAX, fallback: 10
 
       ARGON2_MIN_OUTLEN = 16
       ARGON2_MAX_OUTLEN = 0xFFFFFFFF

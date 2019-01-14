@@ -29,14 +29,19 @@ module RbNaCl
       sodium_primitive
     end
 
-    def sodium_constant(constant, name = constant)
-      fn = if sodium_primitive
-             "crypto_#{sodium_type}_#{sodium_primitive}_#{constant.to_s.downcase}"
-           else
-             "crypto_#{sodium_type}_#{constant.to_s.downcase}"
-           end
-      attach_function fn, [], :size_t
-      const_set(name, public_send(fn))
+    def sodium_constant(constant, name: constant, fallback: nil)
+      fn_name_components = ["crypto", sodium_type, sodium_primitive, constant.to_s.downcase]
+      fn_name = fn_name_components.compact.join("_")
+
+      begin
+        attach_function fn_name, [], :size_t
+      rescue FFI::NotFoundError
+        raise if fallback.nil?
+
+        define_singleton_method fn_name, -> { fallback }
+      end
+
+      const_set(name, public_send(fn_name))
     end
 
     def sodium_function(name, function, arguments)

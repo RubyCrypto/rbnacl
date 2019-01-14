@@ -10,9 +10,9 @@ module RbNaCl
       sodium_type      :sign
       sodium_primitive :ed25519
       sodium_constant  :SEEDBYTES
-      sodium_constant  :PUBLICKEYBYTES, :VERIFYKEYBYTES
-      sodium_constant  :SECRETKEYBYTES, :SIGNINGKEYBYTES
-      sodium_constant  :BYTES,          :SIGNATUREBYTES
+      sodium_constant  :PUBLICKEYBYTES, name: :VERIFYKEYBYTES
+      sodium_constant  :SECRETKEYBYTES, name: :SIGNINGKEYBYTES
+      sodium_constant  :BYTES,          name: :SIGNATUREBYTES
     end
   end
 end
