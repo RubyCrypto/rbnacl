@@ -1,3 +1,9 @@
+## [6.0.1] (2019-01-27)
+
+- Add fallback `sodium_constants` for Argon2 ([#189])
+- Support libsodium versions used by Heroku ([#186])
+- Sealed boxes ([#184])
+
 ## [6.0.0] (2018-11-08)
 
 - Deprecate rbnacl-libsodium ([#180])
@@ -95,6 +101,10 @@
 
 - Initial release
 
+[6.0.1]: https://github.com/crypto-rb/rbnacl/pull/191
+[#189]: https://github.com/crypto-rb/rbnacl/pull/189
+[#186]: https://github.com/crypto-rb/rbnacl/pull/186
+[#184]: https://github.com/crypto-rb/rbnacl/pull/184
 [6.0.0]: https://github.com/crypto-rb/rbnacl/pull/182
 [#180]: https://github.com/crypto-rb/rbnacl/pull/180
 [#176]: https://github.com/crypto-rb/rbnacl/pull/176

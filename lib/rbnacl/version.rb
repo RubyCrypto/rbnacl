@@ -4,5 +4,5 @@
 # NaCl/libsodium for Ruby
 module RbNaCl
   # The library's version
-  VERSION = "6.0.0".freeze
+  VERSION = "6.0.1".freeze
 end
