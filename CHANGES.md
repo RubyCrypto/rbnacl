@@ -1,3 +1,7 @@
+## [7.0.0] (2019-05-23)
+
+- Drop support for Ruby 2.2 ([#194])
+
 ## [6.0.1] (2019-01-27)
 
 - Add fallback `sodium_constants` for Argon2 ([#189])
@@ -101,6 +105,8 @@
 
 - Initial release
 
+[7.0.0]: https://github.com/crypto-rb/rbnacl/pull/195
+[#194]: https://github.com/crypto-rb/rbnacl/pull/194
 [6.0.1]: https://github.com/crypto-rb/rbnacl/pull/191
 [#189]: https://github.com/crypto-rb/rbnacl/pull/189
 [#186]: https://github.com/crypto-rb/rbnacl/pull/186
