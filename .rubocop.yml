@@ -39,13 +39,6 @@ Naming/UncommunicativeMethodParamName:
   Enabled: false
 
 #
-# Performance
-#
-
-Performance/UnfreezeString:
-  Enabled: false
-
-#
 # Style
 #
 
