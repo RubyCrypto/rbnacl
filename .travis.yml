@@ -12,10 +12,10 @@ before_install:
 
 rvm:
   - jruby-9.1.15.0
-  - 2.2
   - 2.3
   - 2.4
   - 2.5
+  - 2.6
 
 matrix:
   fast_finish: true
