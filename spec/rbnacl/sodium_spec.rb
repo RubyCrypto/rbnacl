@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RbNaCl::Sodium do
   subject(:sodium_class) do
     class SodiumExtendedClass

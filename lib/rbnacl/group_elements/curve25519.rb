@@ -19,7 +19,7 @@ module RbNaCl
       STANDARD_GROUP_ORDER = 2**252 + 27_742_317_777_372_353_535_851_937_790_883_648_493
 
       # Degenerate key (all-zeroes, results in an all-zero shared secret)
-      DEGENERATE_KEY = ("\0" * 32).freeze
+      DEGENERATE_KEY = "\0" * 32
 
       include KeyComparator
       include Serializable
