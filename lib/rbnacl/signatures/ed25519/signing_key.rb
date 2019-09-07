@@ -73,25 +73,18 @@ module RbNaCl
         #
         # @return [String] Signature as bytes
         def sign(message)
-          buffer = Util.prepend_zeros(signature_bytes, message)
-          buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
-
-          self.class.sign_ed25519(buffer, buffer_len, message, message.bytesize, @signing_key)
-
-          buffer[0, signature_bytes]
+          sign_attached(message)[0, signature_bytes]
         end
 
-        # Sign a message using this key
+        # Sign a message using this key, attaching the signature to the message
         #
         # @param message [String] Message to be signed by this key
         #
         # @return [String] Signature and the message as bytes
-        def sign_full(message)
+        def sign_attached(message)
           buffer = Util.prepend_zeros(signature_bytes, message)
           buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
-
           self.class.sign_ed25519(buffer, buffer_len, message, message.bytesize, @signing_key)
-
           buffer
         end
 

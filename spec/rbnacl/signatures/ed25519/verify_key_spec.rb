@@ -21,7 +21,7 @@ RSpec.describe RbNaCl::VerifyKey do
   end
 
   it "verifies correct signatures, full version" do
-    expect(subject.verify_full(signature + message)).to eq true
+    expect(subject.verify_attached(signature + message)).to eq true
   end
 
   it "raises when asked to verify a bad signature" do
@@ -29,7 +29,7 @@ RSpec.describe RbNaCl::VerifyKey do
   end
 
   it "raises when asked to verify a bad signature, full version" do
-    expect { subject.verify_full(bad_signature + message) }.to raise_exception RbNaCl::BadSignatureError
+    expect { subject.verify_attached(bad_signature + message) }.to raise_exception RbNaCl::BadSignatureError
   end
 
   it "raises when asked to verify a short signature" do
@@ -37,11 +37,11 @@ RSpec.describe RbNaCl::VerifyKey do
   end
 
   it "raises when asked to verify a nil signed message" do
-    expect { subject.verify_full(nil) }.to raise_exception RbNaCl::LengthError
+    expect { subject.verify_attached(nil) }.to raise_exception RbNaCl::LengthError
   end
 
   it "raises when asked to verify too short signed message" do
-    expect { subject.verify_full(signature) }.to raise_exception RbNaCl::LengthError
+    expect { subject.verify_attached(signature) }.to raise_exception RbNaCl::LengthError
   end
 
   it "serializes to bytes" do
