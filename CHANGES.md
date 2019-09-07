@@ -1,3 +1,8 @@
+## [7.1.0] (2019-09-07)
+
+- Attached signature API ([#197], [#202])
+- Fix the `generichash` state definition ([#200])
+
 ## [7.0.0] (2019-05-23)
 
 - Drop support for Ruby 2.2 ([#194])
@@ -105,6 +110,10 @@
 
 - Initial release
 
+[7.1.0]: https://github.com/crypto-rb/rbnacl/pull/203
+[#202]: https://github.com/crypto-rb/rbnacl/pull/202
+[#200]: https://github.com/crypto-rb/rbnacl/pull/200
+[#197]: https://github.com/crypto-rb/rbnacl/pull/197
 [7.0.0]: https://github.com/crypto-rb/rbnacl/pull/195
 [#194]: https://github.com/crypto-rb/rbnacl/pull/194
 [6.0.1]: https://github.com/crypto-rb/rbnacl/pull/191
