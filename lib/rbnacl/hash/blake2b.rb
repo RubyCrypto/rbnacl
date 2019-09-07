@@ -170,14 +170,9 @@ module RbNaCl
       end
 
       # The crypto_generichash_blake2b_state struct representation
-      # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_generichash_blake2b.h#L23
+      # ref: jedisct1/libsodium/blob/c87df74c7b5969f4/src/libsodium/include/sodium/crypto_generichash_blake2b.h#L23-L25
       class State < FFI::Struct
-        layout :h, [:uint64, 8],
-               :t, [:uint64, 2],
-               :f, [:uint64, 2],
-               :buf, [:uint8, 2 * 128],
-               :buflen, :size_t,
-               :last_node, :uint8
+        layout :opaque, [:uint8, 384]
       end
     end
   end
