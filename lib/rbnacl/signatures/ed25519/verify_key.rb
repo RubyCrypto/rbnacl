@@ -47,15 +47,7 @@ module RbNaCl
         def verify(signature, message)
           signature = signature.to_str
           Util.check_length(signature, signature_bytes, "signature")
-
-          sig_and_msg = signature + message
-          buffer = Util.zeros(sig_and_msg.bytesize)
-          buffer_len = Util.zeros(FFI::Type::LONG_LONG.size)
-
-          success = self.class.sign_ed25519_open(buffer, buffer_len, sig_and_msg, sig_and_msg.bytesize, @key)
-          raise(BadSignatureError, "signature was forged/corrupt") unless success
-
-          true
+          verify_attached(signature + message)
         end
 
         # Verify a signature for a given signed message
@@ -67,9 +59,8 @@ module RbNaCl
         # @raise [BadSignatureError] if the signature check fails
         #
         # @return [Boolean] was the signature authentic?
-        def verify_full(signed_message)
+        def verify_attached(signed_message)
           raise LengthError, "Signed message can not be nil" if signed_message.nil?
-
           raise LengthError, "Signed message can not be shorter than a signature" if signed_message.bytesize <= signature_bytes
 
           buffer = Util.zeros(signed_message.bytesize)

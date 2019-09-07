@@ -18,8 +18,8 @@ RSpec.describe RbNaCl::SigningKey do
   end
 
   it "signs messages, full version" do
-    expect(subject.sign_full(message)[0, RbNaCl::SigningKey.signature_bytes]).to eq signature
-    expect(subject.sign_full(message)[RbNaCl::SigningKey.signature_bytes, message.length]).to eq message
+    expect(subject.sign_attached(message)[0, RbNaCl::SigningKey.signature_bytes]).to eq signature
+    expect(subject.sign_attached(message)[RbNaCl::SigningKey.signature_bytes, message.length]).to eq message
   end
 
   it "serializes to bytes" do
