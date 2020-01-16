@@ -89,21 +89,21 @@ module RbNaCl
         compute_authenticator(correct, message)
         Util.verify32(correct, authenticator)
       end
-    end
 
-    # The crypto_auth_hmacsha256_state struct representation
-    # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_auth_hmacsha256.h
-    class SHA256State < FFI::Struct
-      layout :state, [:uint32, 8],
-             :count, :uint64,
-             :buf, [:uint8, 64]
-    end
+      # The crypto_auth_hmacsha256_state struct representation
+      # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_auth_hmacsha256.h
+      class SHA256State < FFI::Struct
+        layout :state, [:uint32, 8],
+               :count, :uint64,
+               :buf, [:uint8, 64]
+      end
 
-    # The crypto_hash_sha256_state struct representation
-    # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_hash_sha256.h
-    class State < FFI::Struct
-      layout :ictx, SHA256State,
-             :octx, SHA256State
+      # The crypto_hash_sha256_state struct representation
+      # ref: jedisct1/libsodium/src/libsodium/include/sodium/crypto_hash_sha256.h
+      class State < FFI::Struct
+        layout :ictx, SHA256State,
+               :octx, SHA256State
+      end
     end
   end
 end
