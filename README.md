@@ -1,11 +1,11 @@
-![RbNaCl](https://raw.github.com/crypto-rb/rbnacl/master/images/logo.png)
+![RbNaCl](https://raw.github.com/RubyCrypto/rbnacl/master/images/logo.png)
 ======
 [![Gem Version](https://badge.fury.io/rb/rbnacl.svg)](http://badge.fury.io/rb/rbnacl)
-[![Build Status](https://travis-ci.org/crypto-rb/rbnacl.svg?branch=master)](https://travis-ci.org/crypto-rb/rbnacl)
-[![Code Climate](https://codeclimate.com/github/crypto-rb/rbnacl.svg)](https://codeclimate.com/github/crypto-rb/rbnacl)
-[![Coverage Status](https://coveralls.io/repos/crypto-rb/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/crypto-rb/rbnacl)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/crypto-rb/rbnacl/blob/master/LICENSE.txt)
-[![Gitter Chat](https://badges.gitter.im/badge.svg)](https://gitter.im/crypto-rb/Lobby)
+[![Build Status](https://travis-ci.org/RubyCrypto/rbnacl.svg?branch=master)](https://travis-ci.org/RubyCrypto/rbnacl)
+[![Code Climate](https://codeclimate.com/github/RubyCrypto/rbnacl.svg)](https://codeclimate.com/github/RubyCrypto/rbnacl)
+[![Coverage Status](https://coveralls.io/repos/RubyCrypto/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/RubyCrypto/rbnacl)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RubyCrypto/rbnacl/blob/master/LICENSE.txt)
+[![Gitter Chat](https://badges.gitter.im/badge.svg)](https://gitter.im/RubyCrypto/Lobby)
 
 Ruby binding for [libsodium], a fork of the [Networking and Cryptography][nacl]
 library.
@@ -46,11 +46,11 @@ is extremely fast with comparatively small cryptographic keys.
 Have questions? Want to suggest a feature or change? Join a discussion group:
 
 * [Crypto.rb Gitter]: web-based chat about Ruby crypto projects including **RbNaCl**.
-* [Crypto.rb Google Group]: join via web or email ([crypto-rb+subscribe@googlegroups.com])
+* [Crypto.rb Google Group]: join via web or email ([RubyCrypto+subscribe@googlegroups.com])
 
-[Crypto.rb Gitter]: https://gitter.im/crypto-rb/Lobby
-[Crypto.rb Google Group]: https://groups.google.com/forum/#!forum/crypto-rb
-[crypto-rb+subscribe@googlegroups.com]: mailto:crypto-rb+subscribe@googlegroups.com?subject=subscribe
+[Crypto.rb Gitter]: https://gitter.im/RubyCrypto/Lobby
+[Crypto.rb Google Group]: https://groups.google.com/forum/#!forum/RubyCrypto
+[RubyCrypto+subscribe@googlegroups.com]: mailto:RubyCrypto+subscribe@googlegroups.com?subject=subscribe
 
 ## Supported platforms
 
@@ -66,11 +66,11 @@ versions:
 
 If something doesn't work on one of these versions, it's a bug.
 
-[travis]: http://travis-ci.org/crypto-rb/rbnacl
+[travis]: http://travis-ci.org/RubyCrypto/rbnacl
 
 ## Installation
 
-Note: [Windows installation instructions are available](https://github.com/crypto-rb/rbnacl/wiki/Installing-libsodium#windows).
+Note: [Windows installation instructions are available](https://github.com/RubyCrypto/rbnacl/wiki/Installing-libsodium#windows).
 
 ### libsodium
 
@@ -136,13 +136,13 @@ information.
 
 [YARD API documentation][yard] is also available.
 
-[wiki]: https://github.com/crypto-rb/rbnacl/wiki
-[simplebox]: https://github.com/crypto-rb/rbnacl/wiki/SimpleBox
-[secretkey]: https://github.com/crypto-rb/rbnacl/wiki/Secret-Key-Encryption
-[publickey]: https://github.com/crypto-rb/rbnacl/wiki/Public-Key-Encryption
-[signatures]: https://github.com/crypto-rb/rbnacl/wiki/Digital-Signatures
-[macs]: https://github.com/crypto-rb/rbnacl/wiki/HMAC
-[hashes]: https://github.com/crypto-rb/rbnacl/wiki/Hash-Functions
+[wiki]: https://github.com/RubyCrypto/rbnacl/wiki
+[simplebox]: https://github.com/RubyCrypto/rbnacl/wiki/SimpleBox
+[secretkey]: https://github.com/RubyCrypto/rbnacl/wiki/Secret-Key-Encryption
+[publickey]: https://github.com/RubyCrypto/rbnacl/wiki/Public-Key-Encryption
+[signatures]: https://github.com/RubyCrypto/rbnacl/wiki/Digital-Signatures
+[macs]: https://github.com/RubyCrypto/rbnacl/wiki/HMAC
+[hashes]: https://github.com/RubyCrypto/rbnacl/wiki/Hash-Functions
 [yard]: http://www.rubydoc.info/gems/rbnacl
 
 ## Learn More
@@ -195,4 +195,4 @@ Sure, here you go:
 Copyright (c) 2012-2018 Tony Arcieri, Jonathan Stott. Distributed under the MIT License.
 See [LICENSE.txt] for further details.
 
-[LICENSE.txt]: https://github.com/crypto-rb/rbnacl/blob/master/LICENSE.txt
+[LICENSE.txt]: https://github.com/RubyCrypto/rbnacl/blob/master/LICENSE.txt

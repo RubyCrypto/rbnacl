@@ -4,7 +4,7 @@
 if defined?(RBNACL_LIBSODIUM_GEM_LIB_PATH)
   raise "rbnacl-libsodium is not supported by rbnacl 6.0+. "\
         "Please remove it as a dependency and install libsodium using your system package manager. "\
-        "See https://github.com/crypto-rb/rbnacl#installation"
+        "See https://github.com/RubyCrypto/rbnacl#installation"
 end
 
 require "rbnacl/version"
