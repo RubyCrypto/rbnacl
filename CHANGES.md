@@ -1,3 +1,9 @@
+## [7.1.1] (2020-01-27)
+
+- Test on Ruby 2.7 ([#208])
+- Add project metadata to the gemspec ([#207])
+- Resolve FFI deprecation warning ([#206])
+
 ## [7.1.0] (2019-09-07)
 
 - Attached signature API ([#197], [#202])
@@ -110,6 +116,10 @@
 
 - Initial release
 
+[7.1.1]: https://github.com/RubyCrypto/rbnacl/pull/210
+[#208]: https://github.com/RubyCrypto/rbnacl/pull/208
+[#207]: https://github.com/RubyCrypto/rbnacl/pull/207
+[#206]: https://github.com/RubyCrypto/rbnacl/pull/206
 [7.1.0]: https://github.com/RubyCrypto/rbnacl/pull/203
 [#202]: https://github.com/RubyCrypto/rbnacl/pull/202
 [#200]: https://github.com/RubyCrypto/rbnacl/pull/200

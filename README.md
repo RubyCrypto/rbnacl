@@ -5,13 +5,12 @@
 [![Code Climate](https://codeclimate.com/github/RubyCrypto/rbnacl.svg)](https://codeclimate.com/github/RubyCrypto/rbnacl)
 [![Coverage Status](https://coveralls.io/repos/RubyCrypto/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/RubyCrypto/rbnacl)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RubyCrypto/rbnacl/blob/master/LICENSE.txt)
-[![Gitter Chat](https://badges.gitter.im/badge.svg)](https://gitter.im/RubyCrypto/Lobby)
 
-Ruby binding for [libsodium], a fork of the [Networking and Cryptography][nacl]
+Ruby binding for [libsodium], a fork of the [Networking and Cryptography][NaCl]
 library.
 
 [libsodium]: https://libsodium.org
-[nacl]:  http://nacl.cr.yp.to/
+[NaCl]:  http://nacl.cr.yp.to/
 
 ## Why libsodium/NaCl?
 
@@ -40,17 +39,6 @@ is extremely fast with comparatively small cryptographic keys.
 ### Is it any good?
 
 [Yes.](http://news.ycombinator.com/item?id=3067434)
-
-## Help and Discussion
-
-Have questions? Want to suggest a feature or change? Join a discussion group:
-
-* [Crypto.rb Gitter]: web-based chat about Ruby crypto projects including **RbNaCl**.
-* [Crypto.rb Google Group]: join via web or email ([RubyCrypto+subscribe@googlegroups.com])
-
-[Crypto.rb Gitter]: https://gitter.im/RubyCrypto/Lobby
-[Crypto.rb Google Group]: https://groups.google.com/forum/#!forum/RubyCrypto
-[RubyCrypto+subscribe@googlegroups.com]: mailto:RubyCrypto+subscribe@googlegroups.com?subject=subscribe
 
 ## Supported platforms
 
