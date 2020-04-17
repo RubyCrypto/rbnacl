@@ -45,13 +45,13 @@ RSpec.describe RbNaCl::PrivateKey do
 
   context "#to_bytes" do
     it "returns the bytes of the key" do
-      expect(subject.to_s).to eq bobsk
+      expect(subject.to_bytes).to eq bobsk
     end
   end
 
   context "#to_s" do
     it "returns the raw bytes of the key" do
-      expect(subject.to_bytes).to eq bobsk
+      expect(subject.to_s).to eq bobsk
     end
   end
 
