@@ -31,6 +31,10 @@ RSpec.describe RbNaCl::SigningKey do
     expect(subject.keypair_bytes).to eq signing_keypair
   end
 
+  it "can be converted to curve25519 private key" do
+    expect(subject.to_private_key).to be_a_kind_of(RbNaCl::PrivateKey)
+  end
+
   include_examples "key equality" do
     let(:key_bytes) { signing_key }
     let(:key)       { described_class.new(key_bytes) }

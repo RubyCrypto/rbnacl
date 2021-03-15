@@ -52,6 +52,10 @@ RSpec.describe RbNaCl::VerifyKey do
     expect(described_class.new(verify_key).to_s).to eq verify_key
   end
 
+  it "can be converted to curve25519 public key" do
+    expect(subject.to_public_key).to be_a_kind_of(RbNaCl::PublicKey)
+  end
+
   include_examples "key equality" do
     let(:key_bytes) { verify_key }
     let(:key)       { described_class.new(verify_key) }

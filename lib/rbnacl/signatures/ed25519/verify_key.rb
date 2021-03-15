@@ -23,6 +23,10 @@ module RbNaCl
                          :crypto_sign_ed25519_open,
                          %i[pointer pointer pointer ulong_long pointer]
 
+        sodium_function :to_public_key,
+                        :crypto_sign_ed25519_pk_to_curve25519,
+                        %i[pointer pointer]
+
         # Create a new VerifyKey object from a public key.
         #
         # @param key [String] Ed25519 public key
@@ -98,6 +102,18 @@ module RbNaCl
         # @return [Integer] The number of bytes in a signature
         def signature_bytes
           Ed25519::SIGNATUREBYTES
+        end
+
+        # Return a new curve25519 public key converted from this key
+        #
+        # it's recommeneded to read https://libsodium.gitbook.io/doc/advanced/ed25519-curve25519
+        # as it encourages using distinct keys for signing and for encryption
+        #
+        # @return [RbNaCl::PublicKey]
+        def to_public_key
+          buffer = Util.zeros(Boxes::Curve25519XSalsa20Poly1305::PublicKey::BYTES)
+          self.class.crypto_sign_ed25519_pk_to_curve25519(buffer, @key)
+          Boxes::Curve25519XSalsa20Poly1305::PublicKey.new(buffer)
         end
       end
     end
