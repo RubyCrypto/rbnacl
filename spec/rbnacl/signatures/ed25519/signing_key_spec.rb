@@ -6,6 +6,7 @@ RSpec.describe RbNaCl::SigningKey do
   let(:signing_keypair) { vector :sign_keypair }
   let(:message)         { vector :sign_message }
   let(:signature)       { vector :sign_signature }
+  let(:curve25519_private_key) { vector :sign_curve25519_private }
 
   subject { described_class.new(signing_key) }
 
@@ -29,6 +30,12 @@ RSpec.describe RbNaCl::SigningKey do
   it "serializes the internal signing key to bytes" do
     expect(subject.keypair_bytes.length).to eq 64
     expect(subject.keypair_bytes).to eq signing_keypair
+  end
+
+  it "can be converted to curve25519 private key" do
+    sk = subject.to_curve25519_private_key
+    expect(sk).to be_a_kind_of RbNaCl::PrivateKey
+    expect(sk.to_s).to eq curve25519_private_key
   end
 
   include_examples "key equality" do

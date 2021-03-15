@@ -38,6 +38,10 @@ module RbNaCl
                          :crypto_sign_ed25519_seed_keypair,
                          %i[pointer pointer pointer]
 
+        sodium_function :to_private_key,
+                        :crypto_sign_ed25519_sk_to_curve25519,
+                        %i[pointer pointer]
+
         attr_reader :verify_key
 
         # Generate a random SigningKey
@@ -122,6 +126,18 @@ module RbNaCl
         # @return [Integer] The number of bytes in a signature
         def signature_bytes
           Ed25519::SIGNATUREBYTES
+        end
+
+        # Return a new curve25519 (x25519) private key converted from this key
+        #
+        # it's recommeneded to read https://libsodium.gitbook.io/doc/advanced/ed25519-curve25519
+        # as it encourages using distinct keys for signing and for encryption
+        #
+        # @return [RbNaCl::PrivateKey]
+        def to_curve25519_private_key
+          buffer = Util.zeros(Boxes::Curve25519XSalsa20Poly1305::PrivateKey::BYTES)
+          self.class.crypto_sign_ed25519_sk_to_curve25519(buffer, @signing_key)
+          Boxes::Curve25519XSalsa20Poly1305::PrivateKey.new(buffer)
         end
       end
     end

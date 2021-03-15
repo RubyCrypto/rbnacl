@@ -7,6 +7,7 @@ RSpec.describe RbNaCl::VerifyKey do
 
   let(:message)     { vector :sign_message }
   let(:signature)   { vector :sign_signature }
+  let(:curve25519_public_key) { vector :sign_curve25519_public }
 
   let(:bad_signature) do
     sig = signature.dup
@@ -50,6 +51,12 @@ RSpec.describe RbNaCl::VerifyKey do
 
   it "initializes from bytes" do
     expect(described_class.new(verify_key).to_s).to eq verify_key
+  end
+
+  it "can be converted to curve25519 public key" do
+    pk = subject.to_curve25519_public_key
+    expect(pk).to be_a_kind_of RbNaCl::PublicKey
+    expect(pk.to_s).to eq curve25519_public_key
   end
 
   include_examples "key equality" do

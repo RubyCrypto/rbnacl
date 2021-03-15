@@ -49,6 +49,8 @@ module RbNaCl
                     "376d7f3ac22ff372c18f613f2ae2e856af40",
     sign_signature: "6bd710a368c1249923fc7a1610747403040f0cc30815a00f9ff548a896bbda0b" \
                        "4eb2ca19ebcf917f0f34200a9edbad3901b64ab09cc5ef7b9bcc3c40c0ff7509",
+    sign_curve25519_private: "38e5cdf33bc9e13086f58a3fea86d574e85e7865cffa5e8c9335f200a41d036c",
+    sign_curve25519_public: "35488a98f7ec26ae27099809afb27587b198b1197b5bcb0dec41153db2bf9952",
 
     #
     # SHA256 test vectors
