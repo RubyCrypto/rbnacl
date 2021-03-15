@@ -128,13 +128,13 @@ module RbNaCl
           Ed25519::SIGNATUREBYTES
         end
 
-        # Return a new curve25519 private key converted from this key
+        # Return a new curve25519 (x25519) private key converted from this key
         #
         # it's recommeneded to read https://libsodium.gitbook.io/doc/advanced/ed25519-curve25519
         # as it encourages using distinct keys for signing and for encryption
         #
         # @return [RbNaCl::PrivateKey]
-        def to_private_key
+        def to_curve25519_private_key
           buffer = Util.zeros(Boxes::Curve25519XSalsa20Poly1305::PrivateKey::BYTES)
           self.class.crypto_sign_ed25519_sk_to_curve25519(buffer, @signing_key)
           Boxes::Curve25519XSalsa20Poly1305::PrivateKey.new(buffer)
