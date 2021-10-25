@@ -56,9 +56,9 @@ module RbNaCl
         raise IncorrectPrimitiveError unless @public_key.primitive == primitive
       end
 
-      # Create a new Sealed Box for encrypting
+      # Create a new Sealed Box for decrypting
       #
-      # Sets up the Box for encryoption of new messages.
+      # Sets up the Box for decryption of new messages.
       #
       # @param private_key [String,RbNaCl::PrivateKey] The private key to decrypt with
       #
@@ -69,9 +69,9 @@ module RbNaCl
         new(nil, private_key)
       end
 
-      # Create a new Sealed Box for decrypting
+      # Create a new Sealed Box for encrypting
       #
-      # Sets up the Box for decrytoption of new messages.
+      # Sets up the Box for encryption of new messages.
       #
       # @param public_key [String,RbNaCl::PublicKey] The public key to encrypt to
       #
