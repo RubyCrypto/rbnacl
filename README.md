@@ -1,8 +1,7 @@
 ![RbNaCl](https://raw.github.com/RubyCrypto/rbnacl/master/images/logo.png)
 ======
 [![Gem Version](https://badge.fury.io/rb/rbnacl.svg)](http://badge.fury.io/rb/rbnacl)
-[![Build Status](https://travis-ci.org/RubyCrypto/rbnacl.svg?branch=master)](https://travis-ci.org/RubyCrypto/rbnacl)
-[![Code Climate](https://codeclimate.com/github/RubyCrypto/rbnacl.svg)](https://codeclimate.com/github/RubyCrypto/rbnacl)
+[![Build Status](https://github.com/RubyCrypto/rbnacl/actions/workflows/ci.yml/badge.svg)](https://github.com/RubyCrypto/rbnacl/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/RubyCrypto/rbnacl/badge.svg?branch=master)](https://coveralls.io/r/RubyCrypto/rbnacl)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RubyCrypto/rbnacl/blob/master/LICENSE.txt)
 
