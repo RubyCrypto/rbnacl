@@ -275,7 +275,7 @@ module RbNaCl
     #
     # @return [String] Tasty, tasty hexadecimal
     def bin2hex(bytes)
-      bytes.to_s.unpack("H*").first
+      bytes.to_s.unpack1("H*")
     end
 
     # Hex decodes a message
