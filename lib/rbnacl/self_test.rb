@@ -53,24 +53,24 @@ module RbNaCl
       verify_key  = signing_key.verify_key
 
       unless verify_key.to_s == vector(:sign_public)
-        #:nocov:
+        # :nocov:
         raise SelfTestFailure, "failed to generate verify key correctly"
-        #:nocov:
+        # :nocov:
       end
 
       message   = vector :sign_message
       signature = signing_key.sign(message)
 
       unless signature == vector(:sign_signature)
-        #:nocov:
+        # :nocov:
         raise SelfTestFailure, "failed to generate correct signature"
-        #:nocov:
+        # :nocov:
       end
 
       unless verify_key.verify(signature, message)
-        #:nocov:
+        # :nocov:
         raise SelfTestFailure, "failed to verify a valid signature"
-        #:nocov:
+        # :nocov:
       end
 
       begin

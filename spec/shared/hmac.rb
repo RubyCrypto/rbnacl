@@ -27,7 +27,7 @@ RSpec.shared_examples "HMAC" do
 
     context "#update" do
       it "returns hexdigest when produces an authenticator" do
-        expect(authenticator.update(message)).to eq mult_tag.unpack("H*").first
+        expect(authenticator.update(message)).to eq mult_tag.unpack1("H*")
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.shared_examples "HMAC" do
 
     context "#hexdigest" do
       it "returns hex authenticator" do
-        expect(authenticator.hexdigest).to eq tag.unpack("H*").first
+        expect(authenticator.hexdigest).to eq tag.unpack1("H*")
       end
     end
   end
