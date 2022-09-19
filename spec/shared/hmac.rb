@@ -6,6 +6,10 @@ RSpec.shared_examples "HMAC" do
     it "raises EncodingError on a key with wrong encoding" do
       expect { described_class.new(wrong_key) }.to raise_error(EncodingError)
     end
+
+    it "raises LengthError when key is zero bytes" do
+      expect { described_class.new("") }.to raise_error(::RbNaCl::LengthError)
+    end
   end
 
   context ".auth" do

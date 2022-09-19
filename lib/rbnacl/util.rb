@@ -137,14 +137,15 @@ module RbNaCl
     # @raise [RbNaCl::LengthError] If the string is empty
     #
     # @param string [#to_str] The input string
-    def check_hmac_key(string, _description)
+    # @param description [String] Description of the string (used in the error)
+    def check_hmac_key(string, description)
       check_string_validation(string)
 
       string = string.to_str
 
       if string.bytesize.zero?
         raise LengthError,
-              "#{Description} was #{string.bytesize} bytes (Expected more than 0)",
+              "#{description} was #{string.bytesize} bytes (Expected more than 0)",
               caller
       end
 
