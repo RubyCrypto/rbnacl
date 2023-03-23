@@ -8,7 +8,14 @@ module RbNaCl
   module Sodium
     def self.extended(klass)
       klass.extend FFI::Library
-      klass.ffi_lib ["sodium", "libsodium.so.18", "libsodium.so.23"]
+
+      sodium_paths = ["sodium", "libsodium.so.18", "libsodium.so.23"]
+
+      if ENV["RBNACL_LIBSODIUM_PATH"]
+        sodium_paths.prepend(ENV["RBNACL_LIBSODIUM_PATH"])
+      end
+
+      klass.ffi_lib sodium_paths
     end
 
     def sodium_type(type = nil)

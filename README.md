@@ -82,6 +82,11 @@ portmaster or portupgrade), or use make as follows:
 
     cd /usr/ports/security/libsodium; make install clean
 
+You can specify an absolute path to the libsodium library via an environment
+variable:
+
+    export RBNACL_LIBSODIUM_PATH=/path/to/libsodium.so
+
 ### RbNaCl gem
 
 Once you have libsodium installed, add this line to your application's Gemfile:
