@@ -120,10 +120,10 @@ module RbNaCl
                      "82ad86b83c8f20a23dbb74f6da60b0b6ecffd67134d45946ac8ebfb3064294bc" \
                      "097d43ced68642bfb8bbbdd0f50b30118f5e",
     scrypt_salt: "39d82eef32010b8b79cc5ba88ed539fbaba741100f2edbeca7cc171ffeabf258",
-    scrypt_opslimit: 758_010,
-    scrypt_memlimit: 5_432_947,
-    scrypt_digest: "bcc5c2fd785e4781d1201ed43d84925537e2a540d3de55f5812f29e9dd0a4a00" \
-                     "451a5c8ddbb4862c03d45c75bf91b7fb49265feb667ad5c899fdbf2ca19eac67",
+    scrypt_opslimit: 33_554_432,
+    scrypt_memlimit: 1_073_741_824,
+    scrypt_digest: "11a4c60b98411758ba9e89a28587c074ae674c367326c79a999e415110b14460" \
+                   "5921bd3c897098a837fa40d9eef5338268754ea5e243f630a58fa698df95d1ed",
 
     # argon2 vectors
     # from libsodium/test/default/pwhash_argon2i.c

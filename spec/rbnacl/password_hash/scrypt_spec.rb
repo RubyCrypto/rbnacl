@@ -18,4 +18,13 @@ RSpec.describe RbNaCl::PasswordHash::SCrypt do
 
     expect(digest).to eq reference_digest
   end
+
+  it "calculates the correct digest using libsodium primitives" do
+    digest = RbNaCl::PasswordHash.scrypt(
+      reference_password,
+      reference_salt
+    )
+
+    expect(digest).to eq reference_digest
+  end
 end
