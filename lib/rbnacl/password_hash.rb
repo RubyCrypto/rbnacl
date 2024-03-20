@@ -32,7 +32,8 @@ module RbNaCl
     # @raise [CryptoError] If calculating the digest fails for some reason.
     #
     # @return [String] The scrypt digest as raw bytes
-    def self.scrypt(password, salt, opslimit, memlimit, digest_size = 64)
+    def self.scrypt(password, salt, opslimit = SCrypt::OPSLIMIT_SENSITIVE, memlimit = SCrypt::MEMLIMIT_SENSITIVE,
+                    digest_size = 64)
       SCrypt.new(opslimit, memlimit, digest_size).digest(password, salt)
     end
 

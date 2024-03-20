@@ -23,6 +23,8 @@ module RbNaCl
       sodium_primitive :scryptsalsa208sha256
 
       sodium_constant :SALTBYTES
+      sodium_constant :OPSLIMIT_SENSITIVE
+      sodium_constant :MEMLIMIT_SENSITIVE
 
       sodium_function :scrypt,
                       :crypto_pwhash_scryptsalsa208sha256,
