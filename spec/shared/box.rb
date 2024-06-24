@@ -39,6 +39,12 @@ RSpec.shared_examples "box" do
       end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
     end
 
+    it "raises on a message too short to contain the authentication tag" do
+      expect do
+        box.open(nonce, ciphertext[0, 7])
+      end.to raise_error(RbNaCl::CryptoError, /Decryption failed. Ciphertext failed verification./)
+    end
+
     it "raises on a corrupt ciphertext" do
       expect do
         box.open(nonce, corrupt_ciphertext)
