@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
     "source_code_uri" => "#{spec.homepage}/tree/v#{spec.version}",
     "wiki_uri" => "#{spec.homepage}/wiki"
   }
-  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject do |f|
+  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject do |f|
     f.start_with?("images/", "spec/", "tasks/", "Rakefile")
   end
   spec.executables   = spec.files.grep(%r{^bin/}).map { |f| File.basename(f) }
