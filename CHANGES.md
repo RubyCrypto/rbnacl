@@ -1,3 +1,11 @@
+## [7.1.2] (2024-10-15)
+
+- Test on Ruby 3.3 ([#236])
+- Support alpine 3.19 and up ([#234])
+- Use libsodium constants for scrypt params ([#231])
+- Fix error message generation when empty hmac key is given ([#224])
+- Add ed25519 to curve25519 conversion helpers ([#217])
+
 ## [7.1.1] (2020-01-27)
 
 - Test on Ruby 2.7 ([#208])
@@ -116,6 +124,12 @@
 
 - Initial release
 
+[7.1.2]: https://github.com/RubyCrypto/rbnacl/pull/240
+[#236]: https://github.com/RubyCrypto/rbnacl/pull/236
+[#234]: https://github.com/RubyCrypto/rbnacl/pull/234
+[#231]: https://github.com/RubyCrypto/rbnacl/pull/231
+[#224]: https://github.com/RubyCrypto/rbnacl/pull/224
+[#217]: https://github.com/RubyCrypto/rbnacl/pull/217
 [7.1.1]: https://github.com/RubyCrypto/rbnacl/pull/210
 [#208]: https://github.com/RubyCrypto/rbnacl/pull/208
 [#207]: https://github.com/RubyCrypto/rbnacl/pull/207
