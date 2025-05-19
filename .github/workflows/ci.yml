@@ -21,7 +21,9 @@ jobs:
           - ruby-3.1
           - ruby-3.2
           - ruby-3.3
-          - jruby-9.3.0
+          - ruby-3.4
+          - jruby-9.4.12
+          - jruby-10.0.0
         os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
