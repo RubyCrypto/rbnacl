@@ -242,7 +242,18 @@ module RbNaCl
                                                 "b89ad929530a1bb3ab5e69f24c7f6070c8f840c9abb4f69fbfc8a7ff5126faee" \
                                                 "bbb55805ee9c1cf2ce5a57263287aec5780f04ec324c3514122cfc3231fc1a8b" \
                                                 "718a62863730a2702bb76366116bed09e0fd5c6d84b6b0c1abaf249d5dd0f7f5" \
-                                                "a7ea"
+                                                "a7ea",
+
+    # XChaCha20 test vectors
+    # Taken from https://github.com/jedisct1/libsodium/blob/1.0.20-RELEASE/test/default/xchacha20.c
+    secretbox_xchacha20poly1305_key: "d3c71d54e6b13506e07aa2e7b412a17a7a1f34df3d3148cd3f45b91ccaa5f4d9",
+    secretbox_xchacha20poly1305_message: "76bd706e07741e713d90efdb34ad202067263f984942aae8bda159f30dfccc72" \
+                                                "200f8093520b85c5ad124ff7c8b2d920946e5cfff4b819abf84c7b35a6205ca7" \
+                                                "2c9f8747c3044dd73fb4bebda1b476",
+    secretbox_xchacha20poly1305_nonce: "943b454a853aa514c63cf99b1e197bbb99da24b2e2d93e47",
+    secretbox_xchacha20poly1305_ciphertext: "0384276f1cfa5c82c3e58f0f2acc1f821c6f526d2c19557cf8bd270fcde43fba" \
+                                                "1d88890663f7b2f5c6b1d7deccf5c91b4df5865dc55cc7e04d6793fc2db8f9e3" \
+                                                "b418f95cb796d67a7f3f7e097150cb607c435dacf82eac3d669866e5092ace"
   }.freeze
 end
 # rubocop:enable Metrics/ModuleLength
