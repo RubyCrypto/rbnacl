@@ -62,8 +62,6 @@ If something doesn't work on one of these versions, it's a bug.
 
 ## Installation
 
-Note: [Windows installation instructions are available](https://github.com/RubyCrypto/rbnacl/wiki/Installing-libsodium#windows).
-
 ### libsodium
 
 To use RbNaCl, you will need to install libsodium:
@@ -85,6 +83,8 @@ To install from ports on FreeBSD, use your favorite ports front end (e.g.
 portmaster or portupgrade), or use make as follows:
 
     cd /usr/ports/security/libsodium; make install clean
+
+For Windows users using the [Ruby Installer for Windows](https://rubyinstaller.org/), the [libsodium MSYS2 package](https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-libsodium) should install automatically when you install this gem. Otherwise, you may follow the [manual installation instructions for Windows](https://github.com/RubyCrypto/rbnacl/wiki/Installing-libsodium#windows).
 
 ### RbNaCl gem
 
