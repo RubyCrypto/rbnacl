@@ -19,7 +19,7 @@ RSpec.describe RbNaCl::SigningKey do
   end
 
   it "signs UTF-8 encoded messages" do
-    utf8_message = "Björn Müller from München".dup.force_encoding('UTF-8')
+    utf8_message = "Björn Müller from München".dup.force_encoding("UTF-8")
     signature = subject.sign(utf8_message)
     expect(signature.bytesize).to eq(64)
     expect(subject.verify_key.verify(signature, utf8_message)).to be true
