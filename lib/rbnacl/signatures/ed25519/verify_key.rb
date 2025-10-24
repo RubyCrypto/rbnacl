@@ -51,7 +51,10 @@ module RbNaCl
         def verify(signature, message)
           signature = signature.to_str
           Util.check_length(signature, signature_bytes, "signature")
-          verify_attached(signature + message)
+          # Force message to binary encoding to prevent encoding compatibility errors
+          # when concatenating with signature (which is always ASCII-8BIT)
+          message_binary = message.b
+          verify_attached(signature + message_binary)
         end
 
         # Verify a signature for a given signed message
