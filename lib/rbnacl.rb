@@ -55,8 +55,9 @@ module RbNaCl
   # Sealed boxes
   require "rbnacl/boxes/sealed"
 
-  # Secret Key Encryption (SecretBox): XSalsa20Poly1305
+  # Secret Key Encryption (SecretBox): XSalsa20Poly1305 and XChaCha20Poly1305
   require "rbnacl/secret_boxes/xsalsa20poly1305"
+  require "rbnacl/secret_boxes/xchacha20poly1305"
 
   # Digital Signatures: Ed25519
   require "rbnacl/signatures/ed25519"
