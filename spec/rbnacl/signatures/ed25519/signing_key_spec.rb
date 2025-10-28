@@ -18,6 +18,13 @@ RSpec.describe RbNaCl::SigningKey do
     expect(subject.sign(message)).to eq signature
   end
 
+  it "signs UTF-8 encoded messages" do
+    utf8_message = "Björn Müller from München".dup.force_encoding("UTF-8")
+    signature = subject.sign(utf8_message)
+    expect(signature.bytesize).to eq(64)
+    expect(subject.verify_key.verify(signature, utf8_message)).to be true
+  end
+
   it "signs messages, full version" do
     expect(subject.sign_attached(message)[0, RbNaCl::SigningKey.signature_bytes]).to eq signature
     expect(subject.sign_attached(message)[RbNaCl::SigningKey.signature_bytes, message.length]).to eq message

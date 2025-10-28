@@ -77,7 +77,11 @@ module RbNaCl
         #
         # @return [String] Signature as bytes
         def sign(message)
-          sign_attached(message)[0, signature_bytes]
+          # Force message to binary encoding to ensure [0, signature_bytes] slices by bytes not characters
+          # This prevents issues with UTF-8 encoded strings where multi-byte characters would cause
+          # incorrect signature length (e.g., 90 bytes instead of 64)
+          message_binary = message.b
+          sign_attached(message_binary)[0, signature_bytes]
         end
 
         # Sign a message using this key, attaching the signature to the message
