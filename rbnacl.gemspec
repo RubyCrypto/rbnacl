@@ -21,7 +21,8 @@ Gem::Specification.new do |spec|
     "changelog_uri" => "#{spec.homepage}/blob/master/CHANGES.md",
     "documentation_uri" => "https://www.rubydoc.info/gems/#{spec.name}/#{spec.version}",
     "source_code_uri" => "#{spec.homepage}/tree/v#{spec.version}",
-    "wiki_uri" => "#{spec.homepage}/wiki"
+    "wiki_uri" => "#{spec.homepage}/wiki",
+    "msys2_mingw_dependencies" => "libsodium"
   }
   spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject do |f|
     f.start_with?("images/", "spec/", "tasks/", "Rakefile")
