@@ -63,8 +63,9 @@ module RbNaCl
   require "rbnacl/signatures/ed25519/signing_key"
   require "rbnacl/signatures/ed25519/verify_key"
 
-  # Group Elements: Curve25519
+  # Group Elements: Curve25519, Ed25519
   require "rbnacl/group_elements/curve25519"
+  require "rbnacl/group_elements/ed25519"
 
   # One-time Authentication: Poly1305
   require "rbnacl/one_time_auths/poly1305"
